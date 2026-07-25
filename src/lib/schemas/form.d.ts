@@ -37,6 +37,41 @@ export interface SongPageFormData {
   categoriesRaw: string;
 }
 
+export interface LyricRowData {
+  customStyle: string;
+  original: string;
+  romanized?: string;
+  english?: string;
+  additionalColumns?: string[];
+
+  getWikitextOfSingleCell: (contents?: string) => string;
+  toWikitext: (printEmptyEnglishColumn?: boolean) => string;
+}
+
+export interface PlayLinkData {
+  site: string;
+  url: string;
+  isReprint: boolean;
+  isAutogen: boolean;
+  isDeleted: boolean;
+  viewCount: string;
+
+  isOfficiallyAvailable: () => boolean;
+  toWikitext: () => string;
+  getFormattedViewCount: () => string;
+}
+
+export interface ExternalLink {
+  url: string;
+  description: string;
+  isOfficial: boolean;
+  isMedia?: boolean;
+  isInactive?: boolean;
+  mapToAlbumInfoboxReadMoreParam: string | null;
+
+  toWikitext: () => string;
+}
+
 export interface AlbumPageFormData {
   origTitle: string;
   romTitle: string;
@@ -53,6 +88,14 @@ export interface AlbumPageFormData {
   vdbAlbumId: string;
   vocaWikiPage: string;
   categoriesRaw: string;
+}
+
+export interface AlbumTrackData {
+  discNo: number | string;
+  trackNo: number | string;
+  pageTitle: string;
+  producerCredit: string;
+  singerCredit: string;
 }
 
 export interface ProducerPageFormData {
@@ -76,6 +119,15 @@ export interface ProducerRoles {
   instrumentalist: boolean;
   mixer: boolean;
   masterer: boolean;
+}
+
+export interface ProducerDiscographyItem {
+  page: string;
+  additionalParameters: string;
+  forAlbums: boolean;
+  isCompilation?: boolean;
+
+  toWikitext: () => string;
 }
 
 export interface LyricsEditorFormData {
