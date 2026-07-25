@@ -1,0 +1,291 @@
+export enum PV_SERVICE_PROVIDER {
+  niconico = "Niconico",
+  youtube = "YouTube",
+  bilibili = "bilibili",
+  piapro = "piapro",
+  soundcloud = "SoundCloud",
+  bandcamp = "Bandcamp",
+  vimeo = "Vimeo",
+  netease = "Netease Music",
+  spotify = "Spotify",
+  applemusic = "Apple Music",
+  bandlab = "BandLab",
+  fsing = "5Sing",
+  tumblr = "Tumblr",
+  xitter = "X (Twitter)",
+}
+
+export const PV_SERVICE_ABBREVIATIONS: Map<string, string> = new Map([
+  [PV_SERVICE_PROVIDER.niconico, "NN"],
+  [PV_SERVICE_PROVIDER.youtube, "YT"],
+  [PV_SERVICE_PROVIDER.bilibili, "BB"],
+  [PV_SERVICE_PROVIDER.piapro, "PP"],
+  [PV_SERVICE_PROVIDER.soundcloud, "SC"],
+  [PV_SERVICE_PROVIDER.vimeo, "VM"],
+]);
+
+interface RecognizedDomain {
+  site: string;
+  re: RegExp;
+  isMedia?: boolean;
+  mapToAlbumInfoboxReadMoreParam?: string;
+}
+
+interface PvService extends RecognizedDomain {
+  site: PV_SERVICE_PROVIDER;
+}
+
+export const PV_SERVICES: PvService[] = [
+  {
+    site: PV_SERVICE_PROVIDER.niconico,
+    re: /^https?:\/\/www\.nicovideo\.jp\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.youtube,
+    re: /^https?:\/\/(?:(?:|www\.)youtube\.com\/(?:watch\?v=|shorts)|youtu\.be)\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.bilibili,
+    re: /^https?:\/\/www\.bilibili\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.piapro,
+    re: /^https?:\/\/piapro\.jp\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.soundcloud,
+    re: /^https?:\/\/soundcloud\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.bandcamp,
+    re: /^https?:\/\/[^.]*\.?bandcamp\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.vimeo,
+    re: /^https?:\/\/vimeo\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.netease,
+    re: /^https?:\/\/music\.163\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.spotify,
+    re: /^https?:\/\/[^.]+\.spotify\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.applemusic,
+    re: /^https?:\/\/music\.apple\.com\/[a-z]+\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.fsing,
+    re: /^https?:\/\/5sing\.kugou\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.bandlab,
+    re: /^https?:\/\/www\.bandlab\.com\//,
+    isMedia: true,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.tumblr,
+    re: /^https?:\/\/[^.]+\.tumblr\.com\//,
+  },
+  {
+    site: PV_SERVICE_PROVIDER.xitter,
+    re: /^https?:\/\/(?:www\.|)(twitter|x)\.com\//,
+  },
+];
+
+export const RECOGNIZED_LINKS: RecognizedDomain[] = (PV_SERVICES as RecognizedDomain[]).concat([
+  {
+    site: "YouTube Channel",
+    re: /^https?:\/\/www\.youtube\.com\/user\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "YouTube Channel",
+    re: /^https?:\/\/www\.youtube\.com\/channel\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "bilibili Space",
+    re: /^https?:\/\/space\.bilibili\.com\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "VocaDB",
+    re: /^https?:\/\/vocadb\.net\/.*/,
+  },
+  {
+    site: "Discogs",
+    re: /^https?:\/\/www\.discogs\.com\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "discogs",
+  },
+  {
+    site: "TuneCore Japan",
+    re: /^https?:\/\/www\.tunecore\.co\.jp\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "tunecore",
+  },
+  {
+    site: "TuneCore",
+    re: /^https?:\/\/linkco\.re\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "tunecore",
+  },
+  {
+    site: "VOCALOID Wiki",
+    re: /^https?:\/\/vocaloid\.fandom\.com\/.*/,
+  },
+  {
+    site: "Hatsune Miku Wiki",
+    re: /^https?:\/\/www5\.atwiki\.jp\/hmiku\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "hmwiki",
+  },
+  {
+    site: "Hatsune Miku Wiki",
+    re: /^https?:\/\/w\.atwiki\.jp\/hmiku\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "hmwiki",
+  },
+  {
+    site: "UTAU Song Database",
+    re: /^https?:\/\/w\.atwiki\.jp\/utauuuta\/.*/,
+    mapToAlbumInfoboxReadMoreParam: "atutau",
+  },
+  {
+    site: "Anime Lyrics",
+    re: /^https?:\/\/www\.animelyrics\.com\/.*/,
+  },
+  {
+    site: "Niconico Pedia",
+    re: /^https?:\/\/dic\.nicovideo\.jp\/.*/,
+  },
+  {
+    site: "Blomaga",
+    re: /^https?:\/\/ch\.nicovideo\.jp\/.*/,
+  },
+  {
+    site: "Niconico Commons",
+    re: /^https?:\/\/commons\.nicovideo\.jp\/.*/,
+  },
+  {
+    site: "pixiv",
+    re: /^https?:\/\/www\.pixiv\.net\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "UtaiteDB",
+    re: /^https?:\/\/utaitedb\.net\/.*/,
+  },
+  {
+    site: "Project DIVA Wiki",
+    re: /^https?:\/\/project-diva\.fandom\.com\/.*/,
+  },
+  {
+    site: "Project DIVA Wiki",
+    re: /^https?:\/\/projectdiva\.wiki\/.*/,
+  },
+  {
+    site: "The Evillious Chronicles Wiki",
+    re: /^https?:\/\/theevilliouschronicles\.fandom\.com\/.*/,
+  },
+  {
+    site: "Vocaloid English & Romaji Lyrics @wiki",
+    re: /^https?:\/\/w\.atwiki\.jp\/vocaloidenglishlyric\/.*/,
+  },
+  {
+    site: "ChordWiki",
+    re: /^https?:\/\/ja\.chordwiki\.org\/.*/,
+  },
+  {
+    site: "Pixiv Encyclopedia",
+    re: /^https?:\/\/dic\.pixiv\.net\/.*/,
+  },
+  {
+    site: "Pixiv Encyclopedia (English)",
+    re: /^https?:\/\/en-dic\.pixiv\.net\/.*/,
+  },
+  {
+    site: "J-Lyrics.net",
+    re: /^https?:\/\/j-lyric\.net\/.*/,
+  },
+  {
+    site: "KARENT",
+    re: /^https?:\/\/karent\.jp\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "Wikipedia",
+    re: /^https?:\/\/en\.wikipedia\.org\/.*/,
+  },
+  {
+    site: "Wikipedia (Japanese)",
+    re: /^https?:\/\/ja\.wikipedia\.org\/.*/,
+  },
+  {
+    site: "UtaTen",
+    re: /^https?:\/\/utaten\.com\/.*/,
+  },
+  {
+    site: "KKBOX",
+    re: /^https?:\/\/www\.kkbox\.com\/.*/,
+  },
+  {
+    site: "Lyrical Nonsense",
+    re: /^https?:\/\/www\.lyrical-nonsense\.com\/.*/,
+  },
+  {
+    site: "KashiGET",
+    re: /^https?:\/\/www\.kget\.jp\/.*/,
+  },
+  {
+    site: "Dropbox",
+    re: /^https?:\/\/www\.dropbox\.com\/.*/,
+  },
+  {
+    site: "Google Drive",
+    re: /^https?:\/\/drive\.google\.com\/.*/,
+  },
+  {
+    site: "Google Docs",
+    re: /^https?:\/\/docs\.google\.com\/.*/,
+  },
+  {
+    site: "DeviantArt",
+    re: /^https?:\/\/[^.]+\.deviantart\.com\/.*/,
+  },
+  {
+    site: "DeviantArt",
+    re: /^https?:\/\/fav\.me\/.*/,
+  },
+  {
+    site: "Len's Lyrics",
+    re: /^https?:\/\/lenslyrics\.ml\/.*/,
+  },
+  {
+    site: "Baidu",
+    re: /^https?:\/\/pan\.baidu\.com\/.*/,
+  },
+  {
+    site: "BOOTH",
+    re: /^https?:\/\/[^.]+\.booth\.pm\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "Pixiv Fanbox",
+    re: /^https?:\/\/www\.pixiv\.net\/fanbox\/.*/,
+    isMedia: true,
+  },
+  {
+    site: "Moegirlpedia",
+    re: /https?:\/\/zh\.moegirl\.org\.cn\/.*/,
+  },
+]);

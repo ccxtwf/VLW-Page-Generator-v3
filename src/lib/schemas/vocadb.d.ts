@@ -1,0 +1,344 @@
+import { IDictionary } from ".";
+
+export type VdbPageType = "S" | "Al" | "Ar";
+
+export enum ArtistCategory {
+  producer = "Producer",
+  vocalist = "Vocalist",
+  animator = "Animator",
+  illustrator = "Illustrator",
+  label = "Label",
+  circle = "Circle",
+  band = "Band",
+  other = "Other",
+  nothing = "Nothing",
+  subject = "Subject",
+}
+
+export enum ArtistRole {
+  default = "Default",
+  animator = "Animator",
+  arranger = "Arranger",
+  composer = "Composer",
+  distributor = "Distributor",
+  illustrator = "Illustrator",
+  instrumentalist = "Instrumentalist",
+  lyricist = "Lyricist",
+  mastering = "Mastering",
+  publisher = "Publisher",
+  vocalist = "Vocalist",
+  voicemanipulator = "VoiceManipulator",
+  other = "Other",
+  mixer = "Mixer",
+  chorus = "Chorus",
+  encoder = "Encoder",
+  vocalprovider = "VocalDataProvider",
+}
+
+export enum ArtistType {
+  unknown = "Unknown",
+  circle = "Circle",
+  label = "Label",
+  producer = "Producer",
+  animator = "Animator",
+  illustrator = "Illustrator",
+  lyricist = "Lyricist",
+  vocalist = "Vocalist",
+  instrumentalist = "Instrumentalist",
+  othervocalist = "OtherVocalist",
+  othergroup = "OtherGroup",
+  otherIndividual = "OtherIndividual",
+  utaite = "Utaite",
+  band = "Band",
+  designer = "Designer",
+  coverartist = "CoverArtist",
+
+  character = "Character",
+}
+
+export enum VocalSynthEngine {
+  vocaloid = "Vocaloid",
+  utau = "UTAU",
+  cevio = "CeVIO",
+  synthv = "SynthesizerV",
+  ace = "ACEVirtualSinger",
+  aivoice = "AIVOICE",
+  voicevox = "VOICEVOX",
+  neutrino = "NEUTRINO",
+  voisona = "VoiSona",
+  newtype = "NewType",
+  voiceroid = "Voiceroid",
+  othervoicesynth = "OtherVoiceSynthesizer",
+}
+
+export enum PvService {
+  nnd = "NicoNicoDouga",
+  yt = "Youtube",
+  sc = "SoundCloud",
+  vm = "Vimeo",
+  pp = "Piapro",
+  bb = "Bilibili",
+  bc = "Bandcamp",
+}
+
+export enum PvType {
+  original = "Original",
+  reprint = "Reprint",
+  other = "Other",
+}
+
+export enum EntryStatus {
+  draft = "Draft",
+  finished = "Finished",
+  approved = "Approved",
+  locked = "Locked",
+}
+
+export enum WebLinkCategory {
+  official = "Official",
+  commercial = "Commercial",
+  reference = "Reference",
+  other = "Other",
+}
+
+export enum VdbSystemLanguage {
+  orig = "Japanese",
+  rom = "Romaji",
+  eng = "English",
+  oth = "Unspecified",
+}
+
+export enum AlbumType {
+  unknown = "Unknown",
+  album = "Album",
+  single = "Single",
+  ep = "EP",
+  splitalbum = "SplitAlbum",
+  compilation = "Compilation",
+  video = "Video",
+  artbook = "Artbook",
+  game = "Game",
+  fanmade = "Fanmade",
+  instrumental = "Instrumental",
+  other = "Other",
+}
+
+export enum VdbSongType {
+  unspecified = "Unspecified",
+  original = "Original",
+  remaster = "Remaster",
+  remix = "Remix",
+  cover = "Cover",
+  arrangement = "Arrangement",
+  instrumental = "Instrumental",
+  mashup = "Mashup",
+  musicpv = "MusicPV",
+  dramapv = "DramaPV",
+  live = "Live",
+  illustration = "Illustration",
+  other = "Other",
+}
+
+interface VdbArtistEntity {
+  artist?: {
+    additionalNames: string | null;
+    artistType: ArtistType | VocalSynthEngine;
+    deleted: boolean;
+    id: number;
+    name: string | null;
+    pictureMime: string | null;
+    status: EntryStatus;
+    version: number;
+  };
+  categories: string; //ArtistCategory
+  effectiveRoles: string; //ArtistRole
+  id?: number;
+  isCustomName?: boolean;
+  isSupport: boolean;
+  name: string | null;
+  roles: string; //ArtistRole
+}
+
+interface VdbPvEntity {
+  author: string | null;
+  disabled: boolean;
+  id: number;
+  length: number;
+  name: string | null;
+  publishDate?: string | null;
+  pvId: string | null;
+  service: PvService;
+  pvType: PvType;
+  thumbUrl?: string | null;
+  url: string | null;
+}
+
+interface VdbWebLinkEntity {
+  category: WebLinkCategory;
+  description: string | null;
+  disabled: boolean;
+  id: number;
+  url: string | null;
+}
+
+export interface SchemaFetchedSongPageJson {
+  artists: VdbArtistEntity[] | null;
+  artistString: string | null;
+  createDate: string;
+  defaultName: string | null;
+  defaultNameLanguage: VdbSystemLanguage;
+  favoritedTimes: number;
+  id: number;
+  lengthSeconds: number;
+  name: string | null;
+  names:
+    | {
+        language: VdbSystemLanguage;
+        value: string | null;
+      }[]
+    | null;
+  publishDate: string | null;
+  pvs: VdbPvEntity[] | null;
+  pvServices: string;
+  ratingScore: number;
+  songType: VdbSongType;
+  status: EntryStatus;
+  version: number;
+  webLinks: VdbWebLinkEntity[] | null;
+  cultureCodes: string[] | null;
+}
+
+export interface SchemaFetchedAlbumPageJson {
+  artists: VdbArtistEntity[] | null;
+  artistString: string | null;
+  catalogNumber: string | null;
+  createDate: string;
+  defaultName: string | null;
+  defaultNameLanguage: VdbSystemLanguage;
+  discType: AlbumType;
+  id: number;
+  mainPicture?: {
+    mime: string | null;
+    urlOriginal: string | null;
+    urlSmallThumb: string | null;
+    urlThumb: string | null;
+    urlTinyThumb: string | null;
+  };
+  name: string | null;
+  names:
+    | {
+        language: VdbSystemLanguage;
+        value: string;
+      }[]
+    | null;
+  pvs: VdbPvEntity[] | null;
+  ratingAverage: number;
+  ratingCount: number;
+  releaseDate: {
+    day: number | null;
+    isEmpty: boolean;
+    month: number | null;
+    year: number | null;
+  };
+  status: EntryStatus;
+  tracks:
+    | {
+        discNumber: number;
+        id: number;
+        name: string | null;
+        song: {
+          artists: VdbArtistEntity[] | null;
+          artistString: string | null;
+          createDate: string;
+          defaultName: string | null;
+          defaultNameLanguage: VdbSystemLanguage;
+          favoritedTimes: number;
+          id: number;
+          lengthSeconds: number;
+          name: string | null;
+          originalVersionId: number;
+          publishDate: string | null;
+          pvServices: string;
+          ratingScore: number;
+          songType: VdbSongType;
+          status: EntryStatus;
+          version: number;
+          cultureCodes: string[] | null;
+        };
+        trackNumber: number;
+        computedCultureCodes: string[] | null;
+      }[]
+    | null;
+  version: number;
+  webLinks: VdbWebLinkEntity[] | null;
+}
+
+export interface SchemaFetchedVocaDBArtistsListJson {
+  items: {
+    additionalNames: string;
+    artistType: VocalSynthEngine;
+    baseVoicebank?: {
+      additionalNames: string;
+      artistType: VocalSynthEngine;
+      deleted: boolean;
+      id: number;
+      name: string;
+      pictureMime: string;
+      releaseDate: string;
+      status: EntryStatus;
+      version: number;
+    };
+    createDate: string;
+    defaultName: string;
+    defaultNameLanguage: VdbSystemLanguage;
+    id: number;
+    name: string;
+    names: {
+      language: VdbSystemLanguage;
+      value: string;
+    }[];
+    pictureMime: string;
+    releaseDate: string;
+    status: EntryStatus;
+    version: number;
+  }[];
+  term: string;
+  totalCount: number;
+}
+
+export interface SchemaFetchedArtistPageJson {
+  additionalNames: string | null;
+  artistLinks:
+    | {
+        artist: {
+          additionalNames: string | null;
+          artistType: ArtistType | VocalSynthEngine;
+          deleted: boolean;
+          id: number;
+          name: string | null;
+          pictureMime: string | null;
+          status: EntryStatus;
+          version: number;
+        };
+        linkType: string;
+      }[]
+    | null;
+  artistType: string;
+  createDate: string;
+  defaultName: string | null;
+  defaultNameLanguage: VdbSystemLanguage;
+  description: string | null;
+  id: number;
+  mainPicture?: {
+    mime: string | null;
+    urlOriginal: string | null;
+    urlSmallThumb: string | null;
+    urlThumb: string | null;
+    urlTinyThumb: string | null;
+  };
+  name: string | null;
+  pictureMime: string | null;
+  status: EntryStatus;
+  version: number;
+  webLinks: VdbWebLinkEntity[] | null;
+}
