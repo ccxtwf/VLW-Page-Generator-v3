@@ -1,0 +1,66 @@
+{
+  "fields": {
+    "preloadVocaDb": {
+      "label": "Preload from VocaDB",
+      "tooltip": "Input URL to VocaDB producer/artist page here.<br/><br/>e.g. <a href=\"https://vocadb.net/Ar/28\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Ar/28</a> Pinocchio-P"
+    },
+    "mainProducerCategory": {
+      "label": "Main producer category",
+      "tooltip": "This will be used as the parameter of the &#123;&#123;ProdLinks&#125;&#125; template on the producer page, which will link to the producer's songs list category on the wiki<br/><br/>Click on the \"Fetch discography from wiki\" button to get this site to query the list of song & album pages from the producer category on VOCALOID Lyrics Wiki.<br/><br/>Use the toggle option on the right to split the album discography into \"Original Albums\" and \"Compilation Albums\".",
+      "fetchFromLiveWikiButtonText": "Fetch discography from wiki",
+      "splitAlbumTableToggleText": "Split album table in two"
+    },
+    "producerMiscAlias": {
+      "label": "Producer's other aliases",
+      "tooltip": "The producer's other aliases, if exists. List each item using a semi-colon (;)<br/><br/>This will be used for the &#123;&#123;pwt alias&#125;&#125; template."
+    },
+    "affiliations": {
+      "label": "Affiliations",
+      "tooltip": "Is the producer affiliated with any circle/group/project?<br/><br/>Add one affiliation per line."
+    },
+    "labels": {
+      "label": "Labels",
+      "tooltip": "What labels (e.g. KarenT, Exit Tunes) is the producer usually affliated with?<br/><br/>Add one label/affiliation per line."
+    },
+    "languages": {
+      "label": "Languages",
+      "tooltip": "What language does the producer like to write their songs in? e.g. Japanese, English"
+    },
+    "usesSynths": {
+      "label": "Uses the synthesizers",
+      "tooltip": "What voice synthesizer group/software family/engine does the producer like to write their songs with? e.g. VOCALOID, UTAU"
+    },
+    "producerRoles": {
+      "label": "Typical roles",
+      "tooltip": "Describe the producer's typical roles, e.g. composer, lyricist, illustrator.",
+      "checkboxLabels": {
+        "composer": "Composer",
+        "illustrator": "Illustrator",
+        "arranger": "Arranger",
+        "mixer": "Mixer",
+        "lyricist": "Lyricist",
+        "animator": "Animator",
+        "instrumentalist": "Instrumentalist",
+        "masterer": "Masterer",
+        "tuner": "Tuner"
+      }
+    },
+    "description": {
+      "label": "Description",
+      "tooltip": "Describe the producer."
+    },
+    "externalLinks": {
+      "label": "External links",
+      "tooltip": "Examples of media links:<br><ul><li>The producer's official Niconico/YouTube/bilibili accounts.</li><li>The producer's NND MyList.</li><li>The producer's piapro.</li><li>The producer's account on SoundCloud/Netease Music.</li><li>The producer's Bandcamp/Spotify/TuneCore/other music streaming.</li></ul>Examples of official links:<br><ul><li>The producer's official website.</li><li>The producer's social media/SNS accounts, e.g. Twitter, Instagram, Weibo.</li></ul>Examples of unofficial links:<br><ul><li>The producer's page on VocaDB.</li><li>A page on the producer from any unofficial wiki, e.g. the <a href=\"https://vocaloid.fandom.com/\" target=\"_blank\" rel=\"noopener noreferrer\">VOCALOID wiki</a>, the <a href=\"https://w.atwiki.jp/hmiku/\" target=\"_blank\" rel=\"noopener noreferrer\">Hatsune Miku wiki</a>, <a href=\"https://dic.nicovideo.jp/\" target=\"_blank\" rel=\"noopener noreferrer\">Nicopedia</a>, etc.</li></ul>"
+    },
+    "discographySongs": {
+      "label": "List of songs",
+      "tooltip": "Add the list of song pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically."
+    },
+    "discographyAlbums": {
+      "label": "List of albums",
+      "tooltip": "Add the list of album pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically.",
+      "fetchFromWikiNote": "<div>Use the \"Fetch discography from wiki\" button to get the song &amp; album pages that have been tagged in Vocaloid Lyrics wiki.<br>Alternatively, you can use <a href=\"https://vocaloidlyrics.miraheze.org/wiki/Special:CategoryTree\" target=\"_blank\" rel=\"noopener noreferrer\">the Category Tree tool in Vocaloid Lyrics wiki</a> to manually get the list of song &amp; album pages. See this example for <a href=\"https://vocaloidlyrics.miraheze.org/wiki/Special:CategoryTree?target=Category%3APinocchioP+songs+list&amp;mode=all&amp;namespaces=\" target=\"_blank\" rel=\"noopener noreferrer\">PinocchioP</a>.<br><br>Do note that the Category Tree tool can only query a maximum of 200 pages per category.</div>"
+    }
+  }
+}

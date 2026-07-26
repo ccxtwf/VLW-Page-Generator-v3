@@ -23,5 +23,8 @@
       "header": "Error 404: Page Not Found",
       "body": "The page you are looking for does not exist."
     }
-  }
+  },
+  "results": "Results",
+  "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
+  "confirmExit": "Are you sure that tou want to leave this page?"
 }

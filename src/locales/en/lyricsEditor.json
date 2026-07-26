@@ -1,0 +1,30 @@
+{
+  "lyricsEditor": {
+    "headerText": "",
+    "tooltip": "Use this tool to edit the lyrics table on a wikipage. It is primarily aimed for Japanese/Chinese/Korean song pages.<hr>To get the source code of the wiki page, you can either:<br><ol><li>Open the wiki page on Wiki Editor.</li><li>Append \"?action=raw\" to the URL of the wiki page, e.g.<a href=\"{wikiEntrypoint}/ECHO/Crusher-P?action=raw\" target=\"_blank\" rel=\"noopener noreferrer\">{wikiEntrypoint}/ECHO/Crusher-P?action=raw</a></li></ol>Copy and paste the contents of the source code into the box below.<br><br>Click the 'Extract Lyrics Table' button to extract the table into the columns below, and the 'Generate' button to generate the page source code/wikitext.",
+    "state": {
+      "noData": "No lyrics table found",
+      "found": "Showing table no. {index} out of {total}"
+    },
+    "extractLyricsTableButtonText": "Extract Lyrics Table"
+  },
+  "fields": {
+    "parsedLyricsHeader": "Parsed Lyrics",
+    "lyricsToggleWikitext": {
+      "label": "Lyrics Toggle Wikitext",
+      "placeholder": "{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}"
+    },
+    "translator": {
+      "label": "Translator",
+      "tooltip": "Translator's name",
+      "isOfficialCheckboxLabel": "Is an official translation?",
+      "isOfficialTooltip": "Is the translation approved by the producer?"
+    },
+    "actions": {
+      "decapitalize": "Decapitalize romanized lyrics",
+      "consolidateFormatting": "Consolidate per-cell span colour formatting to per-row",
+      "standardizeRomanization": "Romaji: Change 'wo' to 'o' and 'he' to 'e', 'dzu' to 'zu'",
+      "removePinyinTones": "Pinyin: Remove Tones"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "fields": {
+    "preloadVocaDb": {
+      "label": "Preload Song",
+      "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl",
+      "buttonLabel": "Preload"
+    },
+    "pvStills": {
+      "tooltip": "Save PV stills as local file<br/><br/>May fail to get working HQ images for older songs.<br/>Finicky when trying to get images from Bilibili."
+    },
+    "genAiWarning": {
+      "label": "GenAI Warning",
+      "tooltip": "Add a notice warning for usage of generative AI to the top of page.<br/><br/>Be sure to include the source attributing the usage of generative AI for verified cases (e.g. video description, producer comment, etc.), or an explanation detailing inconsistencies that raise credible suspicion of generative AI usage for non-verified cases.",
+      "dropdownOptions": {
+        "none": "N/A",
+        "verified": "Verified",
+        "suspected": "Suspected"
+      },
+      "placeholder": "the part of the song/video featuring usage of Generative AI"
+    },
+    "contentWarning": {
+      "label": "Content Warnings",
+      "tooltip": "Add content warnings to the top of page.<br/><br/>You are required to add the justification for adding a content warning, e.g. if it contains violent/sexual content, or if it deals with mature themes.",
+      "dropdownOptions": {
+        "none": "No warnings",
+        "hasWarning": "Questionable"
+      },
+      "placeholder": "violent/mature content",
+      "epilepticWarningCheckboxLabel": "Epileptic Warning"
+    },
+    "songLanguage": {
+      "label": "Song Language",
+      "tooltip": "The language the song lyrics are written in.",
+      "placeholder": "Song Language"
+    },
+    "languageIsoCode": {
+      "label": "Language ISO Code",
+      "tooltip": "The ISO Language of the original lyrics, used to ensure proper rendering of the lyrics column (refer to this <a href='https://meta.miraheze.org/wiki/User:PetraMagna/Why_you_should_use_language_attributes' target='_blank' rel='noopener noreferrer'>blogpost</a> for more details on how this works).<br /><br />List of ISO Language Codes: <a href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank' rel='noopener noreferrer'>[W3Schools]</a> <a href='https://www.loc.gov/standards/iso639-2/php/code_list.php' target='_blank' rel='noopener noreferrer'>[Library of Congress]</a>",
+      "placeholder": "ja"
+    },
+    "originalTitle": {
+      "label": "Original Title",
+      "tooltip": "Song title in original language.",
+      "placeholder": "Original Japanese title"
+    },
+    "romanizedTitle": {
+      "label": "Transliterated Title",
+      "tooltip": "Transliterated song title (if non-English original)",
+      "placeholder": "Romaji title"
+    },
+    "englishTitle": {
+      "label": "Translated Title",
+      "tooltip": "Song title translated to English (if non-English original)",
+      "placeholder": "English title",
+      "isOfficialCheckboxLabel": "Is an official title?"
+    },
+    "altChineseTitle": {
+      "label": "Traditional/Simplified Chinese Title",
+      "tooltip": "Song title in alternate Chinese script (e.g. Traditional/Simplified Chinese script).",
+      "placeholder": "Traditional/Simplified Chinese title",
+      "simplifiedToggleOption": "Simplified",
+      "traditionalToggleOption": "Traditional"
+    },
+    "infoboxColors": {
+      "label": "Infobox BG/FG colors",
+      "tooltip": "Infobox background (left) and foreground (right) colors<br/>hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red",
+      "preview": "Preview"
+    },
+    "uploadDate": {
+      "label": "Upload Date",
+      "tooltip": "Original date of publication"
+    },
+    "singers": {
+      "label": "Singer(s)",
+      "tooltip": "Markup for singer(s), e.g.:<br/>[[Kagamine Rin]] and [[Kagamine Len]]<br/><br/>Be sure to check whether the correct singer category has been put in."
+    },
+    "producers": {
+      "label": "Producer(s)",
+      "tooltip": "Markup for producer(s), one per line, e.g.:<br/>[[Tanaka Kazuto]] (music, lyrics)<br/>Pikucha (illustration)<br/><br/>Categories will be loaded automatically based on the markup."
+    },
+    "description": {
+      "label": "Description",
+      "tooltip": "Background information about the song."
+    },
+    "broadcastLinks": {
+      "label": "Broadcast Links",
+      "tooltip": "Links to play song, one per line.<br/>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com<br/><br/>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).",
+      "isAlbumOnlyCheckboxLabel": "Song is an album-only release",
+      "isUnavailable": "Song is publically unavailable"
+    },
+    "lyrics": {
+      "label": "Lyrics",
+      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/>Add text colour styling to the entire row by specifying the hexadecimal colour, e.g., #ff0000<br/><em>or</em><br/>colour name, e.g., red"
+    },
+    "translator": {
+      "label": "Translator",
+      "tooltip": "Translator's name",
+      "isOfficialCheckboxLabel": "Is an official translation?",
+      "isOfficialTooltip": "Is the translation approved by the producer?"
+    },
+    "externalLinks": {
+      "label": "External Links",
+      "tooltip": "Links to related web pages, one per line, with description, e.g.:<br/>https://piapro.jp/t/uvwx Off-vocal<br/><br/>Recognizes many commonly used sites such as Hatsune Miku Wiki and VocaDB."
+    },
+    "categories": {
+      "label": "Categories",
+      "tooltip": "Category names, one per line, e.g.:<br/>Songs<br/>VOCALOID original songs<br/><br/>Click the Autoload button to have the site generate commonly used tags."
+    }
+  }
+}
