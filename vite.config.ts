@@ -15,6 +15,11 @@ export default defineConfig({
     singleQuote: false,
     arrowParens: "always",
     embeddedLanguageFormatting: "auto",
+    singleAttributePerLine: true,
+    sortTailwindcss: true,
+    svelte: {
+      indentScriptAndStyle: true,
+    },
   },
 
   lint: {
