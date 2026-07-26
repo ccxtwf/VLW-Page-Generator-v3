@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
 </script>
 
 <div class="page-container">
-  <h1>Error 404: Page Not Found</h1>
-  <p class="subtitle">The page you are looking for does not exist.</p>
+  <h1>{$_('error.notFound.header')}</h1>
+  <p class="subtitle">{$_('error.notFound.body')}</p>
 </div>
 
 <style>

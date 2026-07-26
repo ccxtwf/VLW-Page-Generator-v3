@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { ROUTES } from '../router';
   const buildCode = import.meta.env.VITE_BUILD_CODE;
 </script>
@@ -12,7 +13,7 @@
 
       <nav class="small-nav" aria-label="Footer Links">
         {#each ROUTES as route}
-          <a href={`#${route.path}`} class="footer-link">{route.label}</a>
+          <a href={`#${route.path}`} class="footer-link">{$_(`pages.${route.labelKey}`)}</a>
         {/each}
       </nav>
 

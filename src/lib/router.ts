@@ -4,22 +4,22 @@ export const ROUTES = [
   {
     path: "/songs",
     component: "./lib/pages/SongPage.svelte",
-    label: "Song Page Generator",
+    labelKey: "songGenerator",
   },
   {
     path: "/albums",
     component: "./lib/pages/AlbumPage.svelte",
-    label: "Album Page Generator",
+    labelKey: "albumGenerator",
   },
   {
     path: "/producers",
     component: "./lib/pages/ProducerPage.svelte",
-    label: "Producer Page Generator",
+    labelKey: "producerGenerator",
   },
   {
     path: "/lyrics-editor",
     component: "./lib/pages/LyricsEditorPage.svelte",
-    label: "Lyrics Editor",
+    labelKey: "lyricsEditor",
   },
 ];
 

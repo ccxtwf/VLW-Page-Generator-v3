@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _, isLoading } from 'svelte-i18n';
   import BaseLayout from './lib/components/BaseLayout.svelte';
   import { currentRoute, ROUTES } from './lib/router';
   import type { Component } from 'svelte';
@@ -14,19 +15,23 @@
   );
 </script>
 
-<BaseLayout>
-  {#await pageLoader}
-    <div class="throbber-container" aria-label="Loading page">
-      <div class="spinner"></div>
-    </div>
-  {:then module}
-    <module.default />
-  {:catch error}
-    <div class="error-container">
-      <p>Failed to load page. Please try again.</p>
-    </div>
-  {/await}
-</BaseLayout>
+{#if $isLoading}
+  <!-- Loading i18n -->
+{:else}
+  <BaseLayout>
+    {#await pageLoader}
+      <div class="throbber-container" aria-label="{$_('loading.text')}">
+        <div class="spinner"></div>
+      </div>
+    {:then module}
+      <module.default />
+    {:catch error}
+      <div class="error-container">
+        <p>{$_('loading.error')}</p>
+      </div>
+    {/await}
+  </BaseLayout>
+{/if}
 
 <style>
   .throbber-container {

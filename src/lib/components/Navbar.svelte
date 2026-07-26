@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { currentRoute, ROUTES } from '../router';
 </script>
 
@@ -6,7 +7,7 @@
   <div class="navbar-container">
     <div class="brand">
       <span class="brand-logo">🎵</span>
-      <span class="brand-name">VLW Page Generator</span>
+      <span class="brand-name">{$_('sitename')}</span>
     </div>
     
     <nav class="nav-links" aria-label="Main Navigation">
@@ -16,7 +17,7 @@
           class="nav-link"
           class:active={$currentRoute === route.path}
         >
-          {route.label}
+          {$_(`pages.${route.labelKey}`)}
         </a>
       {/each}
     </nav>

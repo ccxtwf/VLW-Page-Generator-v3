@@ -1,0 +1,27 @@
+{
+  "title": "VLW Page Generators - {page}",
+  "sitename": "VLW Page Generators",
+  "pages": {
+    "songGenerator": "Song Page Generator",
+    "albumGenerator": "Album Page Generator",
+    "producerGenerator": "Producer Page Generator",
+    "lyricsEditor": "Lyrics Editor"
+  },
+  "formActions": {
+    "autoloadCategories": "Autoload",
+    "reset": "Reset",
+    "generate": "Generate",
+    "ignoreErrors": "Ignore Errors",
+    "copyOutput": "Copy Output"
+  },
+  "loading": {
+    "text": "Loading...",
+    "error": "Failed to load page. Please try again."
+  },
+  "error": {
+    "notFound": {
+      "header": "Error 404: Page Not Found",
+      "body": "The page you are looking for does not exist."
+    }
+  }
+}
