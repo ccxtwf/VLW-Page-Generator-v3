@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "VOCALOID"
+  },
+  {
+    "id": 2,
+    "name": "UTAU"
+  },
+  {
+    "id": 3,
+    "name": "CeVIO"
+  },
+  {
+    "id": 4,
+    "name": "Synthesizer V"
+  },
+  {
+    "id": 5,
+    "name": "A.I.VOICE"
+  },
+  {
+    "id": 6,
+    "name": "ACE Virtual Singer"
+  },
+  {
+    "id": 7,
+    "name": "AISingers"
+  },
+  {
+    "id": 8,
+    "name": "Alter/Ego"
+  },
+  {
+    "id": 9,
+    "name": "AquesTone/AquesTalk"
+  },
+  {
+    "id": 10,
+    "name": "Chipspeech"
+  },
+  {
+    "id": 11,
+    "name": "CoeFont"
+  },
+  {
+    "id": 12,
+    "name": "DeepVocal"
+  },
+  {
+    "id": 13,
+    "name": "EmVoice"
+  },
+  {
+    "id": 14,
+    "name": "MUTA"
+  },
+  {
+    "id": 15,
+    "name": "NEUTRINO"
+  },
+  {
+    "id": 16,
+    "name": "NIAONiao"
+  },
+  {
+    "id": 17,
+    "name": "NNSVS"
+  },
+  {
+    "id": 18,
+    "name": "Other Voice Synthesizer"
+  },
+  {
+    "id": 19,
+    "name": "Piapro Studio"
+  },
+  {
+    "id": 20,
+    "name": "Renoid"
+  },
+  {
+    "id": 21,
+    "name": "Sharpkey"
+  },
+  {
+    "id": 22,
+    "name": "Sinsy"
+  },
+  {
+    "id": 23,
+    "name": "VOCALINA"
+  },
+  {
+    "id": 24,
+    "name": "VOICEROID"
+  },
+  {
+    "id": 25,
+    "name": "VOICEVOX"
+  },
+  {
+    "id": 26,
+    "name": "VoiSona"
+  },
+  {
+    "id": 27,
+    "name": "X Studio Singer"
+  },
+  {
+    "id": 28,
+    "name": "VOICEPEAK"
+  },
+  {
+    "id": 29,
+    "name": "VocalSharp"
+  },
+  {
+    "id": 30,
+    "name": "DiffSinger"
+  }
+]

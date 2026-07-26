@@ -1,15 +1,3 @@
-export enum ENUM_CW_STATES {
-  noWarnings,
-  questionable,
-  explicit,
-}
-
-export enum ENUM_AI_WARNING_TYPE {
-  none,
-  verified,
-  suspected,
-}
-
 export interface SongPageFormData {
   aiCwState: ENUM_AI_WARNING_TYPE;
   aiWarningText1: string;
@@ -17,6 +5,7 @@ export interface SongPageFormData {
   cwState: ENUM_CW_STATES;
   cwText: string;
   hasEpilepsyWarning: boolean;
+  languages: { label: string; value: number }[];
   isoLangCode: string;
   origTitle: string;
   altChTitle: string;
