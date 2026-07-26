@@ -1,3 +1,9 @@
+# Agent Configuration
+
+## Active Skills
+
+- [DaisyUI](.agents/skills/daisyui/SKILL.md): UI Library
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web
