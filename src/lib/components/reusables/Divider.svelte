@@ -1,0 +1,1 @@
+<div class="divider col-span-full my-2"></div>
