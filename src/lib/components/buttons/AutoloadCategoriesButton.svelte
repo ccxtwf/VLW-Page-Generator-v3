@@ -3,7 +3,7 @@
 </script>
 
 <button
-  class="btn btn-secondary"
+  class="btn btn-secondary btn-sm"
   type="button"
 >
   {$_("formActions.autoloadCategories")}

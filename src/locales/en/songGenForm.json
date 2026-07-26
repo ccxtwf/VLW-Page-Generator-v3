@@ -55,9 +55,9 @@
       "isOfficialCheckboxLabel": "Is an official title?"
     },
     "altChineseTitle": {
-      "label": "Traditional/Simplified Chinese Title",
+      "label": "{mode} Chinese Title",
       "tooltip": "Song title in alternate Chinese script (e.g. Traditional/Simplified Chinese script).",
-      "placeholder": "Traditional/Simplified Chinese title",
+      "placeholder": "{mode} Chinese title",
       "simplifiedToggleOption": "Simplified",
       "traditionalToggleOption": "Traditional"
     },

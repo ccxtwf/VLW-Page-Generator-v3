@@ -1,18 +1,28 @@
 <script lang="ts">
   interface PreloadFromVocaDBInputProps {
-    handleFetch: (url: string) => void
-    placeholder: string
+    handleFetch: (url: string) => void;
+    placeholder: string;
   }
 
   let { handleFetch, placeholder }: PreloadFromVocaDBInputProps = $props();
   let vdbUrl = $state("");
 </script>
 
-<div class="join">
-  <div>
-    <label class="input join-item">
-      <input id="vocadb-preload-url" class="input input-bordered flex-1" type="text" placeholder="{placeholder}" bind:value={vdbUrl} />
-    </label>
+<div class="join w-full">
+  <label class="input join-item w-full">
+    <input
+      id="vocadb-preload-url"
+      class="input input-bordered flex-1"
+      type="text"
+      {placeholder}
+      bind:value={vdbUrl}
+    />
+  </label>
+  <div class="join-item border-gray-600">
+    <button
+      type="button"
+      class="btn btn-neutral"
+      onclick={() => handleFetch(vdbUrl)}>Preload</button
+    >
   </div>
-  <button type="button" class="btn btn-neutral join-item" onclick={() => handleFetch(vdbUrl)}>Preload</button>
 </div>
