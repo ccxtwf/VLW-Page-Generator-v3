@@ -1,5 +1,5 @@
 {
-  "fields": {
+  "producerGenForm": {
     "preloadVocaDb": {
       "label": "Preload from VocaDB",
       "tooltip": "Input URL to VocaDB producer/artist page here.<br/><br/>e.g. <a href=\"https://vocadb.net/Ar/28\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Ar/28</a> Pinocchio-P"

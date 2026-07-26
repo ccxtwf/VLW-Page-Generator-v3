@@ -1,5 +1,5 @@
 {
-  "fields": {
+  "songGenForm": {
     "preloadVocaDb": {
       "label": "Preload Song",
       "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl",
