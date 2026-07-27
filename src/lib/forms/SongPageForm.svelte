@@ -30,7 +30,7 @@
     isoLangCode: "",
     origTitle: "",
     altChTitle: "",
-    altChIsTraditional: false,
+    altChIsTraditional: true,
     romTitle: "",
     engTitle: "",
     titleIsOfficiallyTranslated: false,
@@ -178,8 +178,8 @@
 
   {let mode = $derived(
     formData.altChIsTraditional
-      ? $_("songGenForm.altChineseTitle.simplifiedToggleOption")
-      : $_("songGenForm.altChineseTitle.traditionalToggleOption"),
+      ? $_("songGenForm.altChineseTitle.traditionalToggleOption")
+      : $_("songGenForm.altChineseTitle.simplifiedToggleOption"),
   )}
   <FlexRow
     labelForHtmlId="alternative-chinese-title"
