@@ -3,23 +3,21 @@
 
   interface ToolTipProps {
     required?: boolean;
-    position?: "top" | "bottom" | "left" | "right";
-    align?: "start" | "end" | "center";
+    tooltipClasses?: string;
     simpleTooltip?: string;
     children?: Snippet;
   }
 
   let {
+    tooltipClasses = "tooltip-top tooltip-end sm:tooltip-center",
     simpleTooltip,
     required = false,
-    position = "top",
-    align = "start",
     children,
   }: ToolTipProps = $props();
 </script>
 
 <div
-  class="tooltip tooltip-top md:tooltip-{position} md:tooltip-{align}"
+  class={["tooltip", tooltipClasses]}
   data-tip={simpleTooltip}
 >
   {#if children}
