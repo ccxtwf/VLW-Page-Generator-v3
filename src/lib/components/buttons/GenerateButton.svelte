@@ -3,7 +3,7 @@
 </script>
 
 <button
-  class="btn btn-primary btn-wide"
+  class="btn btn-primary sm:btn-wide max-sm:w-full"
   type="button"
 >
   {$_("formActions.generate")}

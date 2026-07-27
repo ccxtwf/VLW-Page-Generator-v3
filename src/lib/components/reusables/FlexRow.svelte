@@ -26,23 +26,24 @@
   }: FlexRowProps = $props();
 </script>
 
-<div class="flex items-center gap-2 font-medium text-gray-200">
-  <div class="flex flex-col gap-2">
-    <label
-      class="flex-item"
-      for={labelForHtmlId}
-    >
-      {$_(labelI18nKey, { values: labelI18nParams })}
-    </label>
-    {#if showUnderLabel}
-      <div class="flex-item">
-        {@render showUnderLabel()}
-      </div>
-    {/if}
+<div class="flex w-full flex-col items-start justify-start gap-4 font-medium text-gray-200">
+  <div class="flex w-full flex-row items-center justify-between gap-4">
+    <div class="flex-item grow">
+      <label for={labelForHtmlId}>
+        {$_(labelI18nKey, { values: labelI18nParams })}
+      </label>
+    </div>
+    <div class="flex-item flex-none">
+      <Tooltip {required}>
+        {@html $_(tooltipI18nKey, { values: tooltipI18nParams })}
+      </Tooltip>
+    </div>
   </div>
-  <Tooltip {required}>
-    {@html $_(tooltipI18nKey, { values: tooltipI18nParams })}
-  </Tooltip>
+  {#if showUnderLabel}
+    <div class="max-sm:self-end">
+      {@render showUnderLabel()}
+    </div>
+  {/if}
 </div>
 <div class="flex w-full flex-col gap-2 sm:flex-row">
   {#if children}

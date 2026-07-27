@@ -3,7 +3,7 @@
 </script>
 
 <button
-  class="btn btn-error"
+  class="btn btn-error max-sm:w-full"
   type="button"
 >
   {$_("formActions.reset")}
