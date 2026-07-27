@@ -61,11 +61,6 @@
       "simplifiedToggleOption": "Simplified",
       "traditionalToggleOption": "Traditional"
     },
-    "infoboxColors": {
-      "label": "Infobox BG/FG colors",
-      "tooltip": "Infobox background (left) and foreground (right) colors<br/>hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red",
-      "preview": "Preview"
-    },
     "uploadDate": {
       "label": "Upload Date",
       "tooltip": "Original date of publication"

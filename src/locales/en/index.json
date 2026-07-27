@@ -28,6 +28,11 @@
   "results": "Results",
   "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
   "confirmExit": "Are you sure that tou want to leave this page?",
+  "infoboxColors": {
+    "label": "Infobox BG/FG colors",
+    "tooltip": "Infobox background (left) and foreground (right) colour<br/>hexadecimal colour, e.g., #ff0000<br/><em>or</em><br/>colour name, e.g., red",
+    "preview": "Preview"
+  },
   "firstTimeGuide": {
     "header": "First Time Editing?",
     "paragraphOpener": "If this is your first time adding a page in the VOCALOID Lyrics Wiki, you should note the following:",

@@ -18,6 +18,7 @@
 
   import type { SongPageFormData } from "../../schemas/form";
   import Tooltip from "../components/reusables/Tooltip.svelte";
+  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
 
   let formData: SongPageFormData = $state({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
@@ -34,8 +35,8 @@
     romTitle: "",
     engTitle: "",
     titleIsOfficiallyTranslated: false,
-    bgColour: "",
-    fgColour: "",
+    bgColour: "black",
+    fgColour: "white",
     uploadDate: "",
     isAlbumOnly: false,
     isUnavailable: false,
@@ -259,11 +260,14 @@
 
   <FlexRow
     labelForHtmlId="infobox-colors"
-    labelI18nKey="songGenForm.infoboxColors.label"
-    tooltipI18nKey="songGenForm.infoboxColors.tooltip"
+    labelI18nKey="infoboxColors.label"
+    tooltipI18nKey="infoboxColors.tooltip"
     required={true}
   >
-    <div></div>
+    <InfoboxColorInputField
+      bind:backgroundColor={formData.bgColour}
+      bind:color={formData.fgColour}
+    />
   </FlexRow>
 
   <FlexRow
