@@ -61,7 +61,7 @@
   >
     <PreloadFromVocaDBInput
       handleFetch={() => {
-        console.log("HELLO");
+        console.log(formData);
       }}
       placeholder="https://vocadb.net/S/..."
     />
@@ -104,7 +104,7 @@
     labelI18nKey="songGenForm.contentWarning.label"
     tooltipI18nKey="songGenForm.contentWarning.tooltip"
   >
-    <div class="flex w-full flex-col gap-2">
+    <div class="flex w-full flex-col gap-3">
       <div class="join flex-item w-full">
         <select
           id="content-warning"
@@ -157,6 +157,7 @@
   >
     <SimpleTextInput
       id="language-iso-code"
+      class="input input-bordered w-full md:w-32"
       placeholder={$_("songGenForm.languageIsoCode.placeholder")}
       bind:value={formData.isoLangCode}
     />
@@ -245,6 +246,8 @@
       <div class="join-item flex flex-col justify-center border border-gray-600 pr-2 pl-2">
         <SimpleCheckbox
           id="is-official-translation"
+          class="checkbox"
+          textClass="label-text text-gray-200 text-xs"
           label={$_("songGenForm.englishTitle.isOfficialCheckboxLabel")}
           bind:checked={formData.titleIsOfficiallyTranslated}
         />
@@ -412,11 +415,12 @@
   <div class="flex items-start gap-2">
     <ResetFormButton />
   </div>
-  <div class="flex w-full flex-col gap-2 sm:flex-row">
+  <div class="flex w-full flex-col gap-3 sm:flex-row">
     <GenerateButton />
     <SimpleCheckbox
       id="ignore-errors"
       checked={ignoreErrors}
+      textClass="label-text text-gray-200 text-xs"
       label={$_("formActions.ignoreErrors")}
     />
   </div>

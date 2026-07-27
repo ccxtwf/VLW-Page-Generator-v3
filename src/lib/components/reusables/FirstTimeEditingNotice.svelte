@@ -6,8 +6,8 @@
   role="alert"
   class="alert alert-soft alert-vertical sm:alert-horizontal w-full"
 >
-  <div>
-    <h3 class="font-bold">{@html $_("firstTimeGuide.header")}</h3>
+  <div class="py-3">
+    <h3 class="mb-2 text-xl font-bold">{@html $_("firstTimeGuide.header")}</h3>
     <p>{@html $_("firstTimeGuide.paragraphOpener")}</p>
     <ul class="list-inside list-disc">
       <li>{@html $_("firstTimeGuide.tip1")}</li>

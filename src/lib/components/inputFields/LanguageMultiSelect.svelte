@@ -18,6 +18,7 @@
     label: name,
     value: idx,
   }))}
+  class="w-full"
   {placeholder}
   required={true}
 />
