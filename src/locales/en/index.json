@@ -12,7 +12,8 @@
     "reset": "Reset",
     "generate": "Generate",
     "ignoreErrors": "Ignore Errors",
-    "copyOutput": "Copy Output"
+    "copyOutput": "Copy Output",
+    "copiedOutput": "Copied!"
   },
   "loading": {
     "text": "Loading...",
