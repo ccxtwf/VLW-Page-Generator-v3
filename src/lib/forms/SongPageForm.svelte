@@ -18,7 +18,6 @@
 
   import type { SongPageFormData } from "../../schemas/form";
   import Tooltip from "../components/reusables/Tooltip.svelte";
-  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
 
   let formData: SongPageFormData = $state({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
@@ -176,16 +175,20 @@
     />
   </FlexRow>
 
-  {let mode = formData.altChIsTraditional
-    ? $_("songGenForm.altChineseTitle.simplifiedToggleOption")
-    : $_("songGenForm.altChineseTitle.traditionalToggleOption")}
+  {let mode = $derived(
+    formData.altChIsTraditional
+      ? $_("songGenForm.altChineseTitle.simplifiedToggleOption")
+      : $_("songGenForm.altChineseTitle.traditionalToggleOption"),
+  )}
   <FlexRow
     labelForHtmlId="alternative-chinese-title"
     labelI18nKey="songGenForm.altChineseTitle.label"
     labelI18nParams={{ mode }}
     tooltipI18nKey="songGenForm.altChineseTitle.tooltip"
   >
-    {let altChPlaceholder = $_("songGenForm.altChineseTitle.placeholder", { values: { mode } })}
+    {let altChPlaceholder = $derived(
+      $_("songGenForm.altChineseTitle.placeholder", { values: { mode } }),
+    )}
     <div class="join w-full">
       <SimpleTextInput
         id="alternative-chinese-title"

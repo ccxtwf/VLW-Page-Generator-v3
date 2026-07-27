@@ -30,8 +30,10 @@
   <div class="flex flex-col gap-2">
     <label
       class="flex-item"
-      for={labelForHtmlId}>{$_(labelI18nKey, { values: labelI18nParams })}</label
+      for={labelForHtmlId}
     >
+      {$_(labelI18nKey, { values: labelI18nParams })}
+    </label>
     {#if showUnderLabel}
       <div class="flex-item">
         {@render showUnderLabel()}
