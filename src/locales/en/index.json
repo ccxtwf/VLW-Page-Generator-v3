@@ -8,6 +8,7 @@
     "lyricsEditor": "Lyrics Editor"
   },
   "formActions": {
+    "preload": "Preload",
     "autoloadCategories": "Autoload",
     "reset": "Reset",
     "generate": "Generate",

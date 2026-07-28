@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   interface PreloadFromVocaDBInputProps {
     handleFetch: (url: string) => void;
     placeholder: string;
@@ -22,7 +23,7 @@
     <button
       type="button"
       class="btn btn-neutral"
-      onclick={() => handleFetch(vdbUrl)}>Preload</button
+      onclick={() => handleFetch(vdbUrl)}>{$_("formActions.preload")}</button
     >
   </div>
 </div>

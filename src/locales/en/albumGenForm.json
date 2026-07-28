@@ -2,8 +2,7 @@
   "albumGenForm": {
     "preloadVocaDb": {
       "label": "Preload Song",
-      "tooltip": "Input the URL to the VocaDB album page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a> Comic and Cosmic",
-      "buttonLabel": "Preload"
+      "tooltip": "Input the URL to the VocaDB album page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a> Comic and Cosmic"
     },
     "originalTitle": {
       "label": "Original Title",
