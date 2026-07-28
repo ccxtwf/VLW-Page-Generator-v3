@@ -1,5 +1,11 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
+
+  interface FirstTimeEditingNoticeProps {
+    forProducerGen?: boolean;
+  }
+
+  let { forProducerGen = false }: FirstTimeEditingNoticeProps = $props();
 </script>
 
 <div
@@ -11,7 +17,9 @@
     <p>{@html $_("firstTimeGuide.paragraphOpener")}</p>
     <ul class="list-inside list-disc">
       <li>{@html $_("firstTimeGuide.tip1")}</li>
-      <li>{@html $_("firstTimeGuide.tip2")}</li>
+      {#if !forProducerGen}
+        <li>{@html $_("firstTimeGuide.tip2")}</li>
+      {/if}
     </ul>
   </div>
 </div>
