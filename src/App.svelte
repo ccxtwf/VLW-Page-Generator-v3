@@ -1,17 +1,27 @@
 <script lang="ts">
-  import { _, isLoading } from 'svelte-i18n';
-  import BaseLayout from './lib/components/BaseLayout.svelte';
-  import { currentRoute, ROUTES } from './lib/router';
-  import type { Component } from 'svelte';
+  import { _, isLoading } from "svelte-i18n";
+  import BaseLayout from "./lib/components/BaseLayout.svelte";
+  import { currentRoute, navigate, ROUTES } from "./lib/router";
+  import type { Component } from "svelte";
 
-  const routes: Record<string, () => Promise<{ default: Component<any> }>> = ROUTES.reduce((acc, { path, component }) => ({
-    ...acc,
-    [path]: () => import(component),
-  }), {});
-  routes['/not-found'] = () => import('./lib/pages/PageNotFoundErrorPage.svelte');
+  const routes: Record<string, () => Promise<{ default: Component<any> }>> = ROUTES.reduce(
+    (acc, { path, component }) => ({
+      ...acc,
+      [path]: () => import(component),
+    }),
+    {},
+  );
+  routes["/not-found"] = () => import("./lib/pages/PageNotFoundErrorPage.svelte");
+
+  $effect(() => {
+    // on root, redirect to the songs page generator
+    if ($currentRoute == "/") {
+      navigate("/songs");
+    }
+  });
 
   let pageLoader = $derived(
-    routes[$currentRoute] ? routes[$currentRoute]() : routes['/not-found']()
+    routes[$currentRoute] ? routes[$currentRoute]() : routes["/not-found"](),
   );
 </script>
 
@@ -20,36 +30,25 @@
 {:else}
   <BaseLayout>
     {#await pageLoader}
-      <div class="throbber-container" aria-label="{$_('loading.text')}">
-        <div class="spinner"></div>
+      <div
+        class="bg-opacity-50 fixed inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center gap-2 bg-gray-900"
+      >
+        <div class="flex-item loading loading-spinner loading-xl"></div>
+        <div class="flex-item text-xl">
+          {$_("loading.text")}
+        </div>
       </div>
     {:then module}
       <module.default />
     {:catch error}
-      <div class="error-container">
-        <p>{$_('loading.error')}</p>
+      <div class="p-2 text-center text-red-600">
+        <p>{$_("loading.error")}</p>
       </div>
     {/await}
   </BaseLayout>
 {/if}
 
 <style>
-  .throbber-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-  }
-
-  .spinner {
-    width: 44px;
-    height: 44px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left-color: #6366f1;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -58,11 +57,4 @@
       transform: rotate(360deg);
     }
   }
-
-  .error-container {
-    text-align: center;
-    color: #f87171;
-    padding: 2rem;
-  }
 </style>
-
