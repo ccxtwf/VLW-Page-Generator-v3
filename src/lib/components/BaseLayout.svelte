@@ -1,16 +1,16 @@
 <script lang="ts">
   import "../../app.css";
 
-  import Navbar from './Navbar.svelte';
-  import Footer from './Footer.svelte';
-  import type { Snippet } from 'svelte';
+  import Navbar from "./Navbar.svelte";
+  import Footer from "./Footer.svelte";
+  import type { Snippet } from "svelte";
 
   let { children }: { children?: Snippet } = $props();
 </script>
 
 <div class="layout-wrapper">
   <Navbar />
-  
+
   <main class="content-container">
     {#if children}
       {@render children()}
@@ -25,9 +25,16 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #121216;
-    color: #e4e4e7;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      sans-serif;
   }
 
   .content-container {
@@ -39,4 +46,3 @@
     box-sizing: border-box;
   }
 </style>
-

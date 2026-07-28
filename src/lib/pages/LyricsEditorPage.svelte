@@ -12,13 +12,19 @@
 </script>
 
 <div class="page-container mx-auto max-w-4xl p-4">
-  <h1 class="mb-6 text-2xl font-bold text-white">
+  <h1 class="mb-6 text-2xl font-bold">
     {$_("pages.lyricsEditor")}
   </h1>
 
+  <hr />
+
   <LyricsParserPageForm handleButtonClick={console.log} />
 
-  <Divider />
+  <h1 class="mt-24 mb-6 text-2xl font-bold">
+    {$_("lyricsEditor.fields.parsedLyricsHeader")}
+  </h1>
+
+  <hr />
 
   <LyricsEditorPageForm forwardGeneratedResults={console.log} />
 

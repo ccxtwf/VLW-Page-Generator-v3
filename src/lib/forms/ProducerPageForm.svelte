@@ -44,7 +44,7 @@
 
 <form
   name="producer-generator"
-  class="grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
+  class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={(e) => e.preventDefault()}
 >
   <FlexRow
@@ -75,10 +75,10 @@
           placeholder={$_("producerGenForm.mainProducerCategory.placeholder")}
           bind:value={formData.prodCategory}
         />
-        <div class="join-item border-gray-600">
+        <div class="join-item border-none">
           <button
             type="button"
-            class="btn btn-neutral"
+            class="btn btn-neutral text-xs"
             onclick={() => {}}
           >
             {$_("producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText")}
@@ -88,7 +88,7 @@
       <div class="flex-item w-full">
         <SimpleToggle
           label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
-          textClass="label-text text-gray-200 text-sm"
+          textClass="text-sm"
           bind:checked={formData.splitAlbum}
         />
       </div>
@@ -176,7 +176,7 @@
   <Divider />
 
   <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold text-white">
+    <h2 class="mb-6 text-xl font-bold">
       {$_("producerGenForm.externalLinks.label")}
       <Tooltip required={true}>
         {@html $_("producerGenForm.externalLinks.tooltip")}
@@ -218,7 +218,7 @@
     <SimpleCheckbox
       id="ignore-errors"
       checked={ignoreErrors}
-      textClass="label-text text-gray-200 text-xs"
+      textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
   </div>

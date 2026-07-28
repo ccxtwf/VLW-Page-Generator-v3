@@ -39,7 +39,7 @@
 
 <form
   name="album-generator"
-  class="grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
+  class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={(e) => e.preventDefault()}
 >
   <FlexRow
@@ -139,7 +139,7 @@
       <SimpleCheckbox
         id="is-compilation-album"
         label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
-        textClass="label-text text-gray-200 text-sm"
+        textClass="text-sm"
         bind:checked={formData.isCompilationAlbum}
       />
     </div>
@@ -187,7 +187,7 @@
   <Divider />
 
   <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold text-white">
+    <h2 class="mb-6 text-xl font-bold">
       {$_("albumGenForm.tracklist.label")}
       <Tooltip required={true}>
         {@html $_("albumGenForm.tracklist.tooltip")}
@@ -278,7 +278,7 @@
     <SimpleCheckbox
       id="ignore-errors"
       checked={ignoreErrors}
-      textClass="label-text text-gray-200 text-xs"
+      textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
   </div>

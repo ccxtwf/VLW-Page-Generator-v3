@@ -31,7 +31,7 @@
   }: { value: ProducerRoles } = $props();
 </script>
 
-<div class="grid w-full grid-cols-1 gap-x-3 gap-y-2 md:grid-cols-3">
+<div class="mt-3 mb-3 grid w-full grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
   {#each fields as field}
     <SimpleCheckbox
       id={`role-${field}`}

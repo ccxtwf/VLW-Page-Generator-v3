@@ -17,16 +17,10 @@
 
 <form
   name="lyrics-generator"
-  class="grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
+  class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleSubmit}
 >
-  <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold text-white">
-      {$_("lyricsEditor.fields.parsedLyricsHeader")}
-    </h2>
-  </div>
-
-  <div class="w-full font-medium text-gray-200">
+  <div class="w-full font-medium">
     <label
       class="w-full"
       for="lyrics-toggle-wikitext"
@@ -43,7 +37,7 @@
 
   <div class="col-span-full h-32 w-full"></div>
 
-  <div class="w-full font-medium text-gray-200">
+  <div class="w-full font-medium">
     <label
       class="w-full"
       for="translator"
@@ -59,7 +53,7 @@
     <div class="flex flex-nowrap items-center gap-2">
       <SimpleCheckbox
         id="is-official-translation"
-        textClass="label-text text-gray-200 text-xs"
+        textClass="text-xs"
         label={$_("lyricsEditor.fields.translator.isOfficialCheckboxLabel")}
       />
       <Tooltip>

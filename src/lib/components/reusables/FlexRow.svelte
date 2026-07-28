@@ -29,7 +29,7 @@
 </script>
 
 <div
-  class="flex w-full flex-col items-start justify-start gap-4 font-medium text-gray-200"
+  class="flex w-full flex-col items-start justify-start gap-4 font-medium"
   class:hidden
 >
   <div class="flex w-full flex-row items-center justify-between gap-4">

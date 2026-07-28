@@ -19,10 +19,10 @@
 
 <form
   name="lyrics-parser"
-  class="flex w-full flex-col items-center justify-start gap-4"
+  class="mt-8 mb-4 flex w-full flex-col items-center justify-start gap-4"
   onsubmit={handleSubmit}
 >
-  <h2 class="text-xl font-bold text-white">
+  <h2 class="text-xl font-bold">
     {$_("lyricsEditor.headerText")}
     <Tooltip required={true}>
       {@html $_("lyricsEditor.tooltip")}

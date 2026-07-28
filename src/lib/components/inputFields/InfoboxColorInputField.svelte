@@ -31,7 +31,7 @@
         class="input input-bordered"
         bind:value={backgroundColor}
       />
-      <div class="join-item flex flex-col justify-center border border-gray-600 pr-2 pl-2">
+      <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
         <input
           type="color"
           bind:value={backgroundColor}
@@ -48,7 +48,7 @@
         placeholder="white"
         bind:value={color}
       />
-      <div class="join-item flex flex-col justify-center border border-gray-600 pr-2 pl-2">
+      <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
         <input
           type="color"
           bind:value={color}

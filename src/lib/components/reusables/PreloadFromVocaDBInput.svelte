@@ -19,7 +19,7 @@
       bind:value={vdbUrl}
     />
   </label>
-  <div class="join-item border-gray-600">
+  <div class="join-item border-none">
     <button
       type="button"
       class="btn btn-neutral"

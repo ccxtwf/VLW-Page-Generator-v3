@@ -1,83 +1,115 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
-  import { currentRoute, ROUTES } from '../router';
+  import { _ } from "svelte-i18n";
+  import { currentRoute, ROUTES } from "../router";
 </script>
 
 <header class="navbar-header">
-  <div class="navbar-container">
-    <div class="brand">
-      <span class="brand-logo">🎵</span>
-      <span class="brand-name">{$_('sitename')}</span>
-    </div>
-    
-    <nav class="nav-links" aria-label="Main Navigation">
-      {#each ROUTES as route}
-        <a 
-          href={`#${route.path}`} 
-          class="nav-link"
-          class:active={$currentRoute === route.path}
+  <div class="navbar bg-neutral text-neutral-content border-black-800 border-b-2 shadow-sm">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost lg:hidden"
         >
-          {$_(`pages.${route.labelKey}`)}
-        </a>
-      {/each}
-    </nav>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </div>
+        <ul
+          tabindex="-1"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        >
+          {#each ROUTES as route}
+            <li
+              class="nav-link"
+              class:active={$currentRoute === route.path}
+            >
+              <a href={`#${route.path}`}>
+                {$_(`pages.${route.labelKey}`)}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </div>
+      <a
+        class="btn btn-ghost text-neutral-content text-xl"
+        href="/">{$_("sitename")}</a
+      >
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        {#each ROUTES as route}
+          <li
+            class="nav-link"
+            class:active={$currentRoute === route.path}
+          >
+            <a href={`#${route.path}`}>
+              {$_(`pages.${route.labelKey}`)}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+    <div class="navbar-end">
+      <div class="dropdown dropdown-bottom dropdown-end">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost text-neutral-content hover:text-base-content m-1"
+        >
+          {$_("themeSelector")}
+          <svg
+            width="12px"
+            height="12px"
+            class="inline-block h-2 w-2 fill-current opacity-60"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 2048 2048"
+          >
+            <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+          </svg>
+        </div>
+        <ul
+          tabindex="-1"
+          class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
+        >
+          {let themes = [
+            { theme: "corporate", label: "Light" },
+            { theme: "dark", label: "Dark" },
+          ]}
+          {#each themes as { theme, label }}
+            <li>
+              <input
+                type="radio"
+                name="theme-dropdown"
+                class="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
+                aria-label={label}
+                value={theme}
+              />
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </div>
   </div>
 </header>
 
 <style>
-  .navbar-header {
-    background-color: #1e1e24;
-    border-bottom: 1px solid #2d2d38;
-    padding: 0.75rem 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .navbar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: #ffffff;
-  }
-
-  .brand-logo {
-    font-size: 1.25rem;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .nav-link {
-    color: #9ea0a6;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    transition: all 0.15s ease-in-out;
-  }
-
-  .nav-link:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-
   .nav-link.active {
-    color: #6366f1;
-    background-color: rgba(99, 102, 241, 0.12);
+    background-color: var(--color-base-300);
+    color: var(--color-base-content);
     font-weight: 600;
+    border-bottom: solid 2px var(--color-secondary);
   }
 </style>

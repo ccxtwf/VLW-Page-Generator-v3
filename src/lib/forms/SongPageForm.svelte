@@ -52,7 +52,7 @@
 
 <form
   name="song-generator"
-  class="grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
+  class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={(e) => e.preventDefault()}
 >
   <FlexRow
@@ -202,7 +202,9 @@
         placeholder={altChPlaceholder}
         bind:value={formData.altChTitle}
       />
-      <div class="join-item flex flex-col justify-center border border-gray-600 pr-2 pl-2">
+      <div
+        class="join-item bg-neutral text-neutral-content flex flex-col justify-center border pr-2 pl-2"
+      >
         <label class="swap">
           <input
             type="checkbox"
@@ -248,11 +250,11 @@
         placeholder={$_("songGenForm.englishTitle.placeholder")}
         bind:value={formData.engTitle}
       />
-      <div class="join-item flex flex-col justify-center border border-gray-600 pr-2 pl-2">
+      <div class="join-item flex flex-col justify-center border-none pr-2 pl-2">
         <SimpleCheckbox
           id="is-official-translation"
           class="checkbox"
-          textClass="label-text text-gray-200 text-xs"
+          textClass="text-xs"
           label={$_("songGenForm.englishTitle.isOfficialCheckboxLabel")}
           bind:checked={formData.titleIsOfficiallyTranslated}
         />
@@ -356,7 +358,7 @@
   <Divider />
 
   <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold text-white">
+    <h2 class="mb-6 text-xl font-bold">
       {$_("songGenForm.lyrics.label")}
       <Tooltip required={true}>
         {@html $_("songGenForm.lyrics.tooltip")}
@@ -381,6 +383,7 @@
         id="is-official-translation"
         bind:checked={formData.isOfficialTranslation}
         class="flex-item checkbox"
+        textClass="text-xs"
         label={$_("songGenForm.translator.isOfficialCheckboxLabel")}
       />
       <div class="flex-item">
@@ -428,7 +431,7 @@
     <SimpleCheckbox
       id="ignore-errors"
       checked={ignoreErrors}
-      textClass="label-text text-gray-200 text-xs"
+      textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
   </div>

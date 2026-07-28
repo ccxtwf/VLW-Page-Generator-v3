@@ -7,7 +7,13 @@
     textClass?: string;
   }
 
-  let { id, label, checked = $bindable(false), textClass, ...rest }: SimpleToggleProps = $props();
+  let {
+    id,
+    label,
+    checked = $bindable(false),
+    textClass = "",
+    ...rest
+  }: SimpleToggleProps = $props();
 </script>
 
 <label class="label flex cursor-pointer items-center gap-2 select-none">
@@ -18,5 +24,5 @@
     class="toggle"
     {...rest}
   />
-  <span class={textClass || "label-text text-gray-200"}>{label}</span>
+  <span class={["label-text text-primary-content", textClass]}>{label}</span>
 </label>
