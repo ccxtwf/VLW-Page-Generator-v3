@@ -110,6 +110,8 @@
     background-color: var(--color-base-300);
     color: var(--color-base-content);
     font-weight: 600;
+  }
+  .navbar-center .nav-link.active {
     border-bottom: solid 2px var(--color-secondary);
   }
 </style>
