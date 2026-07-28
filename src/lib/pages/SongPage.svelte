@@ -12,7 +12,9 @@
 </script>
 
 <div class="page-container mx-auto max-w-4xl p-4">
-  <h1 class="mb-6 text-2xl font-bold text-white">Song Generator</h1>
+  <h1 class="mb-6 text-2xl font-bold text-white">
+    {$_("pages.songGenerator")}
+  </h1>
 
   <SongPageForm />
 

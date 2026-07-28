@@ -14,8 +14,8 @@
   import type { ProducerPageFormData } from "../../schemas/form";
   import Tooltip from "../components/reusables/Tooltip.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
-  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
+  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({
     prodCategory: "",

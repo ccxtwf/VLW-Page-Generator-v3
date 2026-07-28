@@ -14,7 +14,7 @@
   <div class="flex-item w-full">
     <!-- Preview box -->
     <div
-      class="rounded-3xl border-4 border-solid p-2 text-center font-bold"
+      class="rounded-3xl border-2 border-solid p-1 text-center font-bold"
       style:background-color={backgroundColor}
       style:color
       style:border-color={color}

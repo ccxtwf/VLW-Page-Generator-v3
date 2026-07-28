@@ -13,8 +13,8 @@
 </script>
 
 <MultiSelect
+  id="synths"
   options={SYNTHS.map(({ id, name }: Synth) => ({ label: name, value: id }))}
   bind:selected
   {placeholder}
-  required={true}
 />

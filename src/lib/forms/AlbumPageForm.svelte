@@ -17,7 +17,7 @@
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
 
-  let formData: AlbumPageFormData = $state({
+  let formData: AlbumPageFormData = $state<AlbumPageFormData>({
     origTitle: "",
     romTitle: "",
     engTitle: "",

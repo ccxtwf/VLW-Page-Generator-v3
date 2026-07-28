@@ -13,12 +13,11 @@
 </script>
 
 <MultiSelect
-  bind:selected
+  id="languages"
   options={LANGUAGES.map(({ name }: Language, idx) => ({
     label: name,
     value: idx,
   }))}
-  class="w-full"
+  bind:selected
   {placeholder}
-  required={true}
 />

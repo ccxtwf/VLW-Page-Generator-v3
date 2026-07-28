@@ -4,9 +4,10 @@
   interface SimpleToggleProps extends Omit<HTMLInputAttributes, "type"> {
     label: string;
     checked?: boolean;
+    textClass?: string;
   }
 
-  let { id, label, checked = $bindable(false), ...rest }: SimpleToggleProps = $props();
+  let { id, label, checked = $bindable(false), textClass, ...rest }: SimpleToggleProps = $props();
 </script>
 
 <label class="label flex cursor-pointer items-center gap-2 select-none">
@@ -17,5 +18,5 @@
     class="toggle"
     {...rest}
   />
-  <span class="label-text text-gray-200">{label}</span>
+  <span class={textClass || "label-text text-gray-200"}>{label}</span>
 </label>

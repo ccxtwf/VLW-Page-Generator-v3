@@ -20,7 +20,7 @@
   import Tooltip from "../components/reusables/Tooltip.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
 
-  let formData: SongPageFormData = $state({
+  let formData: SongPageFormData = $state<SongPageFormData>({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
     aiWarningText1: "",
     aiWarningText2: "",
@@ -139,7 +139,7 @@
   </FlexRow>
 
   <FlexRow
-    labelForHtmlId="song-language"
+    labelForHtmlId="languages"
     labelI18nKey="songGenForm.songLanguage.label"
     tooltipI18nKey="songGenForm.songLanguage.tooltip"
     required={true}

@@ -1,3 +1,5 @@
+import type { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "./enums";
+
 interface MultiSelectItem {
   label: string;
   value: number;
