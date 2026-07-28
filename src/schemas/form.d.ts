@@ -1,3 +1,8 @@
+interface MultiSelectItem {
+  label: string;
+  value: number;
+}
+
 export interface SongPageFormData {
   aiCwState: ENUM_AI_WARNING_TYPE;
   aiWarningText1: string;
@@ -5,7 +10,7 @@ export interface SongPageFormData {
   cwState: ENUM_CW_STATES;
   cwText: string;
   hasEpilepsyWarning: boolean;
-  languages: { label: string; value: number }[];
+  languages: MultiSelectItem[];
   isoLangCode: string;
   origTitle: string;
   altChTitle: string;
@@ -73,7 +78,7 @@ export interface AlbumPageFormData {
   publishedYear: string;
   publishedMonth: string;
   publishedDay: string;
-  engines: { label: string; value: number }[];
+  engines: MultiSelectItem[];
   vdbAlbumId: string;
   vocaWikiPage: string;
   categoriesRaw: string;
@@ -92,10 +97,11 @@ export interface ProducerPageFormData {
   splitAlbum: boolean;
   prodAliases: string;
   affiliations: string;
-  label: string;
-  languageIds: number[];
-  engines: string[];
+  labels: string;
+  languages: MultiSelectItem[];
+  engines: MultiSelectItem[];
   description: string;
+  roles: ProducerRoles;
 }
 
 export interface ProducerRoles {

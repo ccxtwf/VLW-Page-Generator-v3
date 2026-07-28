@@ -7,12 +7,14 @@
     "mainProducerCategory": {
       "label": "Main producer category",
       "tooltip": "This will be used as the parameter of the &#123;&#123;ProdLinks&#125;&#125; template on the producer page, which will link to the producer's songs list category on the wiki<br/><br/>Click on the \"Fetch discography from wiki\" button to get this site to query the list of song & album pages from the producer category on VOCALOID Lyrics Wiki.<br/><br/>Use the toggle option on the right to split the album discography into \"Original Albums\" and \"Compilation Albums\".",
+      "placeholder": "e.g. Hachi",
       "fetchFromLiveWikiButtonText": "Fetch discography from wiki",
       "splitAlbumTableToggleText": "Split album table in two"
     },
     "producerMiscAlias": {
       "label": "Producer's other aliases",
-      "tooltip": "The producer's other aliases, if exists. List each item using a semi-colon (;)<br/><br/>This will be used for the &#123;&#123;pwt alias&#125;&#125; template."
+      "tooltip": "The producer's other aliases, if exists. List each item using a semi-colon (;)<br/><br/>This will be used for the &#123;&#123;pwt alias&#125;&#125; template.",
+      "placeholder": "e.g. Kenshi Yonezu"
     },
     "affiliations": {
       "label": "Affiliations",
@@ -24,11 +26,13 @@
     },
     "languages": {
       "label": "Languages",
-      "tooltip": "What language does the producer like to write their songs in? e.g. Japanese, English"
+      "tooltip": "What language does the producer like to write their songs in? e.g. Japanese, English",
+      "placeholder": "Active Languages"
     },
     "usesSynths": {
       "label": "Uses the synthesizers",
-      "tooltip": "What voice synthesizer group/software family/engine does the producer like to write their songs with? e.g. VOCALOID, UTAU"
+      "tooltip": "What voice synthesizer group/software family/engine does the producer like to write their songs with? e.g. VOCALOID, UTAU",
+      "placeholder": "Using Synth Engines"
     },
     "producerRoles": {
       "label": "Typical roles",
