@@ -16,6 +16,7 @@
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
   import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
+  import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({
     prodCategory: "",
@@ -157,7 +158,7 @@
     labelI18nKey="producerGenForm.producerRoles.label"
     tooltipI18nKey="producerGenForm.producerRoles.tooltip"
   >
-    <div></div>
+    <ProducerRoleCheckboxes bind:value={formData.roles} />
   </FlexRow>
 
   <FlexRow
