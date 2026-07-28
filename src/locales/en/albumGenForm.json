@@ -29,7 +29,8 @@
     "description": {
       "label": "Description",
       "tooltip": "Add a short description about the album, e.g. \"a compilation album by PRODUCERS featuring SYNTHS\" or \"an album by PRODUCER\".<br /><br />Check the \"Is the album a Compilation Album?\" checkbox to sort the album page into the category \"Compilation albums\" on the wiki.",
-      "placeholder": "an album by PRODUCER"
+      "placeholder": "an album by PRODUCER",
+      "isCompilationCheckboxLabel": "Is the album a compilation album?"
     },
     "albumPublicationDate": {
       "label": "Album Publication Date",

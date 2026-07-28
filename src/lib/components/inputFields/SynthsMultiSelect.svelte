@@ -9,7 +9,7 @@
     selected?: { label: string; value: number }[];
   }
 
-  let { selected, placeholder }: SynthsMultiSelectProps = $props();
+  let { selected = $bindable([]), placeholder }: SynthsMultiSelectProps = $props();
 </script>
 
 <MultiSelect

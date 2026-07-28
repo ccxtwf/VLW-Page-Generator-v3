@@ -73,7 +73,7 @@ export interface AlbumPageFormData {
   publishedYear: string;
   publishedMonth: string;
   publishedDay: string;
-  engines: string[];
+  engines: { label: string; value: number }[];
   vdbAlbumId: string;
   vocaWikiPage: string;
   categoriesRaw: string;

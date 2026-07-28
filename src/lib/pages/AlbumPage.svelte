@@ -1,23 +1,28 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
+  import type { SvelteComponent } from "svelte";
+
+  import AlbumPageForm from "../forms/AlbumPageForm.svelte";
+
+  import Divider from "../components/reusables/Divider.svelte";
+  import FirstTimeEditingNotice from "../components/reusables/FirstTimeEditingNotice.svelte";
+  import GeneratedResultsTextBox from "../components/inputFields/GeneratedResultsTextBox.svelte";
+
+  let resultsBox: SvelteComponent;
 </script>
 
-<div class="page-container">
-  <h1>Albums</h1>
-  <p class="subtitle">Scaffolded page for managing and viewing albums.</p>
-</div>
+<div class="page-container mx-auto max-w-4xl p-4">
+  <h1 class="mb-6 text-2xl font-bold text-white">
+    {$_("pages.albumGenerator")}
+  </h1>
 
-<style>
-  .page-container {
-    padding: 1rem 0;
-  }
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-  }
-  .subtitle {
-    color: #a1a1aa;
-    font-size: 1rem;
-  }
-</style>
+  <AlbumPageForm />
+
+  <Divider />
+
+  <FirstTimeEditingNotice />
+
+  <Divider />
+
+  <GeneratedResultsTextBox bind:this={resultsBox} />
+</div>
