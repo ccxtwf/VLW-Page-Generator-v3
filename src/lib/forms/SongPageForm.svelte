@@ -182,11 +182,15 @@
       ? $_("songGenForm.altChineseTitle.traditionalToggleOption")
       : $_("songGenForm.altChineseTitle.simplifiedToggleOption"),
   )}
+  {let hideAltChRow = $derived(
+    formData.languages.every(({ label }) => label !== "Mandarin" && label !== "Cantonese"),
+  )}
   <FlexRow
     labelForHtmlId="alternative-chinese-title"
     labelI18nKey="songGenForm.altChineseTitle.label"
     labelI18nParams={{ mode }}
     tooltipI18nKey="songGenForm.altChineseTitle.tooltip"
+    hidden={hideAltChRow}
   >
     {let altChPlaceholder = $derived(
       $_("songGenForm.altChineseTitle.placeholder", { values: { mode } }),

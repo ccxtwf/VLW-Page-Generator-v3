@@ -9,6 +9,7 @@
     labelI18nParams?: Record<string, string>;
     tooltipI18nKey: string;
     tooltipI18nParams?: Record<string, string>;
+    hidden?: boolean;
     required?: boolean;
     showUnderLabel?: Snippet;
     children: Snippet;
@@ -20,13 +21,17 @@
     labelI18nParams,
     tooltipI18nKey,
     tooltipI18nParams,
+    hidden = false,
     required = false,
     children,
     showUnderLabel,
   }: FlexRowProps = $props();
 </script>
 
-<div class="flex w-full flex-col items-start justify-start gap-4 font-medium text-gray-200">
+<div
+  class="flex w-full flex-col items-start justify-start gap-4 font-medium text-gray-200"
+  class:hidden
+>
   <div class="flex w-full flex-row items-center justify-between gap-4">
     <div class="flex-item grow">
       <label for={labelForHtmlId}>
@@ -45,7 +50,10 @@
     </div>
   {/if}
 </div>
-<div class="flex w-full flex-col gap-2 sm:flex-row">
+<div
+  class="flex w-full flex-col gap-2 sm:flex-row"
+  class:hidden
+>
   {#if children}
     {@render children()}
   {/if}
