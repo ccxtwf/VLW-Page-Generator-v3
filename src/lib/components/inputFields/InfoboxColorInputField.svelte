@@ -29,6 +29,7 @@
         id="infobox-bg-color"
         type="text"
         class="input input-bordered"
+        placeholder="black"
         bind:value={backgroundColor}
       />
       <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
