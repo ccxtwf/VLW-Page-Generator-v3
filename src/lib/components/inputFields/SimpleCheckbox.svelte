@@ -24,5 +24,5 @@
     bind:checked
     {...rest}
   />
-  <span class={["label-text text-primary-content", textClass]}>{label}</span>
+  <span class={["label-text", textClass]}>{label}</span>
 </label>
