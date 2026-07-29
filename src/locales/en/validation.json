@@ -1,0 +1,28 @@
+{
+  "validation": {
+    "song": {
+      "cwHasNoJustification": "You must add a reason for wanting to add a content warning onto the page, e.g. violent content, sexual content, etc.",
+      "genAiHasNoUsageAttribution": "You must specify which part of the song/video uses Generative AI, e.g. illustration, lyrics.",
+      "genAiHasNoSource": "You must add a source/explanation attributing to the verified/suspected usage of Generative AI.",
+      "languageNotSelected": "You haven't chosen a language.",
+      "noTitle": "You haven't entered a song title.",
+      "noDate": "You haven't entered the date of publication.",
+      "bgColorIsEmpty": "Please add a background colour.",
+      "fgColorIsEmpty": "Please add a foreground colour.",
+      "bgColorIsInvalid": "The background colour is invalid.",
+      "fgColorIsInvalid": "The foreground colour is invalid.",
+      "noSinger": "You haven't listed any singers.",
+      "noSingerInMarkup": "You need to list at least one singer in markup, e.g. [[Kagamine Rin]].",
+      "noProducer": "You haven't listed any producers. For well-known producers, it is recommended that the producer's name is listed in markup, e.g. [[wowaka]], before you generate the song page.",
+      "noProducerInMarkup": "If the producer already has a page on VOCALOID Lyrics wiki, then you should add the name of that producer in markup, e.g. \"[[wowaka]] (music)\" or \"[[nagimiso]] (illustration)\". Clicking the \"Autoload Categories\" button again in this case will automatically generate the category for that producer.",
+      "noPlayLink": "No music videos or play links are detected. Please check the \"Song is publically unavailable\" if official releases are no longer available, or check the \"Song is an album-only release\" option if the song is released on albums only",
+      "noViewCount": "Did you forget to add the view counts?",
+      "bilibiliUsesAvid": "The Vocaloid Lyrics Wiki recommends attaching Bilibili links in the new BVid format rather than the old avid format.",
+      "noOriginalLyrics": "Original lyrics column is empty.",
+      "noRomanizedLyrics": "Romanized/transliterated lyrics column is empty.",
+      "uncreditedTranslation": "A translation exists, but the translator is uncredited. Is it made by an anonymous contributor?"
+    },
+    "album": {},
+    "producer": {}
+  }
+}

@@ -6,7 +6,7 @@
 
 <button
   class={["btn btn-primary", cssClass || "sm:btn-wide max-sm:w-full"]}
-  type="button"
+  type="submit"
 >
   {$_("formActions.generate")}
 </button>

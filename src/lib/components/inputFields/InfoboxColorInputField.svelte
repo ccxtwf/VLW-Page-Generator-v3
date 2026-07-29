@@ -30,12 +30,16 @@
         type="text"
         class="input input-bordered"
         placeholder="black"
+        defaultValue="black"
         bind:value={backgroundColor}
       />
-      <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
+      <div
+        id="infobox-bg-color-picker"
+        class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2"
+      >
         <input
-          id="infobox-bg-color-picker"
           type="color"
+          defaultValue="#000000"
           bind:value={backgroundColor}
         />
       </div>
@@ -48,12 +52,16 @@
         type="text"
         class="input input-bordered"
         placeholder="white"
+        defaultValue="white"
         bind:value={color}
       />
-      <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
+      <div
+        id="infobox-fg-color-picker"
+        class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2"
+      >
         <input
-          id="infobox-fg-color-picker"
           type="color"
+          defaultValue="#ffffff"
           bind:value={color}
         />
       </div>

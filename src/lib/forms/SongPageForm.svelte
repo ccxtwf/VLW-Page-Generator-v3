@@ -6,20 +6,25 @@
 
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
+  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
+  import Tooltip from "../components/reusables/Tooltip.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
+  import { validate } from "../validation/songs";
+
   import type { SongPageFormData } from "../../schemas/form";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
+  import { formSubmitHandler, formResetHandler } from "../validation";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
+  import type { Component, SvelteComponent } from "svelte";
 
   let formData: SongPageFormData = $state<SongPageFormData>({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
@@ -49,12 +54,30 @@
     categoriesRaw: "",
   });
   let ignoreErrors: boolean = $state(false);
+
+  let warningsElement: SvelteComponent;
+
+  const handleSubmit = formSubmitHandler<SongPageFormData>({
+    ignoreErrors: (() => ignoreErrors)(),
+    formData,
+    validate,
+    generate() {
+      console.log(formData);
+    },
+    displayWarningsAndErrors(errors, autoloadCategories) {
+      warningsElement.updateState({ errors, autoloadCategories });
+    },
+  });
+  const handleReset = formResetHandler(function () {
+    warningsElement.resetState();
+  });
 </script>
 
 <form
   name="song-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={(e) => e.preventDefault()}
+  onsubmit={handleSubmit}
+  onreset={handleReset}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -457,3 +480,7 @@
     />
   </div>
 </form>
+
+<Divider />
+
+<ValidationResultsAlert bind:this={warningsElement} />
