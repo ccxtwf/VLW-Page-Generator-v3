@@ -1,6 +1,27 @@
-import type { SvelteComponent } from "svelte";
-import { validate } from "./songs";
-import type { ValidationBundledErrors } from "./validationErrors";
+import {
+  songValidationErrors,
+  albumValidationErrors,
+  producerValidationErrors,
+} from "./validationErrors";
+import {
+  SongPageValidationErrorType,
+  AlbumPageValidationErrorType,
+  ProducerPageValidationErrorType,
+} from "./enums";
+
+export interface ValidationError<E> {
+  fatal?: boolean;
+  autoloadCategories?: boolean;
+  fields: string[];
+  i18nKey: string;
+  type?: E;
+}
+
+export interface ValidationBundledErrors<E> {
+  errors: ValidationError<E>[];
+  autoloadCategories: boolean;
+  fatal: boolean;
+}
 
 /**
  * Prepares an event handler to be passed onto the "Generate" button that
@@ -13,7 +34,7 @@ import type { ValidationBundledErrors } from "./validationErrors";
  * @param displayWarningsAndErrors
  * @returns
  */
-export function formSubmitHandler<T>({
+export function formSubmitHandler<T, E>({
   ignoreErrors,
   formData,
   validate,
@@ -31,7 +52,7 @@ export function formSubmitHandler<T>({
    * @param formData
    * @returns
    */
-  validate: (formData: T) => ValidationBundledErrors;
+  validate: (formData: T) => ValidationBundledErrors<E>;
   /**
    * Callback function that will be called to generate the page output.
    * The component manages the data that is handled by this function,
@@ -101,6 +122,20 @@ export function formResetHandler(resetWarnings: () => void) {
   return _onFormReset;
 }
 
-export default {
-  songs: { validate },
-};
+export function getErrorForSongValidation(
+  val: SongPageValidationErrorType,
+): ValidationError<SongPageValidationErrorType> {
+  return { ...songValidationErrors[val], type: val };
+}
+
+export function getErrorForAlbumValidation(
+  val: AlbumPageValidationErrorType,
+): ValidationError<AlbumPageValidationErrorType> {
+  return { ...albumValidationErrors[val], type: val };
+}
+
+export function getErrorForProducerValidation(
+  val: ProducerPageValidationErrorType,
+): ValidationError<ProducerPageValidationErrorType> {
+  return { ...producerValidationErrors[val], type: val };
+}

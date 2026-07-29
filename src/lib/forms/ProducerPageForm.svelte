@@ -5,18 +5,24 @@
   import Divider from "../components/reusables/Divider.svelte";
 
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
+  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
+  import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
+  import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
+  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
+  import Tooltip from "../components/reusables/Tooltip.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
+  import type { SvelteComponent } from "svelte";
+
+  import { validate } from "../validation/producers";
 
   import type { ProducerPageFormData } from "../../schemas/form";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
-  import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
-  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
-  import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
+  import { formSubmitHandler, formResetHandler } from "../validation";
+  import type { ProducerPageValidationErrorType } from "../validation/enums";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({
     prodCategory: "",
@@ -40,12 +46,30 @@
     },
   });
   let ignoreErrors: boolean = $state(false);
+
+  let warningsElement: SvelteComponent;
+
+  const handleSubmit = formSubmitHandler<ProducerPageFormData, ProducerPageValidationErrorType>({
+    ignoreErrors: (() => ignoreErrors)(),
+    formData,
+    validate,
+    generate() {
+      console.log(formData);
+    },
+    displayWarningsAndErrors(errors, autoloadCategories) {
+      warningsElement.updateState({ errors, autoloadCategories });
+    },
+  });
+  const handleReset = formResetHandler(function () {
+    warningsElement.resetState();
+  });
 </script>
 
 <form
   name="producer-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={(e) => e.preventDefault()}
+  onsubmit={handleSubmit}
+  onreset={handleReset}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -184,6 +208,11 @@
     </h2>
   </div>
 
+  <div
+    id="external-links"
+    class="col-span-full h-32 w-full"
+  ></div>
+
   <Divider />
 
   <FlexRow
@@ -192,7 +221,7 @@
     tooltipI18nKey="producerGenForm.discographySongs.tooltip"
     required={true}
   >
-    <div></div>
+    <div class="h-32 w-full"></div>
   </FlexRow>
 
   <FlexRow
@@ -201,7 +230,7 @@
     tooltipI18nKey="producerGenForm.discographyAlbums.tooltip"
   >
     <div class="flex w-full flex-col gap-2">
-      <div class="w-full"></div>
+      <div class="h-32 w-full"></div>
       <div class="w-full text-xs">
         {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
       </div>
@@ -223,3 +252,7 @@
     />
   </div>
 </form>
+
+<Divider />
+
+<ValidationResultsAlert bind:this={warningsElement} />

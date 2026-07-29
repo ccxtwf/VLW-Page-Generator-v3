@@ -5,17 +5,23 @@
   import Divider from "../components/reusables/Divider.svelte";
 
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
+  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
+  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
+  import Tooltip from "../components/reusables/Tooltip.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
+  import type { SvelteComponent } from "svelte";
+
+  import { validate } from "../validation/albums";
 
   import type { AlbumPageFormData } from "../../schemas/form";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
-  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
+  import { formSubmitHandler, formResetHandler } from "../validation";
+  import type { AlbumPageValidationErrorType } from "../validation/enums";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
 
   let formData: AlbumPageFormData = $state<AlbumPageFormData>({
     origTitle: "",
@@ -35,12 +41,30 @@
     categoriesRaw: "",
   });
   let ignoreErrors: boolean = $state(false);
+
+  let warningsElement: SvelteComponent;
+
+  const handleSubmit = formSubmitHandler<AlbumPageFormData, AlbumPageValidationErrorType>({
+    ignoreErrors: (() => ignoreErrors)(),
+    formData,
+    validate,
+    generate() {
+      console.log(formData);
+    },
+    displayWarningsAndErrors(errors, autoloadCategories) {
+      warningsElement.updateState({ errors, autoloadCategories });
+    },
+  });
+  const handleReset = formResetHandler(function () {
+    warningsElement.resetState();
+  });
 </script>
 
 <form
   name="album-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={(e) => e.preventDefault()}
+  onsubmit={handleSubmit}
+  onreset={handleReset}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -195,6 +219,11 @@
     </h2>
   </div>
 
+  <div
+    id="tracklist"
+    class="col-span-full h-32 w-full"
+  ></div>
+
   <Divider />
 
   <FlexRow
@@ -231,7 +260,7 @@
     labelI18nKey="albumGenForm.officialLinks.label"
     tooltipI18nKey="albumGenForm.officialLinks.tooltip"
   >
-    <div class="block w-full">
+    <div class="block h-32 w-full">
       <div
         id="official-links"
         class="w-full"
@@ -244,7 +273,7 @@
     labelI18nKey="albumGenForm.externalLinks.label"
     tooltipI18nKey="albumGenForm.externalLinks.tooltip"
   >
-    <div class="block w-full">
+    <div class="block h-32 w-full">
       <div
         id="external-links"
         class="w-full"
@@ -283,3 +312,7 @@
     />
   </div>
 </form>
+
+<Divider />
+
+<ValidationResultsAlert bind:this={warningsElement} />

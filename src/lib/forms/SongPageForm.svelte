@@ -8,6 +8,7 @@
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
@@ -16,6 +17,7 @@
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
+  import type { SvelteComponent } from "svelte";
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
@@ -23,8 +25,7 @@
 
   import type { SongPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../validation";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
-  import type { Component, SvelteComponent } from "svelte";
+  import type { SongPageValidationErrorType } from "../validation/enums";
 
   let formData: SongPageFormData = $state<SongPageFormData>({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
@@ -57,7 +58,7 @@
 
   let warningsElement: SvelteComponent;
 
-  const handleSubmit = formSubmitHandler<SongPageFormData>({
+  const handleSubmit = formSubmitHandler<SongPageFormData, SongPageValidationErrorType>({
     ignoreErrors: (() => ignoreErrors)(),
     formData,
     validate,
