@@ -5,6 +5,7 @@
   import Tooltip from "../components/reusables/Tooltip.svelte";
   import Divider from "../components/reusables/Divider.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
+  import Glossary from "../components/reusables/Glossary.svelte";
 
   let { forwardGeneratedResults }: { forwardGeneratedResults: (results: string) => void } =
     $props();
@@ -64,6 +65,8 @@
 
   <Divider />
 
+  <Glossary />
+
   <Divider />
 
   <div class="md:join col-span-full w-full">
@@ -98,6 +101,8 @@
       </button>
     </div>
   </div>
+
+  <Divider />
 
   <GenerateButton class="btn-block col-span-full" />
 </form>

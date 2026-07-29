@@ -1,0 +1,68 @@
+{
+  "syntaxGuide": {
+    "fmt": {
+      "bold": "Bold",
+      "boldExample": "bold",
+      "italic": "Italics",
+      "italicExample": "italic",
+      "boldAndItalic": "Bold & Italic",
+      "boldAndItalicExample": "bold & italic",
+      "strikethrough": "Strikethrough",
+      "strikethroughExample": "strikethrough",
+      "small": "Small Text",
+      "smallExample": "text",
+      "underline": "Underlined",
+      "underlineExample": "underline",
+      "superscript": "Superscript",
+      "subscript": "Subscript",
+      "big": "Big Text",
+      "bigExample": "text",
+      "inlineStyle": "In-line style",
+      "inlineStyleExample": "colored text"
+    },
+    "internal": {
+      "label": "Internal link: ",
+      "example": "[[Page name]]"
+    },
+    "external": {
+      "label": "Hyperlink (external website): ",
+      "example": "[https://en.wikipedia.org displayed text]"
+    },
+    "wikipedia": {
+      "label": "Link to wikipedia: ",
+      "example": "{{Wp|Page_name|displayed text}}"
+    },
+    "hmWiki": {
+      "label": "Link to Hatsune Miku Wiki (atwiki): ",
+      "example": "{{HMWiki|13|displayed text}}"
+    },
+    "vocadb": {
+      "label": "Link to Vocaloid Database: ",
+      "example": "{{VDB|S/1501|displayed text}}"
+    },
+    "sekaipedia": {
+      "label": "Link to Sekaipedia: ",
+      "example": "{{Sekaipedia|Page name|displayed text}}"
+    },
+    "proseka": {
+      "label": "Link to Project SEKAI wiki (Fandom): ",
+      "example": "{{Proseka|Page name|displayed text}}"
+    },
+    "utaite": {
+      "label": "Link to Utaite wiki: ",
+      "example": "{{Utaite|Page name|displayed text}}"
+    },
+    "vtuber": {
+      "label": "Link to Virtual YouTuber wiki: ",
+      "example": "{{Vtuber|Page name|displayed text}}"
+    },
+    "miraheze": {
+      "label": "Link to other Miraheze wiki: ",
+      "example": "[[mh:otherwiki:Page name|displayed text]]"
+    },
+    "fandom": {
+      "label": "Link to FANDOM wiki: ",
+      "example": "{{FandomWiki|otherwiki|Page name|displayed text}}"
+    }
+  }
+}

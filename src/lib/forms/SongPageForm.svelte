@@ -6,6 +6,7 @@
 
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
+  import Glossary from "../components/reusables/Glossary.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
@@ -393,6 +394,10 @@
       </div>
     </div>
   </FlexRow>
+
+  <Divider />
+
+  <Glossary />
 
   <Divider />
 
