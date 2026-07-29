@@ -23,7 +23,7 @@
             href={import.meta.env.VITE_GITHUB_REPO_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            class="icon-link"
+            class="btn btn-ghost"
             title={$_("repoLinks.tooltip", {
               values: { service: $_("repoLinks.github") },
             })}
@@ -45,7 +45,7 @@
             href={import.meta.env.VITE_GITLAB_REPO_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            class="icon-link"
+            class="btn btn-ghost"
             title={$_("repoLinks.tooltip", {
               values: { service: $_("repoLinks.gitlab") },
             })}
