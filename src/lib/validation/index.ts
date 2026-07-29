@@ -65,10 +65,15 @@ export function formSubmitHandler<T, E>({
    *
    *
    * @param errorMessageKeys
+   * @param warningMessageKeys
    * @param autoloadCategories
    * @returns
    */
-  displayWarningsAndErrors: (errorMessageKeys: string[], autoloadCategories: boolean) => void;
+  displayWarningsAndErrors: (
+    errorMessageKeys: string[],
+    warningMessageKeys: string[],
+    autoloadCategories: boolean,
+  ) => void;
 }): (e: Event) => void {
   function _onFormSubmit(e: Event) {
     e.preventDefault();
@@ -79,21 +84,26 @@ export function formSubmitHandler<T, E>({
       generate();
       return;
     }
-    const fieldsToUpdate = errors.reduce((set: Set<string>, { fields }) => {
+
+    const fieldsToUpdate = new Set<string>();
+    const errorMessageKeys = [];
+    const warningMessageKeys = [];
+
+    for (const { fields, i18nKey, fatal = false } of errors) {
       for (const field of fields) {
-        set.add(field);
+        fieldsToUpdate.add(field);
       }
-      return set;
-    }, new Set<string>());
-    const errorMessageKeys = errors.reduce((arr: string[], { i18nKey }) => {
-      arr.push(i18nKey);
-      return arr;
-    }, []);
+      if (fatal) {
+        errorMessageKeys.push(i18nKey);
+      } else {
+        warningMessageKeys.push(i18nKey);
+      }
+    }
 
     for (const field of fieldsToUpdate) {
       document.getElementById(field)?.classList.add("input-error", "text-error");
     }
-    displayWarningsAndErrors(errorMessageKeys, autoloadCategories);
+    displayWarningsAndErrors(errorMessageKeys, warningMessageKeys, autoloadCategories);
   }
   return _onFormSubmit;
 }

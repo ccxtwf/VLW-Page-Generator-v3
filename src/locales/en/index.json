@@ -27,6 +27,7 @@
       "body": "The page you are looking for does not exist."
     },
     "validationErrorsHeader": "Errors",
+    "validationWarningsHeader": "Warnings",
     "autoloadCategories": "It is recommended to click the 'Autoload Categories' button before generating the page again."
   },
   "results": "Results",

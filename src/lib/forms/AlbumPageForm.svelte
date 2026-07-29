@@ -51,8 +51,8 @@
     generate() {
       console.log(formData);
     },
-    displayWarningsAndErrors(errors, autoloadCategories) {
-      warningsElement.updateState({ errors, autoloadCategories });
+    displayWarningsAndErrors(errors, warnings, autoloadCategories) {
+      warningsElement.updateState({ errors, warnings, autoloadCategories });
     },
   });
   const handleReset = formResetHandler(function () {
