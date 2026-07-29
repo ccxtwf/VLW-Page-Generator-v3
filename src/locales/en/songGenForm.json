@@ -15,7 +15,8 @@
         "verified": "Verified",
         "suspected": "Suspected"
       },
-      "placeholder": "the part of the song/video featuring usage of Generative AI"
+      "placeholder": "the part of the song/video featuring usage of Generative AI",
+      "sourcePlaceholder": "source/explanation of the AI warning"
     },
     "contentWarning": {
       "label": "Content Warnings",

@@ -76,28 +76,39 @@
     labelI18nKey="songGenForm.genAiWarning.label"
     tooltipI18nKey="songGenForm.genAiWarning.tooltip"
   >
-    <div class="join w-full">
-      <select
-        id="gen-ai-warning"
-        class="select select-bordered join-item sm:w-48"
-        bind:value={formData.aiCwState}
-      >
-        {const genAiDropdownOptions = [
-          { value: ENUM_AI_WARNING_TYPE.none, i18nKey: "none" },
-          { value: ENUM_AI_WARNING_TYPE.verified, i18nKey: "verified" },
-          { value: ENUM_AI_WARNING_TYPE.suspected, i18nKey: "suspected" },
-        ]}
-        {#each genAiDropdownOptions as { value, i18nKey }}
-          <option {value}>
-            {$_(`songGenForm.genAiWarning.dropdownOptions.${i18nKey}`)}
-          </option>
-        {/each}
-      </select>
-      <SimpleTextInput
-        class="input input-bordered join-item flex-1"
-        placeholder={$_("songGenForm.genAiWarning.placeholder")}
-        bind:value={formData.aiWarningText1}
-      />
+    <div class="flex w-full flex-col gap-y-2">
+      <div class="join w-full">
+        <select
+          id="gen-ai-warning"
+          class="select select-bordered join-item sm:w-48"
+          bind:value={formData.aiCwState}
+        >
+          {const genAiDropdownOptions = [
+            { value: ENUM_AI_WARNING_TYPE.none, i18nKey: "none" },
+            { value: ENUM_AI_WARNING_TYPE.verified, i18nKey: "verified" },
+            { value: ENUM_AI_WARNING_TYPE.suspected, i18nKey: "suspected" },
+          ]}
+          {#each genAiDropdownOptions as { value, i18nKey }}
+            <option {value}>
+              {$_(`songGenForm.genAiWarning.dropdownOptions.${i18nKey}`)}
+            </option>
+          {/each}
+        </select>
+        <SimpleTextInput
+          id="gen-ai-usage"
+          class="input input-bordered join-item flex-1"
+          placeholder={$_("songGenForm.genAiWarning.placeholder")}
+          bind:value={formData.aiWarningText1}
+        />
+      </div>
+      <div class="w-full">
+        <SimpleTextInput
+          id="gen-ai-source"
+          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
+          placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
+          bind:value={formData.aiWarningText2}
+        />
+      </div>
     </div>
   </FlexRow>
 
@@ -124,6 +135,7 @@
           {/each}
         </select>
         <SimpleTextInput
+          id="cw-text"
           class="input input-bordered join-item w-full flex-1"
           placeholder={$_("songGenForm.contentWarning.placeholder")}
           bind:value={formData.cwText}
@@ -335,7 +347,7 @@
     <div class="block w-full">
       <div
         id="broadcast-links"
-        class="w-full"
+        class="h-32 w-full"
       ></div>
       <div class="flex w-full flex-wrap">
         <div class="basis-1/2">
@@ -366,6 +378,10 @@
       </Tooltip>
     </h2>
   </div>
+  <div
+    id="lyrics"
+    class="col-span-full h-48 w-full"
+  ></div>
 
   <FlexRow
     labelForHtmlId="translator"
@@ -408,7 +424,7 @@
   >
     <div
       id="external-links"
-      class="w-full"
+      class="h-32 w-full"
     ></div>
   </FlexRow>
 

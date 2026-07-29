@@ -34,6 +34,7 @@
       />
       <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
         <input
+          id="infobox-bg-color-picker"
           type="color"
           bind:value={backgroundColor}
         />
@@ -51,6 +52,7 @@
       />
       <div class="join-item border-base-200 flex flex-col justify-center border pr-2 pl-2">
         <input
+          id="infobox-fg-color-picker"
           type="color"
           bind:value={color}
         />
