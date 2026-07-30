@@ -56,7 +56,9 @@
   });
   let ignoreErrors: boolean = $state(false);
 
-  let warningsElement: SvelteComponent;
+  let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
+
+  let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
   const handleSubmit = formSubmitHandler<SongPageFormData, SongPageValidationErrorType>({
     ignoreErrors: (() => ignoreErrors)(),
@@ -458,7 +460,7 @@
     tooltipI18nKey="songGenForm.categories.tooltip"
   >
     {#snippet showUnderLabel()}
-      <AutoloadCategoriesButton />
+      <AutoloadCategoriesButton onclick={() => {}} />
     {/snippet}
     <SimpleTextFieldBox
       id="categories"
@@ -475,7 +477,7 @@
     <GenerateButton />
     <SimpleCheckbox
       id="ignore-errors"
-      checked={ignoreErrors}
+      bind:checked={ignoreErrors}
       textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />

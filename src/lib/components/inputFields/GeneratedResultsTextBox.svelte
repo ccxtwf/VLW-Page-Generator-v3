@@ -5,7 +5,7 @@
 
   let results = $state("");
 
-  function updateState(newResults: string): void {
+  export function updateState(newResults: string): void {
     results = newResults;
   }
 </script>

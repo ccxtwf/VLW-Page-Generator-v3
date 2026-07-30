@@ -18,7 +18,11 @@
 
   <hr />
 
-  <AlbumPageForm />
+  <AlbumPageForm
+    ongenerate={(output) => {
+      resultsBox.updateState(output);
+    }}
+  />
 
   <Divider />
 

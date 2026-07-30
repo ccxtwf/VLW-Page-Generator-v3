@@ -18,7 +18,11 @@
 
   <hr />
 
-  <ProducerPageForm />
+  <ProducerPageForm
+    ongenerate={(output) => {
+      resultsBox.updateState(output);
+    }}
+  />
 
   <Divider />
 

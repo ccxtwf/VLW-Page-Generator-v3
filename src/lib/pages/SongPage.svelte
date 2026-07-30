@@ -18,7 +18,11 @@
 
   <hr />
 
-  <SongPageForm />
+  <SongPageForm
+    ongenerate={(output) => {
+      resultsBox.updateState(output);
+    }}
+  />
 
   <Divider />
 
