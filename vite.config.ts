@@ -3,7 +3,7 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig((env) => ({
   staged: {
     "*": "vp check --fix",
   },
@@ -31,4 +31,8 @@ export default defineConfig({
   },
 
   plugins: lazyPlugins(() => [tailwindcss(), svelte()]),
-});
+
+  define: {
+    DEBUG: env.command === "serve",
+  },
+}));
