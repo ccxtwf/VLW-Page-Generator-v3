@@ -1,5 +1,3 @@
-import { IDictionary } from ".";
-
 interface SchemaMwApiResponse {
   error?: {
     code: string;
@@ -29,14 +27,17 @@ export interface SchemaFetchedDiscographyAlbum extends SchemaMwApiResponse {
   };
   query: {
     pageids: string[];
-    pages: IDictionary<{
-      pageid: number;
-      ns: number;
-      title: string;
-      categories: {
+    pages: Record<
+      string,
+      {
+        pageid: number;
         ns: number;
         title: string;
-      }[];
-    }>;
+        categories: {
+          ns: number;
+          title: string;
+        }[];
+      }
+    >;
   };
 }

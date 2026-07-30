@@ -1,5 +1,3 @@
-import { IDictionary } from ".";
-
 export type VdbPageType = "S" | "Al" | "Ar";
 
 export enum ArtistCategory {
