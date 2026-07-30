@@ -17,7 +17,7 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate } from "../logic/producers";
+  import { validate, generatePage } from "../logic/producers";
 
   import type { ProducerPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -52,11 +52,13 @@
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
   const handleSubmit = formSubmitHandler<ProducerPageFormData, ProducerPageValidationErrorType>({
-    ignoreErrors: (() => ignoreErrors)(),
-    formData,
+    fetchLatestSnapshot() {
+      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+    },
     validate,
-    generate() {
-      console.log(formData);
+    generate(formData) {
+      const output = generatePage(formData);
+      ongenerate(output);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
       warningsElement.updateState({ errors, warnings, autoloadCategories });

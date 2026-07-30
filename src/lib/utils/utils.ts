@@ -20,3 +20,24 @@ export function preprocessStringParams<T>(formData: T, keys: string[]): T {
   }
   return formData;
 }
+
+export function detonePinyin(romText: string, bShowUmlaut = false): string {
+  romText = romText.replace(/[āáǎà]/gm, "a");
+  romText = romText.replace(/[ĀÁǍÀ]/gm, "A");
+  romText = romText.replace(/[īíǐì]/gm, "i");
+  romText = romText.replace(/[ĪÍǏÌ]/gm, "I");
+  romText = romText.replace(/[ūúǔù]/gm, "u");
+  romText = romText.replace(/[ŪÚǓÙ]/gm, "U");
+  romText = romText.replace(/[ēéěè]/gm, "e");
+  romText = romText.replace(/[ĒÉĚÈ]/gm, "E");
+  romText = romText.replace(/[ōóǒò]/gm, "o");
+  romText = romText.replace(/[ŌÓǑÒ]/gm, "O");
+  if (bShowUmlaut) {
+    romText = romText.replace(/[ǖǘǚǜ]/gm, "ü");
+    romText = romText.replace(/[ǕǗǙǛ]/gm, "Ü");
+  } else {
+    romText = romText.replace(/[ǖǘǚǜ]/gm, "v");
+    romText = romText.replace(/[ǕǗǙǛ]/gm, "V");
+  }
+  return romText;
+}

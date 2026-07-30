@@ -27,27 +27,28 @@ export interface ValidationBundledErrors<E> {
  * Prepares an event handler to be passed onto the "Generate" button that
  * is fired on a submit-form event.
  *
- * @param ignoreErrors
- * @param formData
+ * @param fetchLastSnapshot
  * @param validate
  * @param generate
  * @param displayWarningsAndErrors
  * @returns
  */
 export function formSubmitHandler<T, E>({
-  ignoreErrors,
-  formData,
+  fetchLatestSnapshot,
   validate,
   generate,
   displayWarningsAndErrors,
 }: {
   /**
-   * Set to `true` to ignore errors and generate the page. Validation will not be performed.
+   * A callback function that will be called to get the last snapshot of
+   * `ignoreErrors` and `formData`
    */
-  ignoreErrors: boolean;
-  formData: T;
+  fetchLatestSnapshot: () => [boolean, T];
   /**
-   * Callback function that will be called to validate the form input.
+   * Callback function that will be called to preprocess and to validate the
+   * form input.
+   *
+   * When `skip` is set to `true`, no validation is done (only preprocessing)
    *
    * @param formData
    * @returns
@@ -55,12 +56,11 @@ export function formSubmitHandler<T, E>({
   validate: (formData: T) => ValidationBundledErrors<E>;
   /**
    * Callback function that will be called to generate the page output.
-   * The component manages the data that is handled by this function,
-   * and how the output will be handled.
+   * The component manages how this output will be handled.
    *
    * @returns
    */
-  generate: () => void;
+  generate: (processedFormData: T) => void;
   /**
    *
    *
@@ -77,12 +77,24 @@ export function formSubmitHandler<T, E>({
 }): (e: Event) => void {
   function _onFormSubmit(e: Event) {
     e.preventDefault();
-    const { errors, autoloadCategories, fatal } = ignoreErrors
-      ? { errors: [], autoloadCategories: false, fatal: false }
-      : validate(formData);
-    if (!fatal) {
-      generate();
-      return;
+
+    const [ignoreErrors, formData] = fetchLatestSnapshot();
+
+    if (DEBUG) {
+      console.log("ON SUBMIT FORM", ignoreErrors);
+      console.table(formData);
+    }
+
+    const { errors, autoloadCategories, fatal } = validate(formData);
+
+    if (DEBUG) {
+      console.log("ON PREPROCESSING", formData);
+      console.log("ON VALIDATION", { errors, autoloadCategories, fatal });
+      console.table(formData);
+    }
+
+    if (!fatal || ignoreErrors) {
+      generate(formData);
     }
 
     const fieldsToUpdate = new Set<string>();

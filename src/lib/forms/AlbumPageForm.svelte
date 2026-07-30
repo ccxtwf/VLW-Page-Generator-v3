@@ -16,7 +16,7 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate } from "../logic/albums";
+  import { validate, generatePage } from "../logic/albums";
 
   import type { AlbumPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -47,11 +47,13 @@
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
   const handleSubmit = formSubmitHandler<AlbumPageFormData, AlbumPageValidationErrorType>({
-    ignoreErrors: (() => ignoreErrors)(),
-    formData,
+    fetchLatestSnapshot() {
+      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+    },
     validate,
-    generate() {
-      console.log(formData);
+    generate(formData) {
+      const output = generatePage(formData);
+      ongenerate(output);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
       warningsElement.updateState({ errors, warnings, autoloadCategories });

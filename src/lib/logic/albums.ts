@@ -4,11 +4,28 @@ import { AlbumPageValidationErrorType } from "./enums";
 import { getErrorForAlbumValidation } from ".";
 import type { ValidationError, ValidationBundledErrors } from ".";
 
-import { preprocessStringParams, validateColour } from "../utils/utils";
+import { detonePinyin, preprocessStringParams, validateColour } from "../utils/utils";
 
 export function validate(
   formData: AlbumPageFormData,
 ): ValidationBundledErrors<AlbumPageValidationErrorType> {
+  preprocessStringParams(formData, [
+    "origTitle",
+    "romTitle",
+    "engTitle",
+    "bgColour",
+    "fgColour",
+    "label",
+    "description",
+    "publishedYear",
+    "publishedMonth",
+    "publishedDay",
+    "vdbAlbumId",
+    "vocaWikiPage",
+    "categoriesRaw",
+  ]);
+  formData.categories = formData.categoriesRaw === "" ? [] : formData.categoriesRaw.split("\n");
+
   let {
     origTitle,
     bgColour,
@@ -19,18 +36,8 @@ export function validate(
     publishedDay,
     engines,
     vdbAlbumId,
-    categoriesRaw,
-  }: AlbumPageFormData = preprocessStringParams(formData, [
-    "origTitle",
-    "bgColour",
-    "fgColour",
-    "description",
-    "publishedYear",
-    "publishedMonth",
-    "publishedDay",
-    "vdbAlbumId",
-    "categoriesRaw",
-  ]);
+    categories,
+  } = formData;
 
   const errors: ValidationError<AlbumPageValidationErrorType>[] = [];
 
@@ -117,7 +124,6 @@ export function validate(
     );
   }
 
-  const categories = categoriesRaw.split("\n");
   if (categories.length === 0) {
     errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_CATEGORIES));
   }
@@ -125,4 +131,113 @@ export function validate(
   const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
   const fatal = errors.some(({ fatal }) => fatal);
   return { errors, autoloadCategories, fatal };
+}
+
+export function generatePage(formData: AlbumPageFormData): string {
+  let {
+    origTitle,
+    romTitle,
+    engTitle,
+    bgColour,
+    fgColour,
+    label,
+    description,
+    isCompilationAlbum,
+    publishedYear,
+    publishedMonth,
+    publishedDay,
+    vdbAlbumId,
+    vocaWikiPage,
+    categories,
+  } = formData;
+
+  let displayTitleTemplate: string = "";
+  let dateSegment: string = "";
+  let moreInfoLinksSegment: string = "";
+  let trackListSegment: string = "";
+  let streamingSegment: string = "";
+  let officialLinksWikitext: string = "";
+  let unofficialLinksWikitext: string = "";
+  let extLinksSegment: string = "";
+  let sortTemplateSegment: string = "";
+
+  if (origTitle.match(/^[a-z]/) !== null) {
+    displayTitleTemplate = "{{Lowercase}}";
+  }
+  if (origTitle.match(/_/g) !== null) {
+    displayTitleTemplate = `{{DISPLAYTITLE:${origTitle}}}`;
+  }
+
+  if (publishedYear !== "" || publishedMonth !== "" || publishedDay !== "") {
+    dateSegment = `{{DateAlbum|${publishedYear}|${publishedMonth}|${publishedDay}}}`;
+  }
+
+  /*
+  trackListSegment = tracklist.map(track => (
+    `|${
+      track.discNo == '1' ? '' : track.discNo
+    }tr${track.trackNo} = ${track.pageTitle}\n|${
+      track.discNo == '1' ? '' : track.discNo
+    }tr${track.trackNo}s = ${track.credits}`
+  )).join('\n');
+  streamingSegment = officialStreamingLinks.map(({ paramKey, paramValue }) => {
+    return `|${paramKey} = ${paramValue}`;
+  }).join('\n');
+
+  const officialLinks = [];
+  const unofficialLinks = [];
+  const moreInfoLinks: IDictionary<string> = {};
+  for (let extLink of extLinks) {
+    if (extLink.isOfficial) {
+      officialLinks.push(extLink);
+    } else {
+      unofficialLinks.push(extLink);
+    }
+    if (extLink.mapToAlbumInfoboxReadMoreParam !== null) {
+      moreInfoLinks[extLink.mapToAlbumInfoboxReadMoreParam] = extLink.url;
+    }
+  }
+  unofficialLinksWikitext = unofficialLinks
+    .map(el => '* ' + el.getWikitext())
+    .join('\n');
+  officialLinksWikitext = officialLinks
+    .map(el => '* ' + el.getWikitext())
+    .join('\n');
+  moreInfoLinksSegment = Object.entries(moreInfoLinks).map(([k, v]) => {
+    return `|${k} = ${v}`;
+  }).join("\n");
+  if (unofficialLinksWikitext !== '' || officialLinksWikitext !== '') {
+    extLinksSegment = '==External Links==\n';
+    extLinksSegment += officialLinksWikitext;
+    extLinksSegment += officialLinksWikitext === '' ? '' : '\n';
+    extLinksSegment += unofficialLinksWikitext === '' ? '' : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
+  }
+  */
+
+  if (romTitle !== origTitle && romTitle !== "") {
+    sortTemplateSegment = "{{sort-album";
+    const plcRom = detonePinyin(romTitle, false);
+    if (plcRom.replace(/[ -~]/g, "") !== "") {
+      sortTemplateSegment += `|${plcRom}}}\n`;
+    } else {
+      sortTemplateSegment += "}}\n";
+    }
+  }
+
+  return `
+${displayTitleTemplate}{{Album Infobox
+|title = ${romTitle === "" ? origTitle : romTitle}${romTitle === "" ? "" : `\n|orgtitle = ${origTitle}`}${engTitle === "" ? "" : `\n|english = ${engTitle}`}
+|label = ${label}
+|desc = ${description}
+|date = ${dateSegment}
+|vdb = ${vdbAlbumId}
+|vw = ${vocaWikiPage}${isCompilationAlbum ? "\n|compilation = 1" : ""}${moreInfoLinksSegment === "" ? "" : "\n" + moreInfoLinksSegment}
+
+${streamingSegment === "" ? "" : streamingSegment + "\n\n"}|color = ${bgColour}; color:${fgColour}
+${trackListSegment}
+}}
+
+${extLinksSegment}${sortTemplateSegment}${categories!
+    .map((cat) => `[[Category:${cat}]]`)
+    .join("\n")}`.trim();
 }

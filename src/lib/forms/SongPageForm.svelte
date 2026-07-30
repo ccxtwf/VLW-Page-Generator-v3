@@ -21,7 +21,7 @@
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
-  import { validate } from "../logic/songs";
+  import { validate, generatePage } from "../logic/songs";
 
   import type { SongPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -44,7 +44,7 @@
     titleIsOfficiallyTranslated: false,
     bgColour: "black",
     fgColour: "white",
-    uploadDate: "",
+    uploadDateRaw: "",
     isAlbumOnly: false,
     isUnavailable: false,
     singers: "",
@@ -61,11 +61,13 @@
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
   const handleSubmit = formSubmitHandler<SongPageFormData, SongPageValidationErrorType>({
-    ignoreErrors: (() => ignoreErrors)(),
-    formData,
+    fetchLatestSnapshot() {
+      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+    },
     validate,
-    generate() {
-      console.log(formData);
+    generate(formData) {
+      const output = generatePage(formData);
+      ongenerate(output);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
       warningsElement.updateState({ errors, warnings, autoloadCategories });
