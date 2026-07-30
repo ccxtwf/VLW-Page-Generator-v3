@@ -1,0 +1,7 @@
+[project]
+name = "maintenance"
+version = "0.1.0"
+description = "Maintenance scripts for the VLW Page Generator"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["requests>=2.34.2", "rich>=15.0.0"]

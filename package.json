@@ -8,7 +8,10 @@
     "build": "vp build",
     "preview": "vp preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "prepEngines": "uv run --project maintenance/ maintenance/synths.py engines",
+    "prepSynths": "uv run --project maintenance/ maintenance/synths.py synths",
+    "vdb-check": "uv run --project maintenance/ maintenance/missing-vdb.py Vocaloid,SynthesizerV,CeVIO,NewType,VoiSona"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
