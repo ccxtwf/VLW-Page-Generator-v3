@@ -17,11 +17,11 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate } from "../validation/producers";
+  import { validate } from "../logic/producers";
 
   import type { ProducerPageFormData } from "../../schemas/form";
-  import { formSubmitHandler, formResetHandler } from "../validation";
-  import type { ProducerPageValidationErrorType } from "../validation/enums";
+  import { formSubmitHandler, formResetHandler } from "../logic";
+  import type { ProducerPageValidationErrorType } from "../logic/enums";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({

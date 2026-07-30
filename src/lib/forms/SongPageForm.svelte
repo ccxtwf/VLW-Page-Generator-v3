@@ -21,11 +21,11 @@
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
-  import { validate } from "../validation/songs";
+  import { validate } from "../logic/songs";
 
   import type { SongPageFormData } from "../../schemas/form";
-  import { formSubmitHandler, formResetHandler } from "../validation";
-  import type { SongPageValidationErrorType } from "../validation/enums";
+  import { formSubmitHandler, formResetHandler } from "../logic";
+  import type { SongPageValidationErrorType } from "../logic/enums";
 
   let formData: SongPageFormData = $state<SongPageFormData>({
     aiCwState: ENUM_AI_WARNING_TYPE.none,

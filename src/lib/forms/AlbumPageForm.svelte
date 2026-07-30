@@ -16,11 +16,11 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate } from "../validation/albums";
+  import { validate } from "../logic/albums";
 
   import type { AlbumPageFormData } from "../../schemas/form";
-  import { formSubmitHandler, formResetHandler } from "../validation";
-  import type { AlbumPageValidationErrorType } from "../validation/enums";
+  import { formSubmitHandler, formResetHandler } from "../logic";
+  import type { AlbumPageValidationErrorType } from "../logic/enums";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
 
   let formData: AlbumPageFormData = $state<AlbumPageFormData>({
