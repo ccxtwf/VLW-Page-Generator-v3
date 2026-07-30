@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import MultiSelect from "svelte-multiselect";
-  import SYNTHS from "../../../constants/synths.json";
+  import SYNTHS from "../../../constants/synthEngines.json";
   import type { Synth } from "../../../constants/types";
 
   interface SynthsMultiSelectProps {
