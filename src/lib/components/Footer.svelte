@@ -1,6 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { ROUTES } from "../router";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
 
   const wikiGuidelinePages = [
     "Help:Basics_of_Editing",
@@ -78,7 +79,7 @@
     <nav class="w-full">
       <h6 class="footer-title">{$_("metadata.wikiGuidelinesHeader")}</h6>
       {#each wikiGuidelinePages as pageName}
-        {let url = `https://${import.meta.env.VITE_VOCALOID_LYRICS_WIKI_DOMAIN || "en.wikipedia.org"}${import.meta.env.VITE_VOCALOID_LYRICS_WIKI_ARTICLE_PATH || "/wiki"}/${pageName}`}
+        {let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}/${pageName}`}
         {let displayedPageName = pageName.slice(5).replaceAll(/_/g, " ")}
         <a
           href={url}
