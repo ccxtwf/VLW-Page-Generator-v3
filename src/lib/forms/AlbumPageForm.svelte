@@ -16,7 +16,7 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate, generatePage } from "../logic/albums";
+  import { validate, generatePage, autoloadCategories } from "../logic/albums";
 
   import type { AlbumPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -62,6 +62,10 @@
   const handleReset = formResetHandler(function () {
     warningsElement.resetState();
   });
+  const handleAutoloadCategories = () => {
+    const categories = autoloadCategories($state.snapshot(formData));
+    formData.categoriesRaw = categories.join("\n");
+  };
 </script>
 
 <form
@@ -293,7 +297,7 @@
     tooltipI18nKey="albumGenForm.categories.tooltip"
   >
     {#snippet showUnderLabel()}
-      <AutoloadCategoriesButton onclick={() => {}} />
+      <AutoloadCategoriesButton onclick={handleAutoloadCategories} />
     {/snippet}
     <SimpleTextFieldBox
       id="categories"

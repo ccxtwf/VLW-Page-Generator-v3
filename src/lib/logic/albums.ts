@@ -241,3 +241,54 @@ ${extLinksSegment}${sortTemplateSegment}${categories!
     .map((cat) => `[[Category:${cat}]]`)
     .join("\n")}`.trim();
 }
+
+function detectProducerOrSingerInMarkup(wikitext: string): string[] {
+  const res: string[] = [];
+  const arrMarkup = wikitext.matchAll(/\[\[(?<base>[^|\n\]]*)\|?(?<cap>(?<=\|)[^\]]*)?\]\]/g);
+  for (let markup of arrMarkup) {
+    let { base = "" } = markup.groups || {};
+    base = base.trim();
+    if (base === "") {
+      continue;
+    }
+    // Producer category tag
+    base = base.replace(/^:[Cc]ategory:(.*) songs list$/, "$1");
+    res.push(base);
+  }
+  return res;
+}
+
+export function autoloadCategories({ description, engines }: AlbumPageFormData): string[] {
+  const res: string[] = [];
+
+  const producers: string[] = [];
+  const singers: string[] = [];
+
+  let markedUpProducersInDesc: Set<string> = new Set(detectProducerOrSingerInMarkup(description));
+  let markedUpProducersInTracklist: Set<string> = new Set();
+  let markedUpSingersInTracklist: Set<string> = new Set();
+  // for (let track of tracklistData) {
+  //   const detectedProducers = detectProducerOrSingerInMarkup(track[3]?.trim() || '');
+  //   const detectedSingers = detectProducerOrSingerInMarkup(track[4]?.trim() || '');
+  //   for (let prod of detectedProducers) {
+  //     markedUpProducersInTracklist.add(prod);
+  //   }
+  //   for (let singer of detectedSingers) {
+  //     markedUpSingersInTracklist.add(singer);
+  //   }
+  // }
+  for (let prod of markedUpProducersInDesc) {
+    if (markedUpProducersInTracklist.has(prod)) {
+      markedUpProducersInTracklist.delete(prod);
+    }
+  }
+  producers.push(...markedUpProducersInDesc);
+  producers.push(...markedUpProducersInTracklist);
+  singers.push(...markedUpSingersInTracklist);
+
+  res.push(...engines.map(({ label }) => `Albums featuring ${label}`));
+  res.push(...singers.map((singer) => `Albums featuring ${singer}`));
+  res.push(...producers.map((producer) => `${producer} songs list/Albums`));
+
+  return res;
+}

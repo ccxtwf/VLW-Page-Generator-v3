@@ -21,7 +21,7 @@
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
-  import { validate, generatePage } from "../logic/songs";
+  import { validate, generatePage, autoloadCategories } from "../logic/songs";
 
   import type { SongPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -76,6 +76,10 @@
   const handleReset = formResetHandler(function () {
     warningsElement.resetState();
   });
+  const handleAutoloadCategories = () => {
+    const categories = autoloadCategories($state.snapshot(formData));
+    formData.categoriesRaw = categories.join("\n");
+  };
 </script>
 
 <form
@@ -462,7 +466,7 @@
     tooltipI18nKey="songGenForm.categories.tooltip"
   >
     {#snippet showUnderLabel()}
-      <AutoloadCategoriesButton onclick={() => {}} />
+      <AutoloadCategoriesButton onclick={handleAutoloadCategories} />
     {/snippet}
     <SimpleTextFieldBox
       id="categories"

@@ -305,3 +305,88 @@ ${lyricsSegment}
 
 ${extLinksSegment}${categories!.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 }
+
+export function autoloadCategories({ producers = "" }: SongPageFormData): string[] {
+  const res: string[] = [];
+
+  const standardizeCategory = (base: string): string | null => {
+    base = base.trim();
+    if (base === "") {
+      return null;
+    }
+    if (base.match(/^:[Cc]ategory:(?:.*) songs list/)) {
+      base = base.replace(/^:[Cc]ategory:\s*/, "");
+    } else {
+      base = `${base} songs list`;
+    }
+    return base;
+  };
+
+  /**
+   * Match for the following:
+   *   - [[wowaka]] (music, lyrics)
+   *   - [[Hachi|Kenshi Yonezu]] (music, lyrics)
+   */
+  const producersInMarkup = producers.matchAll(
+    /\[\[(?<base>[^|\n\]]*)\|?(?<cap>(?<=\|)[^|\n\]]*)?\]\]\s*(?:\((?<role>.*)\)|)/g,
+  );
+  for (let producer of producersInMarkup) {
+    let { base = "", role = "" } = producer.groups || {};
+
+    // Infer base producer category
+    const prodCategoryTag = standardizeCategory(base);
+    if (!prodCategoryTag) {
+      continue;
+    }
+
+    // Infer subcategories if any
+    const splitRoles = role.toLowerCase().split(/\s*,\s*/g);
+    let matchedSubtags: Set<string> = new Set();
+    for (let role of splitRoles) {
+      if (role === "" || role === "music" || role === "compose" || role === "composition") {
+        matchedSubtags = new Set();
+        matchedSubtags.add("");
+        break;
+      }
+      switch (role) {
+        case "lyrics":
+          matchedSubtags.add("/Lyrics");
+          break;
+        case "tuning":
+          matchedSubtags.add("/Tuning");
+          break;
+        case "arrange":
+        case "arrangement":
+          matchedSubtags.add("/Arrangement");
+          break;
+        case "illust":
+        case "illustration":
+        case "pv":
+        case "movie":
+        case "video":
+        case "animation":
+          matchedSubtags.add("/Visuals");
+          break;
+        case "mix":
+        case "master":
+        case "mastering":
+        case "instruments":
+        case "other":
+          matchedSubtags.add("/Other");
+          break;
+        default:
+          matchedSubtags.add("");
+          break;
+      }
+    }
+    if (matchedSubtags.has("")) {
+      res.push(`${prodCategoryTag}`);
+      matchedSubtags.delete("");
+    }
+    for (let subtag of matchedSubtags) {
+      res.push(`${prodCategoryTag}${subtag}`);
+    }
+  }
+
+  return res;
+}
