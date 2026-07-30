@@ -323,7 +323,7 @@
   >
     <SimpleDateInput
       id="upload-date"
-      bind:value={formData.uploadDate}
+      bind:value={formData.uploadDateRaw}
     />
   </FlexRow>
 

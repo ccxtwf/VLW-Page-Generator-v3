@@ -22,7 +22,8 @@ export interface SongPageFormData {
   titleIsOfficiallyTranslated: boolean;
   bgColour: string;
   fgColour: string;
-  uploadDate: string;
+  uploadDateRaw: string;
+  uploadDate?: Date | null;
   isAlbumOnly: boolean;
   isUnavailable: boolean;
   singers: string;
@@ -31,6 +32,7 @@ export interface SongPageFormData {
   translator: string;
   isOfficialTranslation: boolean;
   categoriesRaw: string;
+  categories?: string[];
 }
 
 export interface LyricRowData {
@@ -84,6 +86,7 @@ export interface AlbumPageFormData {
   vdbAlbumId: string;
   vocaWikiPage: string;
   categoriesRaw: string;
+  categories?: string[];
 }
 
 export interface AlbumTrackData {
@@ -121,8 +124,6 @@ export interface ProducerRoles {
 export interface ProducerDiscographyItem {
   page: string;
   additionalParameters: string;
-  forAlbums: boolean;
-  isCompilation?: boolean;
 
   toWikitext: () => string;
 }
