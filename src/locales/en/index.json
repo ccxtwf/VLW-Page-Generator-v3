@@ -32,7 +32,12 @@
   },
   "results": "Results",
   "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
-  "confirmExit": "Are you sure that you want to leave this page?",
+  "fetch": {
+    "invalidVdb": "VocaDB URL must follow the specified format: e.g. https://vocadb.net/{1}",
+    "errorFetch": "Failed to fetch data from {1}. Got an unexpected response from the server.",
+    "errorUnhandled": "Failed to fetch data from {1}. An unexpected error has occurred.",
+    "success": "Successfully fetched data from {1}!"
+  },
   "infoboxColors": {
     "label": "Infobox BG/FG colors",
     "tooltip": "Infobox background (left) and foreground (right) colour<br/>hexadecimal colour, e.g., #ff0000<br/><em>or</em><br/>colour name, e.g., red",

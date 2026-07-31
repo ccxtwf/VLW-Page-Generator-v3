@@ -21,11 +21,12 @@
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
 
-  import { validate, generatePage, autoloadCategories } from "../logic/songs";
+  import { validate, generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs";
 
   import type { SongPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
   import type { SongPageValidationErrorType } from "../logic/enums";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   let formData: SongPageFormData = $state<SongPageFormData>({
     aiCwState: ENUM_AI_WARNING_TYPE.none,
@@ -60,6 +61,24 @@
 
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
+  const handleFetchVocaDb = async (url: string) => {
+    if (window.confirm($_("confirmClear"))) {
+      const __a = { "1": "VocaDB" };
+      try {
+        formData = await fetchDataFromVocaDb(url);
+        window.alert($_("fetch.success", { values: __a }));
+      } catch (err) {
+        console.error(err);
+        if (err instanceof VocaDBInvalidUrlError) {
+          window.alert($_("fetch.invalidVdb", { values: { "1": "S/1501" } }));
+        } else if (err instanceof ExternalWebServiceError) {
+          window.alert($_("fetch.errorFetch", { values: __a }));
+        } else {
+          window.alert($_("fetch.errorUnhandled", { values: __a }));
+        }
+      }
+    }
+  };
   const handleSubmit = formSubmitHandler<SongPageFormData, SongPageValidationErrorType>({
     fetchLatestSnapshot() {
       return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
@@ -94,10 +113,8 @@
     tooltipI18nKey="songGenForm.preloadVocaDb.tooltip"
   >
     <PreloadFromVocaDBInput
-      handleFetch={() => {
-        console.log(formData);
-      }}
-      placeholder="https://vocadb.net/S/..."
+      onfetch={handleFetchVocaDb}
+      placeholder="https://vocadb.net/S/1501"
     />
   </FlexRow>
 
