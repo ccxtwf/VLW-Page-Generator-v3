@@ -1,20 +1,29 @@
 # Crypton Vocaloid top bench
 
-Hatsune Miku
-Kagamine Rin
-Kagamine Len
+Hatsune Miku (VOCALOID)
+Hatsune Miku (Piapro Studio)
+Kagamine Rin (VOCALOID)
+Kagamine Len (VOCALOID)
 KAITO
 MEIKO
 Megurine Luka
 
 # Zeitgeist
 
-Kasane Teto
-Adachi Rei
-flower
-Otomachi Una
-Zundamon
-KAFU
+Kasane Teto (UTAU)
+Kasane Teto (Synthesizer V)
+Adachi Rei (UTAU)
+flower (VOCALOID)
+Otomachi Una (VOCALOID)
+Otomachi Una (Synthesizer V)
+Otomachi Una (VOICEPEAK)
+Zundamon (VOICEVOX)
+Zundamon (UTAU)
+Zundamon (NEUTRINO)
+Zundamon (VOICEPEAK)
+Zundamon (CeVIO)
+Zundamon (VoiSona)
+KAFU (CeVIO)
 
 # English synths
 
@@ -27,25 +36,37 @@ YOHIOloid
 
 # Chinese synths
 
-Luo Tianyi
-Yuezheng Ling
-YANHE
-Yuezheng Longya
-Zhiyu Moke
-Mo Qingxian
+Luo Tianyi (VOCALOID)
+Luo Tianyi (ACE Virtual Singer)
+Luo Tianyi (X Studio Singer)
+Yuezheng Ling (VOCALOID)
+Yuezheng Ling (ACE Virtual Singer)
+YANHE (VOCALOID)
+YANHE (ACE Virtual Singer)
+Yuezheng Longya (VOCALOID)
+Yuezheng Longya (ACE Virtual Singer)
+Zhiyu Moke (VOCALOID)
+Zhiyu Moke (ACE Virtual Singer)
+Mo Qingxian (VOCALOID)
+Mo Qingxian (ACE Virtual Singer)
 Xin Hua
-Xingchen
+Xingchen (VOCALOID)
+Xingchen (Synthesizer V)
 Minus
 Shian
-Haiyi
-Cangqiong
+Haiyi (Synthesizer V)
+Cangqiong (Synthesizer V)
 Muxin
 Chiyu
 Yi Xi
 
 # Japanese synths
 
-IA
-GUMI
-Yuzuki Yukari
-Namine Ritsu
+IA (VOCALOID)
+IA (CeVIO)
+IA (VoiSona)
+GUMI (VOCALOID)
+Yuzuki Yukari (VOCALOID)
+Yuzuki Yukari (CeVIO)
+Yuzuki Yukari (VOICEROID)
+Namine Ritsu (UTAU)

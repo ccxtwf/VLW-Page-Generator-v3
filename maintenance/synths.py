@@ -63,21 +63,48 @@ def recreate_synths_json():
   console.print(f"Caching results for {len(priority_synths)} synths!", style="magenta")
 
   q = f"""
-    SELECT 
-      vdb_id, basevb_name, wikicat_name 
+    WITH ll(wikicat) AS (
+      VALUES { ",".join(map(lambda s: f"('{s}')", priority_synths)) }
+    ) 
+    SELECT wikicat FROM ll
+    WHERE wikicat NOT IN (SELECT DISTINCT wikicat_name FROM synths)
+    ;
+  """
+  ll = db.execute(q).fetchall()
+  if len(ll) > 0:
+    console.print(f"{len(ll)} synths are missing: {", ".join(map(lambda t : t[0], ll))}", style="red")
+
+  q = f"""
+    SELECT DISTINCT 
+      wikicat_name, basevb_name, engine_id 
     FROM synths s 
-    WHERE basevb_name IN ({ ",".join(map(lambda s: f"'{s}'", priority_synths)) });
+    WHERE wikicat_name IN ({ ",".join(map(lambda s: f"'{s}'", priority_synths)) })
+    ;
+  """
+  ls = db.execute(q).fetchall()
+  lt = [{ "base": b, "cat": c, "eng": e } for (c, b, e) in ls]
+
+  dd = { c: idx for idx, (c, b, e) in enumerate(ls) }
+
+  q = f"""
+    SELECT 
+      vdb_id, wikicat_name 
+    FROM synths s 
+    WHERE wikicat_name IN ({ ",".join(map(lambda s: f"'{s}'", priority_synths)) })
+    ORDER BY lower(wikicat_name) ASC, vdb_id DESC
+    ;
   """
   ll = db.execute(q).fetchall()
   console.print(f"Fetched {len(ll)} records", style="magenta")
 
-  d: Dict[str, Dict[str, str | List[int]]] = {}
-  for vdb_id, basevb_name, wikicat_name in ll:
-    if not wikicat_name in d:
-      d[wikicat_name] = { "base": basevb_name, "vdbIds": [] }
-    d[wikicat_name]["vdbIds"].append(vdb_id) # type: ignore
+  de = { id: dd[c] for id, c in ll }
 
-  _json = json.dumps(d, ensure_ascii=False, indent=2)
+  l = {
+    "synths": lt,
+    "dict": de
+  }
+
+  _json = json.dumps(l, ensure_ascii=False, indent=2)
 
   json_filepath = Path(__file__).resolve().parent.parent / "src" / "constants" / "synths.json"
   with open(json_filepath, mode="w+", encoding="UTF-8") as f:

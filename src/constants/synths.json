@@ -1,317 +1,543 @@
 {
-  "Zhiyu Moke (VOCALOID)": {
-    "base": "Zhiyu Moke",
-    "vdbIds": [56346]
-  },
-  "Mo Qingxian (VOCALOID)": {
-    "base": "Mo Qingxian",
-    "vdbIds": [56345]
-  },
-  "Luo Tianyi (VOCALOID)": {
-    "base": "Luo Tianyi",
-    "vdbIds": [65985, 65984, 65269, 63581, 63580, 49846, 1778, 86072, 76380, 76296, 76265]
-  },
-  "Xin Hua": {
-    "base": "Xin Hua",
-    "vdbIds": [66696, 66695, 60459, 60465, 30995]
-  },
-  "Hatsune Miku (VOCALOID)": {
-    "base": "Hatsune Miku",
-    "vdbIds": [
-      60540, 50236, 50235, 50234, 50233, 50232, 49724, 41322, 15490, 11839, 11838, 11837, 11836,
-      11835, 11834, 11833, 958, 343, 81, 80, 79, 78, 76, 75, 1, 23965, 109484, 129461, 142620,
-      171153
-    ]
-  },
-  "Yuezheng Longya (VOCALOID)": {
-    "base": "Yuezheng Longya",
-    "vdbIds": [56873, 56872, 39621]
-  },
-  "Otomachi Una (VOCALOID)": {
-    "base": "Otomachi Una",
-    "vdbIds": [49701, 49487, 49486, 120223, 120224, 120225]
-  },
-  "Xingchen (VOCALOID)": {
-    "base": "Xingchen",
-    "vdbIds": [35966]
-  },
-  "Kagamine Rin (VOCALOID)": {
-    "base": "Kagamine Rin",
-    "vdbIds": [
-      43220, 43219, 43218, 43217, 43192, 353, 349, 348, 347, 14, 142621, 170297, 168063, 167957
-    ]
-  },
-  "Kagamine Len (VOCALOID)": {
-    "base": "Kagamine Len",
-    "vdbIds": [
-      43216, 43215, 43214, 43213, 43193, 354, 352, 351, 350, 15, 142622, 170298, 168064, 167958
-    ]
-  },
-  "GUMI (VOCALOID)": {
-    "base": "GUMI",
-    "vdbIds": [
-      43281, 43280, 43279, 43278, 43277, 41887, 41886, 41885, 41884, 41883, 41882, 4634, 1881, 702,
-      271, 270, 269, 268, 3, 110052, 129464, 140052
-    ]
-  },
-  "Yuezheng Ling (VOCALOID)": {
-    "base": "Yuezheng Ling",
-    "vdbIds": [23972, 76510, 76295, 76293]
-  },
-  "flower (VOCALOID)": {
-    "base": "flower",
-    "vdbIds": [34480, 21165]
-  },
-  "Megurine Luka": {
-    "base": "Megurine Luka",
-    "vdbIds": [29491, 29490, 29489, 29488, 18748, 2, 356, 142623]
-  },
-  "Yuzuki Yukari (VOCALOID)": {
-    "base": "Yuzuki Yukari",
-    "vdbIds": [33753, 31136, 31135, 28168, 623, 129462, 156400]
-  },
-  "IA (VOCALOID)": {
-    "base": "IA",
-    "vdbIds": [17035, 504, 129463, 155226]
-  },
-  "MEIKO": {
-    "base": "MEIKO",
-    "vdbIds": [16425, 16053, 15991, 15948, 15947, 15811, 176, 903, 142624]
-  },
-  "YOHIOloid": {
-    "base": "YOHIOloid",
-    "vdbIds": [57597, 11778, 121034]
-  },
-  "YANHE (VOCALOID)": {
-    "base": "YANHE",
-    "vdbIds": [10025, 76452, 76297, 76294]
-  },
-  "KAITO": {
-    "base": "KAITO",
-    "vdbIds": [9805, 5591, 5590, 5589, 5588, 71, 852, 851, 850, 355, 109483, 142625]
-  },
-  "Xingchen (Synthesizer V)": {
-    "base": "Xingchen",
-    "vdbIds": [76283]
-  },
-  "SOLARIA": {
-    "base": "SOLARIA",
-    "vdbIds": [76317, 158032]
-  },
-  "Eleanor Forte": {
-    "base": "Eleanor Forte",
-    "vdbIds": [92247, 66906, 161237]
-  },
-  "Minus": {
-    "base": "Minus",
-    "vdbIds": [76428, 129591, 159752]
-  },
-  "Muxin": {
-    "base": "Muxin",
-    "vdbIds": [76429, 76233, 158168, 168379]
-  },
-  "Haiyi (Synthesizer V)": {
-    "base": "Haiyi",
-    "vdbIds": [74324, 151074, 159751]
-  },
-  "Cangqiong (Synthesizer V)": {
-    "base": "Cangqiong",
-    "vdbIds": [73875, 76235, 159750]
-  },
-  "Shian": {
-    "base": "Shian",
-    "vdbIds": [71416, 159749]
-  },
-  "Chiyu": {
-    "base": "Chiyu",
-    "vdbIds": [72386, 158167]
-  },
-  "IA (CeVIO)": {
-    "base": "IA",
-    "vdbIds": [95863, 95106, 86874, 67009, 67008, 49845, 56573]
-  },
-  "KAFU (CeVIO)": {
-    "base": "KAFU",
-    "vdbIds": [83928]
-  },
-  "Yuzuki Yukari (CeVIO)": {
-    "base": "Yuzuki Yukari",
-    "vdbIds": [84882]
-  },
-  "Namine Ritsu (VOICEVOX)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [98816]
-  },
-  "Adachi Rei (A.I.VOICE)": {
-    "base": "Adachi Rei",
-    "vdbIds": [101970]
-  },
-  "Yuzuki Yukari (A.I.VOICE)": {
-    "base": "Yuzuki Yukari",
-    "vdbIds": [104794, 96651, 112190, 153197, 137868]
-  },
-  "Zundamon (VOICEVOX)": {
-    "base": "Zundamon",
-    "vdbIds": [98107]
-  },
-  "Hatsune Miku (Piapro Studio)": {
-    "base": "Hatsune Miku",
-    "vdbIds": [84432, 84431, 84430, 84429, 78302, 147620, 156281, 158166, 159481]
-  },
-  "Otomachi Una (VOICEROID)": {
-    "base": "Otomachi Una",
-    "vdbIds": [87780]
-  },
-  "Yuzuki Yukari (VOICEROID)": {
-    "base": "Yuzuki Yukari",
-    "vdbIds": [88256, 88768]
-  },
-  "Otomachi Una (TalkEx)": {
-    "base": "Otomachi Una",
-    "vdbIds": [57337]
-  },
-  "Luo Tianyi (ACE Virtual Singer)": {
-    "base": "Luo Tianyi",
-    "vdbIds": [76197]
-  },
-  "Namine Ritsu (Sinsy)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [44706]
-  },
-  "Namine Ritsu (NNSVS)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [95251]
-  },
-  "Namine Ritsu (DeepVocal)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [90742]
-  },
-  "Kasane Teto (UTAU)": {
-    "base": "Kasane Teto",
-    "vdbIds": [116]
-  },
-  "Namine Ritsu (UTAU)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [1746, 1925, 46955]
-  },
-  "Adachi Rei (UTAU)": {
-    "base": "Adachi Rei",
-    "vdbIds": [74389]
-  },
-  "Cangqiong (UTAU)": {
-    "base": "Cangqiong",
-    "vdbIds": [70235]
-  },
-  "Haiyi (UTAU)": {
-    "base": "Haiyi",
-    "vdbIds": [63844]
-  },
-  "Zundamon (UTAU)": {
-    "base": "Zundamon",
-    "vdbIds": [58538]
-  },
-  "Zundamon (NEUTRINO)": {
-    "base": "Zundamon",
-    "vdbIds": [106655]
-  },
-  "ASTERIAN": {
-    "base": "ASTERIAN",
-    "vdbIds": [111548, 158018]
-  },
-  "Namine Ritsu (ACE Virtual Singer)": {
-    "base": "Namine Ritsu",
-    "vdbIds": [110144]
-  },
-  "YANHE (ACE Virtual Singer)": {
-    "base": "YANHE",
-    "vdbIds": [76110]
-  },
-  "GUMI (A.I.VOICE)": {
-    "base": "GUMI",
-    "vdbIds": [107349, 138745]
-  },
-  "Zundamon (VOICEPEAK)": {
-    "base": "Zundamon",
-    "vdbIds": [114402]
-  },
-  "Yuezheng Ling (ACE Virtual Singer)": {
-    "base": "Yuezheng Ling",
-    "vdbIds": [76102]
-  },
-  "flower (CeVIO)": {
-    "base": "flower",
-    "vdbIds": [116692]
-  },
-  "Kasane Teto (Synthesizer V)": {
-    "base": "Kasane Teto",
-    "vdbIds": [118397, 171066]
-  },
-  "SAROS": {
-    "base": "SAROS",
-    "vdbIds": [118795, 158322]
-  },
-  "GUMI (Synthesizer V)": {
-    "base": "GUMI",
-    "vdbIds": [128632, 166380]
-  },
-  "KAFU (Synthesizer V)": {
-    "base": "KAFU",
-    "vdbIds": [129923]
-  },
-  "Yi Xi": {
-    "base": "Yi Xi",
-    "vdbIds": [132680, 158265]
-  },
-  "Yuzuki Yukari (VoiSona)": {
-    "base": "Yuzuki Yukari",
-    "vdbIds": [120208]
-  },
-  "Luo Tianyi (X Studio Singer)": {
-    "base": "Luo Tianyi",
-    "vdbIds": [131835]
-  },
-  "Yuezheng Longya (ACE Virtual Singer)": {
-    "base": "Yuezheng Longya",
-    "vdbIds": [121554]
-  },
-  "Otomachi Una (VOICEPEAK)": {
-    "base": "Otomachi Una",
-    "vdbIds": [123479]
-  },
-  "flower (VoiSona)": {
-    "base": "flower",
-    "vdbIds": [136621]
-  },
-  "Mo Qingxian (ACE Virtual Singer)": {
-    "base": "Mo Qingxian",
-    "vdbIds": [139205]
-  },
-  "Otomachi Una (Synthesizer V)": {
-    "base": "Otomachi Una",
-    "vdbIds": [147883, 166384]
-  },
-  "NYL": {
-    "base": "NYL",
-    "vdbIds": [145329, 158323]
-  },
-  "Zundamon (CeVIO)": {
-    "base": "Zundamon",
-    "vdbIds": [140306]
-  },
-  "Otomachi Una (A.I.VOICE)": {
-    "base": "Otomachi Una",
-    "vdbIds": [153606]
-  },
-  "Zundamon (VoiSona)": {
-    "base": "Zundamon",
-    "vdbIds": [140619]
-  },
-  "IA (VoiSona)": {
-    "base": "IA",
-    "vdbIds": [139958, 139957]
-  },
-  "Zhiyu Moke (ACE Virtual Singer)": {
-    "base": "Zhiyu Moke",
-    "vdbIds": [145352]
+  "synths": [
+    {
+      "base": "Zhiyu Moke",
+      "cat": "Zhiyu Moke (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Mo Qingxian",
+      "cat": "Mo Qingxian (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Luo Tianyi",
+      "cat": "Luo Tianyi (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Xin Hua",
+      "cat": "Xin Hua",
+      "eng": 1
+    },
+    {
+      "base": "Hatsune Miku",
+      "cat": "Hatsune Miku (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Yuezheng Longya",
+      "cat": "Yuezheng Longya (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Otomachi Una",
+      "cat": "Otomachi Una (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Xingchen",
+      "cat": "Xingchen (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Kagamine Rin",
+      "cat": "Kagamine Rin (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Kagamine Len",
+      "cat": "Kagamine Len (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "GUMI",
+      "cat": "GUMI (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Yuezheng Ling",
+      "cat": "Yuezheng Ling (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "flower",
+      "cat": "flower (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "Megurine Luka",
+      "cat": "Megurine Luka",
+      "eng": 1
+    },
+    {
+      "base": "Yuzuki Yukari",
+      "cat": "Yuzuki Yukari (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "IA",
+      "cat": "IA (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "MEIKO",
+      "cat": "MEIKO",
+      "eng": 1
+    },
+    {
+      "base": "YOHIOloid",
+      "cat": "YOHIOloid",
+      "eng": 1
+    },
+    {
+      "base": "YANHE",
+      "cat": "YANHE (VOCALOID)",
+      "eng": 1
+    },
+    {
+      "base": "KAITO",
+      "cat": "KAITO",
+      "eng": 1
+    },
+    {
+      "base": "Xingchen",
+      "cat": "Xingchen (Synthesizer V)",
+      "eng": 4
+    },
+    {
+      "base": "SOLARIA",
+      "cat": "SOLARIA",
+      "eng": 4
+    },
+    {
+      "base": "Eleanor Forte",
+      "cat": "Eleanor Forte",
+      "eng": 4
+    },
+    {
+      "base": "Minus",
+      "cat": "Minus",
+      "eng": 4
+    },
+    {
+      "base": "Muxin",
+      "cat": "Muxin",
+      "eng": 4
+    },
+    {
+      "base": "Haiyi",
+      "cat": "Haiyi (Synthesizer V)",
+      "eng": 4
+    },
+    {
+      "base": "Cangqiong",
+      "cat": "Cangqiong (Synthesizer V)",
+      "eng": 4
+    },
+    {
+      "base": "Shian",
+      "cat": "Shian",
+      "eng": 4
+    },
+    {
+      "base": "Chiyu",
+      "cat": "Chiyu",
+      "eng": 4
+    },
+    {
+      "base": "IA",
+      "cat": "IA (CeVIO)",
+      "eng": 3
+    },
+    {
+      "base": "KAFU",
+      "cat": "KAFU (CeVIO)",
+      "eng": 3
+    },
+    {
+      "base": "Yuzuki Yukari",
+      "cat": "Yuzuki Yukari (CeVIO)",
+      "eng": 3
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (VOICEVOX)",
+      "eng": 25
+    },
+    {
+      "base": "Hatsune Miku",
+      "cat": "Hatsune Miku (Piapro Studio)",
+      "eng": 19
+    },
+    {
+      "base": "Yuzuki Yukari",
+      "cat": "Yuzuki Yukari (VOICEROID)",
+      "eng": 24
+    },
+    {
+      "base": "Luo Tianyi",
+      "cat": "Luo Tianyi (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Kasane Teto",
+      "cat": "Kasane Teto (UTAU)",
+      "eng": 2
+    },
+    {
+      "base": "Namine Ritsu",
+      "cat": "Namine Ritsu (UTAU)",
+      "eng": 2
+    },
+    {
+      "base": "Adachi Rei",
+      "cat": "Adachi Rei (UTAU)",
+      "eng": 2
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (UTAU)",
+      "eng": 2
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (NEUTRINO)",
+      "eng": 15
+    },
+    {
+      "base": "ASTERIAN",
+      "cat": "ASTERIAN",
+      "eng": 4
+    },
+    {
+      "base": "YANHE",
+      "cat": "YANHE (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (VOICEPEAK)",
+      "eng": 28
+    },
+    {
+      "base": "Yuezheng Ling",
+      "cat": "Yuezheng Ling (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Kasane Teto",
+      "cat": "Kasane Teto (Synthesizer V)",
+      "eng": 4
+    },
+    {
+      "base": "SAROS",
+      "cat": "SAROS",
+      "eng": 4
+    },
+    {
+      "base": "Yi Xi",
+      "cat": "Yi Xi",
+      "eng": 4
+    },
+    {
+      "base": "Luo Tianyi",
+      "cat": "Luo Tianyi (X Studio Singer)",
+      "eng": 27
+    },
+    {
+      "base": "Yuezheng Longya",
+      "cat": "Yuezheng Longya (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Otomachi Una",
+      "cat": "Otomachi Una (VOICEPEAK)",
+      "eng": 28
+    },
+    {
+      "base": "Mo Qingxian",
+      "cat": "Mo Qingxian (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Otomachi Una",
+      "cat": "Otomachi Una (Synthesizer V)",
+      "eng": 4
+    },
+    {
+      "base": "NYL",
+      "cat": "NYL",
+      "eng": 4
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (CeVIO)",
+      "eng": 3
+    },
+    {
+      "base": "Zundamon",
+      "cat": "Zundamon (VoiSona)",
+      "eng": 26
+    },
+    {
+      "base": "IA",
+      "cat": "IA (VoiSona)",
+      "eng": 26
+    },
+    {
+      "base": "Zhiyu Moke",
+      "cat": "Zhiyu Moke (ACE Virtual Singer)",
+      "eng": 6
+    },
+    {
+      "base": "Kagamine Len",
+      "cat": "Kagamine Len (VOCALOID)",
+      "eng": 19
+    },
+    {
+      "base": "Kagamine Rin",
+      "cat": "Kagamine Rin (VOCALOID)",
+      "eng": 19
+    }
+  ],
+  "dict": {
+    "74389": 38,
+    "158018": 41,
+    "111548": 41,
+    "159750": 26,
+    "76235": 26,
+    "73875": 26,
+    "158167": 28,
+    "72386": 28,
+    "161237": 22,
+    "92247": 22,
+    "66906": 22,
+    "34480": 12,
+    "21165": 12,
+    "140052": 10,
+    "129464": 10,
+    "110052": 10,
+    "43281": 10,
+    "43280": 10,
+    "43279": 10,
+    "43278": 10,
+    "43277": 10,
+    "41887": 10,
+    "41886": 10,
+    "41885": 10,
+    "41884": 10,
+    "41883": 10,
+    "41882": 10,
+    "4634": 10,
+    "1881": 10,
+    "702": 10,
+    "271": 10,
+    "270": 10,
+    "269": 10,
+    "268": 10,
+    "3": 10,
+    "159751": 25,
+    "151074": 25,
+    "74324": 25,
+    "159481": 33,
+    "158166": 33,
+    "156281": 33,
+    "147620": 33,
+    "84432": 33,
+    "84431": 33,
+    "84430": 33,
+    "84429": 33,
+    "78302": 33,
+    "171153": 4,
+    "142620": 4,
+    "129461": 4,
+    "109484": 4,
+    "60540": 4,
+    "50236": 4,
+    "50235": 4,
+    "50234": 4,
+    "50233": 4,
+    "50232": 4,
+    "49724": 4,
+    "41322": 4,
+    "23965": 4,
+    "15490": 4,
+    "11839": 4,
+    "11838": 4,
+    "11837": 4,
+    "11836": 4,
+    "11835": 4,
+    "11834": 4,
+    "11833": 4,
+    "958": 4,
+    "343": 4,
+    "81": 4,
+    "80": 4,
+    "79": 4,
+    "78": 4,
+    "76": 4,
+    "75": 4,
+    "1": 4,
+    "95863": 29,
+    "95106": 29,
+    "86874": 29,
+    "67009": 29,
+    "67008": 29,
+    "56573": 29,
+    "49845": 29,
+    "155226": 15,
+    "129463": 15,
+    "17035": 15,
+    "504": 15,
+    "139958": 56,
+    "139957": 56,
+    "83928": 30,
+    "170298": 58,
+    "168064": 58,
+    "167958": 58,
+    "142622": 58,
+    "43216": 58,
+    "43215": 58,
+    "43214": 58,
+    "43213": 58,
+    "43193": 58,
+    "354": 58,
+    "352": 58,
+    "351": 58,
+    "350": 58,
+    "15": 58,
+    "170297": 59,
+    "168063": 59,
+    "167957": 59,
+    "142621": 59,
+    "43220": 59,
+    "43219": 59,
+    "43218": 59,
+    "43217": 59,
+    "43192": 59,
+    "353": 59,
+    "349": 59,
+    "348": 59,
+    "347": 59,
+    "14": 59,
+    "142625": 19,
+    "109483": 19,
+    "9805": 19,
+    "5591": 19,
+    "5590": 19,
+    "5589": 19,
+    "5588": 19,
+    "852": 19,
+    "851": 19,
+    "850": 19,
+    "355": 19,
+    "71": 19,
+    "171066": 45,
+    "118397": 45,
+    "116": 36,
+    "76197": 35,
+    "86072": 2,
+    "76380": 2,
+    "76296": 2,
+    "76265": 2,
+    "65985": 2,
+    "65984": 2,
+    "65269": 2,
+    "63581": 2,
+    "63580": 2,
+    "49846": 2,
+    "1778": 2,
+    "131835": 48,
+    "142623": 13,
+    "29491": 13,
+    "29490": 13,
+    "29489": 13,
+    "29488": 13,
+    "18748": 13,
+    "356": 13,
+    "2": 13,
+    "142624": 16,
+    "16425": 16,
+    "16053": 16,
+    "15991": 16,
+    "15948": 16,
+    "15947": 16,
+    "15811": 16,
+    "903": 16,
+    "176": 16,
+    "159752": 23,
+    "129591": 23,
+    "76428": 23,
+    "139205": 51,
+    "56345": 1,
+    "168379": 24,
+    "158168": 24,
+    "76429": 24,
+    "76233": 24,
+    "46955": 37,
+    "1925": 37,
+    "1746": 37,
+    "158323": 53,
+    "145329": 53,
+    "166384": 52,
+    "147883": 52,
+    "120225": 6,
+    "120224": 6,
+    "120223": 6,
+    "49701": 6,
+    "49487": 6,
+    "49486": 6,
+    "123479": 50,
+    "158322": 46,
+    "118795": 46,
+    "159749": 27,
+    "71416": 27,
+    "158032": 21,
+    "76317": 21,
+    "66696": 3,
+    "66695": 3,
+    "60465": 3,
+    "60459": 3,
+    "30995": 3,
+    "76283": 20,
+    "35966": 7,
+    "76110": 42,
+    "76452": 18,
+    "76297": 18,
+    "76294": 18,
+    "10025": 18,
+    "158265": 47,
+    "132680": 47,
+    "121034": 17,
+    "57597": 17,
+    "11778": 17,
+    "76102": 44,
+    "76510": 11,
+    "76295": 11,
+    "76293": 11,
+    "23972": 11,
+    "121554": 49,
+    "56873": 5,
+    "56872": 5,
+    "39621": 5,
+    "84882": 31,
+    "156400": 14,
+    "129462": 14,
+    "33753": 14,
+    "31136": 14,
+    "31135": 14,
+    "28168": 14,
+    "623": 14,
+    "88768": 34,
+    "88256": 34,
+    "145352": 57,
+    "56346": 0,
+    "140306": 54,
+    "106655": 40,
+    "58538": 39,
+    "114402": 43,
+    "98107": 32,
+    "140619": 55
   }
 }
