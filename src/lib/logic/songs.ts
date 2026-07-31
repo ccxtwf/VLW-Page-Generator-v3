@@ -1,12 +1,35 @@
-import type { SongPageFormData } from "../../schemas/form";
+import type { MultiSelectItem, SongPageFormData } from "../../schemas/form";
 import { ENUM_CW_STATES, ENUM_AI_WARNING_TYPE } from "../../schemas/enums";
 
 import { SongPageValidationErrorType } from "./enums";
 import { getErrorForSongValidation } from ".";
 import type { ValidationError, ValidationBundledErrors } from ".";
 
-import { detonePinyin, preprocessStringParams, validateColour } from "../utils/utils";
+import {
+  VdbArtistCategory,
+  VdbArtistRole,
+  VdbPvService,
+  VdbPvType,
+  VdbSystemLanguage,
+  VdbVocalSynthEngine,
+  VdbWebLinkCategory,
+} from "../../schemas/vocadb.d";
+import type { FetchedVdbSongEntity } from "../../schemas/vocadb.d";
+
+import {
+  detonePinyin,
+  parseDateAsUtc,
+  preprocessStringParams,
+  renderAsCommaSeparatedList,
+  validateColour,
+} from "../utils/utils";
+import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
+import { getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
+
 import { MONTHS } from "../../constants/months";
+import LANGUAGES from "../../constants/languages.json";
+import { VOCADB_ENTRYPOINT } from "../../config";
+import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 
 export function validate(
   formData: SongPageFormData,
@@ -389,4 +412,234 @@ export function autoloadCategories({ producers = "" }: SongPageFormData): string
   }
 
   return res;
+}
+
+export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData> {
+  const vdbPageId = getVdbPageId(url, "S");
+  if (!vdbPageId) {
+    throw new VocaDBInvalidUrlError();
+  }
+
+  let vdbUrl = `${VOCADB_ENTRYPOINT}api/songs/${vdbPageId}`;
+  let params = new URLSearchParams({
+    fields: "Artists,Names,PVs,WebLinks,CultureCodes",
+    lang: "English",
+    origin: import.meta.env.VITE_REFER_FROM_ORIGIN,
+  });
+  let res = await fetch(`${vdbUrl}?${params.toString()}`);
+  if (!res.ok) {
+    throw new ExternalWebServiceError();
+  }
+  const json: FetchedVdbSongEntity = await res.json();
+
+  const origTitle = json.defaultName || "";
+  const romTitle =
+    (json.names || []).find(({ language }) => {
+      return language === VdbSystemLanguage.rom;
+    })?.value || "";
+  const engTitle =
+    (json.names || []).find(({ language }) => {
+      return language === VdbSystemLanguage.eng;
+    })?.value || "";
+
+  const uploadDateRaw = json.publishDate ? parseDateAsUtc(json.publishDate) : "";
+
+  const languages: MultiSelectItem[] = [];
+  for (const code of json.cultureCodes || []) {
+    const f = LANGUAGES.findIndex((el) => el.code === code);
+    if (f > -1) {
+      languages.push({ label: LANGUAGES[f].name, value: f });
+    }
+  }
+
+  const thumbImages: { href: string; alt: string }[] = [];
+  const mainSingers: string[] = [];
+  const minorSingers: string[] = [];
+  const circles: string[] = [];
+  const producers: { name: string; role: string }[] = [];
+  const playLinks: (string | boolean)[][] = [];
+  const extLinks: (string | boolean)[][] = [
+    [`${VOCADB_ENTRYPOINT}S/${vdbPageId}`, "VocaDB", false],
+  ];
+
+  const dictConvertArtistRole = {
+    [VdbArtistRole.default]: "music, lyrics",
+    [VdbArtistRole.composer]: "music",
+    [VdbArtistRole.lyricist]: "lyrics",
+    [VdbArtistRole.arranger]: "arrangement",
+    [VdbArtistRole.mixer]: "mix",
+    [VdbArtistRole.mastering]: "mastering",
+    [VdbArtistRole.voicemanipulator]: "tuning",
+    [VdbArtistRole.instrumentalist]: "instruments",
+    [VdbArtistRole.illustrator]: "illustration",
+    [VdbArtistRole.animator]: "PV",
+    [VdbArtistRole.encoder]: "encoding",
+    [VdbArtistRole.vocalist]: "vocalist",
+    [VdbArtistRole.chorus]: "chorus",
+    [VdbArtistRole.other]: "other",
+    [VdbArtistRole.distributor]: "publisher",
+    [VdbArtistRole.publisher]: "publisher",
+  };
+  const dictConvertPvServiceName = {
+    [VdbPvService.yt]: "YouTube",
+    [VdbPvService.nnd]: "Niconico",
+    [VdbPvService.bb]: "bilibili",
+    [VdbPvService.pp]: "piapro",
+    [VdbPvService.sc]: "SoundCloud",
+    [VdbPvService.bc]: "Bandcamp",
+    [VdbPvService.vm]: "Vimeo",
+  };
+  const orderRolePriority = [
+    "music",
+    "lyrics",
+    "arrangement",
+    "mix",
+    "mastering",
+    "tuning",
+    "instruments",
+    "illustration",
+    "PV",
+    "encoding",
+    "vocalist",
+    "chorus",
+    "publisher",
+    "other",
+  ];
+
+  for (let artist of json.artists || []) {
+    let addName: string = artist.name || "";
+    if (
+      // Is singer
+      artist.categories === VdbArtistCategory.vocalist
+    ) {
+      if (
+        artist.artist &&
+        (Object.values(VdbVocalSynthEngine) as string[]).includes(
+          artist.artist?.artistType as string,
+        )
+      ) {
+        // Try searching for the vocalist in the cache/SQLite db
+        const r = await getVocalistBasedOnVdbId(artist.artist.id);
+        if (r) {
+          addName = `[[${r.category}]]`;
+        }
+      }
+      if (artist.isSupport) {
+        minorSingers.push(addName);
+      } else {
+        mainSingers.push(addName);
+      }
+    } else if (
+      // Is circle
+      artist.categories === VdbArtistCategory.circle ||
+      artist.categories === VdbArtistCategory.label
+    ) {
+      circles.push(addName);
+    } else {
+      // Is producer
+      let roles = artist.roles.split(", ");
+      // @ts-ignore
+      roles = roles.map((el) => dictConvertArtistRole[el] || "other");
+      roles = [...new Set<string>(roles)];
+      roles.sort((a, b) => {
+        let aIdx = orderRolePriority.findIndex((val) => val === a);
+        let bIdx = orderRolePriority.findIndex((val) => val === b);
+        return aIdx - bIdx;
+      });
+      producers.push({ name: addName, role: roles.join(", ") });
+    }
+  }
+
+  let producersString: string = "";
+  if (circles.length > 0) {
+    producersString += `'''${circles.join(", ")}''':\n`;
+  }
+  producersString += producers.map((el) => `${el.name} (${el.role})`).join("\n");
+
+  let singersString: string = "";
+  singersString += renderAsCommaSeparatedList(mainSingers);
+  if (minorSingers.length > 0) {
+    singersString += `\n<small>${renderAsCommaSeparatedList(minorSingers)}</small>`;
+  }
+
+  for (let pv of json.pvs || []) {
+    const pvService = dictConvertPvServiceName[pv.service] || null;
+    const pvUrl = processExternalLinkFromVocaDb(pv.url || "");
+    const isDeleted = pv.disabled;
+    const isReprint = pv.pvType !== VdbPvType.original;
+    if (pvService === null) {
+      extLinks.push([pvUrl, pv.service, !isReprint]);
+    } else {
+      playLinks.push([pvService, pvUrl, isReprint, false, isDeleted, ""]);
+    }
+    if (!isReprint) {
+      switch (pv.service) {
+        case VdbPvService.yt:
+          thumbImages.push({
+            href: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
+            alt: "YouTube thumbnail",
+          });
+          break;
+        case VdbPvService.bb:
+          // skip fetching thumbnail images for bilibili
+          break;
+        case VdbPvService.nnd:
+          if (pv.thumbUrl && pv.thumbUrl !== "")
+            thumbImages.push({
+              href: pv.thumbUrl + ".L",
+              alt: "Niconico thumbnail",
+            });
+          break;
+        default:
+          if (pv.thumbUrl && pv.thumbUrl !== "")
+            thumbImages.push({
+              href: pv.thumbUrl,
+              alt: `${pv.service} thumbnail`,
+            });
+          break;
+      }
+    }
+  }
+
+  for (let link of json.webLinks || []) {
+    const url = processExternalLinkFromVocaDb(link.url || "");
+    let description = link.description || "";
+    if (description === "MikuWiki") {
+      description = "Hatsune Miku Wiki";
+    }
+    const isOfficial =
+      link.category === VdbWebLinkCategory.official ||
+      link.category === VdbWebLinkCategory.commercial;
+    extLinks.push([url, description, isOfficial]);
+  }
+
+  const formData: SongPageFormData = {
+    aiCwState: ENUM_AI_WARNING_TYPE.none,
+    aiWarningText1: "",
+    aiWarningText2: "",
+    cwState: ENUM_CW_STATES.noWarnings,
+    cwText: "",
+    hasEpilepsyWarning: false,
+    languages,
+    isoLangCode: "",
+    origTitle,
+    altChTitle: "",
+    altChIsTraditional: false,
+    romTitle,
+    engTitle,
+    titleIsOfficiallyTranslated: false,
+    bgColour: "black",
+    fgColour: "white",
+    uploadDateRaw: uploadDateRaw,
+    isAlbumOnly: false,
+    isUnavailable: false,
+    singers: singersString,
+    producers: producersString,
+    description: "",
+    translator: "",
+    isOfficialTranslation: false,
+    categoriesRaw: "",
+    // imageProps,
+  };
+  return formData;
 }
