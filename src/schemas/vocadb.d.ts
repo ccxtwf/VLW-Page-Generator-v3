@@ -1,6 +1,6 @@
 export type VdbPageType = "S" | "Al" | "Ar";
 
-export enum ArtistCategory {
+export enum VdbArtistCategory {
   producer = "Producer",
   vocalist = "Vocalist",
   animator = "Animator",
@@ -13,7 +13,7 @@ export enum ArtistCategory {
   subject = "Subject",
 }
 
-export enum ArtistRole {
+export enum VdbArtistRole {
   default = "Default",
   animator = "Animator",
   arranger = "Arranger",
@@ -33,7 +33,7 @@ export enum ArtistRole {
   vocalprovider = "VocalDataProvider",
 }
 
-export enum ArtistType {
+export enum VdbArtistType {
   unknown = "Unknown",
   circle = "Circle",
   label = "Label",
@@ -54,7 +54,7 @@ export enum ArtistType {
   character = "Character",
 }
 
-export enum VocalSynthEngine {
+export enum VdbVocalSynthEngine {
   vocaloid = "Vocaloid",
   utau = "UTAU",
   cevio = "CeVIO",
@@ -69,7 +69,7 @@ export enum VocalSynthEngine {
   othervoicesynth = "OtherVoiceSynthesizer",
 }
 
-export enum PvService {
+export enum VdbPvService {
   nnd = "NicoNicoDouga",
   yt = "Youtube",
   sc = "SoundCloud",
@@ -79,20 +79,20 @@ export enum PvService {
   bc = "Bandcamp",
 }
 
-export enum PvType {
+export enum VdbPvType {
   original = "Original",
   reprint = "Reprint",
   other = "Other",
 }
 
-export enum EntryStatus {
+export enum VdbEntryStatus {
   draft = "Draft",
   finished = "Finished",
   approved = "Approved",
   locked = "Locked",
 }
 
-export enum WebLinkCategory {
+export enum VdbWebLinkCategory {
   official = "Official",
   commercial = "Commercial",
   reference = "Reference",
@@ -106,7 +106,7 @@ export enum VdbSystemLanguage {
   oth = "Unspecified",
 }
 
-export enum AlbumType {
+export enum VdbAlbumType {
   unknown = "Unknown",
   album = "Album",
   single = "Single",
@@ -140,12 +140,12 @@ export enum VdbSongType {
 interface VdbArtistEntity {
   artist?: {
     additionalNames: string | null;
-    artistType: ArtistType | VocalSynthEngine;
+    artistType: VdbArtistType | VdbVocalSynthEngine;
     deleted: boolean;
     id: number;
     name: string | null;
     pictureMime: string | null;
-    status: EntryStatus;
+    status: VdbEntryStatus;
     version: number;
   };
   categories: string; //ArtistCategory
@@ -165,21 +165,21 @@ interface VdbPvEntity {
   name: string | null;
   publishDate?: string | null;
   pvId: string | null;
-  service: PvService;
-  pvType: PvType;
+  service: VdbPvService;
+  pvType: VdbPvType;
   thumbUrl?: string | null;
   url: string | null;
 }
 
 interface VdbWebLinkEntity {
-  category: WebLinkCategory;
+  category: VdbWebLinkCategory;
   description: string | null;
   disabled: boolean;
   id: number;
   url: string | null;
 }
 
-export interface SchemaFetchedSongPageJson {
+export interface FetchedVdbSongEntity {
   artists: VdbArtistEntity[] | null;
   artistString: string | null;
   createDate: string;
@@ -200,20 +200,20 @@ export interface SchemaFetchedSongPageJson {
   pvServices: string;
   ratingScore: number;
   songType: VdbSongType;
-  status: EntryStatus;
+  status: VdbEntryStatus;
   version: number;
   webLinks: VdbWebLinkEntity[] | null;
   cultureCodes: string[] | null;
 }
 
-export interface SchemaFetchedAlbumPageJson {
+export interface FetchedVdbAlbumEntity {
   artists: VdbArtistEntity[] | null;
   artistString: string | null;
   catalogNumber: string | null;
   createDate: string;
   defaultName: string | null;
   defaultNameLanguage: VdbSystemLanguage;
-  discType: AlbumType;
+  discType: VdbAlbumType;
   id: number;
   mainPicture?: {
     mime: string | null;
@@ -238,7 +238,7 @@ export interface SchemaFetchedAlbumPageJson {
     month: number | null;
     year: number | null;
   };
-  status: EntryStatus;
+  status: VdbEntryStatus;
   tracks:
     | {
         discNumber: number;
@@ -259,7 +259,7 @@ export interface SchemaFetchedAlbumPageJson {
           pvServices: string;
           ratingScore: number;
           songType: VdbSongType;
-          status: EntryStatus;
+          status: VdbEntryStatus;
           version: number;
           cultureCodes: string[] | null;
         };
@@ -271,19 +271,19 @@ export interface SchemaFetchedAlbumPageJson {
   webLinks: VdbWebLinkEntity[] | null;
 }
 
-export interface SchemaFetchedVocaDBArtistsListJson {
+export interface FetchedVdbArtistListEntity {
   items: {
     additionalNames: string;
-    artistType: VocalSynthEngine;
+    artistType: VdbVocalSynthEngine;
     baseVoicebank?: {
       additionalNames: string;
-      artistType: VocalSynthEngine;
+      artistType: VdbVocalSynthEngine;
       deleted: boolean;
       id: number;
       name: string;
       pictureMime: string;
       releaseDate: string;
-      status: EntryStatus;
+      status: VdbEntryStatus;
       version: number;
     };
     createDate: string;
@@ -297,25 +297,25 @@ export interface SchemaFetchedVocaDBArtistsListJson {
     }[];
     pictureMime: string;
     releaseDate: string;
-    status: EntryStatus;
+    status: VdbEntryStatus;
     version: number;
   }[];
   term: string;
   totalCount: number;
 }
 
-export interface SchemaFetchedArtistPageJson {
+export interface FetchedVdbArtistEntity {
   additionalNames: string | null;
   artistLinks:
     | {
         artist: {
           additionalNames: string | null;
-          artistType: ArtistType | VocalSynthEngine;
+          artistType: VdbArtistType | VdbVocalSynthEngine;
           deleted: boolean;
           id: number;
           name: string | null;
           pictureMime: string | null;
-          status: EntryStatus;
+          status: VdbEntryStatus;
           version: number;
         };
         linkType: string;
@@ -336,7 +336,7 @@ export interface SchemaFetchedArtistPageJson {
   };
   name: string | null;
   pictureMime: string | null;
-  status: EntryStatus;
+  status: VdbEntryStatus;
   version: number;
   webLinks: VdbWebLinkEntity[] | null;
 }

@@ -1,4 +1,4 @@
-interface SchemaMwApiResponse {
+interface MwApiResponse {
   error?: {
     code: string;
     info: string;
@@ -6,7 +6,7 @@ interface SchemaMwApiResponse {
   batchComplete: string;
 }
 
-export interface SchemaFetchedDiscography extends SchemaMwApiResponse {
+export interface FetchedMwDiscography extends MwApiResponse {
   continue?: {
     cmcontinue: string;
     continue: string;
@@ -20,7 +20,7 @@ export interface SchemaFetchedDiscography extends SchemaMwApiResponse {
   };
 }
 
-export interface SchemaFetchedDiscographyAlbum extends SchemaMwApiResponse {
+export interface FetchedMwDiscographyAlbum extends MwApiResponse {
   continue?: {
     cmcontinue: string;
     continue: string;
