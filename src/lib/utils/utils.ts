@@ -21,23 +21,31 @@ export function preprocessStringParams<T>(formData: T, keys: string[]): T {
   return formData;
 }
 
-export function detonePinyin(romText: string, bShowUmlaut = false): string {
-  romText = romText.replace(/[āáǎà]/gm, "a");
-  romText = romText.replace(/[ĀÁǍÀ]/gm, "A");
-  romText = romText.replace(/[īíǐì]/gm, "i");
-  romText = romText.replace(/[ĪÍǏÌ]/gm, "I");
-  romText = romText.replace(/[ūúǔù]/gm, "u");
-  romText = romText.replace(/[ŪÚǓÙ]/gm, "U");
-  romText = romText.replace(/[ēéěè]/gm, "e");
-  romText = romText.replace(/[ĒÉĚÈ]/gm, "E");
-  romText = romText.replace(/[ōóǒò]/gm, "o");
-  romText = romText.replace(/[ŌÓǑÒ]/gm, "O");
-  if (bShowUmlaut) {
-    romText = romText.replace(/[ǖǘǚǜ]/gm, "ü");
-    romText = romText.replace(/[ǕǗǙǛ]/gm, "Ü");
-  } else {
-    romText = romText.replace(/[ǖǘǚǜ]/gm, "v");
-    romText = romText.replace(/[ǕǗǙǛ]/gm, "V");
+/**
+ *
+ * @param romText
+ * @param showUmlaut
+ * @returns
+ */
+export function detonePinyin(romText: string, showUmlaut = false): string {
+  const a1 = "āáǎàīíǐìūúǔùēéěèōóǒòĀÁǍÀĪÍǏÌŪÚǓÙĒÉĚÈŌÓǑÒ";
+  const a2 = "aaaaiiiiuuuueeeeooooAAAAIIIIUUUUEEEEOOOO";
+  const b1 = "ǖǘǚǜ";
+  const b2 = "ǕǗǙǛ";
+
+  const dictConversion = Object.fromEntries(
+    Array.from(a1).map((from, index) => {
+      return [from, a2[index]];
+    }),
+  );
+  for (let i = 0; i < b1.length; i++) {
+    dictConversion[b1[i]] = showUmlaut ? "ü" : "v";
   }
+  for (let i = 0; i < b2.length; i++) {
+    dictConversion[b2[i]] = showUmlaut ? "Ü" : "V";
+  }
+
+  const rx = new RegExp(`[${a1}${b1}${b2}]`, "g");
+  romText = romText.replaceAll(rx, (m) => dictConversion[m]);
   return romText;
 }
