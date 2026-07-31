@@ -98,16 +98,3 @@
     </p>
   </div>
 </footer>
-
-<style>
-  .icon-link {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.8125rem;
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    transition: all 0.15s ease;
-  }
-</style>
