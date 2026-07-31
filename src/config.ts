@@ -10,4 +10,4 @@ export const VOCADB_DOMAIN = "vocadb.net";
  */
 export const VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT = `https://${VOCALOID_LYRICS_WIKI_DOMAIN}/wiki/`;
 export const VOCALOID_LYRICS_WIKI_API_ENTRYPOINT = `https://${VOCALOID_LYRICS_WIKI_DOMAIN}/w/api.php`;
-export const VOCADB_API_ENTRYPOINT = `https://${VOCADB_DOMAIN}/api/`;
+export const VOCADB_ENTRYPOINT = `https://${VOCADB_DOMAIN}/`;
