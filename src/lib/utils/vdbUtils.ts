@@ -2,7 +2,7 @@ import { VOCADB_ENTRYPOINT } from "../../config";
 import { SYNTHS } from "../../constants";
 import { escapeRegExp } from "./utils";
 
-import type { VdbPageType } from "../../schemas/vocadb";
+import { VdbArtistRole, VdbPvService, type VdbPageType } from "../../schemas/vocadb.d";
 import { InvalidArgumentError } from "../logic/exceptions";
 
 /**
@@ -49,6 +49,53 @@ export async function getVocalistBasedOnVdbId(vdbId: number): Promise<{
   }
 
   return null;
+}
+
+const __dictConvertArtistRole = {
+  [VdbArtistRole.default]: "music, lyrics",
+  [VdbArtistRole.composer]: "music",
+  [VdbArtistRole.lyricist]: "lyrics",
+  [VdbArtistRole.arranger]: "arrangement",
+  [VdbArtistRole.mixer]: "mix",
+  [VdbArtistRole.mastering]: "mastering",
+  [VdbArtistRole.voicemanipulator]: "tuning",
+  [VdbArtistRole.instrumentalist]: "instruments",
+  [VdbArtistRole.illustrator]: "illustration",
+  [VdbArtistRole.animator]: "PV",
+  [VdbArtistRole.encoder]: "encoding",
+  [VdbArtistRole.vocalist]: "vocalist",
+  [VdbArtistRole.chorus]: "chorus",
+  [VdbArtistRole.other]: "other",
+  [VdbArtistRole.distributor]: "publisher",
+  [VdbArtistRole.publisher]: "publisher",
+};
+
+const __dictConvertPvServiceName = {
+  [VdbPvService.yt]: "YouTube",
+  [VdbPvService.nnd]: "Niconico",
+  [VdbPvService.bb]: "bilibili",
+  [VdbPvService.pp]: "piapro",
+  [VdbPvService.sc]: "SoundCloud",
+  [VdbPvService.bc]: "Bandcamp",
+  [VdbPvService.vm]: "Vimeo",
+};
+
+/**
+ *
+ * @param role
+ * @returns
+ */
+export function convertArtistRole(role: VdbArtistRole): string | null {
+  return (__dictConvertArtistRole as Record<VdbArtistRole, string>)[role] || null;
+}
+
+/**
+ *
+ * @param service
+ * @returns
+ */
+export function convertPvService(service: VdbPvService): string | null {
+  return (__dictConvertPvServiceName as Record<VdbPvService, string>)[service] || null;
 }
 
 // async function fetchSynthsDb(): Promise {}

@@ -1,4 +1,5 @@
 import { PV_SERVICE_PROVIDER, RECOGNIZED_LINKS } from "../../constants";
+import { escapeRegExp } from "./utils";
 
 /**
  * Convert a bilibili service URL from legacy av format to new Bv format
@@ -66,6 +67,20 @@ export function convertTwitterLink(url: string) {
   const m = url.match(matchDomain);
   if (m === null) return url;
   return `https://x.com/${m[1]}`;
+}
+
+/**
+ *
+ * @param url
+ * @param articlePath
+ */
+export function getOtherMediaWikiPageName(url: string, articlePath: string): string | null {
+  const rx = new RegExp(`${escapeRegExp(articlePath)}([^?]+)`);
+  const m = rx.exec(url);
+  if (!m || !m.groups) {
+    return null;
+  }
+  return m.groups[1];
 }
 
 /**

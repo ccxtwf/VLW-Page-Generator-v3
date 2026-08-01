@@ -6,6 +6,7 @@
 
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
@@ -16,12 +17,12 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate, generatePage, autoloadCategories } from "../logic/albums";
+  import { validate, generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums";
 
   import type { AlbumPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import type { AlbumPageValidationErrorType } from "../logic/enums";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
+  import { AlbumPageValidationErrorType } from "../logic/enums";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   let formData: AlbumPageFormData = $state<AlbumPageFormData>({
     origTitle: "",
@@ -46,6 +47,24 @@
 
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
+  const handleFetchVocaDb = async (url: string) => {
+    if (window.confirm($_("confirmClear"))) {
+      const __a = { "1": "VocaDB" };
+      try {
+        formData = await fetchDataFromVocaDb(url);
+        window.alert($_("fetch.success", { values: __a }));
+      } catch (err) {
+        console.error(err);
+        if (err instanceof VocaDBInvalidUrlError) {
+          window.alert($_("fetch.invalidVdb", { values: { "1": "Al/21149" } }));
+        } else if (err instanceof ExternalWebServiceError) {
+          window.alert($_("fetch.errorFetch", { values: __a }));
+        } else {
+          window.alert($_("fetch.errorUnhandled", { values: __a }));
+        }
+      }
+    }
+  };
   const handleSubmit = formSubmitHandler<AlbumPageFormData, AlbumPageValidationErrorType>({
     fetchLatestSnapshot() {
       return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
@@ -80,10 +99,8 @@
     tooltipI18nKey="albumGenForm.preloadVocaDb.tooltip"
   >
     <PreloadFromVocaDBInput
-      handleFetch={() => {
-        console.log(formData);
-      }}
-      placeholder="https://vocadb.net/Al/..."
+      onfetch={handleFetchVocaDb}
+      placeholder="https://vocadb.net/Al/21149"
     />
   </FlexRow>
 

@@ -1,10 +1,32 @@
-import type { AlbumPageFormData } from "../../schemas/form";
+import type { AlbumPageFormData, MultiSelectItem } from "../../schemas/form";
 
 import { AlbumPageValidationErrorType } from "./enums";
 import { getErrorForAlbumValidation } from ".";
 import type { ValidationError, ValidationBundledErrors } from ".";
 
-import { detonePinyin, preprocessStringParams, validateColour } from "../utils/utils";
+import {
+  VdbAlbumType,
+  VdbArtistCategory,
+  VdbArtistRole,
+  VdbPvService,
+  VdbSongType,
+  VdbWebLinkCategory,
+  type FetchedVdbAlbumEntity,
+} from "../../schemas/vocadb.d";
+
+import {
+  detonePinyin,
+  preprocessStringParams,
+  renderAsCommaSeparatedList,
+  validateColour,
+} from "../utils/utils";
+import { getOtherMediaWikiPageName, processExternalLinkFromVocaDb } from "../utils/urlUtils";
+import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
+
+import { MONTHS, RECOGNIZED_LINKS, ALBUM_STREAMING_LINKS, SYNTH_ENGINES } from "../../constants";
+import { VOCADB_ENTRYPOINT, VOCALOID_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
+import { ExternalWebServiceError } from "./exceptions";
+import type { Synth } from "../../constants/types";
 
 export function validate(
   formData: AlbumPageFormData,
@@ -291,4 +313,235 @@ export function autoloadCategories({ description, engines }: AlbumPageFormData):
   res.push(...producers.map((producer) => `${producer} songs list/Albums`));
 
   return res;
+}
+
+export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormData> {
+  const vdbPageId = getVdbPageId(url, "Al");
+  if (vdbPageId === null) {
+    throw new Error("VocaDB page ID is empty or invalid!");
+  }
+
+  let vdbUrl = `${VOCADB_ENTRYPOINT}api/albums/${vdbPageId}`;
+  let params = new URLSearchParams({
+    fields: "MainPicture,Names,PVs,Artists,Tracks,WebLinks",
+    songFields: "Artists",
+    lang: "English",
+    origin: import.meta.env.VITE_REFER_FROM_ORIGIN,
+  });
+  let res = await fetch(`${vdbUrl}?${params.toString()}`);
+  if (!res.ok) {
+    throw new ExternalWebServiceError();
+  }
+  const json: FetchedVdbAlbumEntity = await res.json();
+
+  const origTitle = json.defaultName || "";
+  const romTitle =
+    (json.names || []).find(({ language }) => {
+      return language === "Romaji";
+    })?.value || "";
+  const engTitle =
+    (json.names || []).find(({ language }) => {
+      return language === "English";
+    })?.value || "";
+
+  let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
+
+  const circles: string[] = [];
+  const mainProducers: string[] = [];
+  const labels: string[] = [];
+  const engineIds: Set<number> = new Set();
+  let strLabel: string = "";
+  let strDescription: string = "";
+  let isCompilationAlbum: boolean = false;
+  let publishedYear: string = "";
+  let publishedMonth: string = "";
+  let publishedDay: string = "";
+  let vocaWikiPage: string = "";
+
+  for (let artist of json.artists || []) {
+    if (artist.categories === VdbArtistCategory.vocalist) {
+      continue;
+    }
+    switch (artist.categories) {
+      case VdbArtistCategory.label:
+        labels.push(artist.name || "");
+        break;
+      case VdbArtistCategory.circle:
+        circles.push(artist.name || "");
+        break;
+      case VdbArtistCategory.producer:
+        if (!artist.isSupport) {
+          mainProducers.push(artist.name || "");
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  strLabel = labels.length === 0 ? "" : renderAsCommaSeparatedList(labels);
+  if (json.discType === VdbAlbumType.compilation) {
+    strDescription = `a compilation album${
+      circles.length === 0 ? "" : ", by the circle " + renderAsCommaSeparatedList(circles)
+    }`;
+    isCompilationAlbum = true;
+  } else if (mainProducers.length > 3) {
+    strDescription = `an album by ${
+      circles.length === 0 ? "several producers" : renderAsCommaSeparatedList(circles)
+    }`;
+  } else {
+    strDescription = `an album by ${renderAsCommaSeparatedList(mainProducers)}`;
+    if (circles.length > 0) {
+      strDescription += `, under the circle ${renderAsCommaSeparatedList(circles)}`;
+    }
+  }
+
+  if (json.releaseDate.isEmpty === false) {
+    const { year, month, day } = json.releaseDate;
+    publishedYear = `${year || ""}`;
+    publishedMonth = month === null ? "" : MONTHS[month - 1];
+    publishedDay = `${day || ""}`;
+  }
+
+  const trackList: (string | number)[][] = [];
+  const extLinks: (string | boolean)[][] = [];
+  const officialStreaming: string[][] = [];
+  const vdbSingerIdsCache: Map<number, string> = new Map();
+  const addedSingers: Set<string> = new Set();
+
+  for (let track of json.tracks || []) {
+    const { discNumber, trackNumber, song: { artists, defaultName: songTitle } = {} } = track;
+    const songProducers: string[] = [];
+    const songSingers: Set<string> = new Set();
+    for (let artist of artists || []) {
+      if (artist.isSupport) {
+        continue;
+      }
+      if (artist.categories === VdbArtistCategory.vocalist) {
+        const id = artist.artist?.id || null;
+        if (id === null) {
+          songSingers.add(artist?.name || "");
+        } else if (vdbSingerIdsCache.has(id)) {
+          songSingers.add(vdbSingerIdsCache.get(id) || "");
+        } else {
+          // Try searching for the vocalist in the SQLite db
+          const r = await getVocalistBasedOnVdbId(id);
+          if (r) {
+            const { category, baseName, engine } = r;
+            engineIds.add(engine);
+            vdbSingerIdsCache.set(id, baseName);
+            if (addedSingers.has(baseName)) {
+              songSingers.add(baseName);
+            } else {
+              songSingers.add(`[[${category}]]`);
+              addedSingers.add(baseName);
+            }
+          } else {
+            songSingers.add(artist.artist?.name || "");
+          }
+        }
+      } else {
+        const roles = artist.effectiveRoles.split(", ");
+        const isMainProducer = roles.some((role) => {
+          const isDerivative = new Set<string>([
+            VdbSongType.cover,
+            VdbSongType.remix,
+            VdbSongType.arrangement,
+            VdbSongType.live,
+          ]).has(track.song.songType);
+          return (
+            role === VdbArtistRole.default ||
+            role === VdbArtistRole.composer ||
+            (isDerivative && role === VdbArtistRole.arranger)
+          );
+        });
+        if (isMainProducer) songProducers.push(artist?.name || "");
+      }
+    }
+    trackList.push([
+      discNumber,
+      trackNumber,
+      songTitle || "",
+      renderAsCommaSeparatedList(songProducers),
+      renderAsCommaSeparatedList(Array.from(songSingers.values())),
+    ]);
+  }
+  const engines: MultiSelectItem[] = Array.from(engineIds.keys()).map((id) => {
+    let e: Synth = SYNTH_ENGINES[id];
+    if (e.id !== id) {
+      // Fallback if there is a "jump" between synth IDs, which might
+      // be caused if a synth engine is deleted from synths.db
+      e = SYNTH_ENGINES.find((c) => c.id === id)!;
+    }
+    return {
+      label: e.name,
+      value: e.id,
+    };
+  });
+
+  for (let link of json.pvs || []) {
+    const url = processExternalLinkFromVocaDb(link.url || "");
+    let description = convertPvService(link.service);
+    description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
+    extLinks.push([url, description, true]);
+
+    switch (link.service) {
+      case VdbPvService.yt:
+        officialStreaming.push(["YouTube Crossfade", url]);
+        break;
+      case VdbPvService.nnd:
+        officialStreaming.push(["Niconico Crossfade", url]);
+        break;
+      case VdbPvService.sc:
+        officialStreaming.push(["SoundCloud Crossfade", url]);
+        break;
+    }
+  }
+  for (let link of json.webLinks || []) {
+    const url = processExternalLinkFromVocaDb(link.url || "");
+    let description;
+    const isOfficial =
+      link.category === VdbWebLinkCategory.official ||
+      link.category === VdbWebLinkCategory.commercial;
+    const am =
+      ALBUM_STREAMING_LINKS.find(({ regex }) => {
+        return regex.exec(url) !== null;
+      }) || null;
+    const m =
+      RECOGNIZED_LINKS.find(({ re }) => {
+        return re.exec(url) !== null;
+      }) || null;
+    if (m === null) {
+      description = description = link.description || "";
+    } else {
+      description = m?.site || "";
+      if (m.site === "VOCALOID Wiki") {
+        vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
+      }
+      if (am !== null) {
+        officialStreaming.push([am.name || "", url]);
+      }
+    }
+
+    extLinks.push([url, description, isOfficial]);
+  }
+
+  const formData: AlbumPageFormData = {
+    origTitle,
+    romTitle,
+    engTitle,
+    bgColour: "",
+    fgColour: "",
+    label: strLabel,
+    description: strDescription,
+    isCompilationAlbum,
+    publishedYear,
+    publishedMonth,
+    publishedDay,
+    engines,
+    vdbAlbumId: vdbPageId,
+    vocaWikiPage,
+    categoriesRaw: "",
+    // imageSrc,
+  };
+  return formData;
 }
