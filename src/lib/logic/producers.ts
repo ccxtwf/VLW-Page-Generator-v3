@@ -5,7 +5,7 @@ import { getErrorForProducerValidation } from ".";
 import type { ValidationError, ValidationBundledErrors } from ".";
 
 import { preprocessStringParams } from "../utils/utils";
-import LANGUAGES from "../../constants/languages.json";
+import { LANGUAGES } from "../../constants";
 
 export function validate(
   formData: ProducerPageFormData,

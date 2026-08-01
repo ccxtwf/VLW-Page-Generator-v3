@@ -26,8 +26,7 @@ import {
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
 
-import { MONTHS } from "../../constants/months";
-import LANGUAGES from "../../constants/languages.json";
+import { MONTHS, LANGUAGES } from "../../constants";
 import { VOCADB_ENTRYPOINT } from "../../config";
 import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 

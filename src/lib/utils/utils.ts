@@ -1,4 +1,4 @@
-import { COLOURS } from "../../constants/colours";
+import { COLOURS } from "../../constants";
 
 /**
  *

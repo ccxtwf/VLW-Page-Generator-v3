@@ -1,5 +1,5 @@
 import { VOCADB_ENTRYPOINT } from "../../config";
-import SYNTHS from "../../constants/synths.json";
+import { SYNTHS } from "../../constants";
 import { escapeRegExp } from "./utils";
 
 import type { VdbPageType } from "../../schemas/vocadb";

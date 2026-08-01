@@ -1,4 +1,4 @@
-import { PV_SERVICE_PROVIDER, RECOGNIZED_LINKS } from "../../constants/linkDomains";
+import { PV_SERVICE_PROVIDER, RECOGNIZED_LINKS } from "../../constants";
 
 /**
  * Convert a bilibili service URL from legacy av format to new Bv format

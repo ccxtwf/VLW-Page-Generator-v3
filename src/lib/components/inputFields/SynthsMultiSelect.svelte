@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import MultiSelect from "svelte-multiselect";
-  import SYNTHS from "../../../constants/synthEngines.json";
+  import { SYNTH_ENGINES } from "../../../constants";
   import type { Synth } from "../../../constants/types";
 
   interface SynthsMultiSelectProps {
@@ -14,7 +14,10 @@
 
 <MultiSelect
   id="synths"
-  options={SYNTHS.map(({ id, name }: Synth) => ({ label: name, value: id }))}
+  options={SYNTH_ENGINES.map(({ id, name }: Synth) => ({
+    label: name,
+    value: id,
+  }))}
   bind:selected
   {placeholder}
 />
