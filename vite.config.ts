@@ -35,4 +35,8 @@ export default defineConfig((env) => ({
   define: {
     DEBUG: env.command === "serve",
   },
+
+  optimizeDeps: {
+    exclude: ["@sqlite.org/sqlite-wasm"],
+  },
 }));
