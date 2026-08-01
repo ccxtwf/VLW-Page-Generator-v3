@@ -17,6 +17,7 @@
     "@sqlite.org/sqlite-wasm": "^3.53.0-build1",
     "@tailwindcss/vite": "^4.3.3",
     "daisyui": "^5.7.4",
+    "handsontable": "^18.0.0",
     "svelte-i18n": "^4.0.1",
     "tailwindcss": "^4.3.3"
   },
