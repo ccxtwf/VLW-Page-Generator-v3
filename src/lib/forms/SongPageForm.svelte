@@ -114,7 +114,7 @@
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}
-      placeholder="https://vocadb.net/S/1501"
+      placeholder="https://vocadb.net/S/..."
     />
   </FlexRow>
 
