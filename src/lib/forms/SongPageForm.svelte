@@ -25,7 +25,7 @@
 
   import type { SongPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import type { SongPageValidationErrorType } from "../logic/enums";
+  import { SongPageValidationErrorType } from "../logic/enums";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   let formData: SongPageFormData = $state<SongPageFormData>({
