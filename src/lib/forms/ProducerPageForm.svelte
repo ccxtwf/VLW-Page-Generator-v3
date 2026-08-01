@@ -7,6 +7,7 @@
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
+  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
@@ -17,12 +18,16 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate, generatePage } from "../logic/producers";
+  import { validate, generatePage, fetchDataFromVocaDb } from "../logic/producers";
 
   import type { ProducerPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
   import type { ProducerPageValidationErrorType } from "../logic/enums";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
+  import {
+    ExternalWebServiceError,
+    VocaDBInvalidUrlError,
+    VLWInvalidUrlError,
+  } from "../logic/exceptions";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({
     prodCategory: "",
@@ -51,6 +56,24 @@
 
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
+  const handleFetchVocaDb = async (url: string) => {
+    if (window.confirm($_("confirmClear"))) {
+      const __a = { "1": "VocaDB" };
+      try {
+        formData = await fetchDataFromVocaDb(url);
+        window.alert($_("fetch.success", { values: __a }));
+      } catch (err) {
+        console.error(err);
+        if (err instanceof VocaDBInvalidUrlError) {
+          window.alert($_("fetch.invalidVdb", { values: { "1": "Ar/28" } }));
+        } else if (err instanceof ExternalWebServiceError) {
+          window.alert($_("fetch.errorFetch", { values: __a }));
+        } else {
+          window.alert($_("fetch.errorUnhandled", { values: __a }));
+        }
+      }
+    }
+  };
   const handleSubmit = formSubmitHandler<ProducerPageFormData, ProducerPageValidationErrorType>({
     fetchLatestSnapshot() {
       return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
@@ -81,9 +104,7 @@
     tooltipI18nKey="producerGenForm.preloadVocaDb.tooltip"
   >
     <PreloadFromVocaDBInput
-      handleFetch={() => {
-        console.log(formData);
-      }}
+      onfetch={handleFetchVocaDb}
       placeholder="https://vocadb.net/Ar/..."
     />
   </FlexRow>

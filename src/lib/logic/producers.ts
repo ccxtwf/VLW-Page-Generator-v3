@@ -4,8 +4,25 @@ import { ProducerPageValidationErrorType } from "./enums";
 import { getErrorForProducerValidation } from ".";
 import type { ValidationError, ValidationBundledErrors } from ".";
 
+import {
+  VdbArtistType,
+  VdbWebLinkCategory,
+  type FetchedVdbArtistEntity,
+} from "../../schemas/vocadb.d";
+import type { FetchedMwDiscography, FetchedMwDiscographyAlbum } from "../../schemas/vlw-mw";
+
 import { preprocessStringParams } from "../utils/utils";
-import { LANGUAGES } from "../../constants";
+import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
+import { getVdbPageId } from "../utils/vdbUtils";
+
+import { LANGUAGES, RECOGNIZED_LINKS } from "../../constants";
+import { VOCADB_ENTRYPOINT, VOCALOID_LYRICS_WIKI_API_ENTRYPOINT } from "../../config";
+import {
+  ExternalWebServiceError,
+  GotZeroPagesInResponseError,
+  VLWInvalidUrlError,
+  VocaDBInvalidUrlError,
+} from "./exceptions";
 
 export function validate(
   formData: ProducerPageFormData,
@@ -193,4 +210,280 @@ ${
   // albumListSegment
 }
 ${categories.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
+}
+
+export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageFormData> {
+  const vdbPageId = getVdbPageId(url, "Ar");
+  if (!vdbPageId) {
+    throw new VocaDBInvalidUrlError();
+  }
+
+  let vdbUrl = `${VOCADB_ENTRYPOINT}api/artists/${vdbPageId}`;
+  let params = new URLSearchParams({
+    fields: "AdditionalNames,MainPicture,Description,ArtistLinks,WebLinks",
+    lang: "English",
+    origin: import.meta.env.VITE_REFER_FROM_ORIGIN,
+  });
+  let res = await fetch(`${vdbUrl}?${params.toString()}`);
+  if (!res.ok) {
+    throw new ExternalWebServiceError();
+  }
+  const json: FetchedVdbArtistEntity = await res.json();
+
+  const prodCategory = json.name || "";
+  const description = `'''${prodCategory}''' is a vocal synth producer.`;
+  const labels: string[] = [];
+  const affiliations: string[] = [];
+
+  let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
+
+  const extLinks: (string | boolean)[][] = [];
+
+  for (let artistLink of json.artistLinks || []) {
+    if (artistLink.artist.artistType === VdbArtistType.label) {
+      labels.push(artistLink.artist.name || "");
+    } else {
+      affiliations.push(artistLink.artist.name || "");
+    }
+  }
+
+  extLinks.push([`${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`, "VocaDB", false, false, false]);
+  for (let link of json.webLinks || []) {
+    const url = processExternalLinkFromVocaDb(link.url || "");
+    let description = link.description || "";
+    if (description === "MikuWiki") description = "Hatsune Miku Wiki";
+    const isOfficial =
+      link.category === VdbWebLinkCategory.official ||
+      link.category === VdbWebLinkCategory.commercial;
+    const isMedia =
+      isOfficial && !!RECOGNIZED_LINKS.filter((el) => el.isMedia).find((el) => el.re.exec(url));
+    const isInactive = link.disabled;
+    extLinks.push([url, description, isOfficial, isMedia, isInactive]);
+  }
+
+  const formData: ProducerPageFormData = {
+    prodCategory,
+    splitAlbum: false,
+    prodAliases: "",
+    affiliations: affiliations.join("\n"),
+    labels: labels.join("\n"),
+    languages: [],
+    engines: [],
+    description,
+    roles: {
+      composer: false,
+      lyricist: false,
+      tuner: false,
+      illustrator: false,
+      animator: false,
+      arranger: false,
+      instrumentalist: false,
+      mixer: false,
+      masterer: false,
+    },
+    // imageSrc,
+  };
+  return formData;
+}
+
+export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
+  songs: string[][];
+  albums: (string | boolean)[][];
+  recommendToSplitAlbum: boolean;
+}> {
+  if (prodcat.trim() === "") {
+    throw new VLWInvalidUrlError();
+  }
+  let subcats: Set<string> = new Set();
+  let songs: Map<string, string> = new Map();
+  let albums: { title: string; isCompilation: boolean }[] = [];
+
+  let cmcontinue: string | null = null;
+
+  // Get pages in main category
+  const params = new URLSearchParams({
+    action: "query",
+    format: "json",
+    list: "categorymembers",
+    cmtitle: `Category:${encodeURI(prodcat)}_songs_list`,
+    cmprop: "title|sortkeyprefix",
+    cmlimit: "500",
+    cmtype: "page|subcat",
+    cmsort: "sortkey",
+    cmdir: "ascending",
+    origin: "*",
+  });
+  while (true) {
+    if (cmcontinue) {
+      params.set("cmcontinue", cmcontinue);
+    }
+    let res = await fetch(`${VOCALOID_LYRICS_WIKI_API_ENTRYPOINT}?${params.toString()}`);
+    if (!res.ok) {
+      throw new ExternalWebServiceError(`Got error response ${res.status}: ${res.statusText}`);
+    }
+    const json: FetchedMwDiscography = await res.json();
+
+    if (json.error) {
+      throw new ExternalWebServiceError(`Failed fetch: ${json.error.info}`);
+    }
+
+    for (let page of json.query.categorymembers) {
+      let title: string;
+      try {
+        title = decodeURI(page.title);
+      } catch {
+        title = page.title;
+      }
+      let sortkey: string = (page.sortkeyprefix || "") === "" ? title : page.sortkeyprefix || "";
+      if (page.ns === 0) {
+        songs.set(sortkey, title);
+      } else {
+        subcats.add(title);
+      }
+    }
+
+    if (!json.continue) {
+      break;
+    }
+    cmcontinue = json.continue.cmcontinue;
+  }
+
+  if (songs.size === 0 && subcats.size === 0) {
+    throw new GotZeroPagesInResponseError();
+  }
+
+  const getPagesInSubcategory = async (
+    subcat: string,
+  ): Promise<{ title: string; sortkey: string }[]> => {
+    const arr: { title: string; sortkey: string }[] = [];
+    const params = new URLSearchParams({
+      action: "query",
+      format: "json",
+      list: "categorymembers",
+      cmtitle: `Category:${encodeURI(subcat)}`,
+      cmprop: "title|sortkeyprefix",
+      cmlimit: "500",
+      cmtype: "page|subcat",
+      cmsort: "sortkey",
+      cmdir: "ascending",
+      origin: "*",
+    });
+    while (true) {
+      if (cmcontinue) {
+        params.set("cmcontinue", cmcontinue);
+      }
+      let res = await fetch(`${VOCALOID_LYRICS_WIKI_API_ENTRYPOINT}?${params.toString()}`);
+      if (!res.ok) {
+        throw new ExternalWebServiceError(`Got error response ${res.status}: ${res.statusText}`);
+      }
+      let json: FetchedMwDiscography = await res.json();
+
+      if (json.error) {
+        throw new ExternalWebServiceError(`Failed fetch: ${json.error.info}`);
+      }
+
+      arr.push(
+        ...json.query.categorymembers.map((el) => {
+          let title: string;
+          try {
+            title = decodeURI(el.title);
+          } catch (e) {
+            title = el.title;
+          }
+          let sortkey = (el.sortkeyprefix || "") === "" ? title : el.sortkeyprefix || "";
+          return { title, sortkey };
+        }),
+      );
+
+      if (!json.continue) {
+        break;
+      }
+      cmcontinue = json.continue.cmcontinue;
+    }
+    return arr;
+  };
+
+  const getAlbumPagesInSubcategory = async (
+    subcat: string,
+  ): Promise<{ title: string; isCompilation: boolean }[]> => {
+    const arr: { title: string; isCompilation: boolean }[] = [];
+    const params = new URLSearchParams({
+      action: "query",
+      format: "json",
+      generator: "categorymembers",
+      indexpageids: "true",
+      gcmtitle: `${encodeURI(subcat)}`,
+      prop: "categories",
+      gcmlimit: "500",
+      cllimit: "500",
+      clcategories: "Category:Compilation_albums",
+      gcmnamespace: "0",
+      gcmsort: "sortkey",
+      gcmdir: "ascending",
+      origin: "*",
+    });
+    while (true) {
+      if (cmcontinue) {
+        params.set("cmcontinue", cmcontinue);
+      }
+      let res = await fetch(`${VOCALOID_LYRICS_WIKI_API_ENTRYPOINT}?${params.toString()}`);
+      if (!res.ok) {
+        throw new ExternalWebServiceError(`Got error response ${res.status}: ${res.statusText}`);
+      }
+      let json: FetchedMwDiscographyAlbum = await res.json();
+
+      if (json.error) {
+        throw new ExternalWebServiceError(`Failed fetch: ${json.error.info}`);
+      }
+
+      for (let id of json.query.pageids) {
+        const page = json.query.pages[id];
+        let title: string;
+        let isCompilation: boolean;
+        try {
+          title = decodeURI(page.title);
+        } catch {
+          title = page.title;
+        }
+        isCompilation = !!page.categories;
+        arr.push({ title, isCompilation });
+      }
+
+      if (!json.continue) {
+        break;
+      }
+      cmcontinue = json.continue.cmcontinue;
+    }
+    return arr;
+  };
+
+  let albumSubcat: string | null = [...subcats].find((el) => el.endsWith("/Albums")) || null;
+  if (albumSubcat !== null) {
+    subcats.delete(albumSubcat);
+    albums = await getAlbumPagesInSubcategory(albumSubcat);
+  }
+
+  const arrFetched = await Promise.all([...subcats].map((subcat) => getPagesInSubcategory(subcat)));
+  for (let arr of arrFetched) {
+    for (let { sortkey, title } of arr) {
+      songs.set(sortkey, title);
+    }
+  }
+
+  let sortedSongs: string[][] = Array.from(songs);
+  sortedSongs.sort((a, b) => {
+    const v = a[0].toLowerCase();
+    const w = b[0].toLowerCase();
+    return v > w ? 1 : v < w ? -1 : 0;
+  });
+
+  const numCompilations = albums.reduce((numCompilations, album) => {
+    return album.isCompilation ? numCompilations + 1 : numCompilations;
+  }, 0);
+
+  return {
+    songs: sortedSongs.map((el) => [el[1], ""]),
+    albums: albums.map((el) => [el.title, "", el.isCompilation]),
+    recommendToSplitAlbum: numCompilations > 10,
+  };
 }
