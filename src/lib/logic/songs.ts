@@ -13,8 +13,8 @@ import {
   VdbSystemLanguage,
   VdbVocalSynthEngine,
   VdbWebLinkCategory,
+  type FetchedVdbSongEntity,
 } from "../../schemas/vocadb.d";
-import type { FetchedVdbSongEntity } from "../../schemas/vocadb.d";
 
 import {
   detonePinyin,
@@ -24,7 +24,7 @@ import {
   validateColour,
 } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
-import { getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
+import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
 
 import { MONTHS, LANGUAGES } from "../../constants";
 import { VOCADB_ENTRYPOINT } from "../../config";
@@ -461,33 +461,6 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     [`${VOCADB_ENTRYPOINT}S/${vdbPageId}`, "VocaDB", false],
   ];
 
-  const dictConvertArtistRole = {
-    [VdbArtistRole.default]: "music, lyrics",
-    [VdbArtistRole.composer]: "music",
-    [VdbArtistRole.lyricist]: "lyrics",
-    [VdbArtistRole.arranger]: "arrangement",
-    [VdbArtistRole.mixer]: "mix",
-    [VdbArtistRole.mastering]: "mastering",
-    [VdbArtistRole.voicemanipulator]: "tuning",
-    [VdbArtistRole.instrumentalist]: "instruments",
-    [VdbArtistRole.illustrator]: "illustration",
-    [VdbArtistRole.animator]: "PV",
-    [VdbArtistRole.encoder]: "encoding",
-    [VdbArtistRole.vocalist]: "vocalist",
-    [VdbArtistRole.chorus]: "chorus",
-    [VdbArtistRole.other]: "other",
-    [VdbArtistRole.distributor]: "publisher",
-    [VdbArtistRole.publisher]: "publisher",
-  };
-  const dictConvertPvServiceName = {
-    [VdbPvService.yt]: "YouTube",
-    [VdbPvService.nnd]: "Niconico",
-    [VdbPvService.bb]: "bilibili",
-    [VdbPvService.pp]: "piapro",
-    [VdbPvService.sc]: "SoundCloud",
-    [VdbPvService.bc]: "Bandcamp",
-    [VdbPvService.vm]: "Vimeo",
-  };
   const orderRolePriority = [
     "music",
     "lyrics",
@@ -562,7 +535,7 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
   }
 
   for (let pv of json.pvs || []) {
-    const pvService = dictConvertPvServiceName[pv.service] || null;
+    const pvService = convertPvService(pv.service);
     const pvUrl = processExternalLinkFromVocaDb(pv.url || "");
     const isDeleted = pv.disabled;
     const isReprint = pv.pvType !== VdbPvType.original;
