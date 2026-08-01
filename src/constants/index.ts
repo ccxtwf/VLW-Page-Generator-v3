@@ -8,8 +8,10 @@ export {
   PV_SERVICE_ABBREVIATIONS,
   PV_SERVICES,
   RECOGNIZED_LINKS,
+  type RecognizedDomain,
+  type PvService,
 } from "./linkDomains";
-export { ALBUM_STREAMING_LINKS } from "./albumLinkDomains";
+export { type AlbumStreamingLink, ALBUM_STREAMING_LINKS } from "./albumLinkDomains";
 
 export { default as SYNTH_ENGINES } from "./synthEngines.json";
 export { default as SYNTHS } from "./synths.json";

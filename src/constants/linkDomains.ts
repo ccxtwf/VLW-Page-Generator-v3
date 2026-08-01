@@ -24,14 +24,14 @@ export const PV_SERVICE_ABBREVIATIONS: Map<string, string> = new Map([
   [PV_SERVICE_PROVIDER.vimeo, "VM"],
 ]);
 
-interface RecognizedDomain {
+export interface RecognizedDomain {
   site: string;
   re: RegExp;
   isMedia?: boolean;
   mapToAlbumInfoboxReadMoreParam?: string;
 }
 
-interface PvService extends RecognizedDomain {
+export interface PvService extends RecognizedDomain {
   site: PV_SERVICE_PROVIDER;
 }
 

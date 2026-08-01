@@ -1,4 +1,4 @@
-interface AlbumStreamingLink {
+export interface AlbumStreamingLink {
   name: string;
   paramKey: string;
   regex: RegExp;
