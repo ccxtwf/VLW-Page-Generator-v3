@@ -32,8 +32,11 @@
   },
   "results": "Results",
   "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
+  "confirmClearDiscog": "This will clear the existing songs and albums listed on the form. Are you sure that you want to continue?",
   "fetch": {
     "invalidVdb": "VocaDB URL must follow the specified format: e.g. https://vocadb.net/{1}",
+    "invalidVlw": "Producer category page name must not be empty!",
+    "emptyResponseVlw": "Got zero pages from the Vocaloid Lyrics Wiki. Please re-check the producer's name.",
     "errorFetch": "Failed to fetch data from {1}. Got an unexpected response from the server.",
     "errorUnhandled": "Failed to fetch data from {1}. An unexpected error has occurred.",
     "success": "Successfully fetched data from {1}!"

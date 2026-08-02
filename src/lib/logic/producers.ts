@@ -1,4 +1,8 @@
-import type { ExternalLink, ProducerPageFormData } from "../../schemas/form";
+import type {
+  ExternalLink,
+  ProducerDiscographyItem,
+  ProducerPageFormData,
+} from "../../schemas/form";
 
 import { ProducerPageValidationErrorType } from "./enums";
 import { getErrorForProducerValidation } from ".";
@@ -291,8 +295,8 @@ export async function fetchDataFromVocaDb(
 }
 
 export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
-  songs: string[][];
-  albums: (string | boolean)[][];
+  songs: ProducerDiscographyItem[];
+  albums: ProducerDiscographyItem[];
   recommendToSplitAlbum: boolean;
 }> {
   if (prodcat.trim() === "") {
@@ -309,7 +313,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
     action: "query",
     format: "json",
     list: "categorymembers",
-    cmtitle: `Category:${encodeURI(prodcat)}_songs_list`,
+    cmtitle: `Category:${prodcat}_songs_list`,
     cmprop: "title|sortkeyprefix",
     cmlimit: "500",
     cmtype: "page|subcat",
@@ -364,7 +368,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
       action: "query",
       format: "json",
       list: "categorymembers",
-      cmtitle: `Category:${encodeURI(subcat)}`,
+      cmtitle: `Category:${subcat}`,
       cmprop: "title|sortkeyprefix",
       cmlimit: "500",
       cmtype: "page|subcat",
@@ -416,7 +420,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
       format: "json",
       generator: "categorymembers",
       indexpageids: "true",
-      gcmtitle: `${encodeURI(subcat)}`,
+      gcmtitle: subcat,
       prop: "categories",
       gcmlimit: "500",
       cllimit: "500",
@@ -486,8 +490,12 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
   }, 0);
 
   return {
-    songs: sortedSongs.map((el) => [el[1], ""]),
-    albums: albums.map((el) => [el.title, "", el.isCompilation]),
+    songs: sortedSongs.map((el) => ({ page: el[1], additionalParameters: "" })),
+    albums: albums.map((el) => ({
+      page: el.title,
+      additionalParameters: "",
+      isCompilation: el.isCompilation,
+    })),
     recommendToSplitAlbum: numCompilations > 10,
   };
 }

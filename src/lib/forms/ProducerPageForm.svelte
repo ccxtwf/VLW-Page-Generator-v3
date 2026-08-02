@@ -9,6 +9,8 @@
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
+  import ProducerDiscographyTable from "../components/handsontables/ProducerDiscographyTable.svelte";
+  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
@@ -18,7 +20,12 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate, generatePage, fetchDataFromVocaDb } from "../logic/producers";
+  import {
+    validate,
+    generatePage,
+    fetchDataFromVocaDb,
+    fetchDiscographyFromVlw,
+  } from "../logic/producers";
 
   import type { ProducerPageFormData } from "../../schemas/form";
   import { formSubmitHandler, formResetHandler } from "../logic";
@@ -27,7 +34,9 @@
     ExternalWebServiceError,
     VocaDBInvalidUrlError,
     VLWInvalidUrlError,
+    GotZeroPagesInResponseError,
   } from "../logic/exceptions";
+  import { createInitialData } from "../utils/utils";
 
   let formData: ProducerPageFormData = $state<ProducerPageFormData>({
     prodCategory: "",
@@ -49,6 +58,18 @@
       mixer: false,
       masterer: false,
     },
+    songs: createInitialData({ page: "", additionalParameters: "" }, 5),
+    albums: createInitialData({ page: "", additionalParameters: "", isCompilation: false }, 5),
+    extLinks: createInitialData(
+      {
+        url: "",
+        description: "",
+        isOfficial: false,
+        isMedia: false,
+        isInactive: false,
+      },
+      5,
+    ),
   });
   let ignoreErrors: boolean = $state(false);
 
@@ -70,6 +91,31 @@
         console.error(err);
         if (err instanceof VocaDBInvalidUrlError) {
           window.alert($_("fetch.invalidVdb", { values: { "1": "Ar/28" } }));
+        } else if (err instanceof ExternalWebServiceError) {
+          window.alert($_("fetch.errorFetch", { values: __a }));
+        } else {
+          window.alert($_("fetch.errorUnhandled", { values: __a }));
+        }
+      }
+    }
+  };
+  const handleDiscographyLoading = async () => {
+    if (window.confirm($_("confirmClearDiscog"))) {
+      const __a = { "1": "Vocaloid Lyrics Wiki" };
+      try {
+        const { songs, albums, recommendToSplitAlbum } = await fetchDiscographyFromVlw(
+          formData.prodCategory || "",
+        );
+        formData.songs = songs;
+        formData.albums = albums;
+        formData.splitAlbum = recommendToSplitAlbum;
+        window.alert($_("fetch.success", { values: __a }));
+      } catch (err) {
+        console.error(err);
+        if (err instanceof VLWInvalidUrlError) {
+          window.alert($_("fetch.invalidVlw"));
+        } else if (err instanceof GotZeroPagesInResponseError) {
+          window.alert($_("fetch.emptyResponseVlw"));
         } else if (err instanceof ExternalWebServiceError) {
           window.alert($_("fetch.errorFetch", { values: __a }));
         } else {
@@ -132,7 +178,7 @@
           <button
             type="button"
             class="btn btn-neutral text-xs"
-            onclick={() => {}}
+            onclick={handleDiscographyLoading}
           >
             {$_("producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText")}
           </button>
@@ -237,10 +283,12 @@
     </h2>
   </div>
 
-  <div
+  <ExternalLinksTable
     id="external-links"
-    class="col-span-full h-32 w-full"
-  ></div>
+    class="col-span-full w-full"
+    bind:data={formData.extLinks}
+    forProducerPage={true}
+  />
 
   <Divider />
 
@@ -250,7 +298,11 @@
     tooltipI18nKey="producerGenForm.discographySongs.tooltip"
     required={true}
   >
-    <div class="h-32 w-full"></div>
+    <ProducerDiscographyTable
+      id="discography-songs"
+      class="w-full"
+      bind:data={formData.songs}
+    />
   </FlexRow>
 
   <FlexRow
@@ -259,7 +311,12 @@
     tooltipI18nKey="producerGenForm.discographyAlbums.tooltip"
   >
     <div class="flex w-full flex-col gap-2">
-      <div class="h-32 w-full"></div>
+      <ProducerDiscographyTable
+        id="discography-albums"
+        class="w-full"
+        bind:data={formData.albums}
+        forAlbums={true}
+      />
       <div class="w-full text-xs">
         {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
       </div>
