@@ -1,4 +1,4 @@
-import type { ProducerPageFormData } from "../../schemas/form";
+import type { ExternalLink, ProducerPageFormData } from "../../schemas/form";
 
 import { ProducerPageValidationErrorType } from "./enums";
 import { getErrorForProducerValidation } from ".";
@@ -23,6 +23,11 @@ import {
   VLWInvalidUrlError,
   VocaDBInvalidUrlError,
 } from "./exceptions";
+import {
+  getDiscographyItemWikitext,
+  getExternalLinkWikitext,
+  getUnofficialProdLinks,
+} from "../utils/genUtils";
 
 export function validate(
   formData: ProducerPageFormData,
@@ -34,7 +39,8 @@ export function validate(
     "labels",
     "description",
   ]);
-  let { prodCategory, roles, languages, description }: ProducerPageFormData = formData;
+  let { prodCategory, roles, languages, description, extLinks, songs }: ProducerPageFormData =
+    formData;
 
   const errors: ValidationError<ProducerPageValidationErrorType>[] = [];
 
@@ -62,19 +68,23 @@ export function validate(
     );
   }
 
-  /*
   if (extLinks.length === 0) {
-    errors.push(getErrorForProducerValidation(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_LISTED));
+    errors.push(
+      getErrorForProducerValidation(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_LISTED),
+    );
   } else {
-    if (extLinks.every(link => !link.isOfficial)) {
-      errors.push(getErrorForProducerValidation(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_OFFICIAL));
+    if (extLinks.every((link) => !link.isOfficial)) {
+      errors.push(
+        getErrorForProducerValidation(
+          ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_OFFICIAL,
+        ),
+      );
     }
   }
 
-  if (songList.length === 0) {
+  if (songs.length === 0) {
     errors.push(getErrorForProducerValidation(ProducerPageValidationErrorType.NO_SONG_PAGE));
   }
-  */
 
   const fatal = errors.some(({ fatal }) => fatal);
   return { errors, autoloadCategories: false, fatal };
@@ -91,31 +101,28 @@ export function generatePage(formData: ProducerPageFormData): string {
     languages,
     engines,
     description,
+    extLinks,
+    songs,
+    albums,
   } = formData;
 
   let extLinksSegment: string = "";
   let categories: string[] = ["Producers"];
 
-  /*
   let officialLinks: string = extLinks
-    .filter(link => link.isOfficial && !link.isMedia)
-    .map(link => (
-      `* ${link.description}: [${link.url} ]\n`
-    ))
-    .join('');
+    .filter((link) => link.isOfficial && !link.isMedia)
+    .map((link) => `* ${link.description}: [${link.url} ]\n`)
+    .join("");
   let mediaLinks: string = extLinks
-    .filter(link => link.isOfficial && link.isMedia)
-    .map(link => `* ${link.getWikitext()}\n`)
-    .join('');
-  let unofficialLinks: string = generateUnofficialProdLinks(
-    extLinks.filter(link => !link.isOfficial)
-  );
-  
+    .filter((link) => link.isOfficial && link.isMedia)
+    .map((link) => `* ${getExternalLinkWikitext(link)}\n`)
+    .join("");
+  let unofficialLinks: string = getUnofficialProdLinks(extLinks.filter((link) => !link.isOfficial));
+
   extLinksSegment += `==External links==\n`;
-  extLinksSegment += officialLinks === '' ? '' : officialLinks + '\n';
-  extLinksSegment += mediaLinks === '' ? '' : `===Media===\n${mediaLinks}\n`;
-  extLinksSegment += unofficialLinks === '' ? '' : `===Unofficial===\n${unofficialLinks}`;
-  */
+  extLinksSegment += officialLinks === "" ? "" : officialLinks + "\n";
+  extLinksSegment += mediaLinks === "" ? "" : `===Media===\n${mediaLinks}\n`;
+  extLinksSegment += unofficialLinks === "" ? "" : `===Unofficial===\n${unofficialLinks}`;
 
   for (const [role, isChecked] of Object.entries(roles)) {
     if (isChecked) {
@@ -130,13 +137,12 @@ export function generatePage(formData: ProducerPageFormData): string {
     categories.push(`Producers using ${engine}`);
   }
 
-  /*
-  let albumListSegment = '';
-  if (albumList.length > 0) {
+  let albumListSegment = "";
+  if (albums.length > 0) {
     if (splitAlbum) {
       const originalAlbums = [];
       const compilationAlbums = [];
-      for (const album of albumList) {
+      for (const album of albums) {
         if (album.isCompilation) {
           compilationAlbums.push(album);
         } else {
@@ -145,44 +151,31 @@ export function generatePage(formData: ProducerPageFormData): string {
       }
       albumListSegment = "==Discography==\n";
       if (originalAlbums.length > 0) {
-        albumListSegment += (
-          `{| class=\"sortable producer-table\"\n${
-            ''
-          }|- class=\"vcolor-default\"\n${
-            ''
-          }! {{awt head}}\n` +
+        albumListSegment +=
+          `{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
           originalAlbums
-            .map(album => `|-\n| ${album.toTemplate()}\n`).join('') + '|}\n'
-        );
+            .map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`)
+            .join("") +
+          "|}\n";
       }
       if (originalAlbums.length > 0 && compilationAlbums.length > 0) {
         albumListSegment += "\n";
       }
       if (compilationAlbums.length > 0) {
-        albumListSegment += (
-          `===Compilations===\n{| class=\"sortable producer-table\"\n${
-            ''
-          }|- class=\"vcolor-default\"\n${
-            ''
-          }! {{awt head}}\n` +
+        albumListSegment +=
+          `===Compilations===\n{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
           compilationAlbums
-            .map(album => `|-\n| ${album.toTemplate()}\n`).join('') + '|}\n'
-        );
+            .map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`)
+            .join("") +
+          "|}\n";
       }
     } else {
-      albumListSegment = (
-        `==Discography==\n${
-          ''
-        }{| class=\"sortable producer-table\"\n${
-          ''
-        }|- class=\"vcolor-default\"\n${
-          ''
-        }! {{awt head}}\n` +
-        albumList.map(album => `|-\n| ${album.toTemplate()}\n`).join('') + '|}\n'
-      );
+      albumListSegment =
+        `==Discography==\n${""}{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
+        albums.map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`).join("") +
+        "|}\n";
     }
   }
-  */
 
   return `
 <div class="producer-links">
@@ -200,15 +193,9 @@ ${description}
 {| class="sortable producer-table"
 |- class="vcolor-default"
 ! {{pwt head}}
-${
-  ""
-  // songList.map(song => `|-\n| ${song.toTemplate()}\n`).join('')
-}|}
+${songs.map((song) => `|-\n| ${getDiscographyItemWikitext(song)}\n`).join("")}|}
 
-${
-  ""
-  // albumListSegment
-}
+${albumListSegment}
 ${categories.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 }
 
@@ -237,7 +224,7 @@ export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageForm
 
   let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
 
-  const extLinks: (string | boolean)[][] = [];
+  const extLinks: ExternalLink[] = [];
 
   for (let artistLink of json.artistLinks || []) {
     if (artistLink.artist.artistType === VdbArtistType.label) {
@@ -247,18 +234,32 @@ export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageForm
     }
   }
 
-  extLinks.push([`${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`, "VocaDB", false, false, false]);
+  extLinks.push({
+    url: `${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`,
+    description: "VocaDB",
+    isOfficial: false,
+    isMedia: false,
+    isInactive: false,
+  });
   for (let link of json.webLinks || []) {
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = link.description || "";
-    if (description === "MikuWiki") description = "Hatsune Miku Wiki";
+    if (description === "MikuWiki") {
+      description = "Hatsune Miku Wiki";
+    }
     const isOfficial =
       link.category === VdbWebLinkCategory.official ||
       link.category === VdbWebLinkCategory.commercial;
     const isMedia =
       isOfficial && !!RECOGNIZED_LINKS.filter((el) => el.isMedia).find((el) => el.re.exec(url));
     const isInactive = link.disabled;
-    extLinks.push([url, description, isOfficial, isMedia, isInactive]);
+    extLinks.push({
+      url,
+      description,
+      isOfficial,
+      isMedia,
+      isInactive,
+    });
   }
 
   const formData: ProducerPageFormData = {
@@ -281,6 +282,9 @@ export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageForm
       mixer: false,
       masterer: false,
     },
+    songs: [],
+    albums: [],
+    extLinks,
     // imageSrc,
   };
   return formData;
@@ -387,7 +391,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
           let title: string;
           try {
             title = decodeURI(el.title);
-          } catch (e) {
+          } catch {
             title = el.title;
           }
           let sortkey = (el.sortkeyprefix || "") === "" ? title : el.sortkeyprefix || "";

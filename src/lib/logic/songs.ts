@@ -1,4 +1,9 @@
-import type { MultiSelectItem, SongPageFormData } from "../../schemas/form";
+import type {
+  ExternalLink,
+  MultiSelectItem,
+  PlayLinkData,
+  SongPageFormData,
+} from "../../schemas/form";
 import { ENUM_CW_STATES, ENUM_AI_WARNING_TYPE } from "../../schemas/enums";
 
 import { SongPageValidationErrorType } from "./enums";
@@ -456,9 +461,9 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
   const minorSingers: string[] = [];
   const circles: string[] = [];
   const producers: { name: string; role: string }[] = [];
-  const playLinks: (string | boolean)[][] = [];
-  const extLinks: (string | boolean)[][] = [
-    [`${VOCADB_ENTRYPOINT}S/${vdbPageId}`, "VocaDB", false],
+  const playLinks: PlayLinkData[] = [];
+  const extLinks: ExternalLink[] = [
+    { url: `${VOCADB_ENTRYPOINT}S/${vdbPageId}`, description: "VocaDB", isOfficial: false },
   ];
 
   const orderRolePriority = [
@@ -540,9 +545,16 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     const isDeleted = pv.disabled;
     const isReprint = pv.pvType !== VdbPvType.original;
     if (pvService === null) {
-      extLinks.push([pvUrl, pv.service, !isReprint]);
+      extLinks.push({ url: pvUrl, description: pv.service, isOfficial: !isReprint });
     } else {
-      playLinks.push([pvService, pvUrl, isReprint, false, isDeleted, ""]);
+      playLinks.push({
+        site: pvService,
+        url: pvUrl,
+        isReprint,
+        isAutogen: false,
+        isDeleted,
+        viewCount: "",
+      });
     }
     if (!isReprint) {
       switch (pv.service) {
@@ -582,7 +594,7 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     const isOfficial =
       link.category === VdbWebLinkCategory.official ||
       link.category === VdbWebLinkCategory.commercial;
-    extLinks.push([url, description, isOfficial]);
+    extLinks.push({ url, description, isOfficial });
   }
 
   const formData: SongPageFormData = {
@@ -611,6 +623,9 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     translator: "",
     isOfficialTranslation: false,
     categoriesRaw: "",
+    lyrics: [],
+    playLinks,
+    extLinks,
     // imageProps,
   };
   return formData;

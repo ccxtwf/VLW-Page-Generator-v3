@@ -1,4 +1,10 @@
-import type { AlbumPageFormData, MultiSelectItem } from "../../schemas/form";
+import type {
+  AlbumBroadcastLink,
+  AlbumPageFormData,
+  AlbumTrackData,
+  ExternalLink,
+  MultiSelectItem,
+} from "../../schemas/form";
 
 import { AlbumPageValidationErrorType } from "./enums";
 import { getErrorForAlbumValidation } from ".";
@@ -350,7 +356,6 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
   const mainProducers: string[] = [];
   const labels: string[] = [];
   const engineIds: Set<number> = new Set();
-  let strLabel: string = "";
   let strDescription: string = "";
   let isCompilationAlbum: boolean = false;
   let publishedYear: string = "";
@@ -378,7 +383,6 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
         break;
     }
   }
-  strLabel = labels.length === 0 ? "" : renderAsCommaSeparatedList(labels);
   if (json.discType === VdbAlbumType.compilation) {
     strDescription = `a compilation album${
       circles.length === 0 ? "" : ", by the circle " + renderAsCommaSeparatedList(circles)
@@ -402,14 +406,18 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
     publishedDay = `${day || ""}`;
   }
 
-  const trackList: (string | number)[][] = [];
-  const extLinks: (string | boolean)[][] = [];
-  const officialStreaming: string[][] = [];
+  const tracklist: AlbumTrackData[] = [];
+  const extLinks: ExternalLink[] = [];
+  const officialStreaming: AlbumBroadcastLink[] = [];
   const vdbSingerIdsCache: Map<number, string> = new Map();
   const addedSingers: Set<string> = new Set();
 
   for (let track of json.tracks || []) {
-    const { discNumber, trackNumber, song: { artists, defaultName: songTitle } = {} } = track;
+    const {
+      discNumber: discNo,
+      trackNumber: trackNo,
+      song: { artists, defaultName: songTitle } = {},
+    } = track;
     const songProducers: string[] = [];
     const songSingers: Set<string> = new Set();
     for (let artist of artists || []) {
@@ -454,16 +462,18 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
             (isDerivative && role === VdbArtistRole.arranger)
           );
         });
-        if (isMainProducer) songProducers.push(artist?.name || "");
+        if (isMainProducer) {
+          songProducers.push(artist?.name || "");
+        }
       }
     }
-    trackList.push([
-      discNumber,
-      trackNumber,
-      songTitle || "",
-      renderAsCommaSeparatedList(songProducers),
-      renderAsCommaSeparatedList(Array.from(songSingers.values())),
-    ]);
+    tracklist.push({
+      discNo,
+      trackNo,
+      pageTitle: songTitle || "",
+      producerCredit: renderAsCommaSeparatedList(songProducers),
+      singerCredit: renderAsCommaSeparatedList(Array.from(songSingers.values())),
+    });
   }
   const engines: MultiSelectItem[] = Array.from(engineIds.keys()).map((id) => {
     let e: Synth = SYNTH_ENGINES[id];
@@ -482,17 +492,17 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = convertPvService(link.service);
     description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
-    extLinks.push([url, description, true]);
+    extLinks.push({ url, description, isOfficial: true });
 
     switch (link.service) {
       case VdbPvService.yt:
-        officialStreaming.push(["YouTube Crossfade", url]);
+        officialStreaming.push({ site: "YouTube Crossfade", url });
         break;
       case VdbPvService.nnd:
-        officialStreaming.push(["Niconico Crossfade", url]);
+        officialStreaming.push({ site: "Niconico Crossfade", url });
         break;
       case VdbPvService.sc:
-        officialStreaming.push(["SoundCloud Crossfade", url]);
+        officialStreaming.push({ site: "SoundCloud Crossfade", url });
         break;
     }
   }
@@ -510,28 +520,28 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
       RECOGNIZED_LINKS.find(({ re }) => {
         return re.exec(url) !== null;
       }) || null;
-    if (m === null) {
-      description = description = link.description || "";
+    if (!m) {
+      description = link.description || "";
     } else {
       description = m?.site || "";
       if (m.site === "VOCALOID Wiki") {
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
-      if (am !== null) {
-        officialStreaming.push([am.name || "", url]);
+      if (am) {
+        officialStreaming.push({ site: am.name || "", url });
       }
     }
 
-    extLinks.push([url, description, isOfficial]);
+    extLinks.push({ url, description, isOfficial });
   }
 
   const formData: AlbumPageFormData = {
     origTitle,
     romTitle,
     engTitle,
-    bgColour: "",
-    fgColour: "",
-    label: strLabel,
+    bgColour: "black",
+    fgColour: "white",
+    label: labels.length === 0 ? "" : renderAsCommaSeparatedList(labels),
     description: strDescription,
     isCompilationAlbum,
     publishedYear,
@@ -541,6 +551,9 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
     vdbAlbumId: vdbPageId,
     vocaWikiPage,
     categoriesRaw: "",
+    tracklist,
+    broadcastLinks: officialStreaming,
+    extLinks,
     // imageSrc,
   };
   return formData;

@@ -33,6 +33,9 @@ export interface SongPageFormData {
   isOfficialTranslation: boolean;
   categoriesRaw: string;
   categories?: string[];
+  lyrics: LyricRowData[];
+  playLinks: PlayLinkData[];
+  extLinks: ExternalLink[];
 }
 
 export interface LyricRowData {
@@ -41,9 +44,6 @@ export interface LyricRowData {
   romanized?: string;
   english?: string;
   additionalColumns?: string[];
-
-  getWikitextOfSingleCell: (contents?: string) => string;
-  toWikitext: (printEmptyEnglishColumn?: boolean) => string;
 }
 
 export interface PlayLinkData {
@@ -53,10 +53,6 @@ export interface PlayLinkData {
   isAutogen: boolean;
   isDeleted: boolean;
   viewCount: string;
-
-  isOfficiallyAvailable: () => boolean;
-  toWikitext: () => string;
-  getFormattedViewCount: () => string;
 }
 
 export interface ExternalLink {
@@ -65,9 +61,6 @@ export interface ExternalLink {
   isOfficial: boolean;
   isMedia?: boolean;
   isInactive?: boolean;
-  mapToAlbumInfoboxReadMoreParam: string | null;
-
-  toWikitext: () => string;
 }
 
 export interface AlbumPageFormData {
@@ -87,6 +80,14 @@ export interface AlbumPageFormData {
   vocaWikiPage: string;
   categoriesRaw: string;
   categories?: string[];
+  tracklist: AlbumTrackData[];
+  broadcastLinks: AlbumBroadcastLink[];
+  extLinks: ExternalLink[];
+}
+
+export interface AlbumBroadcastLink {
+  site: string;
+  url: string;
 }
 
 export interface AlbumTrackData {
@@ -107,6 +108,9 @@ export interface ProducerPageFormData {
   engines: MultiSelectItem[];
   description: string;
   roles: ProducerRoles;
+  songs: ProducerDiscographyItem[];
+  albums: ProducerDiscographyItem[];
+  extLinks: ExternalLink[];
 }
 
 export interface ProducerRoles {
@@ -124,11 +128,11 @@ export interface ProducerRoles {
 export interface ProducerDiscographyItem {
   page: string;
   additionalParameters: string;
-
-  toWikitext: () => string;
+  isCompilation?: boolean;
 }
 
 export interface LyricsEditorFormData {
+  lyrics: LyricRowData[];
   translator: string;
   isOfficialTranslation: boolean;
 }
