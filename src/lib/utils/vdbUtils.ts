@@ -23,9 +23,8 @@ export function getVdbPageId(url: string, mode: VdbPageType): string | null {
   if (!mode.match(/^(S|Ar|Al)$/)) {
     throw new InvalidArgumentError();
   }
-  const rxVdb = new RegExp(`^\\s*${escapeRegExp(VOCADB_ENTRYPOINT)}${mode}\\/(\\d+)`);
-  console.log(rxVdb);
-  const tryMatch = rxVdb.exec(url);
+  const rxVdb = new RegExp(`^${escapeRegExp(VOCADB_ENTRYPOINT)}${mode}\\/(\\d+)`);
+  const tryMatch = rxVdb.exec(url.trim());
   if (tryMatch === null) {
     return null;
   }

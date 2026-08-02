@@ -106,3 +106,24 @@ export function detonePinyin(romText: string, showUmlaut = false): string {
   romText = romText.replaceAll(rx, (m) => dictConversion[m]);
   return romText;
 }
+
+/**
+ * Convert `<` to `&lt;`, `>` to `&gt;`
+ *
+ * @param s
+ * @returns
+ */
+export function sanitizeHtml(s: string) {
+  return s.replace("<", "&lt;").replace(">", "&gt;");
+}
+
+/**
+ * Creates an array of objects with the given fields.
+ *
+ * @param o
+ * @param n
+ */
+export function createInitialData<T>(o: T, n: number): T[] {
+  const r = Array(n).fill({ ...o });
+  return r;
+}
