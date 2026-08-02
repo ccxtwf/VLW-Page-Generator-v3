@@ -48,9 +48,12 @@ export function convertAvidToBvId(url: string): string {
  * @returns
  */
 export function standardizeYoutubeLink(url: string) {
-  const matchDomain = /^https?:\/\/(?:(?:www\.|)youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/;
+  const matchDomain =
+    /^https?:\/\/(?:(?:www\.|music\.|)youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/;
   const m = url.match(matchDomain);
-  if (m === null) return url;
+  if (m === null) {
+    return url;
+  }
   return `https://www.youtube.com/watch?v=${m[1]}`;
 }
 
