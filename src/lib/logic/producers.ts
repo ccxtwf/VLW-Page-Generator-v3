@@ -31,7 +31,7 @@ import {
   getDiscographyItemWikitext,
   getExternalLinkWikitext,
   getUnofficialProdLinks,
-} from "../utils/genUtils";
+} from "../utils/generatorUtils";
 
 export function validate(
   formData: ProducerPageFormData,

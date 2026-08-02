@@ -33,7 +33,7 @@ import { MONTHS, RECOGNIZED_LINKS, ALBUM_STREAMING_LINKS, SYNTH_ENGINES } from "
 import { VOCADB_ENTRYPOINT, VOCALOID_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
 import { ExternalWebServiceError } from "./exceptions";
 import type { Synth } from "../../constants/types";
-import { getExternalLinkWikitext } from "../utils/genUtils";
+import { getExternalLinkWikitext } from "../utils/generatorUtils";
 
 function validateAlbumBroadcastLinks(broadcastLinks: AlbumBroadcastLink[]): (AlbumBroadcastLink & {
   paramKey: string | null;
