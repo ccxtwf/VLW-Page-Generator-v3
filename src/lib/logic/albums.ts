@@ -321,7 +321,9 @@ export function autoloadCategories({ description, engines }: AlbumPageFormData):
   return res;
 }
 
-export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormData> {
+export async function fetchDataFromVocaDb(
+  url: string,
+): Promise<Omit<AlbumPageFormData, "bgColour" | "fgColour">> {
   const vdbPageId = getVdbPageId(url, "Al");
   if (vdbPageId === null) {
     throw new Error("VocaDB page ID is empty or invalid!");
@@ -535,12 +537,10 @@ export async function fetchDataFromVocaDb(url: string): Promise<AlbumPageFormDat
     extLinks.push({ url, description, isOfficial });
   }
 
-  const formData: AlbumPageFormData = {
+  const formData: Omit<AlbumPageFormData, "bgColour" | "fgColour"> = {
     origTitle,
     romTitle,
     engTitle,
-    bgColour: "black",
-    fgColour: "white",
     label: labels.length === 0 ? "" : renderAsCommaSeparatedList(labels),
     description: strDescription,
     isCompilationAlbum,

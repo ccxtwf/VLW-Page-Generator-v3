@@ -199,7 +199,9 @@ ${albumListSegment}
 ${categories.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 }
 
-export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageFormData> {
+export async function fetchDataFromVocaDb(
+  url: string,
+): Promise<Omit<ProducerPageFormData, "songs" | "albums">> {
   const vdbPageId = getVdbPageId(url, "Ar");
   if (!vdbPageId) {
     throw new VocaDBInvalidUrlError();
@@ -262,7 +264,7 @@ export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageForm
     });
   }
 
-  const formData: ProducerPageFormData = {
+  const formData: Omit<ProducerPageFormData, "songs" | "albums"> = {
     prodCategory,
     splitAlbum: false,
     prodAliases: "",
@@ -282,8 +284,6 @@ export async function fetchDataFromVocaDb(url: string): Promise<ProducerPageForm
       mixer: false,
       masterer: false,
     },
-    songs: [],
-    albums: [],
     extLinks,
     // imageSrc,
   };

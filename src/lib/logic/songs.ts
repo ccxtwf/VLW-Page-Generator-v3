@@ -418,7 +418,9 @@ export function autoloadCategories({ producers = "" }: SongPageFormData): string
   return res;
 }
 
-export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData> {
+export async function fetchDataFromVocaDb(
+  url: string,
+): Promise<Omit<SongPageFormData, "bgColour" | "fgColour">> {
   const vdbPageId = getVdbPageId(url, "S");
   if (!vdbPageId) {
     throw new VocaDBInvalidUrlError();
@@ -597,7 +599,7 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     extLinks.push({ url, description, isOfficial });
   }
 
-  const formData: SongPageFormData = {
+  const formData: Omit<SongPageFormData, "bgColour" | "fgColour"> = {
     aiCwState: ENUM_AI_WARNING_TYPE.none,
     aiWarningText1: "",
     aiWarningText2: "",
@@ -612,8 +614,6 @@ export async function fetchDataFromVocaDb(url: string): Promise<SongPageFormData
     romTitle,
     engTitle,
     titleIsOfficiallyTranslated: false,
-    bgColour: "black",
-    fgColour: "white",
     uploadDateRaw: uploadDateRaw,
     isAlbumOnly: false,
     isUnavailable: false,
