@@ -123,6 +123,100 @@ export function generateLyricsToggle(
   return res;
 }
 
+/**
+ *
+ * @param contents
+ * @returns
+ */
+export function renderTableCellWikitext(contents?: string): string {
+  return `|${(contents || "")
+    .replace(/^-/, "<nowiki>-</nowiki>")
+    .replace(/(?<!<nowiki>|~)(~{3,})(?!~|<\/nowiki>)/g, "<nowiki>$1</nowiki>")}\n`;
+}
+
+/**
+ *
+ * @param lyrics
+ * @param param1
+ * @returns
+ */
+export function renderLyricsRowWikitext(
+  lyrics: LyricRowData,
+  {
+    needsRomanization,
+    needsTranslation,
+    hasTranslation,
+    showEnglishColumn,
+  }: {
+    needsRomanization: boolean;
+    needsTranslation: boolean;
+    hasTranslation: boolean;
+    showEnglishColumn: boolean;
+  },
+) {
+  let {
+    customStyle = "",
+    original = "",
+    romanized = "",
+    english = "",
+    additionalColumns = [],
+  } = lyrics;
+  // customStyle = customStyle.trim();
+  // original = original.trim();
+  // romanized = romanized.trim();
+  // english = english.trim();
+
+  let wikitext: string = `|-${customStyle === "" ? "" : ` style="${customStyle}"`}\n`;
+
+  /**
+   * Merge the cells if:
+   *  - The lyrics are in need of romanization & translation (with no additional columns),
+   *    and the original, romanized, and English translation share the same text
+   *  - The lyrics are in need of romanization & translation (with no additional columns &
+   *    no translation), and the original and romanized columns share the same text
+   *  - The lyrics are in need of translation but not romanization (with no additional columns)
+   *    and the original and English translation share the same text
+   *  - When additional columns are supplied, all additional columns must share the same text
+   *    as the original
+   *
+   * Do not merge the cells if:
+   *  - The current row is a line break (shared <br />)
+   *  - There is only one column available
+   */
+  const compareCells = [
+    original,
+    ...(needsRomanization ? [romanized] : []),
+    ...(needsTranslation && hasTranslation ? [english] : []),
+    ...additionalColumns,
+  ];
+  let isLineBreak = false;
+  const areColumnsShared = compareCells.every((s) => s === original);
+  if (areColumnsShared && original === "") {
+    isLineBreak = true;
+  }
+
+  if (isLineBreak) {
+    wikitext += "|<br />\n";
+  } else if (areColumnsShared) {
+    wikitext += `| {{shared}} ${original}\n`;
+  } else {
+    wikitext += renderTableCellWikitext(original);
+    if (needsRomanization) {
+      wikitext += renderTableCellWikitext(romanized);
+    }
+    if (showEnglishColumn || (needsTranslation && hasTranslation)) {
+      wikitext += renderTableCellWikitext(english);
+    }
+    if (additionalColumns.length) {
+      for (const additionalColumn of additionalColumns) {
+        wikitext += renderTableCellWikitext(additionalColumn);
+      }
+    }
+  }
+  return wikitext;
+}
+
+/*
 export function generateLyricsTable(
   lyrics: LyricRowData[],
   {
@@ -264,3 +358,4 @@ export function generateLyricsTable(
   }
   return res;
 }
+*/
