@@ -14,7 +14,8 @@
     "name": "Mandarin",
     "transliteration": "Pinyin",
     "code": "zh",
-    "iso": "zh-Hans"
+    "iso": "zh-Hans",
+    "isChinese": true
   },
   {
     "name": "Korean",
@@ -64,7 +65,8 @@
     "name": "Cantonese",
     "transliteration": "Jyutping",
     "code": "yue",
-    "iso": "zh-Hant"
+    "iso": "zh-Hant",
+    "isChinese": true
   },
   {
     "name": "Catalan",
@@ -190,7 +192,8 @@
     "name": "Northern Wu",
     "transliteration": "Romanization",
     "code": null,
-    "iso": "taiu"
+    "iso": "taiu",
+    "isChinese": true
   },
   {
     "name": "Norwegian",
@@ -252,7 +255,8 @@
     "name": "Taiwanese",
     "transliteration": "Tâi-lô",
     "code": null,
-    "iso": "zh-Hant"
+    "iso": "zh-Hant",
+    "isChinese": true
   },
   {
     "name": "Tajik",
@@ -264,7 +268,8 @@
     "name": "Teochew Min",
     "transliteration": "Romanization",
     "code": null,
-    "iso": "zh-Hant"
+    "iso": "zh-Hant",
+    "isChinese": true
   },
   {
     "name": "Thai",
