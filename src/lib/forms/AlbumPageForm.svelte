@@ -7,6 +7,9 @@
   import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
+  import Tracklist from "../components/handsontables/Tracklist.svelte";
+  import AlbumOfficialLinksTable from "../components/handsontables/AlbumOfficialLinksTable.svelte";
+  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
@@ -23,6 +26,8 @@
   import { formSubmitHandler, formResetHandler } from "../logic";
   import { AlbumPageValidationErrorType } from "../logic/enums";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
+  import { createInitialData } from "../utils/utils";
+  import { ALBUM_STREAMING_LINKS } from "../../constants";
 
   let formData: AlbumPageFormData = $state<AlbumPageFormData>({
     origTitle: "",
@@ -40,6 +45,31 @@
     vdbAlbumId: "",
     vocaWikiPage: "",
     categoriesRaw: "",
+    tracklist: createInitialData(
+      {
+        discNo: "",
+        trackNo: "",
+        pageTitle: "",
+        producerCredit: "",
+        singerCredit: "",
+      },
+      10,
+    ),
+    broadcastLinks: ALBUM_STREAMING_LINKS.map(({ name, idx }) => ({
+      idx,
+      site: name,
+      url: "",
+    })),
+    extLinks: createInitialData(
+      {
+        url: "",
+        description: "",
+        isOfficial: false,
+        isMedia: false,
+        isInactive: false,
+      },
+      5,
+    ),
   });
   let ignoreErrors: boolean = $state(false);
 
@@ -248,10 +278,11 @@
     </h2>
   </div>
 
-  <div
+  <Tracklist
     id="tracklist"
-    class="col-span-full h-32 w-full"
-  ></div>
+    class="col-span-full w-full"
+    bind:data={formData.tracklist}
+  />
 
   <Divider />
 
@@ -289,11 +320,12 @@
     labelI18nKey="albumGenForm.officialLinks.label"
     tooltipI18nKey="albumGenForm.officialLinks.tooltip"
   >
-    <div class="block h-32 w-full">
-      <div
+    <div class="block w-full">
+      <AlbumOfficialLinksTable
         id="official-links"
         class="w-full"
-      ></div>
+        bind:data={formData.broadcastLinks}
+      />
     </div>
   </FlexRow>
 
@@ -302,11 +334,12 @@
     labelI18nKey="albumGenForm.externalLinks.label"
     tooltipI18nKey="albumGenForm.externalLinks.tooltip"
   >
-    <div class="block h-32 w-full">
-      <div
+    <div class="block w-full">
+      <ExternalLinksTable
         id="external-links"
         class="w-full"
-      ></div>
+        bind:data={formData.extLinks}
+      />
     </div>
   </FlexRow>
 

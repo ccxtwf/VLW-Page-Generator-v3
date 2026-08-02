@@ -86,6 +86,7 @@ export interface AlbumPageFormData {
 }
 
 export interface AlbumBroadcastLink {
+  idx: number | null;
   site: string;
   url: string;
 }

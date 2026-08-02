@@ -122,6 +122,8 @@ export function vlwInternalLinkRenderer(
   if (m) {
     let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}${encodeURIComponent(m.groups![1])}`;
     td.innerHTML = renderAsAnchorElement({ url, caption: v }).outerHTML;
+  } else {
+    td.innerText = v;
   }
   return td;
 }

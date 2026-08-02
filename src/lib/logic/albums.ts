@@ -33,6 +33,33 @@ import { MONTHS, RECOGNIZED_LINKS, ALBUM_STREAMING_LINKS, SYNTH_ENGINES } from "
 import { VOCADB_ENTRYPOINT, VOCALOID_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
 import { ExternalWebServiceError } from "./exceptions";
 import type { Synth } from "../../constants/types";
+import { getExternalLinkWikitext } from "../utils/genUtils";
+
+function validateAlbumBroadcastLinks(broadcastLinks: AlbumBroadcastLink[]): (AlbumBroadcastLink & {
+  paramKey: string | null;
+  isValid: boolean;
+  embedid: string | null;
+})[] {
+  const res = broadcastLinks.map(({ idx, url, site }) => {
+    if (idx === null) {
+      return { idx, url, site, paramKey: null, isValid: true, embedid: null };
+    }
+    const c = ALBUM_STREAMING_LINKS.find(({ idx: cIdx }) => cIdx === idx)!;
+    const m = c.regex.exec(url);
+    const isValid = !!m;
+    const embedid = isValid ? m.groups!["embedid"] : null;
+    const paramKey = c.paramKey;
+    return {
+      idx,
+      url,
+      site,
+      paramKey,
+      isValid,
+      embedid,
+    };
+  });
+  return res;
+}
 
 export function validate(
   formData: AlbumPageFormData,
@@ -65,6 +92,8 @@ export function validate(
     engines,
     vdbAlbumId,
     categories,
+    tracklist,
+    broadcastLinks,
   } = formData;
 
   const errors: ValidationError<AlbumPageValidationErrorType>[] = [];
@@ -105,46 +134,48 @@ export function validate(
     errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_VOCADB_LINK));
   }
 
-  /*
-  if (tracklist.every(track => track.pageTitle === '')) {
+  if (tracklist.every((track) => track.pageTitle === "")) {
     errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_TRACK_IS_LISTED));
   } else {
-    if (tracklist.some(track => track.trackNo === '')) {
+    if (tracklist.some((track) => track.trackNo === "")) {
       errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_TRACK_LIST_NUMBERING));
     }
-    if (tracklist.some(track => track.discNo !== '' && isNaN(+track.discNo))) {
-      errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.DISC_NUMBER_IS_NOT_NUMERIC));
+    if (tracklist.some((track) => track.discNo !== "" && isNaN(+track.discNo))) {
+      errors.push(
+        getErrorForAlbumValidation(AlbumPageValidationErrorType.DISC_NUMBER_IS_NOT_NUMERIC),
+      );
     }
-    if (tracklist.some(track => track.trackNo !== '' && isNaN(+track.trackNo))) {
-      errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.TRACK_NUMBER_IS_NOT_NUMERIC));
+    if (tracklist.some((track) => track.trackNo !== "" && isNaN(+track.trackNo))) {
+      errors.push(
+        getErrorForAlbumValidation(AlbumPageValidationErrorType.TRACK_NUMBER_IS_NOT_NUMERIC),
+      );
     }
-    if (tracklist.some(track => track.pageTitle === '')) {
+    if (tracklist.some((track) => track.pageTitle === "")) {
       errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.EMPTY_TRACK_NAME));
     }
-    if (tracklist.some(track => track.singerCredit === '' && track.producerCredit === '')) {
+    if (tracklist.some((track) => track.singerCredit === "" && track.producerCredit === "")) {
       errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.EMPTY_TRACK_CREDITS));
     }
   }
 
-  if (officialStreamingLinks.length === 0) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED));
+  if (broadcastLinks.length === 0) {
+    errors.push(
+      getErrorForAlbumValidation(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED),
+    );
   } else {
-    const invalidIds = officialStreamingLinks.filter(({ paramValue }) => {
-      return paramValue === '';
-    });
+    const validatedBroadcastLinks = validateAlbumBroadcastLinks(broadcastLinks);
+    const invalidIds = validatedBroadcastLinks.filter(({ isValid }) => !isValid);
     if (invalidIds.length > 0) {
-      for (let invalidId of invalidIds) {
+      for (const { paramKey } of invalidIds) {
         errors.push({
           fatal: true,
-          fields: ['official-streaming'],
-          i18nKey: `validation.album.invalidEmbedCode.${invalidId.paramKey}`,
+          fields: ["official-links"],
+          i18nKey: `validation.album.invalidEmbedCode.${paramKey}`,
           type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
         });
       }
     }
   }
-  
-  */
 
   if (engines.length === 0) {
     errors.push(
@@ -177,7 +208,12 @@ export function generatePage(formData: AlbumPageFormData): string {
     vdbAlbumId,
     vocaWikiPage,
     categories,
+    tracklist,
+    broadcastLinks,
+    extLinks,
   } = formData;
+
+  const validatedBroadcastLinks = validateAlbumBroadcastLinks(broadcastLinks);
 
   let displayTitleTemplate: string = "";
   let dateSegment: string = "";
@@ -200,47 +236,54 @@ export function generatePage(formData: AlbumPageFormData): string {
     dateSegment = `{{DateAlbum|${publishedYear}|${publishedMonth}|${publishedDay}}}`;
   }
 
-  /*
-  trackListSegment = tracklist.map(track => (
-    `|${
-      track.discNo == '1' ? '' : track.discNo
-    }tr${track.trackNo} = ${track.pageTitle}\n|${
-      track.discNo == '1' ? '' : track.discNo
-    }tr${track.trackNo}s = ${track.credits}`
-  )).join('\n');
-  streamingSegment = officialStreamingLinks.map(({ paramKey, paramValue }) => {
-    return `|${paramKey} = ${paramValue}`;
-  }).join('\n');
+  trackListSegment = tracklist
+    .map(
+      (track) =>
+        `|${track.discNo == "1" ? "" : track.discNo}tr${track.trackNo} = ${track.pageTitle}\n|${
+          track.discNo == "1" ? "" : track.discNo
+        }tr${track.trackNo}s = ${track.producerCredit}${track.producerCredit !== "" ? " ft. " : ""}${track.singerCredit}`,
+    )
+    .join("\n");
+  streamingSegment = validatedBroadcastLinks
+    .filter(({ idx, isValid }) => !!idx && isValid)
+    .map(({ paramKey, embedid }) => {
+      return `|${paramKey} = ${embedid}`;
+    })
+    .join("\n");
 
   const officialLinks = [];
   const unofficialLinks = [];
-  const moreInfoLinks: IDictionary<string> = {};
-  for (let extLink of extLinks) {
+  const moreInfoLinks: Record<string, string> = {};
+  const mapToAlbumInfoboxReadMoreParams = RECOGNIZED_LINKS.filter(
+    ({ mapToAlbumInfoboxReadMoreParam }) => mapToAlbumInfoboxReadMoreParam,
+  );
+  for (const extLink of extLinks) {
     if (extLink.isOfficial) {
       officialLinks.push(extLink);
     } else {
       unofficialLinks.push(extLink);
     }
-    if (extLink.mapToAlbumInfoboxReadMoreParam !== null) {
-      moreInfoLinks[extLink.mapToAlbumInfoboxReadMoreParam] = extLink.url;
+    const mo = mapToAlbumInfoboxReadMoreParams.find(({ re }) => re.test(extLink.url));
+    if (mo) {
+      moreInfoLinks[mo.mapToAlbumInfoboxReadMoreParam!] = extLink.url;
     }
   }
   unofficialLinksWikitext = unofficialLinks
-    .map(el => '* ' + el.getWikitext())
-    .join('\n');
-  officialLinksWikitext = officialLinks
-    .map(el => '* ' + el.getWikitext())
-    .join('\n');
-  moreInfoLinksSegment = Object.entries(moreInfoLinks).map(([k, v]) => {
-    return `|${k} = ${v}`;
-  }).join("\n");
-  if (unofficialLinksWikitext !== '' || officialLinksWikitext !== '') {
-    extLinksSegment = '==External Links==\n';
+    .map((el) => "* " + getExternalLinkWikitext(el))
+    .join("\n");
+  officialLinksWikitext = officialLinks.map((el) => "* " + getExternalLinkWikitext(el)).join("\n");
+  moreInfoLinksSegment = Object.entries(moreInfoLinks)
+    .map(([k, v]) => {
+      return `|${k} = ${v}`;
+    })
+    .join("\n");
+  if (unofficialLinksWikitext !== "" || officialLinksWikitext !== "") {
+    extLinksSegment = "==External Links==\n";
     extLinksSegment += officialLinksWikitext;
-    extLinksSegment += officialLinksWikitext === '' ? '' : '\n';
-    extLinksSegment += unofficialLinksWikitext === '' ? '' : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
+    extLinksSegment += officialLinksWikitext === "" ? "" : "\n";
+    extLinksSegment +=
+      unofficialLinksWikitext === "" ? "" : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
   }
-  */
 
   if (romTitle !== origTitle && romTitle !== "") {
     sortTemplateSegment = "{{sort-album";
@@ -286,7 +329,11 @@ function detectProducerOrSingerInMarkup(wikitext: string): string[] {
   return res;
 }
 
-export function autoloadCategories({ description, engines }: AlbumPageFormData): string[] {
+export function autoloadCategories({
+  tracklist,
+  description,
+  engines,
+}: AlbumPageFormData): string[] {
   const res: string[] = [];
 
   const producers: string[] = [];
@@ -295,16 +342,16 @@ export function autoloadCategories({ description, engines }: AlbumPageFormData):
   let markedUpProducersInDesc: Set<string> = new Set(detectProducerOrSingerInMarkup(description));
   let markedUpProducersInTracklist: Set<string> = new Set();
   let markedUpSingersInTracklist: Set<string> = new Set();
-  // for (let track of tracklistData) {
-  //   const detectedProducers = detectProducerOrSingerInMarkup(track[3]?.trim() || '');
-  //   const detectedSingers = detectProducerOrSingerInMarkup(track[4]?.trim() || '');
-  //   for (let prod of detectedProducers) {
-  //     markedUpProducersInTracklist.add(prod);
-  //   }
-  //   for (let singer of detectedSingers) {
-  //     markedUpSingersInTracklist.add(singer);
-  //   }
-  // }
+  for (const { producerCredit, singerCredit } of tracklist) {
+    const detectedProducers = detectProducerOrSingerInMarkup(producerCredit?.trim() || "");
+    const detectedSingers = detectProducerOrSingerInMarkup(singerCredit?.trim() || "");
+    for (let prod of detectedProducers) {
+      markedUpProducersInTracklist.add(prod);
+    }
+    for (let singer of detectedSingers) {
+      markedUpSingersInTracklist.add(singer);
+    }
+  }
   for (let prod of markedUpProducersInDesc) {
     if (markedUpProducersInTracklist.has(prod)) {
       markedUpProducersInTracklist.delete(prod);
@@ -498,13 +545,13 @@ export async function fetchDataFromVocaDb(
 
     switch (link.service) {
       case VdbPvService.yt:
-        officialStreaming.push({ site: "YouTube Crossfade", url });
+        officialStreaming.push({ idx: 2, site: "YouTube Crossfade", url });
         break;
       case VdbPvService.nnd:
-        officialStreaming.push({ site: "Niconico Crossfade", url });
+        officialStreaming.push({ idx: 1, site: "Niconico Crossfade", url });
         break;
       case VdbPvService.sc:
-        officialStreaming.push({ site: "SoundCloud Crossfade", url });
+        officialStreaming.push({ idx: 6, site: "SoundCloud Crossfade", url });
         break;
     }
   }
@@ -530,7 +577,7 @@ export async function fetchDataFromVocaDb(
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
       if (am) {
-        officialStreaming.push({ site: am.name || "", url });
+        officialStreaming.push({ idx: am.idx, site: am.name || "", url });
       }
     }
 
@@ -556,5 +603,6 @@ export async function fetchDataFromVocaDb(
     extLinks,
     // imageSrc,
   };
+  console.log(formData);
   return formData;
 }

@@ -6,7 +6,7 @@ import { escapeRegExp } from "./utils";
  * @param url
  */
 export function isValidUrl(url: string): boolean {
-  return /^https?:\/\/[^ ]$/.test(url);
+  return /^https?:\/\/[^ ]+$/.test(url);
 }
 
 /**
