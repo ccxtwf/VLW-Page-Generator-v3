@@ -1,5 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { renderTableCellWikitext, renderLyricsRowWikitext } from "../../src/lib/utils/lyricsUtils";
+import {
+  renderTableCellWikitext,
+  renderLyricsRowWikitext,
+  generateSingerPartsElement,
+} from "../../src/lib/utils/lyricsUtils";
 import { LyricRowData } from "../../src/schemas/form";
 
 describe("renderTableCellWikitext", () => {
@@ -228,5 +232,23 @@ describe("renderLyricsRowWikitext", () => {
     };
     const res = renderLyricsRowWikitext(lyrics, options);
     expect(res).toBe(`|-\n| {{shared}} SHOUT!!\n`);
+  });
+});
+
+describe("generateSingerPartsElement", () => {
+  test("grey text + normal text", () => {
+    const s = new Set<string>(["", "grey"]);
+    const res = generateSingerPartsElement(s, "black", "white");
+    expect(res).toBe(
+      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:grey;">Singer</span>\n|All\n|}\n`,
+    );
+  });
+
+  test("two colours", () => {
+    const s = new Set<string>(["red", "green"]);
+    const res = generateSingerPartsElement(s, "black", "white");
+    expect(res).toBe(
+      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:red;">Singer</span>\n|<span style="color:green;">Singer</span>\n|}\n`,
+    );
   });
 });

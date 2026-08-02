@@ -216,8 +216,90 @@ export function renderLyricsRowWikitext(
   return wikitext;
 }
 
-/*
-export function generateLyricsTable(
+/**
+ * Generate the wikitext for the informational table showing who's singing which part
+ *
+ * @param usedColours
+ * @param bgColour
+ * @param fgColour
+ * @returns
+ */
+export function generateSingerPartsElement(
+  usedColours: Set<string>,
+  bgColour: string,
+  fgColour: string,
+): string {
+  let hasMultipleSingerLines = usedColours.has("");
+  if (hasMultipleSingerLines) {
+    usedColours.delete("");
+  }
+  let singerTabs = [...usedColours]
+    .map((el) => `|<span style="color:${el};">Singer</span>\n`)
+    .join("");
+  if (hasMultipleSingerLines) {
+    singerTabs += "|All\n";
+  }
+  return `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:${bgColour}; color:${fgColour};"|Singer\n${
+    singerTabs
+  }|}\n`;
+}
+
+/**
+ * Create &lt;poem&gt; element
+ *
+ * @param lyrics
+ * @returns
+ */
+export function generateLyricsPoemElement(lyrics: LyricRowData[]): string {
+  let res: string = "";
+
+  let prevLyrics: LyricRowData | null = null;
+  const arrSpans: { contents: string; customStyle: string | null }[] = [];
+  let curSpan: { contents: string; customStyle: string | null } = {
+    contents: "",
+    customStyle: null,
+  };
+
+  for (const lyric of lyrics) {
+    // Skip line breaks
+    if (lyric.original === "") {
+      curSpan.contents += "\n";
+      continue;
+    }
+    // Add to array of spans to take note of when a change in text colour is detected
+    if (prevLyrics !== null && lyric.customStyle !== prevLyrics.customStyle) {
+      arrSpans.push(curSpan);
+      curSpan = { contents: "", customStyle: null };
+    }
+    if (lyric.customStyle !== "") {
+      curSpan.customStyle = lyric.customStyle;
+    }
+    // Store current line
+    curSpan.contents += lyric.original + "\n";
+    // Save lyrics to be compared
+    prevLyrics = lyric;
+  }
+  arrSpans.push(curSpan);
+
+  res += `<poem>${arrSpans
+    .map(({ contents, customStyle }) => {
+      contents = contents.replace(/\n$/, "");
+      if (customStyle !== null) {
+        contents = `<span style="${customStyle}">${contents}</span>`;
+      }
+      return contents;
+    })
+    .join("\n")}</poem>`;
+  return res;
+}
+
+/**
+ *
+ * @param lyrics
+ * @param options
+ * @returns
+ */
+export function generateLyricsSegment(
   lyrics: LyricRowData[],
   {
     headers,
@@ -226,8 +308,8 @@ export function generateLyricsTable(
     isoLangCode,
     translator,
     isOfficialTranslation,
-    bgColour,
-    fgColour,
+    bgColour = "black",
+    fgColour = "white",
     createToggleElement = true,
   }: {
     headers: string[];
@@ -242,10 +324,8 @@ export function generateLyricsTable(
   },
 ): string {
   const outputAsWikiTable = needsRomanization || needsTranslation;
-  const hasEnglishTranslation = lyrics.some((lyric) => !!lyric.english && lyric.english !== "");
-  const showEnglishColumn = needsTranslation && hasEnglishTranslation;
-
-  headers = headers.filter((header) => header !== "");
+  const hasTranslation = lyrics.some((lyric) => !!lyric.english);
+  const showEnglishColumn = needsTranslation && hasTranslation;
 
   let showNotes: boolean = false;
   let isTranslationNote: boolean | null = null;
@@ -267,7 +347,7 @@ export function generateLyricsTable(
     if (lyric.original.match(rxRefTag) || (lyric?.romanized || "").match(rxRefTag)) {
       showNotes = true;
       isTranslationNote = isTranslationNote || false;
-    } else if (hasEnglishTranslation && (lyric?.english || "").match(rxRefTag)) {
+    } else if (hasTranslation && (lyric?.english || "").match(rxRefTag)) {
       showNotes = true;
       isTranslationNote = true;
     }
@@ -281,7 +361,7 @@ export function generateLyricsTable(
     res += "\n";
   }
 
-  if (outputAsWikiTable && hasEnglishTranslation && isOfficialTranslation) {
+  if (outputAsWikiTable && hasTranslation && isOfficialTranslation) {
     res += "{{OfficialEnglishNotify}}\n";
   }
 
@@ -293,63 +373,29 @@ export function generateLyricsTable(
 
   // Singer coloured lines
   if (usedColours.size > 1) {
-    let hasMultipleSingerLines = usedColours.has("");
-    if (hasMultipleSingerLines) usedColours.delete("");
-    let singerTabs = [...usedColours]
-      .map((el) => `|<span style="color:${el};">Singer</span>\n`)
-      .join("");
-    if (hasMultipleSingerLines) singerTabs += "|All\n";
-    res += `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:${bgColour}; color:${fgColour};"|Singer\n${
-      singerTabs
-    }|}\n`;
+    res += generateSingerPartsElement(usedColours, bgColour, fgColour);
   }
 
   if (outputAsWikiTable) {
     // Generate as multi-column table
     res += `{| {{lyrics table class}}\n|- class="lyrics-table-header"\n! {{lyrics header}}\n`;
-    res += lyrics.map((lyric) => lyric.getWikitext(showEnglishColumn)).join("");
+    res += lyrics
+      .map((lyric) =>
+        renderLyricsRowWikitext(lyric, {
+          needsRomanization,
+          needsTranslation,
+          hasTranslation,
+          showEnglishColumn,
+        }),
+      )
+      .join("");
     res += "|}";
 
-    if (hasEnglishTranslation && (!isOfficialTranslation || translator !== "")) {
+    if (hasTranslation && (!isOfficialTranslation || translator !== "")) {
       res += `\n{{Translator|${translator === "" ? "Anonymous" : translator}}}`;
     }
   } else {
-    // Generate as single-column div
-    let prevLyrics: LyricRowData | null = null;
-    const arrSpans: { contents: string; customStyle: string | null }[] = [];
-    let curSpan: { contents: string; customStyle: string | null } = {
-      contents: "",
-      customStyle: null,
-    };
-    for (const lyric of lyrics) {
-      // Skip line breaks
-      if (lyric.original === "") {
-        curSpan.contents += "\n";
-        continue;
-      }
-      // Add to array of spans to take note of when a change in text colour is detected
-      if (prevLyrics !== null && lyric.customStyle !== prevLyrics.customStyle) {
-        arrSpans.push(curSpan);
-        curSpan = { contents: "", customStyle: null };
-      }
-      if (lyric.customStyle !== "") curSpan.customStyle = lyric.customStyle;
-      // Store current line
-      curSpan.contents += lyric.original + "\n";
-      // Save lyrics to be compared
-      prevLyrics = lyric;
-    }
-    arrSpans.push(curSpan);
-    console.log(arrSpans);
-
-    res += `<poem>${arrSpans
-      .map(({ contents, customStyle }) => {
-        contents = contents.replace(/\n$/, "");
-        if (customStyle !== null) {
-          contents = `<span style="${customStyle}">${contents}</span>`;
-        }
-        return contents;
-      })
-      .join("\n")}</poem>`;
+    res += generateLyricsPoemElement(lyrics);
   }
 
   // Lyrics/Translation Notes
@@ -358,4 +404,3 @@ export function generateLyricsTable(
   }
   return res;
 }
-*/
