@@ -103,13 +103,8 @@
       stretchH: "all",
       rowHeights: 30,
       startRows: 5,
-      minRows: 1,
       afterChange: handleCellChange,
       licenseKey: HANDSONTABLE_LICENSE_KEY,
-    });
-
-    $effect(() => {
-      hot.updateData($state.snapshot(data));
     });
   });
 </script>
