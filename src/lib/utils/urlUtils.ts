@@ -2,6 +2,14 @@ import { PV_SERVICE_PROVIDER, RECOGNIZED_LINKS } from "../../constants";
 import { escapeRegExp } from "./utils";
 
 /**
+ *
+ * @param url
+ */
+export function isValidUrl(url: string): boolean {
+  return /^https?:\/\/[^ ]$/.test(url);
+}
+
+/**
  * Convert a bilibili service URL from legacy av format to new Bv format
  *
  * @param url
