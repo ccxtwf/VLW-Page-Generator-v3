@@ -113,6 +113,7 @@ describe("renderLyricsRowWikitext", () => {
       customStyle: "",
       original: "",
       romanized: "",
+      english: "",
     };
     expect(renderLyricsRowWikitext(lyrics, options)).toBe(`|-\n|<br />\n`);
   });
@@ -165,7 +166,7 @@ describe("renderLyricsRowWikitext", () => {
       showEnglishColumn: false,
     };
     const res = renderLyricsRowWikitext(lyrics, options);
-    expect(res).toBe(`|-\n| {{shared}} This is my last resort\n`);
+    expect(res).toBe(`|-\n|This is my last resort\n`);
   });
 
   test("without translation (show empty English column)", () => {

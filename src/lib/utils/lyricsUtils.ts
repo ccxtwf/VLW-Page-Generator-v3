@@ -197,7 +197,7 @@ export function renderLyricsRowWikitext(
 
   if (isLineBreak) {
     wikitext += "|<br />\n";
-  } else if (areColumnsShared) {
+  } else if (areColumnsShared && compareCells.length > 1) {
     wikitext += `| {{shared}} ${original}\n`;
   } else {
     wikitext += renderTableCellWikitext(original);
@@ -285,7 +285,8 @@ export function generateLyricsPoemElement(lyrics: LyricRowData[]): string {
     .map(({ contents, customStyle }) => {
       contents = contents.replace(/\n$/, "");
       if (customStyle !== null) {
-        contents = `<span style="${customStyle}">${contents}</span>`;
+        const m = contents.match(/\n+$/);
+        contents = `<span style="${customStyle}">${contents.trimEnd()}</span>${m ? m[0] : ""}`;
       }
       return contents;
     })
@@ -305,9 +306,10 @@ export function generateLyricsSegment(
     headers,
     needsRomanization,
     needsTranslation,
+    showEnglishColumn = false,
     isoLangCode,
     translator,
-    isOfficialTranslation,
+    isOfficialTranslation = false,
     bgColour = "black",
     fgColour = "white",
     createToggleElement = true,
@@ -315,9 +317,10 @@ export function generateLyricsSegment(
     headers: string[];
     needsRomanization: boolean;
     needsTranslation: boolean;
+    showEnglishColumn?: boolean;
     isoLangCode?: string;
     translator?: string;
-    isOfficialTranslation: boolean;
+    isOfficialTranslation?: boolean;
     bgColour?: string;
     fgColour?: string;
     createToggleElement?: boolean;
@@ -325,15 +328,17 @@ export function generateLyricsSegment(
 ): string {
   const outputAsWikiTable = needsRomanization || needsTranslation;
   const hasTranslation = lyrics.some((lyric) => !!lyric.english);
-  const showEnglishColumn = needsTranslation && hasTranslation;
+  showEnglishColumn = showEnglishColumn || (needsTranslation && hasTranslation);
 
   let showNotes: boolean = false;
   let isTranslationNote: boolean | null = null;
+
   const rxRefTag = /<ref(?:[^>]*)>/;
   const rxSpanInlineColour =
     /<span\s+style\s*=\s*["'][^>]*color\s*:\s*([a-zA-Z0-9#]+)\s*[^>]*["']>.*?<\/span>/gm;
   let usedColours: Set<string> = new Set();
-  for (let lyric of lyrics) {
+
+  for (const lyric of lyrics) {
     let detectedRowColour = lyric.customStyle.match(/color\s*:\s*([#0-9a-zA-Z]+);?/);
     if (detectedRowColour === null) {
       usedColours.add("");

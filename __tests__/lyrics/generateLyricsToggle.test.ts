@@ -31,4 +31,28 @@ describe("generateLyricsToggle", () => {
     const toggle = generateLyricsToggle(["Spanish", "English"], false, false, "es");
     expect(toggle).toBe("{{lyrics toggle|sp:Spanish}}");
   });
+
+  test("Toggle for Japanese & Chinese songs - show English", () => {
+    const toggle = generateLyricsToggle(
+      ["Japanese/Mandarin", "Romaji/Pinyin", "English"],
+      true,
+      true,
+      "ja",
+    );
+    expect(toggle).toBe(
+      "{{lyrics toggle|org:Japanese/Mandarin|rom:Romaji/Pinyin|eng:English|iso-lang=ja}}",
+    );
+  });
+
+  test("Toggle for Japanese-only songs - custom ISO language code", () => {
+    const toggle = generateLyricsToggle(
+      ["Japanese/Mandarin", "Romaji/Pinyin", "English"],
+      true,
+      true,
+      "qqx",
+    );
+    expect(toggle).toBe(
+      "{{lyrics toggle|org:Japanese/Mandarin|rom:Romaji/Pinyin|eng:English|iso-lang=qqx}}",
+    );
+  });
 });

@@ -46,4 +46,48 @@ describe("generateLyricsPoemElement", () => {
       `<poem><span style="color: grey;">Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\nUt pulvinar, diam nec dapibus sagittis,\nvelit felis consequat dui,\nvitae sollicitudin neque mauris eu tellus.</span>\nPellentesque dignissim mi in libero rutrum lacinia.\nSuspendisse odio erat, imperdiet ac arcu ac,\nlobortis iaculis velit.\n<span style="color: red;">Pellentesque tempus vulputate erat ut pharetra.\nFusce arcu sem, ultrices vitae quam ac, mattis condimentum nisl.</span>\nDuis eleifend convallis mauris sed dignissim.\nNulla porttitor malesuada elementum.\nNullam aliquet lacinia arcu a tempor.\nDonec placerat eleifend iaculis.\nMorbi ut nisl euismod, molestie urna sed, aliquam nibh.\nSed sed pulvinar diam.\nNulla lobortis faucibus ante, ac laoreet lorem imperdiet ultricies.</poem>`,
     );
   });
+
+  test("should group paragraphs with line breaks in between", () => {
+    const data: LyricRowData[] = [
+      { customStyle: "color: red;", original: "How beautiful at eventide" },
+      { customStyle: "color: red;", original: "To see the twilight shadows pale," },
+      { customStyle: "color: red;", original: "Steal o'er the landscape, far and wide," },
+      { customStyle: "color: red;", original: "O'er stream and meadow, mound and dale!" },
+      { customStyle: "", original: "" },
+      { customStyle: "color: red;", original: "How soft is Nature's calm repose" },
+      { customStyle: "color: red;", original: "When ev'ning skies their cool dews weep:" },
+      { customStyle: "color: red;", original: "The gentlest wind more gently blows," },
+      { customStyle: "color: red;", original: "As if to soothe her in her sleep!" },
+      { customStyle: "", original: "" },
+      { customStyle: "color: yellow;", original: "The gay morn breaks," },
+      { customStyle: "color: yellow;", original: "Mists roll away," },
+      { customStyle: "color: yellow;", original: "All Nature awakes" },
+      { customStyle: "color: yellow;", original: "To glorious day." },
+      { customStyle: "color: green;", original: "In my breast alone" },
+      { customStyle: "color: green;", original: "Dark shadows remain;" },
+      { customStyle: "color: green;", original: "The peace it has known" },
+      { customStyle: "color: green;", original: "It can never regain." },
+    ];
+    const res = generateLyricsPoemElement(data);
+    expect(res).toBe(
+      `<poem><span style="color: red;">How beautiful at eventide
+To see the twilight shadows pale,
+Steal o'er the landscape, far and wide,
+O'er stream and meadow, mound and dale!
+
+How soft is Nature's calm repose
+When ev'ning skies their cool dews weep:
+The gentlest wind more gently blows,
+As if to soothe her in her sleep!</span>
+
+<span style="color: yellow;">The gay morn breaks,
+Mists roll away,
+All Nature awakes
+To glorious day.</span>
+<span style="color: green;">In my breast alone
+Dark shadows remain;
+The peace it has known
+It can never regain.</span></poem>`,
+    );
+  });
 });
