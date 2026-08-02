@@ -68,6 +68,10 @@
       startRows: 5,
       licenseKey: HANDSONTABLE_LICENSE_KEY,
     });
+
+    $effect(() => {
+      hot.updateData($state.snapshot(data));
+    });
   });
 </script>
 

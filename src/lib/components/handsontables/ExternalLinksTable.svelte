@@ -9,7 +9,7 @@
   import { onMount } from "svelte";
   import type { ExternalLink } from "../../../schemas/form";
 
-  import { sharedContextMenuOptions, processInsertedLink } from "./utils";
+  import { sharedContextMenuOptions, processInsertedLink, stringValueFormatter } from "./utils";
   import { RECOGNIZED_LINKS } from "../../../constants";
 
   interface ExternalLinksTable {
@@ -61,6 +61,7 @@
         data: "url",
         type: "text",
         renderer: "url",
+        formatter: stringValueFormatter,
       },
       {
         data: "description",
@@ -105,6 +106,10 @@
       startRows: 5,
       afterChange: handleCellChange,
       licenseKey: HANDSONTABLE_LICENSE_KEY,
+    });
+
+    $effect(() => {
+      hot.updateData($state.snapshot(data));
     });
   });
 </script>
