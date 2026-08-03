@@ -20,57 +20,20 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { validate, generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums";
+  import {
+    generatePage,
+    autoloadCategories,
+    fetchDataFromVocaDb,
+  } from "../logic/albums.svelte";
 
-  import type { AlbumPageFormData } from "../../schemas/form";
+  import Album from "../models/Album.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import { AlbumPageValidationErrorType } from "../logic/enums";
-  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
-  import { createInitialData } from "../utils/utils";
-  import { ALBUM_STREAMING_LINKS } from "../../constants";
+  import {
+    ExternalWebServiceError,
+    VocaDBInvalidUrlError,
+  } from "../logic/exceptions";
 
-  let formData: AlbumPageFormData = $state<AlbumPageFormData>({
-    origTitle: "",
-    romTitle: "",
-    engTitle: "",
-    bgColour: "black",
-    fgColour: "white",
-    label: "",
-    description: "",
-    isCompilationAlbum: false,
-    publishedYear: "",
-    publishedMonth: "",
-    publishedDay: "",
-    engines: [],
-    vdbAlbumId: "",
-    vocaWikiPage: "",
-    categoriesRaw: "",
-    tracklist: createInitialData(
-      {
-        discNo: "",
-        trackNo: "",
-        pageTitle: "",
-        producerCredit: "",
-        singerCredit: "",
-      },
-      10,
-    ),
-    broadcastLinks: ALBUM_STREAMING_LINKS.map(({ name, idx }) => ({
-      idx,
-      site: name,
-      url: "",
-    })),
-    extLinks: createInitialData(
-      {
-        url: "",
-        description: "",
-        isOfficial: false,
-        isMedia: false,
-        isInactive: false,
-      },
-      5,
-    ),
-  });
+  let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
   let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
@@ -82,10 +45,10 @@
       const __a = { "1": "VocaDB" };
       try {
         const __fetched = await fetchDataFromVocaDb(url);
-        formData = {
-          ...formData,
-          ...__fetched,
-        };
+        // formData = {
+        //   ...formData,
+        //   ...__fetched,
+        // };
         window.alert($_("fetch.success", { values: __a }));
       } catch (err) {
         console.error(err);
@@ -99,11 +62,10 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<AlbumPageFormData, AlbumPageValidationErrorType>({
+  const handleSubmit = formSubmitHandler<Album>({
     fetchLatestSnapshot() {
-      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+      return [$state.snapshot(ignoreErrors), formData];
     },
-    validate,
     generate(formData) {
       const output = generatePage(formData);
       ongenerate(output);
@@ -116,7 +78,7 @@
     warningsElement.resetState();
   });
   const handleAutoloadCategories = () => {
-    const categories = autoloadCategories($state.snapshot(formData));
+    const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
   };
 </script>
@@ -353,10 +315,7 @@
     {#snippet showUnderLabel()}
       <AutoloadCategoriesButton onclick={handleAutoloadCategories} />
     {/snippet}
-    <SimpleTextFieldBox
-      id="categories"
-      bind:value={formData.categoriesRaw}
-    />
+    <SimpleTextFieldBox id="categories" bind:value={formData.categoriesRaw} />
   </FlexRow>
 
   <Divider />

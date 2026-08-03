@@ -1,5 +1,6 @@
 import { LANGUAGES, TRANSLATORS } from "../../constants";
-import type { LyricRowData, MultiSelectItem } from "../../schemas/form";
+import LyricRow from "../models/children/LyricsRow";
+import type { MultiSelectItem } from "../../schemas/form";
 
 /**
  *
@@ -141,7 +142,7 @@ export function renderTableCellWikitext(contents?: string): string {
  * @returns
  */
 export function renderLyricsRowWikitext(
-  lyrics: LyricRowData,
+  lyrics: LyricRow,
   {
     needsRomanization,
     needsTranslation,
@@ -250,10 +251,10 @@ export function generateSingerPartsElement(
  * @param lyrics
  * @returns
  */
-export function generateLyricsPoemElement(lyrics: LyricRowData[]): string {
+export function generateLyricsPoemElement(lyrics: LyricRow[]): string {
   let res: string = "";
 
-  let prevLyrics: LyricRowData | null = null;
+  let prevLyrics: LyricRow | null = null;
   const arrSpans: { contents: string; customStyle: string | null }[] = [];
   let curSpan: { contents: string; customStyle: string | null } = {
     contents: "",
@@ -301,7 +302,7 @@ export function generateLyricsPoemElement(lyrics: LyricRowData[]): string {
  * @returns
  */
 export function generateLyricsSegment(
-  lyrics: LyricRowData[],
+  lyrics: LyricRow[],
   {
     headers,
     needsRomanization,

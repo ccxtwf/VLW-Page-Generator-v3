@@ -1,186 +1,36 @@
-import type {
-  ExternalLink,
-  MultiSelectItem,
-  PlayLinkData,
-  SongPageFormData,
-} from "../../schemas/form";
-import { ENUM_CW_STATES, ENUM_AI_WARNING_TYPE } from "../../schemas/enums";
-
-import { SongPageValidationErrorType } from "./enums";
-import { getErrorForSongValidation } from ".";
-import type { ValidationError, ValidationBundledErrors } from ".";
+import Song from "../models/Song.svelte";
+import PlayLink from "../models/children/PlayLink";
+import ExternalLink from "../models/children/ExternalLink";
 
 import {
   VdbArtistCategory,
-  VdbArtistRole,
   VdbPvService,
   VdbPvType,
   VdbSystemLanguage,
   VdbVocalSynthEngine,
   VdbWebLinkCategory,
   type FetchedVdbSongEntity,
-} from "../../schemas/vocadb.d";
+} from "../../schemas/vocadb";
 
-import {
-  detonePinyin,
-  parseDateAsUtc,
-  preprocessStringParams,
-  renderAsCommaSeparatedList,
-  validateColour,
-} from "../utils/utils";
+import { detonePinyin, parseDateAsUtc, renderAsCommaSeparatedList } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
+import { generateLyricsSegment, getLanguageMetadata } from "../utils/lyricsUtils";
 
-import { MONTHS, LANGUAGES } from "../../constants";
 import { VOCADB_ENTRYPOINT } from "../../config";
+import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS } from "../../constants";
 import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 
-export function validate(
-  formData: SongPageFormData,
-): ValidationBundledErrors<SongPageValidationErrorType> {
-  preprocessStringParams(formData, [
-    "aiWarningText1",
-    "aiWarningText2",
-    "cwText",
-    "isoLangCode",
-    "origTitle",
-    "altChTitle",
-    "romTitle",
-    "engTitle",
-    "bgColour",
-    "fgColour",
-    "uploadDateRaw",
-    "singers",
-    "producers",
-    "description",
-    "translator",
-    "categoriesRaw",
-  ]);
-  formData.uploadDate = formData.uploadDateRaw === "" ? null : new Date(formData.uploadDateRaw);
-  formData.categories = formData.categoriesRaw === "" ? [] : formData.categoriesRaw.split("\n");
+import type { MultiSelectItem } from "../../schemas/form";
+import { ENUM_CW_STATES, ENUM_AI_WARNING_TYPE } from "../models/enums";
 
-  let {
-    aiCwState,
-    aiWarningText1,
-    aiWarningText2,
-    cwState,
-    cwText,
-    origTitle,
-    languages = [],
-    bgColour,
-    fgColour,
-    uploadDate,
-    singers,
-    producers,
-    isAlbumOnly = false,
-    isUnavailable = false,
-    translator,
-    isOfficialTranslation = false,
-  } = formData;
-
-  const errors: ValidationError<SongPageValidationErrorType>[] = [];
-
-  if (cwState !== ENUM_CW_STATES.noWarnings && cwText === "") {
-    errors.push(
-      getErrorForSongValidation(SongPageValidationErrorType.CONTENT_WARNING_HAS_NO_JUSTIFICATION),
-    );
-  }
-  if (aiCwState !== ENUM_AI_WARNING_TYPE.none && aiWarningText1 === "") {
-    errors.push(
-      getErrorForSongValidation(SongPageValidationErrorType.GEN_AI_HAS_NO_USAGE_ATTRIBUTION),
-    );
-  }
-  if (aiCwState !== ENUM_AI_WARNING_TYPE.none && aiWarningText2 === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.GEN_AI_HAS_NO_SOURCE));
-  }
-
-  if (languages.length === 0) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.LANGUAGE_IS_NOT_SELECTED));
-  }
-
-  if (origTitle === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.SONG_TITLE_IS_NOT_SET));
-  }
-
-  if (!uploadDate || isNaN(uploadDate as unknown as number)) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.PUBLICATION_IS_NOT_SET));
-  }
-
-  if (bgColour === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.BG_COLOR_IS_EMPTY));
-  }
-  if (fgColour === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.FG_COLOR_IS_EMPTY));
-  }
-  if (!validateColour(bgColour)) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.BG_COLOR_IS_INVALID));
-  }
-  if (!validateColour(fgColour)) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.FG_COLOR_IS_INVALID));
-  }
-
-  if (singers === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_SINGER_IS_LISTED));
-  }
-  if (
-    singers.match(/\[\[[^\]]*\]\]/gm) === null &&
-    singers.match(/\{\{[Ss]inger\|[^}]*\}\}/gm) === null
-  ) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_SINGER_IN_MARKUP));
-  }
-  if (producers === "") {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_PRODUCER_IS_LISTED));
-  } else {
-    if (producers.match(/\[\[[^\]]*\]\]/gm) === null) {
-      errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_PRODUCER_IN_MARKUP));
-    }
-  }
-
-  /*
-
-  if (!isUnavailable && !isAlbumOnly && playLinks.length === 0) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_PLAY_LINK));
-  }
-
-  const forgotViewCounts = playLinks
-    .filter((link) => link.isOfficiallyAvailable && PV_SERVICE_ABBREVIATIONS.has(link.site))
-    .some((link) => link.viewCount === "");
-  if (forgotViewCounts) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.NO_VIEW_COUNT));
-  }
-
-  const hasAvid = playLinks.some(
-    (link) => link.url.match(/^https?:\/\/www\.bilibili\.com\/video\/(av\d+)/) !== null,
-  );
-  if (hasAvid) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.BILIBILI_HAS_AVID));
-  }
-
-  const hasNoOriginalLyrics = lyrics.every((lyric) => lyric.original === "");
-  if (hasNoOriginalLyrics) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.ORIGINAL_LYRICS_ARE_EMPTY));
-  }
-
-  const hasRomanization = lyrics.some((lyric) => !!lyric.romanized && lyric.romanized !== "");
-  if (!skipColumns?.includes(2) && !hasRomanization) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.ROMANIZED_LYRICS_ARE_EMPTY));
-  }
-
-  const hasEnglishTranslation =
-    !skipColumns?.includes(3) && lyrics.some((lyric) => !!lyric.english && lyric.english !== "");
-  if (hasEnglishTranslation && translator === "" && !isOfficialTranslation) {
-    errors.push(getErrorForSongValidation(SongPageValidationErrorType.UNCREDITED_TRANSLATION));
-  }
-
-  */
-
-  const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
-  const fatal = errors.some(({ fatal }) => fatal);
-  return { errors, autoloadCategories, fatal };
-}
-
-export function generatePage(formData: SongPageFormData): string {
-  let {
+/**
+ *
+ * @param formData
+ * @returns
+ */
+export function generatePage(formData: Song): string {
+  const {
     aiCwState,
     aiWarningText1,
     aiWarningText2,
@@ -206,6 +56,9 @@ export function generatePage(formData: SongPageFormData): string {
     translator,
     isOfficialTranslation,
     categories,
+    lyrics,
+    playLinks,
+    extLinks,
   } = formData;
 
   let displayTitleTemplate: string = "";
@@ -222,12 +75,12 @@ export function generatePage(formData: SongPageFormData): string {
   let unofficialLinksWikitext: string = "";
   let extLinksSegment: string = "";
 
-  /*
-  if (needsRomanization && romTitle !== '') {
+  const langMetadata = getLanguageMetadata(languages);
+
+  if (langMetadata.needsRomanization && romTitle !== "") {
     let sortkey = detonePinyin(romTitle);
-    sortTemplate = `{{sort|${trySortkey}}}`;
+    sortTemplate = `{{sort|${sortkey}}}`;
   }
-  */
 
   cwTemplates = hasEpilepsyWarning ? "{{Epilepsy}}" : "";
   cwTemplates +=
@@ -255,16 +108,15 @@ export function generatePage(formData: SongPageFormData): string {
   }
 
   titlesSegment = `"'''${origTitle}'''"`;
-  if (altChTitle !== "")
+  if (langMetadata.isChinese && altChTitle !== "") {
     titlesSegment += `<br />${altChIsTraditional ? "Traditional" : "Simplified"} Chinese: ${altChTitle}`;
-  /*
-  if (needsRomanization && romTitle !== '') {
-    titlesSegment += `<br />${headersText[1]}: ${romTitle}`;
   }
-  if (needsEnglishTranslation && engTitle !== '') {
-    titlesSegment += `<br />${titleIsOfficiallyTranslated ? 'Official ' : ''}English: ${engTitle}`;
+  if (langMetadata.needsRomanization && romTitle !== "") {
+    titlesSegment += `<br />${langMetadata.headers[1]}: ${romTitle}`;
   }
-  */
+  if (langMetadata.needsTranslation && engTitle !== "") {
+    titlesSegment += `<br />${titleIsOfficiallyTranslated ? "Official " : ""}English: ${engTitle}`;
+  }
 
   if (uploadDate !== null) {
     dateSegment = `{{Date|${uploadDate!.getUTCFullYear()}|${
@@ -272,14 +124,15 @@ export function generatePage(formData: SongPageFormData): string {
     }|${uploadDate!.getUTCDate()}}}`;
   }
 
-  /*
-  if (playLinks.length === 0) songLinksSegment = "N/A";
-  else songLinksSegment = playLinks.map((playLink) => playLink.getWikitext()).join(" ");
+  if (playLinks.length === 0) {
+    songLinksSegment = "N/A";
+  } else {
+    songLinksSegment = playLinks.map((playLink) => playLink.getPlayLinkWikitext()).join(" ");
+  }
   const viewCounts = playLinks
     .filter((playLink) => !playLink.isReprint && PV_SERVICE_ABBREVIATIONS.has(playLink.site))
     .map((playLink) => ({
       vc: playLink.getFormattedViewCount(),
-      // @ts-ignore
       abbr: PV_SERVICE_ABBREVIATIONS.get(playLink.site),
     }));
   if (viewCounts.length > 1) {
@@ -289,13 +142,16 @@ export function generatePage(formData: SongPageFormData): string {
   }
   if (viewCountsSegment === "") viewCountsSegment = "N/A";
 
-  lyricsSegment = generateLyricsTable(lyrics, {
-    langOptions: { headersText, skipColumns },
+  lyricsSegment = generateLyricsSegment(lyrics, {
+    headers: langMetadata.headers,
+    needsRomanization: langMetadata.needsRomanization,
+    needsTranslation: langMetadata.needsTranslation,
     isoLangCode,
     translator,
     isOfficialTranslation,
     bgColour,
     fgColour,
+    createToggleElement: true,
   });
 
   unofficialLinksWikitext = extLinks
@@ -313,7 +169,6 @@ export function generatePage(formData: SongPageFormData): string {
     extLinksSegment +=
       unofficialLinksWikitext === "" ? "" : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
   }
-  */
 
   return `${displayTitleTemplate}${sortTemplate}${unavailableTemplate}${cwTemplates}
 {{Infobox Song
@@ -333,7 +188,12 @@ ${lyricsSegment}
 ${extLinksSegment}${categories!.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 }
 
-export function autoloadCategories({ producers = "" }: SongPageFormData): string[] {
+/**
+ *
+ * @param param0
+ * @returns
+ */
+export function autoloadCategories({ producers = "" }: Song): string[] {
   const res: string[] = [];
 
   const standardizeCategory = (base: string): string | null => {
@@ -418,9 +278,26 @@ export function autoloadCategories({ producers = "" }: SongPageFormData): string
   return res;
 }
 
+/**
+ *
+ * @param url
+ * @returns
+ */
 export async function fetchDataFromVocaDb(
   url: string,
-): Promise<Omit<SongPageFormData, "bgColour" | "fgColour">> {
+): Promise<
+  Pick<
+    Song,
+    | "origTitle"
+    | "romTitle"
+    | "engTitle"
+    | "playLinks"
+    | "extLinks"
+    | "singers"
+    | "producers"
+    | "uploadDateRaw"
+  >
+> {
   const vdbPageId = getVdbPageId(url, "S");
   if (!vdbPageId) {
     throw new VocaDBInvalidUrlError();
@@ -463,9 +340,9 @@ export async function fetchDataFromVocaDb(
   const minorSingers: string[] = [];
   const circles: string[] = [];
   const producers: { name: string; role: string }[] = [];
-  const playLinks: PlayLinkData[] = [];
+  const playLinks: PlayLink[] = [];
   const extLinks: ExternalLink[] = [
-    { url: `${VOCADB_ENTRYPOINT}S/${vdbPageId}`, description: "VocaDB", isOfficial: false },
+    new ExternalLink(`${VOCADB_ENTRYPOINT}S/${vdbPageId}`, "VocaDB", false, false),
   ];
 
   const orderRolePriority = [
@@ -547,16 +424,9 @@ export async function fetchDataFromVocaDb(
     const isDeleted = pv.disabled;
     const isReprint = pv.pvType !== VdbPvType.original;
     if (pvService === null) {
-      extLinks.push({ url: pvUrl, description: pv.service, isOfficial: !isReprint });
+      extLinks.push(new ExternalLink(pvUrl, pv.service, !isReprint, pv.disabled));
     } else {
-      playLinks.push({
-        site: pvService,
-        url: pvUrl,
-        isReprint,
-        isAutogen: false,
-        isDeleted,
-        viewCount: "",
-      });
+      playLinks.push(new PlayLink(pvService, pvUrl, isReprint, false, isDeleted, ""));
     }
     if (!isReprint) {
       switch (pv.service) {
@@ -596,10 +466,10 @@ export async function fetchDataFromVocaDb(
     const isOfficial =
       link.category === VdbWebLinkCategory.official ||
       link.category === VdbWebLinkCategory.commercial;
-    extLinks.push({ url, description, isOfficial });
+    extLinks.push(new ExternalLink(url, description, isOfficial, link.disabled));
   }
 
-  const formData: Omit<SongPageFormData, "bgColour" | "fgColour"> = {
+  const formData = {
     aiCwState: ENUM_AI_WARNING_TYPE.none,
     aiWarningText1: "",
     aiWarningText2: "",

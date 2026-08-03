@@ -1,3 +1,17 @@
+export interface ValidationError<E> {
+  fatal?: boolean;
+  autoloadCategories?: boolean;
+  fields: string[];
+  i18nKey: string;
+  type?: E;
+}
+
+export interface ValidationBundledErrors<E> {
+  errors: ValidationError<E>[];
+  autoloadCategories: boolean;
+  fatal: boolean;
+}
+
 export enum SongPageValidationErrorType {
   CONTENT_WARNING_HAS_NO_JUSTIFICATION,
   GEN_AI_HAS_NO_USAGE_ATTRIBUTION,

@@ -1,100 +1,93 @@
-import type {
-  ExternalLink,
-  ProducerDiscographyItem,
-  ProducerPageFormData,
-} from "../../schemas/form";
-
-import { ProducerPageValidationErrorType } from "./enums";
-import { getErrorForProducerValidation } from ".";
-import type { ValidationError, ValidationBundledErrors } from ".";
+import Producer from "../models/Producer.svelte";
+import ExternalLinkForProducerPage from "../models/children/ExternalLinkForProducerPage";
+import ProducerDiscographySongItem from "../models/children/ProducerDiscographySongItem";
+import ProducerDiscographyAlbumItem from "../models/children/ProducerDiscographyAlbumItem";
 
 import {
   VdbArtistType,
   VdbWebLinkCategory,
   type FetchedVdbArtistEntity,
-} from "../../schemas/vocadb.d";
+} from "../../schemas/vocadb";
 import type { FetchedMwDiscography, FetchedMwDiscographyAlbum } from "../../schemas/vlw-mw";
 
-import { preprocessStringParams } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { getVdbPageId } from "../utils/vdbUtils";
+import RegexUtils from "../utils/regexUtils";
 
-import { LANGUAGES, RECOGNIZED_LINKS } from "../../constants";
 import { VOCADB_ENTRYPOINT, VOCALOID_LYRICS_WIKI_API_ENTRYPOINT } from "../../config";
+import { LANGUAGES, RECOGNIZED_LINKS } from "../../constants";
 import {
   ExternalWebServiceError,
   GotZeroPagesInResponseError,
   VLWInvalidUrlError,
   VocaDBInvalidUrlError,
 } from "./exceptions";
-import {
-  getDiscographyItemWikitext,
-  getExternalLinkWikitext,
-  getUnofficialProdLinks,
-} from "../utils/generatorUtils";
 
-export function validate(
-  formData: ProducerPageFormData,
-): ValidationBundledErrors<ProducerPageValidationErrorType> {
-  preprocessStringParams(formData, [
-    "prodCategory",
-    "prodAliases",
-    "affiliations",
-    "labels",
-    "description",
-  ]);
-  let { prodCategory, roles, languages, description, extLinks, songs }: ProducerPageFormData =
-    formData;
+/**
+ * Generate {{links}} template.
+ *
+ * @param links
+ * @returns
+ */
+export function getUnofficialProdLinks(links: ExternalLinkForProducerPage[]): string {
+  const detectedDomains: Record<string, string> = {};
+  const _getId =
+    (rx: RegExp) =>
+    (key: string, link: ExternalLinkForProducerPage): boolean => {
+      const m = rx.exec(link.url);
+      if (m === null) {
+        return false;
+      }
+      detectedDomains[key] = m[1];
+      return true;
+    };
+  const rxCommonLinks: Record<string, (key: string, link: ExternalLinkForProducerPage) => boolean> =
+    {
+      MIKUWIKI: _getId(RegexUtils.rxHmWiki),
+      UTAUDB: _getId(RegexUtils.rxUtau),
+      NICOPEDIA: _getId(RegexUtils.rxNicopedia),
+      NICOTAG: _getId(RegexUtils.rxNicotag),
+      MGP: _getId(RegexUtils.rxMgp),
+      VOCADB: (key: string, link: ExternalLinkForProducerPage) => {
+        const v = getVdbPageId(link.url, "Ar");
+        if (v) {
+          detectedDomains[key] = v;
+          return true;
+        }
+        return false;
+      },
+    };
 
-  const errors: ValidationError<ProducerPageValidationErrorType>[] = [];
-
-  if (prodCategory === "") {
-    errors.push(
-      getErrorForProducerValidation(ProducerPageValidationErrorType.NO_PRODUCER_CATEGORY),
-    );
-  }
-
-  if (languages.length === 0) {
-    errors.push(
-      getErrorForProducerValidation(ProducerPageValidationErrorType.LANGUAGE_IS_NOT_SELECTED),
-    );
-  }
-
-  if (Object.values(roles).every((el) => !el)) {
-    errors.push(
-      getErrorForProducerValidation(ProducerPageValidationErrorType.PRODUCER_ROLE_IS_NOT_SELECTED),
-    );
-  }
-
-  if (description === "") {
-    errors.push(
-      getErrorForProducerValidation(ProducerPageValidationErrorType.DESCRIPTION_IS_NOT_SET),
-    );
-  }
-
-  if (extLinks.length === 0) {
-    errors.push(
-      getErrorForProducerValidation(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_LISTED),
-    );
-  } else {
-    if (extLinks.every((link) => !link.isOfficial)) {
-      errors.push(
-        getErrorForProducerValidation(
-          ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_OFFICIAL,
-        ),
-      );
+  let wikitextForUndetectedDomains: string = "";
+  for (let link of links) {
+    let domainIsDetected = false;
+    for (let [key, fn] of Object.entries(rxCommonLinks)) {
+      domainIsDetected = fn(key, link);
+      break;
+    }
+    if (!domainIsDetected) {
+      wikitextForUndetectedDomains += `* ${link.getWikitext()}\n`;
     }
   }
+  let wikitextForDetectedDomains = `
+{{links |p=yes
+  |atmiku = ${detectedDomains.MIKUWIKI || ""}
+  |atutau = ${detectedDomains.UTAUDB || ""}
+  |nico   = ${detectedDomains.NICOPEDIA || ""}
+  |vocadb = ${detectedDomains.VOCADB || ""}
+  |tag    = ${detectedDomains.NICOTAG || ""}
+  |mgp    = ${detectedDomains.MGP || ""}
+}}`.trim();
 
-  if (songs.length === 0) {
-    errors.push(getErrorForProducerValidation(ProducerPageValidationErrorType.NO_SONG_PAGE));
-  }
-
-  const fatal = errors.some(({ fatal }) => fatal);
-  return { errors, autoloadCategories: false, fatal };
+  return `${wikitextForDetectedDomains}\n${wikitextForUndetectedDomains}`;
 }
 
-export function generatePage(formData: ProducerPageFormData): string {
+/**
+ *
+ * @param formData
+ * @returns
+ */
+export function generatePage(formData: Producer): string {
   const {
     prodCategory,
     splitAlbum,
@@ -119,7 +112,7 @@ export function generatePage(formData: ProducerPageFormData): string {
     .join("");
   let mediaLinks: string = extLinks
     .filter((link) => link.isOfficial && link.isMedia)
-    .map((link) => `* ${getExternalLinkWikitext(link)}\n`)
+    .map((link) => `* ${link.getWikitext()}\n`)
     .join("");
   let unofficialLinks: string = getUnofficialProdLinks(extLinks.filter((link) => !link.isOfficial));
 
@@ -157,9 +150,7 @@ export function generatePage(formData: ProducerPageFormData): string {
       if (originalAlbums.length > 0) {
         albumListSegment +=
           `{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
-          originalAlbums
-            .map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`)
-            .join("") +
+          originalAlbums.map((album) => `|-\n| ${album.getWikitext()}\n`).join("") +
           "|}\n";
       }
       if (originalAlbums.length > 0 && compilationAlbums.length > 0) {
@@ -168,15 +159,13 @@ export function generatePage(formData: ProducerPageFormData): string {
       if (compilationAlbums.length > 0) {
         albumListSegment +=
           `===Compilations===\n{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
-          compilationAlbums
-            .map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`)
-            .join("") +
+          compilationAlbums.map((album) => `|-\n| ${album.getWikitext()}\n`).join("") +
           "|}\n";
       }
     } else {
       albumListSegment =
         `==Discography==\n${""}{| class="sortable producer-table"\n${""}|- class="vcolor-default"\n${""}! {{awt head}}\n` +
-        albums.map((album) => `|-\n| ${getDiscographyItemWikitext(album, true)}\n`).join("") +
+        albums.map((album) => `|-\n| ${album.getWikitext()}\n`).join("") +
         "|}\n";
     }
   }
@@ -197,15 +186,34 @@ ${description}
 {| class="sortable producer-table"
 |- class="vcolor-default"
 ! {{pwt head}}
-${songs.map((song) => `|-\n| ${getDiscographyItemWikitext(song)}\n`).join("")}|}
+${songs.map((song) => `|-\n| ${song.getWikitext()}\n`).join("")}|}
 
 ${albumListSegment}
 ${categories.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 }
 
+/**
+ *
+ * @param url
+ * @returns
+ */
 export async function fetchDataFromVocaDb(
   url: string,
-): Promise<Omit<ProducerPageFormData, "songs" | "albums">> {
+): Promise<
+  Pick<
+    Producer,
+    | "prodCategory"
+    | "prodAliases"
+    | "labels"
+    | "affiliations"
+    | "description"
+    | "languages"
+    | "engines"
+    | "roles"
+    | "splitAlbum"
+    | "extLinks"
+  >
+> {
   const vdbPageId = getVdbPageId(url, "Ar");
   if (!vdbPageId) {
     throw new VocaDBInvalidUrlError();
@@ -230,7 +238,7 @@ export async function fetchDataFromVocaDb(
 
   let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
 
-  const extLinks: ExternalLink[] = [];
+  const extLinks: ExternalLinkForProducerPage[] = [];
 
   for (let artistLink of json.artistLinks || []) {
     if (artistLink.artist.artistType === VdbArtistType.label) {
@@ -240,13 +248,15 @@ export async function fetchDataFromVocaDb(
     }
   }
 
-  extLinks.push({
-    url: `${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`,
-    description: "VocaDB",
-    isOfficial: false,
-    isMedia: false,
-    isInactive: false,
-  });
+  extLinks.push(
+    new ExternalLinkForProducerPage(
+      `${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`,
+      "VocaDB",
+      false,
+      false,
+      false,
+    ),
+  );
   for (let link of json.webLinks || []) {
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = link.description || "";
@@ -259,16 +269,12 @@ export async function fetchDataFromVocaDb(
     const isMedia =
       isOfficial && !!RECOGNIZED_LINKS.filter((el) => el.isMedia).find((el) => el.re.exec(url));
     const isInactive = link.disabled;
-    extLinks.push({
-      url,
-      description,
-      isOfficial,
-      isMedia,
-      isInactive,
-    });
+    extLinks.push(
+      new ExternalLinkForProducerPage(url, description, isOfficial, isMedia, isInactive),
+    );
   }
 
-  const formData: Omit<ProducerPageFormData, "songs" | "albums"> = {
+  const formData = {
     prodCategory,
     splitAlbum: false,
     prodAliases: "",
@@ -294,9 +300,14 @@ export async function fetchDataFromVocaDb(
   return formData;
 }
 
+/**
+ *
+ * @param prodcat
+ * @returns
+ */
 export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
-  songs: ProducerDiscographyItem[];
-  albums: ProducerDiscographyItem[];
+  songs: ProducerDiscographySongItem[];
+  albums: ProducerDiscographyAlbumItem[];
   recommendToSplitAlbum: boolean;
 }> {
   if (prodcat.trim() === "") {
@@ -490,12 +501,8 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
   }, 0);
 
   return {
-    songs: sortedSongs.map((el) => ({ page: el[1], additionalParameters: "" })),
-    albums: albums.map((el) => ({
-      page: el.title,
-      additionalParameters: "",
-      isCompilation: el.isCompilation,
-    })),
+    songs: sortedSongs.map((el) => new ProducerDiscographySongItem(el[1], "")),
+    albums: albums.map((el) => new ProducerDiscographyAlbumItem(el.title, "", el.isCompilation)),
     recommendToSplitAlbum: numCompilations > 10,
   };
 }

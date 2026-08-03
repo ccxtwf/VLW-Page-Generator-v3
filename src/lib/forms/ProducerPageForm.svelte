@@ -21,56 +21,21 @@
   import type { SvelteComponent } from "svelte";
 
   import {
-    validate,
     generatePage,
     fetchDataFromVocaDb,
     fetchDiscographyFromVlw,
-  } from "../logic/producers";
+  } from "../logic/producers.svelte";
 
-  import type { ProducerPageFormData } from "../../schemas/form";
+  import Producer from "../models/Producer.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import type { ProducerPageValidationErrorType } from "../logic/enums";
   import {
     ExternalWebServiceError,
     VocaDBInvalidUrlError,
     VLWInvalidUrlError,
     GotZeroPagesInResponseError,
   } from "../logic/exceptions";
-  import { createInitialData } from "../utils/utils";
 
-  let formData: ProducerPageFormData = $state<ProducerPageFormData>({
-    prodCategory: "",
-    splitAlbum: false,
-    prodAliases: "",
-    affiliations: "",
-    labels: "",
-    languages: [],
-    engines: [],
-    description: "",
-    roles: {
-      composer: false,
-      lyricist: false,
-      tuner: false,
-      illustrator: false,
-      animator: false,
-      arranger: false,
-      instrumentalist: false,
-      mixer: false,
-      masterer: false,
-    },
-    songs: createInitialData({ page: "", additionalParameters: "" }, 5),
-    albums: createInitialData({ page: "", additionalParameters: "", isCompilation: false }, 5),
-    extLinks: createInitialData(
-      {
-        url: "",
-        description: "",
-        isOfficial: false,
-        isMedia: false,
-        isInactive: false,
-      },
-      5,
-    ),
-  });
+  let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
 
   let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
@@ -82,10 +47,10 @@
       const __a = { "1": "VocaDB" };
       try {
         const __fetched = await fetchDataFromVocaDb(url);
-        formData = {
-          ...formData,
-          ...__fetched,
-        };
+        // formData = {
+        //   ...formData,
+        //   ...__fetched,
+        // };
         window.alert($_("fetch.success", { values: __a }));
       } catch (err) {
         console.error(err);
@@ -103,9 +68,8 @@
     if (window.confirm($_("confirmClearDiscog"))) {
       const __a = { "1": "Vocaloid Lyrics Wiki" };
       try {
-        const { songs, albums, recommendToSplitAlbum } = await fetchDiscographyFromVlw(
-          formData.prodCategory || "",
-        );
+        const { songs, albums, recommendToSplitAlbum } =
+          await fetchDiscographyFromVlw(formData.prodCategory || "");
         formData.songs = songs;
         formData.albums = albums;
         formData.splitAlbum = recommendToSplitAlbum;
@@ -124,11 +88,10 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<ProducerPageFormData, ProducerPageValidationErrorType>({
+  const handleSubmit = formSubmitHandler<Producer>({
     fetchLatestSnapshot() {
-      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+      return [$state.snapshot(ignoreErrors), formData];
     },
-    validate,
     generate(formData) {
       const output = generatePage(formData);
       ongenerate(output);
@@ -180,13 +143,17 @@
             class="btn btn-neutral text-xs"
             onclick={handleDiscographyLoading}
           >
-            {$_("producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText")}
+            {$_(
+              "producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText",
+            )}
           </button>
         </div>
       </div>
       <div class="flex-item w-full">
         <SimpleToggle
-          label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
+          label={$_(
+            "producerGenForm.mainProducerCategory.splitAlbumTableToggleText",
+          )}
           textClass="text-sm"
           bind:checked={formData.splitAlbum}
         />
@@ -223,11 +190,7 @@
     labelI18nKey="producerGenForm.labels.label"
     tooltipI18nKey="producerGenForm.labels.tooltip"
   >
-    <SimpleTextFieldBox
-      id="labels"
-      rows={3}
-      bind:value={formData.labels}
-    />
+    <SimpleTextFieldBox id="labels" rows={3} bind:value={formData.labels} />
   </FlexRow>
 
   <FlexRow

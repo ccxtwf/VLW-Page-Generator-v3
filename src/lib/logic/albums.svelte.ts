@@ -1,14 +1,7 @@
-import type {
-  AlbumBroadcastLink,
-  AlbumPageFormData,
-  AlbumTrackData,
-  ExternalLink,
-  MultiSelectItem,
-} from "../../schemas/form";
-
-import { AlbumPageValidationErrorType } from "./enums";
-import { getErrorForAlbumValidation } from ".";
-import type { ValidationError, ValidationBundledErrors } from ".";
+import Album from "../models/Album.svelte";
+import AlbumTrackData from "../models/children/AlbumTrackData";
+import AlbumBroadcastLink from "../models/children/AlbumBroadcastLink";
+import ExternalLink from "../models/children/ExternalLink";
 
 import {
   VdbAlbumType,
@@ -18,182 +11,26 @@ import {
   VdbSongType,
   VdbWebLinkCategory,
   type FetchedVdbAlbumEntity,
-} from "../../schemas/vocadb.d";
+} from "../../schemas/vocadb";
 
-import {
-  detonePinyin,
-  preprocessStringParams,
-  renderAsCommaSeparatedList,
-  validateColour,
-} from "../utils/utils";
+import { detonePinyin, renderAsCommaSeparatedList } from "../utils/utils";
 import { getOtherMediaWikiPageName, processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
 
-import { MONTHS, RECOGNIZED_LINKS, ALBUM_STREAMING_LINKS, SYNTH_ENGINES } from "../../constants";
 import { VOCADB_ENTRYPOINT, VOCALOID_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
+import { MONTHS, RECOGNIZED_LINKS, ALBUM_STREAMING_LINKS, SYNTH_ENGINES } from "../../constants";
 import { ExternalWebServiceError } from "./exceptions";
+
 import type { Synth } from "../../constants/types";
-import { getExternalLinkWikitext } from "../utils/generatorUtils";
+import type { MultiSelectItem } from "../../schemas/form";
 
-function validateAlbumBroadcastLinks(broadcastLinks: AlbumBroadcastLink[]): (AlbumBroadcastLink & {
-  paramKey: string | null;
-  isValid: boolean;
-  embedid: string | null;
-})[] {
-  const res = broadcastLinks.map(({ idx, url, site }) => {
-    if (idx === null) {
-      return { idx, url, site, paramKey: null, isValid: true, embedid: null };
-    }
-    const c = ALBUM_STREAMING_LINKS.find(({ idx: cIdx }) => cIdx === idx)!;
-    const m = c.regex.exec(url);
-    const isValid = !!m;
-    const embedid = isValid ? m.groups!["embedid"] : null;
-    const paramKey = c.paramKey;
-    return {
-      idx,
-      url,
-      site,
-      paramKey,
-      isValid,
-      embedid,
-    };
-  });
-  return res;
-}
-
-export function validate(
-  formData: AlbumPageFormData,
-): ValidationBundledErrors<AlbumPageValidationErrorType> {
-  preprocessStringParams(formData, [
-    "origTitle",
-    "romTitle",
-    "engTitle",
-    "bgColour",
-    "fgColour",
-    "label",
-    "description",
-    "publishedYear",
-    "publishedMonth",
-    "publishedDay",
-    "vdbAlbumId",
-    "vocaWikiPage",
-    "categoriesRaw",
-  ]);
-  formData.categories = formData.categoriesRaw === "" ? [] : formData.categoriesRaw.split("\n");
-
-  let {
-    origTitle,
-    bgColour,
-    fgColour,
-    description,
-    publishedYear,
-    publishedMonth,
-    publishedDay,
-    engines,
-    vdbAlbumId,
-    categories,
-    tracklist,
-    broadcastLinks,
-  } = formData;
-
-  const errors: ValidationError<AlbumPageValidationErrorType>[] = [];
-
-  if (origTitle === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.ALBUM_TITLE_IS_NOT_SET));
-  }
-
-  if (bgColour === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.BG_COLOR_IS_EMPTY));
-  }
-  if (fgColour === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.FG_COLOR_IS_EMPTY));
-  }
-  if (!validateColour(bgColour)) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.BG_COLOR_IS_INVALID));
-  }
-  if (!validateColour(fgColour)) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.FG_COLOR_IS_INVALID));
-  }
-
-  if (description === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.DESCRIPTION_IS_NOT_SET));
-  }
-
-  if (publishedYear === "" && publishedMonth === "" && publishedDay === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.PUB_DATE_IS_NOT_SET));
-  } else if (publishedYear === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.PUB_YEAR_IS_NOT_SET));
-  } else if (publishedMonth === "" && publishedDay !== "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.PUB_MONTH_IS_NOT_SET));
-  }
-  if (publishedYear !== "" && publishedYear.length !== 4) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.PUB_YEAR_IS_INVALID));
-  }
-
-  if (vdbAlbumId === "") {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_VOCADB_LINK));
-  }
-
-  if (tracklist.every((track) => track.pageTitle === "")) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_TRACK_IS_LISTED));
-  } else {
-    if (tracklist.some((track) => track.trackNo === "")) {
-      errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_TRACK_LIST_NUMBERING));
-    }
-    if (tracklist.some((track) => track.discNo !== "" && isNaN(+track.discNo))) {
-      errors.push(
-        getErrorForAlbumValidation(AlbumPageValidationErrorType.DISC_NUMBER_IS_NOT_NUMERIC),
-      );
-    }
-    if (tracklist.some((track) => track.trackNo !== "" && isNaN(+track.trackNo))) {
-      errors.push(
-        getErrorForAlbumValidation(AlbumPageValidationErrorType.TRACK_NUMBER_IS_NOT_NUMERIC),
-      );
-    }
-    if (tracklist.some((track) => track.pageTitle === "")) {
-      errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.EMPTY_TRACK_NAME));
-    }
-    if (tracklist.some((track) => track.singerCredit === "" && track.producerCredit === "")) {
-      errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.EMPTY_TRACK_CREDITS));
-    }
-  }
-
-  if (broadcastLinks.length === 0) {
-    errors.push(
-      getErrorForAlbumValidation(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED),
-    );
-  } else {
-    const validatedBroadcastLinks = validateAlbumBroadcastLinks(broadcastLinks);
-    const invalidIds = validatedBroadcastLinks.filter(({ isValid }) => !isValid);
-    if (invalidIds.length > 0) {
-      for (const { paramKey } of invalidIds) {
-        errors.push({
-          fatal: true,
-          fields: ["official-links"],
-          i18nKey: `validation.album.invalidEmbedCode.${paramKey}`,
-          type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
-        });
-      }
-    }
-  }
-
-  if (engines.length === 0) {
-    errors.push(
-      getErrorForAlbumValidation(AlbumPageValidationErrorType.SYNTH_ENGINE_IS_NOT_LISTED),
-    );
-  }
-
-  if (categories.length === 0) {
-    errors.push(getErrorForAlbumValidation(AlbumPageValidationErrorType.NO_CATEGORIES));
-  }
-
-  const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
-  const fatal = errors.some(({ fatal }) => fatal);
-  return { errors, autoloadCategories, fatal };
-}
-
-export function generatePage(formData: AlbumPageFormData): string {
-  let {
+/**
+ *
+ * @param formData
+ * @returns
+ */
+export function generatePage(formData: Album): string {
+  const {
     origTitle,
     romTitle,
     engTitle,
@@ -209,11 +46,10 @@ export function generatePage(formData: AlbumPageFormData): string {
     vocaWikiPage,
     categories,
     tracklist,
-    broadcastLinks,
     extLinks,
   } = formData;
 
-  const validatedBroadcastLinks = validateAlbumBroadcastLinks(broadcastLinks);
+  const validatedBroadcastLinks = formData.validateAlbumBroadcastLinks();
 
   let displayTitleTemplate: string = "";
   let dateSegment: string = "";
@@ -268,10 +104,8 @@ export function generatePage(formData: AlbumPageFormData): string {
       moreInfoLinks[mo.mapToAlbumInfoboxReadMoreParam!] = extLink.url;
     }
   }
-  unofficialLinksWikitext = unofficialLinks
-    .map((el) => "* " + getExternalLinkWikitext(el))
-    .join("\n");
-  officialLinksWikitext = officialLinks.map((el) => "* " + getExternalLinkWikitext(el)).join("\n");
+  unofficialLinksWikitext = unofficialLinks.map((el) => "* " + el.getWikitext()).join("\n");
+  officialLinksWikitext = officialLinks.map((el) => "* " + el.getWikitext()).join("\n");
   moreInfoLinksSegment = Object.entries(moreInfoLinks)
     .map(([k, v]) => {
       return `|${k} = ${v}`;
@@ -313,6 +147,11 @@ ${extLinksSegment}${sortTemplateSegment}${categories!
     .join("\n")}`.trim();
 }
 
+/**
+ *
+ * @param wikitext
+ * @returns
+ */
 function detectProducerOrSingerInMarkup(wikitext: string): string[] {
   const res: string[] = [];
   const arrMarkup = wikitext.matchAll(/\[\[(?<base>[^|\n\]]*)\|?(?<cap>(?<=\|)[^\]]*)?\]\]/g);
@@ -329,11 +168,12 @@ function detectProducerOrSingerInMarkup(wikitext: string): string[] {
   return res;
 }
 
-export function autoloadCategories({
-  tracklist,
-  description,
-  engines,
-}: AlbumPageFormData): string[] {
+/**
+ *
+ * @param album
+ * @returns
+ */
+export function autoloadCategories({ tracklist, description, engines }: Album): string[] {
   const res: string[] = [];
 
   const producers: string[] = [];
@@ -368,9 +208,34 @@ export function autoloadCategories({
   return res;
 }
 
+/**
+ *
+ * @param url
+ * @returns
+ */
 export async function fetchDataFromVocaDb(
   url: string,
-): Promise<Omit<AlbumPageFormData, "bgColour" | "fgColour">> {
+): Promise<
+  Pick<
+    Album,
+    | "origTitle"
+    | "romTitle"
+    | "engTitle"
+    | "description"
+    | "label"
+    | "engines"
+    | "isCompilationAlbum"
+    | "publishedYear"
+    | "publishedMonth"
+    | "publishedDay"
+    | "categoriesRaw"
+    | "tracklist"
+    | "broadcastLinks"
+    | "extLinks"
+    | "vocaWikiPage"
+    | "vdbAlbumId"
+  >
+> {
   const vdbPageId = getVdbPageId(url, "Al");
   if (vdbPageId === null) {
     throw new Error("VocaDB page ID is empty or invalid!");
@@ -516,13 +381,15 @@ export async function fetchDataFromVocaDb(
         }
       }
     }
-    tracklist.push({
-      discNo,
-      trackNo,
-      pageTitle: songTitle || "",
-      producerCredit: renderAsCommaSeparatedList(songProducers),
-      singerCredit: renderAsCommaSeparatedList(Array.from(songSingers.values())),
-    });
+    tracklist.push(
+      new AlbumTrackData(
+        discNo,
+        trackNo,
+        songTitle || "",
+        renderAsCommaSeparatedList(songProducers),
+        renderAsCommaSeparatedList(Array.from(songSingers.values())),
+      ),
+    );
   }
   const engines: MultiSelectItem[] = Array.from(engineIds.keys()).map((id) => {
     let e: Synth = SYNTH_ENGINES[id];
@@ -541,17 +408,17 @@ export async function fetchDataFromVocaDb(
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = convertPvService(link.service);
     description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
-    extLinks.push({ url, description, isOfficial: true });
+    extLinks.push(new ExternalLink(url, description, true, false));
 
     switch (link.service) {
       case VdbPvService.yt:
-        officialStreaming.push({ idx: 2, site: "YouTube Crossfade", url });
+        officialStreaming.push(new AlbumBroadcastLink(2, "YouTube Crossfade", url));
         break;
       case VdbPvService.nnd:
-        officialStreaming.push({ idx: 1, site: "Niconico Crossfade", url });
+        officialStreaming.push(new AlbumBroadcastLink(1, "Niconico Crossfade", url));
         break;
       case VdbPvService.sc:
-        officialStreaming.push({ idx: 6, site: "SoundCloud Crossfade", url });
+        officialStreaming.push(new AlbumBroadcastLink(6, "SoundCloud Crossfade", url));
         break;
     }
   }
@@ -577,14 +444,14 @@ export async function fetchDataFromVocaDb(
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
       if (am) {
-        officialStreaming.push({ idx: am.idx, site: am.name || "", url });
+        officialStreaming.push(new AlbumBroadcastLink(am.idx, am.name || "", url));
       }
     }
 
-    extLinks.push({ url, description, isOfficial });
+    extLinks.push(new ExternalLink(url, description, isOfficial, false));
   }
 
-  const formData: Omit<AlbumPageFormData, "bgColour" | "fgColour"> = {
+  const formData = {
     origTitle,
     romTitle,
     engTitle,
@@ -603,6 +470,5 @@ export async function fetchDataFromVocaDb(
     extLinks,
     // imageSrc,
   };
-  console.log(formData);
   return formData;
 }

@@ -8,6 +8,7 @@
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
+  // import LyricsTable from "../components/handsontables/LyricsTable.svelte";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
@@ -19,42 +20,15 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../schemas/enums";
+  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../models/enums";
 
-  import { validate, generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs";
+  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs.svelte";
 
-  import type { SongPageFormData } from "../../schemas/form";
+  import Song from "../models/Song.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import { SongPageValidationErrorType } from "../logic/enums";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
-
-  let formData: SongPageFormData = $state<SongPageFormData>({
-    aiCwState: ENUM_AI_WARNING_TYPE.none,
-    aiWarningText1: "",
-    aiWarningText2: "",
-    cwState: ENUM_CW_STATES.noWarnings,
-    cwText: "",
-    hasEpilepsyWarning: false,
-    languages: [],
-    isoLangCode: "",
-    origTitle: "",
-    altChTitle: "",
-    altChIsTraditional: true,
-    romTitle: "",
-    engTitle: "",
-    titleIsOfficiallyTranslated: false,
-    bgColour: "black",
-    fgColour: "white",
-    uploadDateRaw: "",
-    isAlbumOnly: false,
-    isUnavailable: false,
-    singers: "",
-    producers: "",
-    description: "",
-    translator: "",
-    isOfficialTranslation: false,
-    categoriesRaw: "",
-  });
+  
+  let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
   let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
@@ -66,10 +40,10 @@
       const __a = { "1": "VocaDB" };
       try {
         const __fetched = await fetchDataFromVocaDb(url);
-        formData = {
-          ...formData,
-          ...__fetched,
-        };
+        // formData = {
+        //   ...formData,
+        //   ...__fetched,
+        // };
         window.alert($_("fetch.success", { values: __a }));
       } catch (err) {
         console.error(err);
@@ -83,11 +57,10 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<SongPageFormData, SongPageValidationErrorType>({
+  const handleSubmit = formSubmitHandler<Song>({
     fetchLatestSnapshot() {
-      return [$state.snapshot(ignoreErrors), $state.snapshot(formData)];
+      return [$state.snapshot(ignoreErrors), formData];
     },
-    validate,
     generate(formData) {
       const output = generatePage(formData);
       ongenerate(output);
@@ -100,7 +73,7 @@
     warningsElement.resetState();
   });
   const handleAutoloadCategories = () => {
-    const categories = autoloadCategories($state.snapshot(formData));
+    const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
   };
 </script>
@@ -431,10 +404,7 @@
       </Tooltip>
     </h2>
   </div>
-  <div
-    id="lyrics"
-    class="col-span-full h-48 w-full"
-  ></div>
+  <!-- <LyricsTable /> -->
 
   <FlexRow
     labelForHtmlId="translator"

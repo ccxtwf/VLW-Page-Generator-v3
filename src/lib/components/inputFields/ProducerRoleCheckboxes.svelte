@@ -2,7 +2,7 @@
   import { _ } from "svelte-i18n";
 
   import SimpleCheckbox from "./SimpleCheckbox.svelte";
-  import type { ProducerRoles } from "../../../schemas/form";
+  import type { ProducerRoles } from "../../models/Producer.svelte";
 
   let ns = "producerGenForm.producerRoles.checkboxLabels.";
   let fields = [
