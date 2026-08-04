@@ -1,6 +1,6 @@
 import Song from "../models/Song.svelte";
-import PlayLink from "../models/children/PlayLink";
-import ExternalLink from "../models/children/ExternalLink";
+import PlayLink from "../models/children/PlayLink.svelte";
+import ExternalLink from "../models/children/ExternalLink.svelte";
 
 import {
   VdbArtistCategory,
@@ -10,7 +10,7 @@ import {
   VdbVocalSynthEngine,
   VdbWebLinkCategory,
   type FetchedVdbSongEntity,
-} from "../../schemas/vocadb";
+} from "../../schemas/vocadb.d";
 
 import { detonePinyin, parseDateAsUtc, renderAsCommaSeparatedList } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
@@ -342,7 +342,12 @@ export async function fetchDataFromVocaDb(
   const producers: { name: string; role: string }[] = [];
   const playLinks: PlayLink[] = [];
   const extLinks: ExternalLink[] = [
-    new ExternalLink(`${VOCADB_ENTRYPOINT}S/${vdbPageId}`, "VocaDB", false, false),
+    new ExternalLink({
+      url: `${VOCADB_ENTRYPOINT}S/${vdbPageId}`,
+      description: "VocaDB",
+      isOfficial: false,
+      isInactive: false,
+    }),
   ];
 
   const orderRolePriority = [
@@ -424,9 +429,25 @@ export async function fetchDataFromVocaDb(
     const isDeleted = pv.disabled;
     const isReprint = pv.pvType !== VdbPvType.original;
     if (pvService === null) {
-      extLinks.push(new ExternalLink(pvUrl, pv.service, !isReprint, pv.disabled));
+      extLinks.push(
+        new ExternalLink({
+          url: pvUrl,
+          description: pv.service,
+          isOfficial: !isReprint,
+          isInactive: pv.disabled,
+        }),
+      );
     } else {
-      playLinks.push(new PlayLink(pvService, pvUrl, isReprint, false, isDeleted, ""));
+      playLinks.push(
+        new PlayLink({
+          site: pvService,
+          url: pvUrl,
+          isReprint,
+          isAutogen: false,
+          isDeleted,
+          viewCount: "",
+        }),
+      );
     }
     if (!isReprint) {
       switch (pv.service) {
@@ -466,7 +487,7 @@ export async function fetchDataFromVocaDb(
     const isOfficial =
       link.category === VdbWebLinkCategory.official ||
       link.category === VdbWebLinkCategory.commercial;
-    extLinks.push(new ExternalLink(url, description, isOfficial, link.disabled));
+    extLinks.push(new ExternalLink({ url, description, isOfficial, isInactive: link.disabled }));
   }
 
   const formData = {

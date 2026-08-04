@@ -1,14 +1,14 @@
 import Producer from "../models/Producer.svelte";
-import ExternalLinkForProducerPage from "../models/children/ExternalLinkForProducerPage";
-import ProducerDiscographySongItem from "../models/children/ProducerDiscographySongItem";
-import ProducerDiscographyAlbumItem from "../models/children/ProducerDiscographyAlbumItem";
+import ExternalLinkForProducerPage from "../models/children/ExternalLinkForProducerPage.svelte";
+import ProducerDiscographySongItem from "../models/children/ProducerDiscographySongItem.svelte";
+import ProducerDiscographyAlbumItem from "../models/children/ProducerDiscographyAlbumItem.svelte";
 
 import {
   VdbArtistType,
   VdbWebLinkCategory,
   type FetchedVdbArtistEntity,
-} from "../../schemas/vocadb";
-import type { FetchedMwDiscography, FetchedMwDiscographyAlbum } from "../../schemas/vlw-mw";
+} from "../../schemas/vocadb.d";
+import type { FetchedMwDiscography, FetchedMwDiscographyAlbum } from "../../schemas/vlw-mw.d";
 
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { getVdbPageId } from "../utils/vdbUtils";
@@ -249,13 +249,13 @@ export async function fetchDataFromVocaDb(
   }
 
   extLinks.push(
-    new ExternalLinkForProducerPage(
-      `${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`,
-      "VocaDB",
-      false,
-      false,
-      false,
-    ),
+    new ExternalLinkForProducerPage({
+      url: `${VOCADB_ENTRYPOINT}Ar/${vdbPageId}`,
+      description: "VocaDB",
+      isOfficial: false,
+      isInactive: false,
+      isMedia: false,
+    }),
   );
   for (let link of json.webLinks || []) {
     const url = processExternalLinkFromVocaDb(link.url || "");
@@ -270,7 +270,7 @@ export async function fetchDataFromVocaDb(
       isOfficial && !!RECOGNIZED_LINKS.filter((el) => el.isMedia).find((el) => el.re.exec(url));
     const isInactive = link.disabled;
     extLinks.push(
-      new ExternalLinkForProducerPage(url, description, isOfficial, isMedia, isInactive),
+      new ExternalLinkForProducerPage({ url, description, isOfficial, isMedia, isInactive }),
     );
   }
 
@@ -501,8 +501,17 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
   }, 0);
 
   return {
-    songs: sortedSongs.map((el) => new ProducerDiscographySongItem(el[1], "")),
-    albums: albums.map((el) => new ProducerDiscographyAlbumItem(el.title, "", el.isCompilation)),
+    songs: sortedSongs.map(
+      (el) => new ProducerDiscographySongItem({ page: el[1], additionalParameters: "" }),
+    ),
+    albums: albums.map(
+      (el) =>
+        new ProducerDiscographyAlbumItem({
+          page: el.title,
+          additionalParameters: "",
+          isCompilation: el.isCompilation,
+        }),
+    ),
     recommendToSplitAlbum: numCompilations > 10,
   };
 }

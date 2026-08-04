@@ -1,17 +1,29 @@
 import { preprocessStringParams } from "../../utils/utils";
 import RegexUtils from "../../utils/regexUtils";
 import { VOCALOID_LYRICS_WIKI_NAME } from "../../../config";
+import type { IExternalLink } from "../schema";
 
-export default class ExternalLink {
-  constructor(
-    public url: string,
-    public description: string,
-    public isOfficial: boolean,
-    public isInactive: boolean,
-  ) {}
+export default class ExternalLink implements IExternalLink {
+  url: string = $state("");
+  description: string = $state("");
+  isOfficial: boolean = $state(false);
+  isInactive: boolean = $state(false);
 
-  static createDefault() {
-    return new ExternalLink("", "", false, false);
+  constructor({
+    url = "",
+    description = "",
+    isOfficial = false,
+    isInactive = false,
+  }: {
+    url?: string;
+    description?: string;
+    isOfficial?: boolean;
+    isInactive?: boolean;
+  } = {}) {
+    this.url = url;
+    this.description = description;
+    this.isOfficial = isOfficial;
+    this.isInactive = isInactive;
   }
 
   preprocess() {
@@ -72,5 +84,15 @@ export default class ExternalLink {
       wikitext = `<s>${wikitext}</s>`;
     }
     return wikitext;
+  }
+
+  toJSON(): IExternalLink {
+    const { url, description, isInactive, isOfficial } = this;
+    return {
+      url,
+      description,
+      isInactive,
+      isOfficial,
+    };
   }
 }

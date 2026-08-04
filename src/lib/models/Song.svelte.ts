@@ -1,7 +1,8 @@
-import type { BaseModel } from "./base";
-import LyricRow from "./children/LyricsRow";
-import PlayLink from "./children/PlayLink";
-import ExternalLink from "./children/ExternalLink";
+import type { BaseModel, PreprocessorMixin } from "./base";
+import type { ISong } from "./schema";
+import LyricRow from "./children/LyricsRow.svelte";
+import PlayLink from "./children/PlayLink.svelte";
+import ExternalLink from "./children/ExternalLink.svelte";
 
 import { getValidationError } from "../validationErrors/songs";
 import {
@@ -16,7 +17,7 @@ import type { MultiSelectItem } from "../../schemas/form";
 import { PV_SERVICE_ABBREVIATIONS, PV_SERVICE_PROVIDER } from "../../constants";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "./enums";
 
-export default class Song implements BaseModel {
+export default class Song implements BaseModel, ISong {
   aiCwState: ENUM_AI_WARNING_TYPE = $state(ENUM_AI_WARNING_TYPE.none);
   aiWarningText1: string = $state("");
   aiWarningText2: string = $state("");
@@ -42,7 +43,7 @@ export default class Song implements BaseModel {
   translator: string = $state("");
   isOfficialTranslation: boolean = $state(false);
   categoriesRaw: string = $state("");
-  lyrics: LyricRow[] = $state(Array(20).fill(LyricRow.createDefault()));
+  lyrics: LyricRow[] = $state(Array(20).fill(new LyricRow()));
   playLinks: PlayLink[] = $state(
     [
       PV_SERVICE_PROVIDER.niconico,
@@ -50,9 +51,9 @@ export default class Song implements BaseModel {
       PV_SERVICE_PROVIDER.bilibili,
       PV_SERVICE_PROVIDER.soundcloud,
       PV_SERVICE_PROVIDER.bandcamp,
-    ].map((service) => new PlayLink(service, "", false, false, false, "")),
+    ].map((site) => new PlayLink({ site })),
   );
-  extLinks: ExternalLink[] = $state(Array(5).fill(ExternalLink.createDefault()));
+  extLinks: ExternalLink[] = $state(Array(5).fill(new ExternalLink()));
 
   uploadDate?: Date | null = $derived(
     (() => {
@@ -88,6 +89,10 @@ export default class Song implements BaseModel {
     ]);
     this.uploadDate = this.uploadDateRaw === "" ? null : new Date(this.uploadDateRaw);
     this.categories = this.categoriesRaw === "" ? [] : this.categoriesRaw.split("\n");
+
+    for (const a of [this.lyrics, this.playLinks, this.extLinks] as PreprocessorMixin[][]) {
+      a.forEach((e) => e.preprocess());
+    }
   }
 
   validate(): ValidationBundledErrors<SongPageValidationErrorType> {

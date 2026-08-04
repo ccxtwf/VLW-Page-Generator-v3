@@ -1,17 +1,35 @@
 import { preprocessStringParams } from "../../utils/utils";
+import type { IPlayLink } from "../schema";
 
-export default class PlayLink {
-  constructor(
-    public site: string,
-    public url: string,
-    public isReprint: boolean,
-    public isAutogen: boolean,
-    public isDeleted: boolean,
-    public viewCount: string,
-  ) {}
+export default class PlayLink implements IPlayLink {
+  site: string = $state("");
+  url: string = $state("");
+  isReprint: boolean = $state(false);
+  isAutogen: boolean = $state(false);
+  isDeleted: boolean = $state(false);
+  viewCount: string = $state("");
 
-  static createDefault(): PlayLink {
-    return new PlayLink("", "", false, false, false, "");
+  constructor({
+    site = "",
+    url = "",
+    isReprint = false,
+    isAutogen = false,
+    isDeleted = false,
+    viewCount = "",
+  }: {
+    site?: string;
+    url?: string;
+    isReprint?: boolean;
+    isAutogen?: boolean;
+    isDeleted?: boolean;
+    viewCount?: "";
+  } = {}) {
+    this.site = site;
+    this.url = url;
+    this.isReprint = isReprint;
+    this.isAutogen = isAutogen;
+    this.isDeleted = isDeleted;
+    this.viewCount = viewCount;
   }
 
   preprocess(): void {
@@ -62,5 +80,17 @@ export default class PlayLink {
 
     //Show view count number as text if non-numeric
     return this.viewCount;
+  }
+
+  toJSON(): IPlayLink {
+    const { site, url, isReprint, isAutogen, isDeleted, viewCount } = this;
+    return {
+      site,
+      url,
+      isReprint,
+      isAutogen,
+      isDeleted,
+      viewCount,
+    };
   }
 }

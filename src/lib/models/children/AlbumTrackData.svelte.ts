@@ -1,17 +1,32 @@
 import { preprocessStringParams } from "../../utils/utils";
 import { AlbumPageValidationErrorType } from "../../validationErrors/types";
+import type { IAlbumTrackData } from "../schema";
 
-export default class AlbumTrackData {
-  constructor(
-    public discNo: number | string,
-    public trackNo: number | string,
-    public pageTitle: string,
-    public producerCredit: string,
-    public singerCredit: string,
-  ) {}
+export default class AlbumTrackData implements IAlbumTrackData {
+  discNo: number | string = $state("");
+  trackNo: number | string = $state("");
+  pageTitle: string = $state("");
+  producerCredit: string = $state("");
+  singerCredit: string = $state("");
 
-  static createDefault(): AlbumTrackData {
-    return new AlbumTrackData("", "", "", "", "");
+  constructor({
+    discNo = "",
+    trackNo = "",
+    pageTitle = "",
+    producerCredit = "",
+    singerCredit = "",
+  }: {
+    discNo?: number | string;
+    trackNo?: number | string;
+    pageTitle?: string;
+    producerCredit?: string;
+    singerCredit?: string;
+  } = {}) {
+    this.discNo = discNo;
+    this.trackNo = trackNo;
+    this.pageTitle = pageTitle;
+    this.producerCredit = producerCredit;
+    this.singerCredit = singerCredit;
   }
 
   preprocess(): void {
@@ -46,5 +61,16 @@ export default class AlbumTrackData {
       credits = `${this.producerCredit} ft. ${credits}`;
     }
     return credits;
+  }
+
+  toJSON(): IAlbumTrackData {
+    const { discNo, trackNo, pageTitle, producerCredit, singerCredit } = this;
+    return {
+      discNo,
+      trackNo,
+      pageTitle,
+      producerCredit,
+      singerCredit,
+    };
   }
 }

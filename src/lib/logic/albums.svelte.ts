@@ -1,7 +1,7 @@
 import Album from "../models/Album.svelte";
-import AlbumTrackData from "../models/children/AlbumTrackData";
-import AlbumBroadcastLink from "../models/children/AlbumBroadcastLink";
-import ExternalLink from "../models/children/ExternalLink";
+import AlbumTrackData from "../models/children/AlbumTrackData.svelte";
+import AlbumBroadcastLink from "../models/children/AlbumBroadcastLink.svelte";
+import ExternalLink from "../models/children/ExternalLink.svelte";
 
 import {
   VdbAlbumType,
@@ -11,7 +11,7 @@ import {
   VdbSongType,
   VdbWebLinkCategory,
   type FetchedVdbAlbumEntity,
-} from "../../schemas/vocadb";
+} from "../../schemas/vocadb.d";
 
 import { detonePinyin, renderAsCommaSeparatedList } from "../utils/utils";
 import { getOtherMediaWikiPageName, processExternalLinkFromVocaDb } from "../utils/urlUtils";
@@ -382,13 +382,13 @@ export async function fetchDataFromVocaDb(
       }
     }
     tracklist.push(
-      new AlbumTrackData(
+      new AlbumTrackData({
         discNo,
         trackNo,
-        songTitle || "",
-        renderAsCommaSeparatedList(songProducers),
-        renderAsCommaSeparatedList(Array.from(songSingers.values())),
-      ),
+        pageTitle: songTitle || "",
+        producerCredit: renderAsCommaSeparatedList(songProducers),
+        singerCredit: renderAsCommaSeparatedList(Array.from(songSingers.values())),
+      }),
     );
   }
   const engines: MultiSelectItem[] = Array.from(engineIds.keys()).map((id) => {
@@ -408,17 +408,19 @@ export async function fetchDataFromVocaDb(
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = convertPvService(link.service);
     description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
-    extLinks.push(new ExternalLink(url, description, true, false));
+    extLinks.push(new ExternalLink({ url, description, isOfficial: true, isInactive: false }));
 
     switch (link.service) {
       case VdbPvService.yt:
-        officialStreaming.push(new AlbumBroadcastLink(2, "YouTube Crossfade", url));
+        officialStreaming.push(new AlbumBroadcastLink({ idx: 2, site: "YouTube Crossfade", url }));
         break;
       case VdbPvService.nnd:
-        officialStreaming.push(new AlbumBroadcastLink(1, "Niconico Crossfade", url));
+        officialStreaming.push(new AlbumBroadcastLink({ idx: 1, site: "Niconico Crossfade", url }));
         break;
       case VdbPvService.sc:
-        officialStreaming.push(new AlbumBroadcastLink(6, "SoundCloud Crossfade", url));
+        officialStreaming.push(
+          new AlbumBroadcastLink({ idx: 6, site: "SoundCloud Crossfade", url }),
+        );
         break;
     }
   }
@@ -444,11 +446,11 @@ export async function fetchDataFromVocaDb(
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
       if (am) {
-        officialStreaming.push(new AlbumBroadcastLink(am.idx, am.name || "", url));
+        officialStreaming.push(new AlbumBroadcastLink({ idx: am.idx, site: am.name || "", url }));
       }
     }
 
-    extLinks.push(new ExternalLink(url, description, isOfficial, false));
+    extLinks.push(new ExternalLink({ url, description, isOfficial, isInactive: false }));
   }
 
   const formData = {

@@ -1,7 +1,8 @@
-import type { BaseModel } from "./base";
-import ProducerDiscographySongItem from "./children/ProducerDiscographySongItem";
-import ProducerDiscographyAlbumItem from "./children/ProducerDiscographyAlbumItem";
-import ExternalLinkForProducerPage from "./children/ExternalLinkForProducerPage";
+import type { BaseModel, PreprocessorMixin } from "./base";
+import type { IProducer } from "./schema";
+import ProducerDiscographySongItem from "./children/ProducerDiscographySongItem.svelte";
+import ProducerDiscographyAlbumItem from "./children/ProducerDiscographyAlbumItem.svelte";
+import ExternalLinkForProducerPage from "./children/ExternalLinkForProducerPage.svelte";
 
 import { getValidationError } from "../validationErrors/producers";
 import {
@@ -25,7 +26,7 @@ export interface ProducerRoles {
   masterer: boolean;
 }
 
-export default class Producer implements BaseModel {
+export default class Producer implements BaseModel, IProducer {
   prodCategory: string = $state("");
   splitAlbum: boolean = $state(false);
   prodAliases: string = $state("");
@@ -45,14 +46,12 @@ export default class Producer implements BaseModel {
     mixer: false,
     masterer: false,
   });
-  songs: ProducerDiscographySongItem[] = $state(
-    Array(5).fill(ProducerDiscographySongItem.createDefault()),
-  );
+  songs: ProducerDiscographySongItem[] = $state(Array(5).fill(new ProducerDiscographySongItem()));
   albums: ProducerDiscographyAlbumItem[] = $state(
-    Array(5).fill(ProducerDiscographyAlbumItem.createDefault()),
+    Array(5).fill(new ProducerDiscographyAlbumItem()),
   );
   extLinks: ExternalLinkForProducerPage[] = $state(
-    Array(5).fill(ExternalLinkForProducerPage.createDefault()),
+    Array(5).fill(new ExternalLinkForProducerPage()),
   );
 
   preprocess(): void {
@@ -91,9 +90,10 @@ export default class Producer implements BaseModel {
     this.songs = this.songs || [];
     this.albums = this.albums || [];
     this.extLinks = this.extLinks || [];
-    this.songs.forEach((m) => m.preprocess());
-    this.albums.forEach((m) => m.preprocess());
-    this.extLinks.forEach((m) => m.preprocess());
+
+    for (const a of [this.songs, this.albums, this.extLinks] as PreprocessorMixin[][]) {
+      a.forEach((e) => e.preprocess());
+    }
   }
 
   validate(): ValidationBundledErrors<ProducerPageValidationErrorType> {

@@ -1,7 +1,8 @@
-import type { BaseModel } from "./base";
-import AlbumBroadcastLink from "./children/AlbumBroadcastLink";
-import AlbumTrackData from "./children/AlbumTrackData";
-import ExternalLink from "./children/ExternalLink";
+import type { BaseModel, PreprocessorMixin } from "./base";
+import type { IAlbum } from "./schema";
+import AlbumBroadcastLink from "./children/AlbumBroadcastLink.svelte";
+import AlbumTrackData from "./children/AlbumTrackData.svelte";
+import ExternalLink from "./children/ExternalLink.svelte";
 
 import { getValidationError } from "../validationErrors/albums";
 import {
@@ -14,7 +15,7 @@ import { preprocessStringParams, validateColour } from "../utils/utils";
 import type { MultiSelectItem } from "../../schemas/form";
 import { ALBUM_STREAMING_LINKS } from "../../constants";
 
-export default class Album implements BaseModel {
+export default class Album implements BaseModel, IAlbum {
   origTitle: string = $state("");
   romTitle: string = $state("");
   engTitle: string = $state("");
@@ -30,11 +31,11 @@ export default class Album implements BaseModel {
   vdbAlbumId: string = $state("");
   vocaWikiPage: string = $state("");
   categoriesRaw: string = $state("");
-  tracklist: AlbumTrackData[] = $state(Array(12).fill(AlbumTrackData.createDefault()));
+  tracklist: AlbumTrackData[] = $state(Array(12).fill(new AlbumTrackData()));
   broadcastLinks: AlbumBroadcastLink[] = $state(
-    ALBUM_STREAMING_LINKS.map(({ name, idx }) => new AlbumBroadcastLink(idx, name, "")),
+    ALBUM_STREAMING_LINKS.map(({ name, idx }) => new AlbumBroadcastLink({ idx, site: name })),
   );
-  extLinks: ExternalLink[] = $state(Array(5).fill(ExternalLink.createDefault()));
+  extLinks: ExternalLink[] = $state(Array(5).fill(new ExternalLink()));
 
   categories: string[] = $derived((this.categoriesRaw || "").split("\n"));
 
@@ -61,9 +62,10 @@ export default class Album implements BaseModel {
     this.tracklist = this.tracklist || [];
     this.broadcastLinks = this.broadcastLinks || [];
     this.extLinks = this.extLinks || [];
-    this.tracklist.forEach((m) => m.preprocess());
-    this.broadcastLinks.forEach((m) => m.preprocess());
-    this.extLinks.forEach((m) => m.preprocess());
+
+    for (const a of [this.tracklist, this.broadcastLinks, this.extLinks] as PreprocessorMixin[][]) {
+      a.forEach((e) => e.preprocess());
+    }
   }
 
   validate(): ValidationBundledErrors<AlbumPageValidationErrorType> {

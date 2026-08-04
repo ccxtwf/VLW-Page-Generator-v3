@@ -5,6 +5,10 @@ export interface BaseModel {
   validate: () => ValidationBundledErrors;
 }
 
-export interface FactoryMixin<T> {
-  createDefault: () => T;
+export interface PreprocessorMixin {
+  preprocess: () => void;
+}
+
+export interface WikitextBuilderMixin {
+  getWikitext: () => string;
 }
