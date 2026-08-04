@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { generateLyricsPoemElement } from "../../src/lib/utils/lyricsUtils";
-import { LyricRowData } from "../../src/schemas/form";
+import { ILyricsRow } from "../../src/lib/models/schema.d";
 
 describe("generateLyricsPoemElement", () => {
   test("simple", () => {
-    const data: LyricRowData[] = [
+    const data: ILyricsRow[] = [
       { customStyle: "", original: "Lorem ipsum dolor sit amet," },
       { customStyle: "", original: "consectetur adipiscing elit" },
       { customStyle: "", original: "Ut pulvinar, diam nec dapibus sagittis," },
@@ -16,7 +16,7 @@ describe("generateLyricsPoemElement", () => {
   });
 
   test("with styling", () => {
-    const data: LyricRowData[] = [
+    const data: ILyricsRow[] = [
       { customStyle: "color: grey;", original: "Lorem ipsum dolor sit amet," },
       { customStyle: "color: grey;", original: "consectetur adipiscing elit." },
       { customStyle: "color: grey;", original: "Ut pulvinar, diam nec dapibus sagittis," },
@@ -48,7 +48,7 @@ describe("generateLyricsPoemElement", () => {
   });
 
   test("should group paragraphs with line breaks in between", () => {
-    const data: LyricRowData[] = [
+    const data: ILyricsRow[] = [
       { customStyle: "color: red;", original: "How beautiful at eventide" },
       { customStyle: "color: red;", original: "To see the twilight shadows pale," },
       { customStyle: "color: red;", original: "Steal o'er the landscape, far and wide," },

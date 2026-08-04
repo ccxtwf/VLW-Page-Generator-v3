@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { generateLyricsSegment } from "../../src/lib/utils/lyricsUtils";
-import { LyricRowData } from "../../src/schemas/form";
+import type { ILyricsRow } from "../../src/lib/models/schema.d";
 
 describe("generateLyricsSegment - English columns", () => {
   test("Japanese song with fanmade translation", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
       { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
     ];
@@ -41,7 +41,7 @@ ${expectedLyricsTable}
   });
 
   test("Japanese song with translation by anonymous", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
       { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
     ];
@@ -78,7 +78,7 @@ ${expectedLyricsTable}
   });
 
   test("Japanese song with official translation", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
       { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
     ];
@@ -117,7 +117,7 @@ ${expectedLyricsTable}
   });
 
   test("Japanese song with no translation (column is hidden)", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo" },
       { customStyle: "", original: "かきくけこ", romanized: "kakikukeko" },
     ];
@@ -149,7 +149,7 @@ ${expectedLyricsTable}`;
   });
 
   test("Japanese song with no translation (column is shown)", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo" },
       { customStyle: "", original: "かきくけこ", romanized: "kakikukeko" },
     ];
@@ -184,7 +184,7 @@ ${expectedLyricsTable}`;
   });
 
   test("Japanese song with translation notes", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       {
         customStyle: "",
         original: "あいうえお",
@@ -229,7 +229,7 @@ ${expectedLyricsTable}
   });
 
   test("Indonesian song with fanmade translation", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "Bengawan Solo", english: "Solo River" },
       {
         customStyle: "",
@@ -268,7 +268,7 @@ ${expectedLyricsTable}
   });
 
   test("Indonesian song with no translation", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "Bengawan Solo" },
       {
         customStyle: "",
@@ -307,7 +307,7 @@ describe("generateLyricsSegment - integrated", () => {
      * Translation of "Iroha" by an anonymous contributor on Wikipedia
      * Distributed under CC-BY-SA-4.0
      */
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       {
         customStyle: "",
         original: "いろはにほへと",
@@ -417,7 +417,7 @@ ${expectedLyricsTable}
   });
 
   test("lyrics table (with formatting)", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       {
         customStyle: "font-weight: bold;",
         original: "いろはにほへと",
@@ -527,7 +527,7 @@ ${expectedLyricsTable}
   });
 
   test("poem", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       {
         customStyle: "",
         original: "Even the blossoming flowers",
@@ -588,7 +588,7 @@ Nor be intoxicated.</poem>`;
   });
 
   test("poem (with formatting)", () => {
-    const lyrics: LyricRowData[] = [
+    const lyrics: ILyricsRow[] = [
       {
         customStyle: "font-weight: bold;",
         original: "Even the blossoming flowers",

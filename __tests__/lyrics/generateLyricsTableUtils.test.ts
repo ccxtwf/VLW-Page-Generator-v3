@@ -4,7 +4,7 @@ import {
   renderLyricsRowWikitext,
   generateSingerPartsElement,
 } from "../../src/lib/utils/lyricsUtils";
-import { LyricRowData } from "../../src/schemas/form";
+import type { ILyricsRow } from "../../src/lib/models/schema.d";
 
 describe("renderTableCellWikitext", () => {
   test.each([
@@ -30,7 +30,7 @@ describe("renderTableCellWikitext", () => {
 
 describe("renderLyricsRowWikitext", () => {
   test("simple case", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "ありがとうございます",
       romanized: "Arigatou gozaimasu",
@@ -47,7 +47,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("with styling", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "color: red;",
       original: "ありがとうございます",
       romanized: "Arigatou gozaimasu",
@@ -109,7 +109,7 @@ describe("renderLyricsRowWikitext", () => {
       showEnglishColumn: false,
     },
   ])("line break", (options) => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "",
       romanized: "",
@@ -119,7 +119,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("not in need of romanization", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "Ti amo",
       romanized: "",
@@ -136,7 +136,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("not in need of translation", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "らりらりらほほ",
       romanized: "rarirarirahoho",
@@ -155,7 +155,7 @@ describe("renderLyricsRowWikitext", () => {
    * This should not be called in this case
    */
   test("English-only lyrics", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "This is my last resort",
     };
@@ -170,7 +170,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("without translation (show empty English column)", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "ありがとうございます",
       romanized: "Arigatou gozaimasu",
@@ -186,7 +186,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("without translation (hide empty English column)", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "ありがとうございます",
       romanized: "Arigatou gozaimasu",
@@ -202,7 +202,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("shared", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "SHOUT!!",
       romanized: "SHOUT!!",
@@ -219,7 +219,7 @@ describe("renderLyricsRowWikitext", () => {
   });
 
   test("shared (not in need of romanization)", () => {
-    const lyrics: LyricRowData = {
+    const lyrics: ILyricsRow = {
       customStyle: "",
       original: "SHOUT!!",
       romanized: "",
