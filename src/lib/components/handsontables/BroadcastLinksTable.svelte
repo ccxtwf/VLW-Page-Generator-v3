@@ -1,95 +1,96 @@
 <script lang="ts">
-  import Handsontable, { type ChangeSource, type ColumnSettings } from "handsontable";
+  import Handsontable from "./Handsontable.svelte";
+  import { type ColumnSettings, type HotInstance } from "handsontable";
 
-  import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
-  import { onMount } from "svelte";
+  import PlayLink from "../../models/children/PlayLink.svelte";
 
-  import { processInsertedLink, sharedContextMenuOptions } from "./utils";
   import { PV_SERVICES } from "../../../constants";
-  import type { PlayLinkData } from "../../../schemas/form";
+  import {
+    handleInputEvent,
+    processInsertedLink,
+    sharedContextMenuOptions,
+  } from "./utils";
 
-  interface BroadcastLinksTable {
+  interface BroadcastLinksTableProps {
     id: string;
     class: string;
-    data: PlayLinkData[];
+    data: PlayLink[];
   }
 
-  let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
-  let hot: Handsontable;
+  let hot: HotInstance | undefined = $state();
 
-  let { id, class: className, data = $bindable([]) }: BroadcastLinksTable = $props();
+  let {
+    id,
+    class: className,
+    data = $bindable([]),
+  }: BroadcastLinksTableProps = $props();
 
-  function handleCellChange(changes: any[][] | null, source: ChangeSource) {
-    for (let change of changes || []) {
-      let [rowId, colId, oldValue, newValue] = change;
-      if (oldValue === newValue || colId !== 1) {
-        continue;
-      }
+  const headerText: string[] = [
+    "Site",
+    "URL",
+    "Reprint?",
+    "Auto-gen?",
+    "Deleted?",
+    "View Count",
+  ];
+  const columnDefinitions: ColumnSettings[] = [
+    {
+      data: "site",
+      type: "dropdown",
+      source: PV_SERVICES.map((el) => el.site),
+      strict: false,
+      allowInvalid: true,
+      validator: undefined,
+    },
+    {
+      data: "url",
+      type: "text",
+      renderer: "url",
+    },
+    { data: "isReprint", type: "checkbox", className: "htCenter htMiddle" },
+    { data: "isAutogen", type: "checkbox", className: "htCenter htMiddle" },
+    { data: "isDeleted", type: "checkbox", className: "htCenter htMiddle" },
+    { data: "viewCount", type: "text" },
+  ];
 
-      // changed cell is URL
-      const referUrl = PV_SERVICES.find(({ re }) => {
-        return newValue.match(re) !== null;
-      });
+  /**
+   * When a URL is inputted into the column "URL", check
+   * if it is part of a set of recognized links. If so,
+   * automatically set the "Site" field.
+   *
+   * In addition, process the inserted link.
+   */
+  const onUrlInput = handleInputEvent("url", (change) => {
+    let [rowId, _colId, _oldValue, newValue] = change;
+    // changed cell is URL
+    const referUrl = PV_SERVICES.find(({ re }) => {
+      return (newValue as string).match(re) !== null;
+    });
 
-      // no match is found
-      if (!referUrl) {
-        continue;
-      }
-
-      hot.setDataAtCell(rowId, 0, referUrl.site); // set description automatically
-      newValue = processInsertedLink(newValue, referUrl);
-      hot.setDataAtCell(rowId, colId, newValue);
+    // no match is found
+    if (!referUrl) {
+      return;
     }
-  }
 
-  onMount(() => {
-    const headerText: string[] = ["Site", "URL", "Reprint?", "Auto-gen?", "Deleted?", "View Count"];
-    const columnDefinitions: ColumnSettings[] = [
-      {
-        type: "dropdown",
-        source: PV_SERVICES.map((el) => el.site),
-        strict: false,
-        allowInvalid: true,
-        validator: undefined,
-      },
-      {
-        type: "text",
-        renderer: "url",
-      },
-      { type: "checkbox", className: "htCenter htMiddle" },
-      { type: "checkbox", className: "htCenter htMiddle" },
-      { type: "checkbox", className: "htCenter htMiddle" },
-      { type: "text" },
-    ];
-
-    hot = new Handsontable(container, {
-      data,
-      rowHeaders: true,
-      colHeaders: headerText,
-      columns: columnDefinitions,
-      width: "100%",
-      height: "auto",
-      contextMenu: sharedContextMenuOptions,
-      autoWrapRow: true,
-      autoWrapCol: true,
-      manualColumnResize: true,
-      selectionMode: "multiple",
-      stretchH: "all",
-      rowHeights: 30,
-      startRows: 5,
-      minSpareRows: 1,
-      afterChange: handleCellChange,
-      licenseKey: HANDSONTABLE_LICENSE_KEY,
-    });
-
-    $effect(() => {
-      hot.updateData($state.snapshot(data));
-    });
+    newValue = processInsertedLink(newValue as string, referUrl);
+    change[3] = newValue;
+    hot!.setDataAtRowProp(rowId, "site", referUrl.site);
   });
 </script>
 
-<div
+<Handsontable
   {id}
   class={className}
-  bind:this={container}
-></div>
+  bind:data
+  bind:hot
+  dataSchema={PlayLink}
+  rowHeaders={true}
+  colHeaders={headerText}
+  columns={columnDefinitions}
+  settings={{
+    beforeChange: onUrlInput,
+    contextMenu: sharedContextMenuOptions,
+    rowHeights: 30,
+    startRows: 5,
+  }}
+/>

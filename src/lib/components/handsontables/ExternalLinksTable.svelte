@@ -1,121 +1,107 @@
 <script lang="ts">
-  import Handsontable, {
-    type CellChange,
-    type ChangeSource,
-    type ColumnSettings,
-  } from "handsontable";
+  import Handsontable from "./Handsontable.svelte";
+  import { type ColumnSettings, type HotInstance } from "handsontable";
 
-  import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
-  import { onMount } from "svelte";
-  import type { ExternalLink } from "../../../schemas/form";
+  import ExternalLink from "../../models/children/ExternalLink.svelte";
+  import ExternalLinkForProducerPage from "../../models/children/ExternalLinkForProducerPage.svelte";
 
-  import { sharedContextMenuOptions, processInsertedLink, stringValueFormatter } from "./utils";
   import { RECOGNIZED_LINKS } from "../../../constants";
+  import {
+    sharedContextMenuOptions,
+    processInsertedLink,
+    handleInputEvent,
+  } from "./utils";
 
-  interface ExternalLinksTable {
+  interface ExternalLinksTableProps {
     id: string;
     class: string;
     data: ExternalLink[];
     forProducerPage?: boolean;
   }
 
-  let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
-  let hot: Handsontable;
+  let hot: HotInstance | undefined = $state();
 
   let {
     id,
     class: className,
     data = $bindable([]),
     forProducerPage,
-  }: ExternalLinksTable = $props();
+  }: ExternalLinksTableProps = $props();
 
-  function handleCellChange(changes: CellChange[] | null, source: ChangeSource) {
-    for (let change of changes || []) {
-      let [rowId, colId, oldValue, newValue] = change;
-      if (oldValue === newValue || colId !== 0) {
-        continue;
-      }
-
-      // changed cell is URL
-      const referUrl = RECOGNIZED_LINKS.find(({ re }) => {
-        return newValue?.toString()?.match(re);
-      });
-
-      // match not found
-      if (!referUrl) {
-        continue;
-      }
-
-      hot.setDataAtCell(rowId, 1, referUrl.site); // set description automatically
-      newValue = processInsertedLink(newValue as string, referUrl, {
-        bilibili: false,
-      });
-      hot.setDataAtCell(rowId, colId, newValue);
-    }
-  }
-
-  onMount(() => {
-    const headerText: string[] = ["URL", "Description", "Official"];
-    const columnDefinitions: ColumnSettings[] = [
+  const headerText: string[] = ["URL", "Description", "Official"];
+  const columnDefinitions: ColumnSettings[] = [
+    {
+      data: "url",
+      type: "text",
+      renderer: "url",
+    },
+    {
+      data: "description",
+      type: "text",
+    },
+    {
+      data: "isOfficial",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    },
+  ];
+  if (forProducerPage) {
+    headerText.push("Media", "Inactive?");
+    columnDefinitions.push(
       {
-        data: "url",
-        type: "text",
-        renderer: "url",
-        formatter: stringValueFormatter,
-      },
-      {
-        data: "description",
-        type: "text",
-      },
-      {
-        data: "isOfficial",
+        data: "isMedia",
         type: "checkbox",
         className: "htCenter htMiddle",
       },
-    ];
-    if (forProducerPage) {
-      headerText.push("Media", "Inactive?");
-      columnDefinitions.push(
-        {
-          data: "isMedia",
-          type: "checkbox",
-          className: "htCenter htMiddle",
-        },
-        {
-          data: "isInactive",
-          type: "checkbox",
-          className: "htCenter htMiddle",
-        },
-      );
+      {
+        data: "isInactive",
+        type: "checkbox",
+        className: "htCenter htMiddle",
+      },
+    );
+  }
+
+  /**
+   * Automatically update the description upon URL input
+   */
+  const onLinkInput = handleInputEvent("url", (change) => {
+    let [rowId, _colId, oldValue, newValue] = change;
+
+    if (oldValue === newValue) {
+      return;
     }
 
-    hot = new Handsontable(container, {
-      data,
-      rowHeaders: true,
-      colHeaders: headerText,
-      columns: columnDefinitions,
-      width: "100%",
-      height: "auto",
-      contextMenu: sharedContextMenuOptions,
-      autoWrapRow: true,
-      autoWrapCol: true,
-      manualColumnResize: true,
-      selectionMode: "multiple",
-      stretchH: "all",
-      rowHeights: 30,
-      startRows: 5,
-      afterChange: handleCellChange,
-      licenseKey: HANDSONTABLE_LICENSE_KEY,
+    // changed cell is URL
+    const referUrl = RECOGNIZED_LINKS.find(({ re }) => {
+      return newValue?.toString()?.match(re);
     });
 
-    $effect(() => {
-      hot.updateData($state.snapshot(data));
+    // match not found
+    if (!referUrl) {
+      return;
+    }
+
+    newValue = processInsertedLink(newValue as string, referUrl, {
+      bilibili: false,
     });
+    change[3] = newValue;
+    hot!.setDataAtRowProp(rowId, "description", referUrl.site);
   });
 </script>
 
-<div
+<Handsontable
   {id}
   class={className}
-  bind:this={container}
-></div>
+  bind:hot
+  bind:data
+  dataSchema={forProducerPage ? ExternalLinkForProducerPage : ExternalLink}
+  rowHeaders={true}
+  colHeaders={headerText}
+  columns={columnDefinitions}
+  contextMenu={sharedContextMenuOptions}
+  settings={{
+    beforeChange: onLinkInput,
+    rowHeights: 30,
+    minSpareRows: 0,
+  }}
+/>

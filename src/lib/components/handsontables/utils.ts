@@ -1,4 +1,9 @@
-import { type CellProperties, type HotInstance } from "handsontable";
+import {
+  type CellChange,
+  type CellProperties,
+  type ChangeSource,
+  type HotInstance,
+} from "handsontable";
 import type { PredefinedMenuItemKey } from "handsontable/plugins/contextMenu";
 import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
 
@@ -37,20 +42,19 @@ export function stringValueFormatter(v: unknown): string {
  * @returns
  */
 export function urlRenderer(
-  hotInstance: HotInstance,
+  _hotInstance: HotInstance,
   td: HTMLTableCellElement,
-  row: number,
-  col: number,
-  prop: string | number,
+  _row: number,
+  _col: number,
+  _prop: string | number,
   value: unknown,
-  cellProperties: CellProperties,
+  _cellProperties: CellProperties,
 ): HTMLTableCellElement {
   let v = (value = value as unknown as string); // cast as string
-  if (!v) {
-    return td;
-  }
-  if (isValidUrl(v)) {
+  if (v && isValidUrl(v)) {
     td.innerHTML = renderAsAnchorElement({ url: v }).outerHTML;
+  } else {
+    td.innerText = v || "";
   }
   return td;
 }
@@ -71,16 +75,17 @@ export function urlRenderer(
  * @returns
  */
 export function vlwUrlPageRenderer(
-  hotInstance: HotInstance,
+  _hotInstance: HotInstance,
   td: HTMLTableCellElement,
-  row: number,
-  col: number,
-  prop: string | number,
+  _row: number,
+  _col: number,
+  _prop: string | number,
   value: unknown,
-  cellProperties: CellProperties,
+  _cellProperties: CellProperties,
 ): HTMLTableCellElement {
   let v = (value = value as unknown as string); // cast as string
   if (!v) {
+    td.innerText = "";
     return td;
   }
   let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}${encodeURIComponent(v)}`;
@@ -104,16 +109,17 @@ export function vlwUrlPageRenderer(
  * @returns
  */
 export function vlwInternalLinkRenderer(
-  hotInstance: HotInstance,
+  _hotInstance: HotInstance,
   td: HTMLTableCellElement,
-  row: number,
-  col: number,
-  prop: string | number,
+  _row: number,
+  _col: number,
+  _prop: string | number,
   value: unknown,
-  cellProperties: CellProperties,
+  _cellProperties: CellProperties,
 ) {
   let v = (value = value as unknown as string); // cast as string
   if (!v) {
+    td.innerText = "";
     return td;
   }
   const m = v.match(
@@ -154,6 +160,28 @@ function renderAsAnchorElement({
   node.setAttribute("rel", rel);
   node.setAttribute("target", target);
   return node;
+}
+
+export function handleInputEvent(checkColId: string, cb: (change: CellChange) => void) {
+  function _handler(changes: (CellChange | null)[], source: ChangeSource) {
+    if (
+      ["edit", "CopyPaste.cut", "CopyPaste.paste", "UndoRedo.redo", "UndoRedo.undo"].indexOf(
+        source,
+      ) < 0
+    ) {
+      return;
+    }
+    for (let change of changes) {
+      if (!change) {
+        continue;
+      }
+      let [_rowId, colId, _prevValue, _newValue] = change;
+      if (colId === checkColId) {
+        cb(change);
+      }
+    }
+  }
+  return _handler;
 }
 
 /**
