@@ -11,7 +11,7 @@
 <div class="layout-wrapper">
   <Navbar />
 
-  <main class="content-container">
+  <main>
     {#if children}
       {@render children()}
     {/if}
@@ -35,14 +35,5 @@
       Ubuntu,
       Cantarell,
       sans-serif;
-  }
-
-  .content-container {
-    flex: 1;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-    box-sizing: border-box;
   }
 </style>
