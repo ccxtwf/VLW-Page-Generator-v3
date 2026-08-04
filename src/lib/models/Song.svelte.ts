@@ -43,7 +43,11 @@ export default class Song implements BaseModel, ISong {
   translator: string = $state("");
   isOfficialTranslation: boolean = $state(false);
   categoriesRaw: string = $state("");
-  lyrics: LyricRow[] = $state(Array(20).fill(new LyricRow()));
+  lyrics: LyricRow[] = $state(
+    Array(20)
+      .fill(null)
+      .map(() => new LyricRow()),
+  );
   playLinks: PlayLink[] = $state(
     [
       PV_SERVICE_PROVIDER.niconico,
@@ -53,7 +57,11 @@ export default class Song implements BaseModel, ISong {
       PV_SERVICE_PROVIDER.bandcamp,
     ].map((site) => new PlayLink({ site })),
   );
-  extLinks: ExternalLink[] = $state(Array(5).fill(new ExternalLink()));
+  extLinks: ExternalLink[] = $state(
+    Array(5)
+      .fill(null)
+      .map(() => new ExternalLink()),
+  );
 
   uploadDate?: Date | null = $derived(
     (() => {

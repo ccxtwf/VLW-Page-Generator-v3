@@ -31,11 +31,19 @@ export default class Album implements BaseModel, IAlbum {
   vdbAlbumId: string = $state("");
   vocaWikiPage: string = $state("");
   categoriesRaw: string = $state("");
-  tracklist: AlbumTrackData[] = $state(Array(12).fill(new AlbumTrackData()));
+  tracklist: AlbumTrackData[] = $state(
+    Array(12)
+      .fill(null)
+      .map(() => new AlbumTrackData()),
+  );
   broadcastLinks: AlbumBroadcastLink[] = $state(
     ALBUM_STREAMING_LINKS.map(({ name, idx }) => new AlbumBroadcastLink({ idx, site: name })),
   );
-  extLinks: ExternalLink[] = $state(Array(5).fill(new ExternalLink()));
+  extLinks: ExternalLink[] = $state(
+    Array(5)
+      .fill(null)
+      .map(() => new ExternalLink()),
+  );
 
   categories: string[] = $derived((this.categoriesRaw || "").split("\n"));
 

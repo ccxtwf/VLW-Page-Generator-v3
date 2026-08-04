@@ -46,12 +46,20 @@ export default class Producer implements BaseModel, IProducer {
     mixer: false,
     masterer: false,
   });
-  songs: ProducerDiscographySongItem[] = $state(Array(5).fill(new ProducerDiscographySongItem()));
+  songs: ProducerDiscographySongItem[] = $state(
+    Array(5)
+      .fill(null)
+      .map(() => new ProducerDiscographySongItem()),
+  );
   albums: ProducerDiscographyAlbumItem[] = $state(
-    Array(5).fill(new ProducerDiscographyAlbumItem()),
+    Array(5)
+      .fill(null)
+      .map(() => new ProducerDiscographyAlbumItem()),
   );
   extLinks: ExternalLinkForProducerPage[] = $state(
-    Array(5).fill(new ExternalLinkForProducerPage()),
+    Array(5)
+      .fill(null)
+      .map(() => new ExternalLinkForProducerPage()),
   );
 
   preprocess(): void {
