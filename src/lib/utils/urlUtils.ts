@@ -86,7 +86,7 @@ export function convertTwitterLink(url: string) {
  * @param articlePath
  */
 export function getOtherMediaWikiPageName(url: string, articlePath: string): string | null {
-  const rx = new RegExp(`${escapeRegExp(articlePath)}([^?]+)`);
+  const rx = new RegExp(`^${escapeRegExp(articlePath)}([^?]+)`);
   const m = rx.exec(url);
   if (!m || !m.groups) {
     return null;

@@ -43,7 +43,7 @@ export const PV_SERVICES: PvService[] = [
   },
   {
     site: PV_SERVICE_PROVIDER.youtube,
-    re: /^https?:\/\/(?:(?:|www\.)youtube\.com\/(?:watch\?v=|shorts)|youtu\.be)\//,
+    re: /^https?:\/\/(?:(?:|www\.)youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)/,
     isMedia: true,
   },
   {
