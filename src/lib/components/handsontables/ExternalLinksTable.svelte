@@ -101,6 +101,7 @@
   contextMenu={sharedContextMenuOptions}
   settings={{
     beforeChange: onLinkInput,
+    colWidths: [250, 150, 50, 50, 50],
     rowHeights: 30,
     minSpareRows: 0,
   }}

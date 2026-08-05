@@ -78,6 +78,7 @@
   rowHeaders={true}
   columns={columnDefinitions}
   settings={{
+    colWidths: [100, 300, 300, 300],
     rowHeights: 30,
     startRows: 5,
   }}

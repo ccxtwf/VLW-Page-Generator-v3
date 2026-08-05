@@ -65,6 +65,7 @@
   columns={columnDefinitions}
   settings={{
     beforeChange: onVlwPageInput,
+    colWidths: [50, 50, 200, 200, 200],
     rowHeights: 30,
     minSpareRows: 0,
   }}

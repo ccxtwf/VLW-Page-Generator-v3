@@ -90,6 +90,7 @@
   settings={{
     beforeChange: onUrlInput,
     contextMenu: sharedContextMenuOptions,
+    colWidths: [200, 300, 50, 50, 50, 80],
     rowHeights: 30,
     startRows: 5,
   }}
