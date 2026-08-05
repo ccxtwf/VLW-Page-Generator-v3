@@ -3,6 +3,7 @@ export interface ValidationError<E> {
   autoloadCategories?: boolean;
   fields: string[];
   i18nKey: string;
+  i18nParams?: string[];
   type?: E;
 }
 

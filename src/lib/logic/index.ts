@@ -36,8 +36,8 @@ export function formSubmitHandler<T extends BaseModel>({
    * @returns
    */
   displayWarningsAndErrors: (
-    errorMessageKeys: string[],
-    warningMessageKeys: string[],
+    errorMessageKeys: [string, string[] | null][],
+    warningMessageKeys: [string, string[] | null][],
     autoloadCategories: boolean,
   ) => void;
 }): (e: Event) => void {
@@ -65,17 +65,17 @@ export function formSubmitHandler<T extends BaseModel>({
     }
 
     const fieldsToUpdate = new Set<string>();
-    const errorMessageKeys = [];
-    const warningMessageKeys = [];
+    const errorMessageKeys: [string, string[] | null][] = [];
+    const warningMessageKeys: [string, string[] | null][] = [];
 
-    for (const { fields, i18nKey, fatal = false } of errors) {
+    for (const { fields, i18nKey, i18nParams = null, fatal = false } of errors) {
       for (const field of fields) {
         fieldsToUpdate.add(field);
       }
       if (fatal) {
-        errorMessageKeys.push(i18nKey);
+        errorMessageKeys.push([i18nKey, i18nParams]);
       } else {
-        warningMessageKeys.push(i18nKey);
+        warningMessageKeys.push([i18nKey, i18nParams]);
       }
     }
 

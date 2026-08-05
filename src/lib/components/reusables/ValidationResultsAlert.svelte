@@ -1,31 +1,36 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  let _errorMessageKeys: string[] = $state([]);
-  let _warningMessageKeys: string[] = $state([]);
-  let _autoloadCategories: boolean = $state(false);
+  let errors: [string, string[] | undefined][] = $state([]);
+  let warnings: [string, string[] | undefined][] = $state([]);
+  let autoloadCategories: boolean = $state(false);
 
   export function updateState({
-    errors,
-    warnings,
-    autoloadCategories = false,
+    errors: _errors,
+    warnings: _warnings,
+    autoloadCategories: _autoloadCategories = false,
   }: {
-    errors: string[];
-    warnings: string[];
+    errors: [string, string[] | undefined][];
+    warnings: [string, string[] | undefined][];
     autoloadCategories?: boolean;
   }) {
-    _errorMessageKeys = errors;
-    _warningMessageKeys = warnings;
-    _autoloadCategories = autoloadCategories;
+    errors = _errors;
+    warnings = _warnings;
+    autoloadCategories = _autoloadCategories;
   }
 
   export function resetState() {
     updateState({ errors: [], warnings: [], autoloadCategories: false });
   }
+
+  const i18nParamsReducer = (o: Record<any, any>, msg: string, idx: number) => {
+    o[idx + 1] = msg;
+    return o;
+  };
 </script>
 
 <div class="mt-8 mb-8 flex flex-col gap-y-4">
-  {#if _errorMessageKeys.length}
+  {#if errors.length}
     <div
       role="alert"
       id="validation-errors"
@@ -36,15 +41,19 @@
       </div>
       <div class="w-full">
         <ul class="list-inside list-disc">
-          {#each _errorMessageKeys as i18nKey}
-            <li>{$_(i18nKey)}</li>
+          {#each errors as [i18nKey, i18nParams]}
+            <li>
+              {$_(i18nKey, {
+                values: i18nParams?.reduce(i18nParamsReducer, {}),
+              })}
+            </li>
           {/each}
         </ul>
       </div>
     </div>
   {/if}
 
-  {#if _warningMessageKeys.length}
+  {#if warnings.length}
     <div
       role="alert"
       id="validation-warnings"
@@ -55,15 +64,19 @@
       </div>
       <div class="w-full">
         <ul class="list-inside list-disc">
-          {#each _warningMessageKeys as i18nKey}
-            <li>{$_(i18nKey)}</li>
+          {#each warnings as [i18nKey, i18nParams]}
+            <li>
+              {$_(i18nKey, {
+                values: i18nParams?.reduce(i18nParamsReducer, {}),
+              })}
+            </li>
           {/each}
         </ul>
       </div>
     </div>
   {/if}
 
-  {#if _autoloadCategories}
+  {#if autoloadCategories}
     <div
       role="alert"
       id="validation-autoload"
