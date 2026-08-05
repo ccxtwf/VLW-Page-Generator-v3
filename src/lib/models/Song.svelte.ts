@@ -32,8 +32,8 @@ export default class Song implements BaseModel, ISong {
   romTitle: string = $state("");
   engTitle: string = $state("");
   titleIsOfficiallyTranslated: boolean = $state(false);
-  bgColour: string = $state("");
-  fgColour: string = $state("");
+  bgColour: string = $state("black");
+  fgColour: string = $state("white");
   uploadDateRaw: string = $state("");
   isAlbumOnly: boolean = $state(false);
   isUnavailable: boolean = $state(false);
