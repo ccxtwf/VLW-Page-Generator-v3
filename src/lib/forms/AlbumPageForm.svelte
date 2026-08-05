@@ -8,7 +8,7 @@
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import Tracklist from "../components/handsontables/Tracklist.svelte";
-  import AlbumOfficialLinksTable from "../components/handsontables/AlbumOfficialLinksTable.svelte";
+  import AlbumOfficialLinksFieldCollection from "../components/inputFields/AlbumOfficialLinksFieldCollection.svelte";
   import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
   import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
@@ -277,19 +277,20 @@
     </div>
   </FlexRow>
 
-  <FlexRow
-    labelForHtmlId="official-links"
-    labelI18nKey="albumGenForm.officialLinks.label"
-    tooltipI18nKey="albumGenForm.officialLinks.tooltip"
-  >
-    <div class="block w-full">
-      <AlbumOfficialLinksTable
-        id="official-links"
-        class="w-full"
-        bind:data={formData.broadcastLinks}
-      />
-    </div>
-  </FlexRow>
+  <Divider />
+
+  <div class="col-span-full w-full">
+    <h2 class="mb-6 text-xl font-bold">
+      {$_("albumGenForm.officialLinks.label")}
+      <Tooltip required={false}>
+        {@html $_("albumGenForm.officialLinks.tooltip")}
+      </Tooltip>
+    </h2>
+  </div>
+
+  <AlbumOfficialLinksFieldCollection bind:links={formData.broadcastLinks} />
+
+  <Divider />
 
   <FlexRow
     labelForHtmlId="external-links"

@@ -37,7 +37,7 @@ export default class Album implements BaseModel, IAlbum {
       .map(() => new AlbumTrackData()),
   );
   broadcastLinks: AlbumBroadcastLink[] = $state(
-    ALBUM_STREAMING_LINKS.map(({ name, idx }) => new AlbumBroadcastLink({ idx, site: name })),
+    ALBUM_STREAMING_LINKS.map(({ name }, idx) => new AlbumBroadcastLink({ idx, site: name })),
   );
   extLinks: ExternalLink[] = $state(
     Array(5)
@@ -144,17 +144,15 @@ export default class Album implements BaseModel, IAlbum {
     if (broadcastLinks.length === 0) {
       errors.push(getValidationError(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED));
     } else {
-      const validatedBroadcastLinks = this.validateAlbumBroadcastLinks();
-      const invalidIds = validatedBroadcastLinks.filter(({ isValid }) => !isValid);
+      const invalidIds = broadcastLinks.filter(({ __computed: { isValid } }) => !isValid);
       if (invalidIds.length > 0) {
-        for (const { paramKey } of invalidIds) {
-          errors.push({
-            fatal: true,
-            fields: ["official-links"],
-            i18nKey: `validation.album.invalidEmbedCode.${paramKey}`,
-            type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
-          });
-        }
+        errors.push({
+          fatal: true,
+          fields: invalidIds.map(({ __computed: { paramKey } }) => paramKey!),
+          i18nKey: `validation.album.invalidEmbedCode`,
+          i18nParams: [invalidIds.map(({ site }) => site).join(", ")],
+          type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
+        });
       }
     }
 
@@ -169,34 +167,5 @@ export default class Album implements BaseModel, IAlbum {
     const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
     const fatal = errors.some(({ fatal }) => fatal);
     return { errors, autoloadCategories, fatal };
-  }
-
-  validateAlbumBroadcastLinks(): {
-    idx: number | null;
-    site: string;
-    url: string;
-    paramKey: string | null;
-    isValid: boolean;
-    embedid: string | null;
-  }[] {
-    const res = this.broadcastLinks.map(({ idx, url, site }) => {
-      if (idx === null) {
-        return { idx, url, site, paramKey: null, isValid: true, embedid: null };
-      }
-      const c = ALBUM_STREAMING_LINKS.find(({ idx: cIdx }) => cIdx === idx)!;
-      const m = c.regex.exec(url);
-      const isValid = !!m;
-      const embedid = isValid ? m.groups!["embedid"] : null;
-      const paramKey = c.paramKey;
-      return {
-        idx,
-        url,
-        site,
-        paramKey,
-        isValid,
-        embedid,
-      };
-    });
-    return res;
   }
 }

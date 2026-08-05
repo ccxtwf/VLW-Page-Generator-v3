@@ -46,10 +46,9 @@ export function generatePage(formData: Album): string {
     vocaWikiPage,
     categories,
     tracklist,
+    broadcastLinks,
     extLinks,
   } = formData;
-
-  const validatedBroadcastLinks = formData.validateAlbumBroadcastLinks();
 
   let displayTitleTemplate: string = "";
   let dateSegment: string = "";
@@ -73,9 +72,9 @@ export function generatePage(formData: Album): string {
   }
 
   trackListSegment = tracklist.map((track) => track.getWikitext()).join("\n");
-  streamingSegment = validatedBroadcastLinks
-    .filter(({ idx, isValid }) => !!idx && isValid)
-    .map(({ paramKey, embedid }) => {
+  streamingSegment = broadcastLinks
+    .filter(({ url, __computed: { isValid } }) => url && isValid)
+    .map(({ __computed: { paramKey, embedid } }) => {
       return `|${paramKey} = ${embedid}`;
     })
     .join("\n");
@@ -270,6 +269,9 @@ export async function fetchDataFromVocaDb(
   let publishedDay: string = "";
   let vocaWikiPage: string = "";
 
+  /**
+   * General description
+   */
   for (let artist of json.artists || []) {
     if (artist.categories === VdbArtistCategory.vocalist) {
       continue;
@@ -306,6 +308,9 @@ export async function fetchDataFromVocaDb(
     }
   }
 
+  /**
+   * Publication date
+   */
   if (json.releaseDate.isEmpty === false) {
     const { year, month, day } = json.releaseDate;
     publishedYear = `${year || ""}`;
@@ -315,10 +320,15 @@ export async function fetchDataFromVocaDb(
 
   const tracklist: AlbumTrackData[] = [];
   const extLinks: ExternalLink[] = [];
-  const officialStreaming: AlbumBroadcastLink[] = [];
+  const officialStreaming: AlbumBroadcastLink[] = ALBUM_STREAMING_LINKS.map(
+    ({ name: site }, idx) => new AlbumBroadcastLink({ idx, site, url: "" }),
+  );
   const vdbSingerIdsCache: Map<number, string> = new Map();
   const addedSingers: Set<string> = new Set();
 
+  /**
+   * Add track data
+   */
   for (let track of json.tracks || []) {
     const {
       discNumber: discNo,
@@ -384,6 +394,10 @@ export async function fetchDataFromVocaDb(
       }),
     );
   }
+
+  /**
+   * Specify engines
+   */
   const engines: MultiSelectItem[] = Array.from(engineIds.keys()).map((id) => {
     let e: Synth = SYNTH_ENGINES[id];
     if (e.id !== id) {
@@ -397,36 +411,71 @@ export async function fetchDataFromVocaDb(
     };
   });
 
+  /**
+   * Helper
+   */
+  const addVdbPvToStreaming = (service: string, url: string) => {
+    let vSite: string | undefined = undefined;
+    switch (service) {
+      case VdbPvService.yt:
+        vSite = "YouTube Crossfade";
+        break;
+      case VdbPvService.nnd:
+        vSite = "Niconico Crossfade";
+        break;
+      case VdbPvService.sc:
+        vSite = "SoundCloud Crossfade";
+        break;
+    }
+    if (vSite) {
+      let o = officialStreaming.find(({ site }) => site === vSite)!;
+      if (!o.url) {
+        o.url = url;
+      }
+    }
+  };
+
+  /**
+   * Helper
+   */
+  const addVdbExtLinkToStreaming = (url: string) => {
+    let idx = ALBUM_STREAMING_LINKS.findIndex(({ regex }) => {
+      return regex.exec(url) !== null;
+    });
+    const o = officialStreaming[idx];
+    if (!o.url) {
+      o.url = url;
+    }
+    return;
+  };
+
   for (let link of json.pvs || []) {
+    /**
+     * Always add all crossfades listed on VocaDB as an external link
+     */
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = convertPvService(link.service);
     description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
     extLinks.push(new ExternalLink({ url, description, isOfficial: true, isInactive: false }));
 
-    switch (link.service) {
-      case VdbPvService.yt:
-        officialStreaming.push(new AlbumBroadcastLink({ idx: 2, site: "YouTube Crossfade", url }));
-        break;
-      case VdbPvService.nnd:
-        officialStreaming.push(new AlbumBroadcastLink({ idx: 1, site: "Niconico Crossfade", url }));
-        break;
-      case VdbPvService.sc:
-        officialStreaming.push(
-          new AlbumBroadcastLink({ idx: 6, site: "SoundCloud Crossfade", url }),
-        );
-        break;
-    }
+    /**
+     * In contrast only add the crossfade as an official streaming link if not already
+     * listed in the form
+     */
+    addVdbPvToStreaming(link.service, url);
   }
+
   for (let link of json.webLinks || []) {
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description;
+
     const isOfficial =
       link.category === VdbWebLinkCategory.official ||
       link.category === VdbWebLinkCategory.commercial;
-    const am =
-      ALBUM_STREAMING_LINKS.find(({ regex }) => {
-        return regex.exec(url) !== null;
-      }) || null;
+
+    /**
+     * Add external link
+     */
     const m =
       RECOGNIZED_LINKS.find(({ re }) => {
         return re.exec(url) !== null;
@@ -438,12 +487,13 @@ export async function fetchDataFromVocaDb(
       if (m.site === "VOCALOID Wiki") {
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
-      if (am) {
-        officialStreaming.push(new AlbumBroadcastLink({ idx: am.idx, site: am.name || "", url }));
-      }
     }
-
     extLinks.push(new ExternalLink({ url, description, isOfficial, isInactive: false }));
+
+    /**
+     * Add as an official streaming link if a match is found
+     */
+    addVdbExtLinkToStreaming(url);
   }
 
   const formData = {
