@@ -98,10 +98,11 @@ export function generatePage(formData: Producer): string {
     languages,
     engines,
     description,
-    extLinks,
-    songs,
-    albums,
   } = formData;
+
+  const songs = formData.songs.filter(({ page }) => page);
+  const albums = formData.albums.filter(({ page }) => page);
+  const extLinks = formData.extLinks.filter(({ url }) => url);
 
   let extLinksSegment: string = "";
   let categories: string[] = ["Producers"];

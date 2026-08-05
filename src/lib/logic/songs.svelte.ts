@@ -56,10 +56,11 @@ export function generatePage(formData: Song): string {
     translator,
     isOfficialTranslation,
     categories,
-    lyrics,
-    playLinks,
-    extLinks,
   } = formData;
+
+  const lyrics = formData.lyrics.filter(({ original }) => original);
+  const playLinks = formData.playLinks.filter(({ url }) => url);
+  const extLinks = formData.extLinks.filter(({ url }) => url);
 
   let displayTitleTemplate: string = "";
   let sortTemplate: string = "";
@@ -70,7 +71,7 @@ export function generatePage(formData: Song): string {
   let lyricsSegment: string = "";
   let songLinksSegment: string = "";
   let viewCountsSegment: string = "";
-  let languageSegment: string = languages.join(";");
+  let languageSegment: string = languages.map(({ label }) => label).join(";");
   let officialLinksWikitext: string = "";
   let unofficialLinksWikitext: string = "";
   let extLinksSegment: string = "";
@@ -139,7 +140,9 @@ export function generatePage(formData: Song): string {
   } else {
     viewCountsSegment = viewCounts.map((el) => el.vc).join(", ");
   }
-  if (viewCountsSegment === "") viewCountsSegment = "N/A";
+  if (viewCountsSegment === "") {
+    viewCountsSegment = "N/A";
+  }
 
   lyricsSegment = generateLyricsSegment(lyrics, {
     headers: langMetadata.headers,

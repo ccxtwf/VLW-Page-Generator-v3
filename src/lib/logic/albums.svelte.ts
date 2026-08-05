@@ -45,10 +45,11 @@ export function generatePage(formData: Album): string {
     vdbAlbumId,
     vocaWikiPage,
     categories,
-    tracklist,
-    broadcastLinks,
-    extLinks,
   } = formData;
+
+  const tracklist = formData.tracklist.filter(({ pageTitle }) => pageTitle);
+  const broadcastLinks = formData.broadcastLinks.filter(({ url }) => url);
+  const extLinks = formData.extLinks.filter(({ url }) => url);
 
   let displayTitleTemplate: string = "";
   let dateSegment: string = "";
