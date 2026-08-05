@@ -72,14 +72,7 @@ export function generatePage(formData: Album): string {
     dateSegment = `{{DateAlbum|${publishedYear}|${publishedMonth}|${publishedDay}}}`;
   }
 
-  trackListSegment = tracklist
-    .map(
-      (track) =>
-        `|${track.discNo == "1" ? "" : track.discNo}tr${track.trackNo} = ${track.pageTitle}\n|${
-          track.discNo == "1" ? "" : track.discNo
-        }tr${track.trackNo}s = ${track.producerCredit}${track.producerCredit !== "" ? " ft. " : ""}${track.singerCredit}`,
-    )
-    .join("\n");
+  trackListSegment = tracklist.map((track) => track.getWikitext()).join("\n");
   streamingSegment = validatedBroadcastLinks
     .filter(({ idx, isValid }) => !!idx && isValid)
     .map(({ paramKey, embedid }) => {

@@ -63,6 +63,12 @@ export default class AlbumTrackData implements IAlbumTrackData {
     return credits;
   }
 
+  getWikitext(): string {
+    let { discNo, trackNo, pageTitle } = this;
+    discNo = discNo == "1" ? "" : discNo;
+    return `|${discNo}tr${trackNo} = ${pageTitle}\n|${discNo}tr${trackNo}s = ${this.getCredits()}`;
+  }
+
   toJSON(): IAlbumTrackData {
     const { discNo, trackNo, pageTitle, producerCredit, singerCredit } = this;
     return {
