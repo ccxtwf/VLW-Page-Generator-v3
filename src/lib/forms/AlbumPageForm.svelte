@@ -252,7 +252,6 @@
     labelForHtmlId="vocadb-album-id"
     labelI18nKey="albumGenForm.vdbAlbumPageId.label"
     tooltipI18nKey="albumGenForm.vdbAlbumPageId.tooltip"
-    required={true}
   >
     <div class="join w-full">
       <SimpleTextInput
