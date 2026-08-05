@@ -237,14 +237,12 @@
 
   <Divider />
 
-  <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold">
-      {$_("producerGenForm.externalLinks.label")}
-      <Tooltip required={true}>
-        {@html $_("producerGenForm.externalLinks.tooltip")}
-      </Tooltip>
-    </h2>
-  </div>
+  <FlexRow
+    labelForHtmlId="external-links"
+    labelI18nKey="producerGenForm.externalLinks.label"
+    tooltipI18nKey="producerGenForm.externalLinks.tooltip"
+    required={true}
+  />
 
   <ExternalLinksTable
     id="external-links"
@@ -260,31 +258,29 @@
     labelI18nKey="producerGenForm.discographySongs.label"
     tooltipI18nKey="producerGenForm.discographySongs.tooltip"
     required={true}
-  >
-    <ProducerDiscographyTable
-      id="discography-songs"
-      class="w-full"
-      bind:data={formData.songs}
-    />
-  </FlexRow>
+  />
+  <ProducerDiscographyTable
+    id="discography-songs"
+    class="col-span-full"
+    bind:data={formData.songs}
+  />
 
   <FlexRow
     labelForHtmlId="discography-albums"
     labelI18nKey="producerGenForm.discographyAlbums.label"
     tooltipI18nKey="producerGenForm.discographyAlbums.tooltip"
-  >
-    <div class="flex w-full flex-col gap-2">
-      <ProducerDiscographyTable
-        id="discography-albums"
-        class="w-full"
-        bind:data={formData.albums}
-        forAlbums={true}
-      />
-      <div class="w-full text-xs">
-        {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
-      </div>
+  />
+  <div class="flex col-span-full flex-col gap-2">
+    <ProducerDiscographyTable
+      id="discography-albums"
+      class="w-full"
+      bind:data={formData.albums}
+      forAlbums={true}
+    />
+    <div class="w-full text-xs">
+      {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
     </div>
-  </FlexRow>
+  </div>
 
   <Divider />
 

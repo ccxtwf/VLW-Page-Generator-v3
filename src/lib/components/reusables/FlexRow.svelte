@@ -4,7 +4,7 @@
   import { type Snippet } from "svelte";
 
   interface FlexRowProps {
-    labelForHtmlId: string;
+    labelForHtmlId?: string;
     labelI18nKey?: string;
     labelI18nParams?: Record<string, string>;
     rawLabelString?: string;
@@ -13,7 +13,7 @@
     hidden?: boolean;
     required?: boolean;
     showUnderLabel?: Snippet;
-    children: Snippet;
+    children?: Snippet;
   }
 
   let {
@@ -56,10 +56,7 @@
     </div>
   {/if}
 </div>
-<div
-  class="flex w-full flex-col gap-2 sm:flex-row"
-  class:hidden
->
+<div class="flex w-full flex-col gap-2 sm:flex-row" class:hidden>
   {#if children}
     {@render children()}
   {/if}

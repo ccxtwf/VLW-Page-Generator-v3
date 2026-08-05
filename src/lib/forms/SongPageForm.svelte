@@ -366,13 +366,15 @@
 
   <Divider />
 
-  <FlexRow
+  <FlexRow 
     labelForHtmlId="broadcast-links"
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
     required={true}
-  >
-    <div class="block w-full">
+  />
+
+  
+    <div class="col-span-full block">
       <BroadcastLinksTable 
         id="broadcast-links"
         class="w-full"
@@ -395,18 +397,14 @@
         </div>
       </div>
     </div>
-  </FlexRow>
 
   <Divider />
 
-  <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold">
-      {$_("songGenForm.lyrics.label")}
-      <Tooltip required={true}>
-        {@html $_("songGenForm.lyrics.tooltip")}
-      </Tooltip>
-    </h2>
-  </div>
+  <FlexRow 
+    labelI18nKey="songGenForm.lyrics.label"
+    tooltipI18nKey="songGenForm.lyrics.tooltip"
+    required={true}
+  />
   
   <LyricsTable id="lyrics" class="col-span-full" bind:data={formData.lyrics} bind:languages={formData.languages} />
 
