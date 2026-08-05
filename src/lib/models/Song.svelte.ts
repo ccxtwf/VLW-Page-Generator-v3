@@ -43,6 +43,7 @@ export default class Song implements BaseModel, ISong {
   translator: string = $state("");
   isOfficialTranslation: boolean = $state(false);
   categoriesRaw: string = $state("");
+
   lyrics: LyricRow[] = $state(
     Array(20)
       .fill(null)
@@ -63,18 +64,10 @@ export default class Song implements BaseModel, ISong {
       .map(() => new ExternalLink()),
   );
 
-  uploadDate?: Date | null = $derived(
-    (() => {
-      const d = new Date(this.uploadDateRaw);
-      return isNaN(d as unknown as number) ? null : d;
-    })(),
-  );
-  categories?: string[] = $derived((this.categoriesRaw || "").split("\n"));
+  uploadDate?: Date | null = null;
+  categories: string[] = [];
 
-  constructor() {
-    this.uploadDate = null;
-    this.categories = [];
-  }
+  constructor() {}
 
   preprocess(): void {
     preprocessStringParams(this, [

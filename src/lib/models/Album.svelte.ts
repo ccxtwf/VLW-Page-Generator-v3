@@ -45,7 +45,7 @@ export default class Album implements BaseModel, IAlbum {
       .map(() => new ExternalLink()),
   );
 
-  categories: string[] = $derived((this.categoriesRaw || "").split("\n"));
+  categories: string[] = [];
 
   constructor() {}
 
@@ -70,6 +70,8 @@ export default class Album implements BaseModel, IAlbum {
     this.tracklist = this.tracklist || [];
     this.broadcastLinks = this.broadcastLinks || [];
     this.extLinks = this.extLinks || [];
+
+    this.categories = this.categoriesRaw === "" ? [] : this.categoriesRaw.split("\n");
 
     for (const a of [this.tracklist, this.broadcastLinks, this.extLinks] as PreprocessorMixin[][]) {
       a.forEach((e) => e.preprocess());
