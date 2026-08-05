@@ -98,13 +98,12 @@ export function generatePage(formData: Song): string {
     unavailableTemplate = "{{Unavailable}}";
   }
 
-  if (origTitle.match(/^[a-z]/) !== null) {
-    displayTitleTemplate = "{{Lowercase}}";
-  }
-  if (origTitle.match(/[_#]/g) !== null) {
+  if (origTitle.match(/_/g)) {
     displayTitleTemplate = `{{DISPLAYTITLE:${origTitle}${
       romTitle === "" ? "" : ` (${romTitle})`
     }}}`;
+  } else if (origTitle.match(/^[a-z]/)) {
+    displayTitleTemplate = "{{Lowercase}}";
   }
 
   titlesSegment = `"'''${origTitle}'''"`;

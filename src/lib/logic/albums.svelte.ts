@@ -60,11 +60,10 @@ export function generatePage(formData: Album): string {
   let extLinksSegment: string = "";
   let sortTemplateSegment: string = "";
 
-  if (origTitle.match(/^[a-z]/) !== null) {
-    displayTitleTemplate = "{{Lowercase}}";
-  }
-  if (origTitle.match(/_/g) !== null) {
+  if (origTitle.match(/_/g)) {
     displayTitleTemplate = `{{DISPLAYTITLE:${origTitle}}}`;
+  } else if (origTitle.match(/^[a-z]/)) {
+    displayTitleTemplate = "{{Lowercase}}";
   }
 
   if (publishedYear !== "" || publishedMonth !== "" || publishedDay !== "") {
