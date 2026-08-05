@@ -51,11 +51,11 @@ export function getLanguageMetadata(languages: MultiSelectItem[]): {
         "/",
       ),
     );
+  } else {
+    headers.push("");
   }
 
-  if (needsTranslation) {
-    headers.push("English");
-  }
+  headers.push(needsTranslation ? "English" : "");
 
   return { headers, needsRomanization, needsTranslation, isChinese, isoLangCode };
 }
@@ -106,13 +106,13 @@ export function generateLyricsToggle(
   };
 
   let res = "{{lyrics toggle|";
-  let idx = 0;
-  res += `${lookupOriginalColumnSemanticId[headers[idx]] || "org"}:${headers[idx++]}`;
+  const [org, rom, eng] = headers;
+  res += `${lookupOriginalColumnSemanticId[org] || "org"}:${org}`;
   if (needsRomanization) {
-    res += `|${lookupRomanizedColumnSemanticId[headers[idx]] || "rom"}:${headers[idx++]}`;
+    res += `|${lookupRomanizedColumnSemanticId[rom] || "rom"}:${rom}`;
   }
   if (showEnglishColumn) {
-    res += `|eng:${headers[idx++]}`;
+    res += `|eng:${eng}`;
   }
   if (
     !(headers[0] in skipCustomLangIsoCode) ||

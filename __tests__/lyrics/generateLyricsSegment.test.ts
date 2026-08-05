@@ -238,7 +238,7 @@ ${expectedLyricsTable}
       },
     ];
     const options = {
-      headers: ["Indonesian", "English"],
+      headers: ["Indonesian", "", "English"],
       needsRomanization: false,
       needsTranslation: true,
       isoLangCode: "id",
@@ -276,7 +276,7 @@ ${expectedLyricsTable}
       },
     ];
     const options = {
-      headers: ["Indonesian", "English"],
+      headers: ["Indonesian", "", "English"],
       needsRomanization: false,
       needsTranslation: true,
       isoLangCode: "id",
@@ -563,7 +563,7 @@ ${expectedLyricsTable}
       },
     ];
     const options = {
-      headers: ["English"],
+      headers: ["English", "", ""],
       needsRomanization: false,
       needsTranslation: false,
       isoLangCode: "en",
@@ -624,7 +624,7 @@ Nor be intoxicated.</poem>`;
       },
     ];
     const options = {
-      headers: ["English"],
+      headers: ["English", "", ""],
       needsRomanization: false,
       needsTranslation: false,
       isoLangCode: "en",

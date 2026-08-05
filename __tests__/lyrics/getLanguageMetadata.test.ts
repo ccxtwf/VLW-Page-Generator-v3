@@ -52,7 +52,7 @@ describe("getLanguageMetadata", () => {
     const selected = languages.map(({ name, idx }) => ({ label: name, value: idx }));
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["English"],
+      headers: ["English", "", ""],
       needsRomanization: false,
       needsTranslation: false,
       isChinese: false,
@@ -66,7 +66,7 @@ describe("getLanguageMetadata", () => {
     const selected = languages.map(({ name, idx }) => ({ label: name, value: idx }));
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["Spanish", "English"],
+      headers: ["Spanish", "", "English"],
       needsRomanization: false,
       needsTranslation: true,
       isChinese: false,
@@ -120,7 +120,7 @@ describe("getLanguageMetadata", () => {
     }
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["Spanish/English", "English"],
+      headers: ["Spanish/English", "", "English"],
       needsRomanization: false,
       needsTranslation: true,
       isChinese: false,
@@ -155,7 +155,7 @@ describe("getLanguageMetadata", () => {
     }
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["Non-lexical lyrics"],
+      headers: ["Non-lexical lyrics", "", ""],
       needsRomanization: false,
       needsTranslation: false,
       isChinese: false,
@@ -170,7 +170,7 @@ describe("getLanguageMetadata", () => {
     }
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["Conlang", "English"],
+      headers: ["Conlang", "", "English"],
       needsRomanization: false,
       needsTranslation: true,
       isChinese: false,

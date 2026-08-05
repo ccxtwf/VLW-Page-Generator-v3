@@ -23,12 +23,12 @@ describe("generateLyricsToggle", () => {
   });
 
   test("Toggle for Spanish-only songs - show English", () => {
-    const toggle = generateLyricsToggle(["Spanish", "English"], false, true, "es");
+    const toggle = generateLyricsToggle(["Spanish", "", "English"], false, true, "es");
     expect(toggle).toBe("{{lyrics toggle|sp:Spanish|eng:English}}");
   });
 
   test("Toggle for Spanish-only songs - hide English", () => {
-    const toggle = generateLyricsToggle(["Spanish", "English"], false, false, "es");
+    const toggle = generateLyricsToggle(["Spanish", "", "English"], false, false, "es");
     expect(toggle).toBe("{{lyrics toggle|sp:Spanish}}");
   });
 
