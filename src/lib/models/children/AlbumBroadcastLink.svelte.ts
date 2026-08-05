@@ -1,5 +1,4 @@
 import { preprocessStringParams } from "../../utils/utils";
-import type { PreprocessorMixin } from "../base";
 import type { IAlbumBroadcastLink } from "../schema";
 
 export default class AlbumBroadcastLink implements IAlbumBroadcastLink {
@@ -25,13 +24,12 @@ export default class AlbumBroadcastLink implements IAlbumBroadcastLink {
     preprocessStringParams(this, ["site", "url"]);
   }
 
-  toJSON(): IAlbumBroadcastLink & PreprocessorMixin {
+  toJSON(): IAlbumBroadcastLink {
     const { idx, site, url } = this;
     const res = {
       idx,
       site,
       url,
-      preprocess: this.preprocess,
     };
     return res;
   }
