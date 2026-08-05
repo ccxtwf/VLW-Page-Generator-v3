@@ -8,7 +8,9 @@
   import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
   import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
-  // import LyricsTable from "../components/handsontables/LyricsTable.svelte";
+  import LyricsTable from "../components/handsontables/LyricsTable.svelte";
+  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
+  import BroadcastLinksTable from "../components/handsontables/BroadcastLinksTable.svelte";
   import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
@@ -371,10 +373,11 @@
     required={true}
   >
     <div class="block w-full">
-      <div
+      <BroadcastLinksTable 
         id="broadcast-links"
-        class="h-32 w-full"
-      ></div>
+        class="w-full"
+        bind:data={formData.playLinks}
+      />
       <div class="flex w-full flex-wrap">
         <div class="basis-1/2">
           <SimpleCheckbox
@@ -404,7 +407,8 @@
       </Tooltip>
     </h2>
   </div>
-  <!-- <LyricsTable /> -->
+  
+  <LyricsTable id="lyrics" class="col-span-full" bind:data={formData.lyrics} bind:languages={formData.languages} />
 
   <FlexRow
     labelForHtmlId="translator"
@@ -445,10 +449,7 @@
     labelI18nKey="songGenForm.externalLinks.label"
     tooltipI18nKey="songGenForm.externalLinks.tooltip"
   >
-    <div
-      id="external-links"
-      class="h-32 w-full"
-    ></div>
+    <ExternalLinksTable id="external-links" class="w-full" bind:data={formData.extLinks}/>
   </FlexRow>
 
   <FlexRow
