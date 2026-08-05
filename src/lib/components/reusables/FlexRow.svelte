@@ -5,9 +5,10 @@
 
   interface FlexRowProps {
     labelForHtmlId: string;
-    labelI18nKey: string;
+    labelI18nKey?: string;
     labelI18nParams?: Record<string, string>;
-    tooltipI18nKey: string;
+    rawLabelString?: string;
+    tooltipI18nKey?: string;
     tooltipI18nParams?: Record<string, string>;
     hidden?: boolean;
     required?: boolean;
@@ -21,6 +22,7 @@
     labelI18nParams,
     tooltipI18nKey,
     tooltipI18nParams,
+    rawLabelString,
     hidden = false,
     required = false,
     children,
@@ -35,13 +37,17 @@
   <div class="flex w-full flex-row items-center justify-between gap-4">
     <div class="flex-item grow">
       <label for={labelForHtmlId}>
-        {$_(labelI18nKey, { values: labelI18nParams })}
+        {labelI18nKey
+          ? $_(labelI18nKey, { values: labelI18nParams })
+          : rawLabelString}
       </label>
     </div>
     <div class="flex-item flex-none">
-      <Tooltip {required}>
-        {@html $_(tooltipI18nKey, { values: tooltipI18nParams })}
-      </Tooltip>
+      {#if tooltipI18nKey}
+        <Tooltip {required}>
+          {@html $_(tooltipI18nKey, { values: tooltipI18nParams })}
+        </Tooltip>
+      {/if}
     </div>
   </div>
   {#if showUnderLabel}
