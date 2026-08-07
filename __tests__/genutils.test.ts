@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { detonePinyin } from "../src/lib/utils/utils";
+import { detonePinyin, renderListInWikiInternalLinkMarkup } from "../src/lib/utils/utils";
 import {
   isValidUrl,
   convertAvidToBvId,
@@ -8,65 +8,88 @@ import {
   convertTwitterLink,
 } from "../src/lib/utils/urlUtils";
 import { getVdbPageId } from "../src/lib/utils/vdbUtils";
+import { VdbPageType } from "../src/schemas/vocadb.d";
 
 describe("test URL functions", () => {
-  test("isValidUrl", () => {
-    expect(isValidUrl("foo")).toBe(false);
-    expect(isValidUrl("https://example.com")).toBe(true);
-    expect(isValidUrl("https://example.com <script>Hello!</script>")).toBe(false);
+  test.each([
+    { i: "foo", o: false },
+    { i: "https://example.com", o: true },
+    { i: "https://example.com <script>Hello!</script>", o: false },
+  ])("isValidUrl", ({ i, o }) => {
+    expect(isValidUrl(i)).toBe(o);
   });
 
-  test("getVdbPageId", () => {
-    expect(getVdbPageId("https://vocadb.net/S/1501", "S")).toBe("1501");
-    expect(getVdbPageId("https://vocadb.net/S/1501?query=1", "S")).toBe("1501");
-    expect(getVdbPageId("https://vocadb.net/Al/21149", "Al")).toBe("21149");
-    expect(getVdbPageId("https://vocadb.net/Al/21149?query=foo", "Al")).toBe("21149");
-    expect(getVdbPageId("https://vocadb.net/Ar/28", "Ar")).toBe("28");
-    expect(getVdbPageId("https://vocadb.net/Ar/28?query=bar", "Ar")).toBe("28");
+  test.each([
+    { i: ["https://vocadb.net/S/1501", "S"], o: "1501" },
+    { i: ["https://vocadb.net/S/1501?query=1", "S"], o: "1501" },
+    { i: ["https://vocadb.net/Al/21149", "Al"], o: "21149" },
+    { i: ["https://vocadb.net/Al/21149?query=foo", "Al"], o: "21149" },
+    { i: ["https://vocadb.net/Ar/28", "Ar"], o: "28" },
+    { i: ["https://vocadb.net/Ar/28?query=bar", "Ar"], o: "28" },
+    { i: ["https://vocadb.net/Al/21149", "S"], o: null },
+  ] as { i: [string, VdbPageType]; o: string | null }[])(
+    "getVdbPageId",
+    ({ i: [url, type], o }) => {
+      expect(getVdbPageId(url, type)).toBe(o);
+    },
+  );
+  test("getVdbPageId - throw error", () => {
     expect(() => {
       //@ts-expect-error
       getVdbPageId("https://vocadb.net/E/1", "E");
     }).toThrow();
-    expect(getVdbPageId("https://vocadb.net/Al/21149", "S")).toBe(null);
   });
 
-  test("convertAvidToBvId", () => {
-    expect(convertAvidToBvId("https://www.bilibili.com/video/av3905462/")).toBe(
-      "https://www.bilibili.com/video/BV1es41197ai",
-    );
-    expect(convertAvidToBvId("https://www.bilibili.com/video/av6009789")).toBe(
-      "https://www.bilibili.com/video/BV1Qs411k7Qv",
-    );
-    expect(convertAvidToBvId("https://www.bilibili.com/video/av258296202")).toBe(
-      "https://www.bilibili.com/video/BV1wa411Q7N6",
-    );
+  test.each([
+    {
+      i: "https://www.bilibili.com/video/av3905462/",
+      o: "https://www.bilibili.com/video/BV1es41197ai",
+    },
+    {
+      i: "https://www.bilibili.com/video/av6009789",
+      o: "https://www.bilibili.com/video/BV1Qs411k7Qv",
+    },
+    {
+      i: "https://www.bilibili.com/video/av258296202",
+      o: "https://www.bilibili.com/video/BV1wa411Q7N6",
+    },
+  ])("convertAvidToBvId", ({ i, o }) => {
+    expect(convertAvidToBvId(i)).toBe(o);
   });
 
-  test("standardizeYoutubeLink", () => {
-    expect(standardizeYoutubeLink("https://youtu.be/dQw4w9WgXcQ")).toBe(
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    );
-    expect(standardizeYoutubeLink("https://www.youtube.com/watch?v=dQw4w9WgXcQ")).toBe(
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    );
-    expect(
-      standardizeYoutubeLink("https://www.youtube.com/watch?v=dQw4w9WgXcQ&utm=eviltracking"),
-    ).toBe("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-    expect(standardizeYoutubeLink("https://youtube.com/watch?v=dQw4w9WgXcQ")).toBe(
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    );
-    expect(standardizeYoutubeLink("https://music.youtube.com/watch?v=dQw4w9WgXcQ")).toBe(
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    );
+  test.each([
+    { i: "https://youtu.be/dQw4w9WgXcQ", o: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    {
+      i: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      o: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      i: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&utm=eviltracking",
+      o: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      i: "https://youtube.com/watch?v=dQw4w9WgXcQ",
+      o: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      i: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+      o: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+  ])("standardizeYoutubeLink", ({ i, o }) => {
+    expect(standardizeYoutubeLink(i)).toBe(o);
   });
 
-  test("convertTwitterLink", () => {
-    expect(convertTwitterLink("https://twitter.com/DECO27/status/2078313817436721276")).toBe(
-      "https://x.com/DECO27/status/2078313817436721276",
-    );
-    expect(convertTwitterLink("https://www.twitter.com/DECO27/status/2078313817436721276")).toBe(
-      "https://x.com/DECO27/status/2078313817436721276",
-    );
+  test.each([
+    {
+      i: "https://twitter.com/DECO27/status/2078313817436721276",
+      o: "https://x.com/DECO27/status/2078313817436721276",
+    },
+    {
+      i: "https://www.twitter.com/DECO27/status/2078313817436721276",
+      o: "https://x.com/DECO27/status/2078313817436721276",
+    },
+  ])("convertTwitterLink", ({ i, o }) => {
+    expect(convertTwitterLink(i)).toBe(o);
   });
 
   test("upgradeInsecureHttpLink", () => {
@@ -75,17 +98,34 @@ describe("test URL functions", () => {
 });
 
 describe("test misc utility function", () => {
-  test("detonePinyin", () => {
-    expect(detonePinyin("Hǎo xiǎng nǐ hǎo xiǎng nǐ hǎoxiàng nǐ dào tiānlǐ")).toBe(
-      "Hao xiang ni hao xiang ni haoxiang ni dao tianli",
-    );
-    expect(detonePinyin("Yī Èr Sān Sì Wǔ Liù Qī Bā Jiǔ Shí")).toBe(
-      "Yi Er San Si Wu Liu Qi Ba Jiu Shi",
-    );
-    expect(detonePinyin("Hǎo xiǎng nǐ hǎo xiǎng nǐ hǎoxiàng nǐ dào tiānlǐ")).toBe(
-      "Hao xiang ni hao xiang ni haoxiang ni dao tianli",
-    );
-    expect(detonePinyin("Nǚ wā bǔ tiān", false)).toBe("Nv wa bu tian");
-    expect(detonePinyin("Nǚ wā bǔ tiān", true)).toBe("Nü wa bu tian");
+  test.each([
+    {
+      i: ["Hǎo xiǎng nǐ hǎo xiǎng nǐ hǎoxiàng nǐ dào tiānlǐ", undefined],
+      o: "Hao xiang ni hao xiang ni haoxiang ni dao tianli",
+    },
+    { i: ["Yī Èr Sān Sì Wǔ Liù Qī Bā Jiǔ Shí", undefined], o: "Yi Er San Si Wu Liu Qi Ba Jiu Shi" },
+    { i: ["Nǚ wā bǔ tiān", false], o: "Nv wa bu tian" },
+    { i: ["Nǚ wā bǔ tiān", true], o: "Nü wa bu tian" },
+  ] as { i: [string, boolean | undefined]; o: string }[])(
+    "detonePinyin",
+    ({ i: [s, showUmlaut], o }) => {
+      expect(detonePinyin(s, showUmlaut)).toBe(o);
+    },
+  );
+
+  test.each([
+    { i: "foo", o: "[[foo]]" },
+    { i: "foo, bar, baz", o: "[[foo]], [[bar]], [[baz]]" },
+    { i: "foo, bar & baz", o: "[[foo]], [[bar]] & [[baz]]" },
+    { i: "foo, bar, and baz", o: "[[foo]], [[bar]], and [[baz]]" },
+    { i: "foo,   bar,   baz", o: "[[foo]],   [[bar]],   [[baz]]" },
+    { i: "foo,   bar  &   baz", o: "[[foo]],   [[bar]]  &   [[baz]]" },
+    { i: "foo,   bar,  and  baz", o: "[[foo]],   [[bar]],  and  [[baz]]" },
+    { i: "charlie, andy, and band", o: "[[charlie]], [[andy]], and [[band]]" },
+    { i: "andy", o: "[[andy]]" },
+    { i: "band", o: "[[band]]" },
+    { i: "bandana", o: "[[bandana]]" },
+  ])("renderListInWikiInternalLinkMarkup", ({ i, o }) => {
+    expect(renderListInWikiInternalLinkMarkup(i)).toBe(o);
   });
 });

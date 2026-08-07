@@ -6,11 +6,11 @@ import { COLOURS } from "../../constants";
  * @param colour
  * @returns
  */
-export const validateColour = (colour: string) => {
+export function validateColour(colour: string) {
   return (
     colour === "" || colour.match(/^#[0-9a-fA-F]{3,6}$/) || Object.keys(COLOURS).includes(colour)
   );
-};
+}
 
 /**
  *
@@ -106,6 +106,28 @@ export function detonePinyin(romText: string, showUmlaut = false): string {
   const rx = new RegExp(`[${a1}${b1}${b2}]`, "g");
   romText = romText.replaceAll(rx, (m) => dictConversion[m]);
   return romText;
+}
+
+const rxListSeparator = /(,\s*(?!and\b)|,?\s+and\s+|\s+&\s+)/;
+
+/**
+ * Render items in a list as MediaWiki internal links
+ *
+ * e.g. Apple, Bananas, and Coconut -> [[Apple]], [[Bananas]], and [[Coconut]]
+ *
+ * @param s
+ * @returns
+ */
+export function renderListInWikiInternalLinkMarkup(s: string) {
+  let ao = s.split(rxListSeparator);
+  s = "";
+  for (let ss of ao) {
+    if (!ss.match(rxListSeparator) && ss !== "") {
+      ss = `[[${ss}]]`;
+    }
+    s += ss;
+  }
+  return s;
 }
 
 /**
