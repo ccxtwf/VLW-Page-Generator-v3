@@ -1,15 +1,12 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable";
+  import { sharedContextMenuOptions } from "./contextMenus/shared";
 
   import PlayLink from "../../models/children/PlayLink.svelte";
 
   import { PV_SERVICES } from "../../../constants";
-  import {
-    handleInputEvent,
-    processInsertedLink,
-    sharedContextMenuOptions,
-  } from "./utils";
+  import { handleInputEvent, processInsertedLink } from "./utils";
 
   interface BroadcastLinksTableProps {
     id: string;

@@ -1,16 +1,13 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable";
+  import { sharedContextMenuOptions } from "./contextMenus/shared";
 
   import ExternalLink from "../../models/children/ExternalLink.svelte";
   import ExternalLinkForProducerPage from "../../models/children/ExternalLinkForProducerPage.svelte";
 
   import { RECOGNIZED_LINKS } from "../../../constants";
-  import {
-    sharedContextMenuOptions,
-    processInsertedLink,
-    handleInputEvent,
-  } from "./utils";
+  import { processInsertedLink, handleInputEvent } from "./utils";
 
   interface ExternalLinksTableProps {
     id: string;

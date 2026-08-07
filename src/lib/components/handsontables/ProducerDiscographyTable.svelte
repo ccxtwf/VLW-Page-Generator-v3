@@ -1,12 +1,13 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings } from "handsontable";
+  import { sharedContextMenuOptions } from "./contextMenus/shared";
 
   import ProducerDiscographySongItem from "../../models/children/ProducerDiscographySongItem.svelte";
   import ProducerDiscographyAlbumItem from "../../models/children/ProducerDiscographyAlbumItem.svelte";
 
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
-  import { handleInputEvent, sharedContextMenuOptions } from "./utils";
+  import { handleInputEvent } from "./utils";
   import { getOtherMediaWikiPageName } from "../../utils/urlUtils";
 
   interface ProducerDiscographyTableProps {
