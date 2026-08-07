@@ -3,6 +3,8 @@
 
   import AlbumTrackData from "../../models/children/AlbumTrackData.svelte";
 
+  import { tracklistContextMenu } from "./contextMenus/tracklist";
+
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
   import { handleInputEvent } from "./utils";
   import { getOtherMediaWikiPageName } from "../../utils/urlUtils";
@@ -63,6 +65,7 @@
   rowHeaders={true}
   colHeaders={headerText}
   columns={columnDefinitions}
+  contextMenu={tracklistContextMenu}
   settings={{
     beforeChange: onVlwPageInput,
     colWidths: [50, 50, 200, 200, 200],

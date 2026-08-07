@@ -4,6 +4,8 @@
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
+  import { lyricsContextMenu } from "./contextMenus/lyrics";
+
   import type { MultiSelectItem } from "../../../schemas/form";
   import { getLanguageMetadata } from "../../utils/lyricsUtils";
 
@@ -29,18 +31,22 @@
     {
       data: "customStyle",
       type: "text",
+      renderer: "lyrics-custom-style",
     },
     {
       data: "original",
       type: "text",
+      renderer: "lyrics",
     },
     {
       data: "romanized",
       type: "text",
+      renderer: "lyrics",
     },
     {
       data: "english",
       type: "text",
+      renderer: "lyrics",
     },
   ];
 
@@ -77,6 +83,7 @@
   dataSchema={LyricRow}
   rowHeaders={true}
   columns={columnDefinitions}
+  contextMenu={lyricsContextMenu}
   settings={{
     colWidths: [100, 250, 250, 250],
     rowHeights: 30,
