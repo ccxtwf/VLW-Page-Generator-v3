@@ -103,6 +103,7 @@
     },
   });
   const handleReset = formResetHandler(function () {
+    formData.resetHotTables();
     warningsElement!.resetState();
   });
 </script>

@@ -34,28 +34,31 @@ export default class Album implements BaseModel<IAlbum> {
 
   image: IImageEmbed | null = $state(null);
 
-  tracklist: AlbumTrackData[] = $state(
-    Array(12)
-      .fill(null)
-      .map(() => new AlbumTrackData()),
-  );
-  broadcastLinks: AlbumBroadcastLink[] = $state(
-    ALBUM_STREAMING_LINKS.map(({ name }, idx) => new AlbumBroadcastLink({ idx, site: name })),
-  );
-  extLinks: ExternalLink[] = $state(
-    Array(5)
-      .fill(null)
-      .map(() => new ExternalLink()),
-  );
+  tracklist: AlbumTrackData[] = $state([]);
+  broadcastLinks: AlbumBroadcastLink[] = $state([]);
+  extLinks: ExternalLink[] = $state([]);
 
   categories: string[] = [];
 
   constructor(data: Partial<IAlbum> = {}) {
+    this.resetHotTables();
     Object.assign(this, data);
   }
 
   updateState(data: Partial<IAlbum>): void {
     Object.assign(this, data);
+  }
+
+  resetHotTables(): void {
+    this.tracklist = Array(12)
+      .fill(null)
+      .map(() => new AlbumTrackData());
+    this.broadcastLinks = ALBUM_STREAMING_LINKS.map(
+      ({ name }, idx) => new AlbumBroadcastLink({ idx, site: name }),
+    );
+    this.extLinks = Array(5)
+      .fill(null)
+      .map(() => new ExternalLink());
   }
 
   preprocess(): void {

@@ -49,28 +49,29 @@ export default class Producer implements BaseModel<IProducer> {
 
   image: IImageEmbed | null = $state(null);
 
-  songs: ProducerDiscographySongItem[] = $state(
-    Array(5)
-      .fill(null)
-      .map(() => new ProducerDiscographySongItem()),
-  );
-  albums: ProducerDiscographyAlbumItem[] = $state(
-    Array(5)
-      .fill(null)
-      .map(() => new ProducerDiscographyAlbumItem()),
-  );
-  extLinks: ExternalLinkForProducerPage[] = $state(
-    Array(5)
-      .fill(null)
-      .map(() => new ExternalLinkForProducerPage()),
-  );
+  songs: ProducerDiscographySongItem[] = $state([]);
+  albums: ProducerDiscographyAlbumItem[] = $state([]);
+  extLinks: ExternalLinkForProducerPage[] = $state([]);
 
   constructor(data: Partial<IProducer> = {}) {
+    this.resetHotTables();
     Object.assign(this, data);
   }
 
   updateState(data: Partial<IProducer>): void {
     Object.assign(this, data);
+  }
+
+  resetHotTables(): void {
+    this.songs = Array(5)
+      .fill(null)
+      .map(() => new ProducerDiscographySongItem());
+    this.albums = Array(5)
+      .fill(null)
+      .map(() => new ProducerDiscographyAlbumItem());
+    this.extLinks = Array(5)
+      .fill(null)
+      .map(() => new ExternalLinkForProducerPage());
   }
 
   preprocess(): void {

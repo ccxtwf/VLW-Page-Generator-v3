@@ -46,35 +46,36 @@ export default class Song implements BaseModel<ISong> {
 
   images: IImageEmbed[] = $state([]);
 
-  lyrics: LyricRow[] = $state(
-    Array(20)
-      .fill(null)
-      .map(() => new LyricRow()),
-  );
-  playLinks: PlayLink[] = $state(
-    [
-      PV_SERVICE_PROVIDER.niconico,
-      PV_SERVICE_PROVIDER.youtube,
-      PV_SERVICE_PROVIDER.bilibili,
-      PV_SERVICE_PROVIDER.soundcloud,
-      PV_SERVICE_PROVIDER.bandcamp,
-    ].map((site) => new PlayLink({ site })),
-  );
-  extLinks: ExternalLink[] = $state(
-    Array(5)
-      .fill(null)
-      .map(() => new ExternalLink()),
-  );
+  lyrics: LyricRow[] = $state([]);
+  playLinks: PlayLink[] = $state([]);
+  extLinks: ExternalLink[] = $state([]);
 
   uploadDate?: Date | null = null;
   categories: string[] = [];
 
   constructor(data: Partial<ISong> = {}) {
+    this.resetHotTables();
     Object.assign(this, data);
   }
 
   updateState(data: Partial<ISong>): void {
     Object.assign(this, data);
+  }
+
+  resetHotTables(): void {
+    this.lyrics = Array(20)
+      .fill(null)
+      .map(() => new LyricRow());
+    this.playLinks = [
+      PV_SERVICE_PROVIDER.niconico,
+      PV_SERVICE_PROVIDER.youtube,
+      PV_SERVICE_PROVIDER.bilibili,
+      PV_SERVICE_PROVIDER.soundcloud,
+      PV_SERVICE_PROVIDER.bandcamp,
+    ].map((site) => new PlayLink({ site }));
+    this.extLinks = Array(5)
+      .fill(null)
+      .map(() => new ExternalLink());
   }
 
   preprocess(): void {
