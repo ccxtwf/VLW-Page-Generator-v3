@@ -33,7 +33,10 @@
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
-  let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
+  let warningsElement: SvelteComponent | null = null;
+  let broadcastLinksHotTable: SvelteComponent | null = null;
+  let extLinksHotTable: SvelteComponent | null = null;
+  let lyricsHotTable: SvelteComponent | null = null;
 
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
@@ -61,6 +64,9 @@
   };
   const handleSubmit = formSubmitHandler<Song>({
     fetchLatestSnapshot() {
+      formData.playLinks = broadcastLinksHotTable!.getLatestData();
+      formData.lyrics = lyricsHotTable!.getLatestData();
+      formData.extLinks = extLinksHotTable!.getLatestData();
       return [$state.snapshot(ignoreErrors), formData];
     },
     generate(formData) {
@@ -68,11 +74,11 @@
       ongenerate(output);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
-      warningsElement.updateState({ errors, warnings, autoloadCategories });
+      warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
   const handleReset = formResetHandler(function () {
-    warningsElement.resetState();
+    warningsElement!.resetState();
   });
   const handleAutoloadCategories = () => {
     const categories = autoloadCategories(formData);
@@ -373,30 +379,31 @@
     required={true}
   />
 
-  
-    <div class="col-span-full block">
-      <BroadcastLinksTable 
-        id="broadcast-links"
-        class="w-full"
-        bind:data={formData.playLinks}
+  <div class="col-span-full block">
+    <BroadcastLinksTable 
+      id="broadcast-links"
+      class="w-full"
+      data={formData.playLinks}
+      bind:this={broadcastLinksHotTable}
+    />
+  </div>
+
+  <div class="flex col-span-full flex-wrap px-4">
+    <div class="basis-1/2">
+      <SimpleCheckbox
+        id="is-album-only"
+        bind:checked={formData.isAlbumOnly}
+        label={$_("songGenForm.broadcastLinks.isAlbumOnlyCheckboxLabel")}
       />
-      <div class="flex w-full flex-wrap">
-        <div class="basis-1/2">
-          <SimpleCheckbox
-            id="is-album-only"
-            bind:checked={formData.isAlbumOnly}
-            label={$_("songGenForm.broadcastLinks.isAlbumOnlyCheckboxLabel")}
-          />
-        </div>
-        <div class="basis-1/2">
-          <SimpleCheckbox
-            id="is-unavailable"
-            bind:checked={formData.isUnavailable}
-            label={$_("songGenForm.broadcastLinks.isUnavailable")}
-          />
-        </div>
-      </div>
     </div>
+    <div class="basis-1/2">
+      <SimpleCheckbox
+        id="is-unavailable"
+        bind:checked={formData.isUnavailable}
+        label={$_("songGenForm.broadcastLinks.isUnavailable")}
+      />
+    </div>
+  </div>
 
   <Divider />
 
@@ -406,7 +413,7 @@
     required={true}
   />
   
-  <LyricsTable id="lyrics" class="col-span-full" bind:data={formData.lyrics} bind:languages={formData.languages} />
+  <LyricsTable id="lyrics" class="col-span-full" data={formData.lyrics} bind:languages={formData.languages} bind:this={lyricsHotTable} />
 
   <FlexRow
     labelForHtmlId="translator"
@@ -447,7 +454,7 @@
     labelI18nKey="songGenForm.externalLinks.label"
     tooltipI18nKey="songGenForm.externalLinks.tooltip"
   >
-    <ExternalLinksTable id="external-links" class="w-full" bind:data={formData.extLinks}/>
+    <ExternalLinksTable id="external-links" class="w-full" data={formData.extLinks} bind:this={extLinksHotTable}/>
   </FlexRow>
 
   <FlexRow

@@ -2,6 +2,7 @@
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings } from "handsontable";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
+  import type { SvelteComponent } from "svelte";
 
   import ProducerDiscographySongItem from "../../models/children/ProducerDiscographySongItem.svelte";
   import ProducerDiscographyAlbumItem from "../../models/children/ProducerDiscographyAlbumItem.svelte";
@@ -9,6 +10,8 @@
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
   import { handleInputEvent } from "./utils";
   import { getOtherMediaWikiPageName } from "../../utils/urlUtils";
+
+  let child: SvelteComponent | null = null;
 
   interface ProducerDiscographyTableProps {
     id: string;
@@ -20,7 +23,7 @@
   let {
     id,
     class: className,
-    data = $bindable([]),
+    data,
     forAlbums,
   }: ProducerDiscographyTableProps = $props();
 
@@ -65,12 +68,17 @@
       change[3] = page;
     }
   });
+
+  export function getLatestData() {
+    return child?.getLatestData();
+  }
 </script>
 
 <Handsontable
   {id}
   class={className}
-  bind:data
+  bind:this={child}
+  {data}
   dataSchema={forAlbums
     ? ProducerDiscographyAlbumItem
     : ProducerDiscographySongItem}

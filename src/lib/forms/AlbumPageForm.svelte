@@ -14,7 +14,6 @@
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
@@ -36,7 +35,9 @@
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
-  let warningsElement: SvelteComponent; // oxlint-disable-line no-unassigned-vars
+  let warningsElement: SvelteComponent | undefined = $state();
+  let tracklistHotTable: SvelteComponent | undefined = $state();
+  let extLinksHotTable: SvelteComponent | undefined = $state();
 
   let { ongenerate }: { ongenerate: (output: string) => void } = $props();
 
@@ -64,6 +65,8 @@
   };
   const handleSubmit = formSubmitHandler<Album>({
     fetchLatestSnapshot() {
+      formData.tracklist = tracklistHotTable!.getLatestData();
+      formData.extLinks = extLinksHotTable!.getLatestData();
       return [$state.snapshot(ignoreErrors), formData];
     },
     generate(formData) {
@@ -71,11 +74,11 @@
       ongenerate(output);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
-      warningsElement.updateState({ errors, warnings, autoloadCategories });
+      warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
   const handleReset = formResetHandler(function () {
-    warningsElement.resetState();
+    warningsElement!.resetState();
   });
   const handleAutoloadCategories = () => {
     const categories = autoloadCategories(formData);
@@ -243,7 +246,8 @@
   <Tracklist
     id="tracklist"
     class="col-span-full w-full"
-    bind:data={formData.tracklist}
+    data={formData.tracklist}
+    bind:this={tracklistHotTable}
   />
 
   <Divider />
@@ -300,7 +304,8 @@
       <ExternalLinksTable
         id="external-links"
         class="w-full"
-        bind:data={formData.extLinks}
+        data={formData.extLinks}
+        bind:this={extLinksHotTable}
       />
     </div>
   </FlexRow>

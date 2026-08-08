@@ -2,6 +2,7 @@
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
+  import type { SvelteComponent } from "svelte";
 
   import PlayLink from "../../models/children/PlayLink.svelte";
 
@@ -15,12 +16,9 @@
   }
 
   let hot: HotInstance | undefined = $state();
+  let child: SvelteComponent | null = null;
 
-  let {
-    id,
-    class: className,
-    data = $bindable([]),
-  }: BroadcastLinksTableProps = $props();
+  let { id, class: className, data }: BroadcastLinksTableProps = $props();
 
   const headerText: string[] = [
     "Site",
@@ -73,13 +71,18 @@
     change[3] = newValue;
     hot!.setDataAtRowProp(rowId, "site", referUrl.site);
   });
+
+  export function getLatestData() {
+    return child?.getLatestData();
+  }
 </script>
 
 <Handsontable
   {id}
   class={className}
-  bind:data
+  {data}
   bind:hot
+  bind:this={child}
   dataSchema={PlayLink}
   rowHeaders={true}
   colHeaders={headerText}

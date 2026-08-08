@@ -1,5 +1,6 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
+  import type { SvelteComponent } from "svelte";
 
   import AlbumTrackData from "../../models/children/AlbumTrackData.svelte";
 
@@ -9,17 +10,15 @@
   import { handleInputEvent } from "./utils";
   import { getOtherMediaWikiPageName } from "../../utils/urlUtils";
 
+  let child: SvelteComponent | null = null;
+
   interface TracklistTableProps {
     id: string;
     class: string;
     data: AlbumTrackData[];
   }
 
-  let {
-    id,
-    class: className,
-    data = $bindable([]),
-  }: TracklistTableProps = $props();
+  let { id, class: className, data }: TracklistTableProps = $props();
 
   const headerText = [
     "Disk no",
@@ -55,12 +54,17 @@
       change[3] = `[[${page}]]`;
     }
   });
+
+  export function getLatestData() {
+    return child?.getLatestData();
+  }
 </script>
 
 <Handsontable
   {id}
   class={className}
-  bind:data
+  bind:this={child}
+  {data}
   dataSchema={AlbumTrackData}
   rowHeaders={true}
   colHeaders={headerText}

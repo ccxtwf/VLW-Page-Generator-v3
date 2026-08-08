@@ -12,7 +12,7 @@
    *   &lt;/script>
    *
    *   <HotTable
-   *     bind:data={rows}
+   *     data={rows}
    *     colHeaders={['Name', 'Age', 'Active']}
    *     columns={[{ type: 'text' }, { type: 'numeric' }, { type: 'checkbox' }]}
    *     height={300}
@@ -23,7 +23,6 @@
   import { onMount, onDestroy } from "svelte";
   import Handsontable, { type HotInstance } from "handsontable";
   import type { GridSettings } from "handsontable";
-  import type { ChangeSource } from "handsontable";
 
   type Constructor<T = any> = new (...args: any[]) => T;
 
@@ -55,7 +54,7 @@
   let {
     id,
     class: cssClass,
-    data = $bindable([]),
+    data,
     hot = $bindable(),
     dataSchema: ClassRef,
     colHeaders = true,
@@ -76,17 +75,23 @@
   }: HandsontableProps = $props();
 
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
-  let suppressSync = false; // guards against feedback loops between hot <-> data
+
+  /**
+   * Get the latest data as passed to (and later processed within)
+   * the Handsontable component
+   */
+  export function getLatestData() {
+    if (!hot) {
+      return [];
+    }
+    return (hot!.getSourceData() as object[]).map((value) => {
+      return new ClassRef(value);
+    });
+  }
 
   onMount(() => {
-    const initialData = $state.snapshot(data);
-
     hot = new Handsontable(container, {
-      // pass initial state only
-      // Keep in mind that Handsontable will only handle the pure data objects,
-      // in that the methods defined in the model classes will not be available
-      // in the Handsontable context
-      data: initialData,
+      data, // pass initial state only
       colHeaders,
       columns,
       rowHeaders,
@@ -99,39 +104,29 @@
       selectionMode,
       stretchH,
       licenseKey,
-      afterChange: (_, source) => syncFromHot(source),
-      afterCreateRow: (_, __, source?: ChangeSource) => syncFromHot(source),
-      afterRemoveRow: (_, __, ___, source?: ChangeSource) =>
-        syncFromHot(source),
-      afterCreateCol: (_, __, source?: ChangeSource) => syncFromHot(source),
-      afterRemoveCol: (_, __, ___, source?: ChangeSource) =>
-        syncFromHot(source),
       ...settings,
     });
 
     onReady?.(hot);
   });
 
-  function syncFromHot(source?: ChangeSource): void {
-    if (source === "loadData") {
-      return;
-    }
-    suppressSync = true;
-    data = (hot!.getSourceData() as object[]).map((value) => {
-      return new ClassRef(value);
-    });
-    queueMicrotask(() => (suppressSync = false));
-  }
-
-  // Push external changes to `data` into the grid, but skip the round-trip
-  // when the change originated from Handsontable itself.
+  /**
+   * Push external changes to `data` into the grid, but skip the round-trip
+   * when the change originated from Handsontable itself.
+   */
   $effect(() => {
     // reading `data` here registers the dependency
     const snapshot = $state.snapshot(data);
-    if (hot && !hot.isDestroyed && !suppressSync) {
+    if (hot && !hot.isDestroyed) {
       hot.loadData(snapshot);
     }
   });
+
+  /**
+   * Note that changes made to the data state in Handsontable are not immediately
+   * reflected on the models' data state (as handled by `formData` on the main
+   * Svelte form components)
+   */
 
   onDestroy(() => {
     hot?.destroy();

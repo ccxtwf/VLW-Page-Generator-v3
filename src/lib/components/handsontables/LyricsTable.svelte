@@ -1,6 +1,7 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable";
+  import type { SvelteComponent } from "svelte";
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
@@ -17,12 +18,13 @@
   }
 
   let hot: HotInstance | undefined = $state();
+  let child: SvelteComponent | null = null;
 
   let {
     id,
     class: className,
     languages = $bindable([]),
-    data = $bindable([]),
+    data,
   }: LyricsTableProps = $props();
 
   const languageMetadata = $derived(getLanguageMetadata(languages));
@@ -73,13 +75,18 @@
       },
     });
   });
+
+  export function getLatestData() {
+    return child?.getLatestData();
+  }
 </script>
 
 <Handsontable
   {id}
   class={className}
   bind:hot
-  bind:data
+  bind:this={child}
+  {data}
   dataSchema={LyricRow}
   rowHeaders={true}
   columns={columnDefinitions}

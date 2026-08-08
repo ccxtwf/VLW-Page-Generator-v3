@@ -2,6 +2,7 @@
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
+  import type { SvelteComponent } from "svelte";
 
   import ExternalLink from "../../models/children/ExternalLink.svelte";
   import ExternalLinkForProducerPage from "../../models/children/ExternalLinkForProducerPage.svelte";
@@ -17,11 +18,12 @@
   }
 
   let hot: HotInstance | undefined = $state();
+  let child: SvelteComponent | null = null;
 
   let {
     id,
     class: className,
-    data = $bindable([]),
+    data,
     forProducerPage,
   }: ExternalLinksTableProps = $props();
 
@@ -84,13 +86,18 @@
     change[3] = newValue;
     hot!.setDataAtRowProp(rowId, "description", referUrl.site);
   });
+
+  export function getLatestData() {
+    return child?.getLatestData();
+  }
 </script>
 
 <Handsontable
   {id}
   class={className}
   bind:hot
-  bind:data
+  bind:this={child}
+  {data}
   dataSchema={forProducerPage ? ExternalLinkForProducerPage : ExternalLink}
   rowHeaders={true}
   colHeaders={headerText}
