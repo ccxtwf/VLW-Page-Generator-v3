@@ -23,6 +23,8 @@ import { ExternalWebServiceError } from "./exceptions";
 
 import type { Synth } from "../../constants/types";
 import type { MultiSelectItem } from "../../schemas/form";
+import type { IImageEmbed } from "../models/schema";
+import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../models/enums";
 
 /**
  *
@@ -226,6 +228,7 @@ export async function fetchDataFromVocaDb(
     | "extLinks"
     | "vocaWikiPage"
     | "vdbAlbumId"
+    | "image"
   >
 > {
   const vdbPageId = getVdbPageId(url, "Al");
@@ -256,7 +259,14 @@ export async function fetchDataFromVocaDb(
       return language === "English";
     })?.value || "";
 
-  let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
+  let image: IImageEmbed | null = null;
+  if (json.mainPicture?.urlOriginal) {
+    image = {
+      type: ENUM_IMAGE_EMBED_SOURCE_TYPE.vdb,
+      src: json.mainPicture?.urlOriginal,
+      alt: "Album cover image on VocaDB",
+    };
+  }
 
   const circles: string[] = [];
   const mainProducers: string[] = [];
@@ -513,7 +523,7 @@ export async function fetchDataFromVocaDb(
     tracklist,
     broadcastLinks: officialStreaming,
     extLinks,
-    // imageSrc,
+    image,
   };
   return formData;
 }

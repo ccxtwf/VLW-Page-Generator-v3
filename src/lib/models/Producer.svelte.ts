@@ -1,5 +1,5 @@
 import type { BaseModel, PreprocessorMixin } from "./base";
-import type { IProducer } from "./schema";
+import type { IImageEmbed, IProducer } from "./schema";
 import ProducerDiscographySongItem from "./children/ProducerDiscographySongItem.svelte";
 import ProducerDiscographyAlbumItem from "./children/ProducerDiscographyAlbumItem.svelte";
 import ExternalLinkForProducerPage from "./children/ExternalLinkForProducerPage.svelte";
@@ -26,7 +26,7 @@ export interface ProducerRoles {
   masterer: boolean;
 }
 
-export default class Producer implements BaseModel, IProducer {
+export default class Producer implements BaseModel<IProducer> {
   prodCategory: string = $state("");
   splitAlbum: boolean = $state(false);
   prodAliases: string = $state("");
@@ -46,6 +46,9 @@ export default class Producer implements BaseModel, IProducer {
     mixer: false,
     masterer: false,
   });
+
+  image: IImageEmbed | null = $state(null);
+
   songs: ProducerDiscographySongItem[] = $state(
     Array(5)
       .fill(null)
@@ -61,6 +64,14 @@ export default class Producer implements BaseModel, IProducer {
       .fill(null)
       .map(() => new ExternalLinkForProducerPage()),
   );
+
+  constructor(data: Partial<IProducer> = {}) {
+    Object.assign(this, data);
+  }
+
+  updateState(data: Partial<IProducer>): void {
+    Object.assign(this, data);
+  }
 
   preprocess(): void {
     preprocessStringParams(this, [

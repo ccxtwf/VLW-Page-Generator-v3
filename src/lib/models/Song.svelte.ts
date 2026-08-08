@@ -1,5 +1,5 @@
 import type { BaseModel, PreprocessorMixin } from "./base";
-import type { ISong } from "./schema";
+import type { IImageEmbed, ISong } from "./schema";
 import LyricRow from "./children/LyricsRow.svelte";
 import PlayLink from "./children/PlayLink.svelte";
 import ExternalLink from "./children/ExternalLink.svelte";
@@ -17,7 +17,7 @@ import type { MultiSelectItem } from "../../schemas/form";
 import { PV_SERVICE_ABBREVIATIONS, PV_SERVICE_PROVIDER } from "../../constants";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "./enums";
 
-export default class Song implements BaseModel, ISong {
+export default class Song implements BaseModel<ISong> {
   aiCwState: ENUM_AI_WARNING_TYPE = $state(ENUM_AI_WARNING_TYPE.none);
   aiWarningText1: string = $state("");
   aiWarningText2: string = $state("");
@@ -44,6 +44,8 @@ export default class Song implements BaseModel, ISong {
   isOfficialTranslation: boolean = $state(false);
   categoriesRaw: string = $state("");
 
+  images: IImageEmbed[] = $state([]);
+
   lyrics: LyricRow[] = $state(
     Array(20)
       .fill(null)
@@ -67,7 +69,13 @@ export default class Song implements BaseModel, ISong {
   uploadDate?: Date | null = null;
   categories: string[] = [];
 
-  constructor() {}
+  constructor(data: Partial<ISong> = {}) {
+    Object.assign(this, data);
+  }
+
+  updateState(data: Partial<ISong>): void {
+    Object.assign(this, data);
+  }
 
   preprocess(): void {
     preprocessStringParams(this, [

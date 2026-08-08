@@ -4,6 +4,7 @@ import ExternalLink from "../models/children/ExternalLink.svelte";
 
 import {
   VdbArtistCategory,
+  VdbArtistRole,
   VdbPvService,
   VdbPvType,
   VdbSystemLanguage,
@@ -14,7 +15,12 @@ import {
 
 import { detonePinyin, parseDateAsUtc, renderAsCommaSeparatedList } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
-import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
+import {
+  convertArtistRole,
+  convertPvService,
+  getVdbPageId,
+  getVocalistBasedOnVdbId,
+} from "../utils/vdbUtils";
 import { generateLyricsSegment, getLanguageMetadata } from "../utils/lyricsUtils";
 
 import { VOCADB_ENTRYPOINT } from "../../config";
@@ -22,7 +28,12 @@ import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS } from "../../constants";
 import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 
 import type { MultiSelectItem } from "../../schemas/form";
-import { ENUM_CW_STATES, ENUM_AI_WARNING_TYPE } from "../models/enums";
+import {
+  ENUM_CW_STATES,
+  ENUM_AI_WARNING_TYPE,
+  ENUM_IMAGE_EMBED_SOURCE_TYPE,
+} from "../models/enums";
+import type { IImageEmbed } from "../models/schema";
 
 /**
  *
@@ -298,6 +309,7 @@ export async function fetchDataFromVocaDb(
     | "singers"
     | "producers"
     | "uploadDateRaw"
+    | "images"
   >
 > {
   const vdbPageId = getVdbPageId(url, "S");
@@ -337,7 +349,7 @@ export async function fetchDataFromVocaDb(
     }
   }
 
-  const thumbImages: { href: string; alt: string }[] = [];
+  const images: IImageEmbed[] = [];
   const mainSingers: string[] = [];
   const minorSingers: string[] = [];
   const circles: string[] = [];
@@ -401,8 +413,7 @@ export async function fetchDataFromVocaDb(
     } else {
       // Is producer
       let roles = artist.roles.split(", ");
-      // @ts-ignore
-      roles = roles.map((el) => dictConvertArtistRole[el] || "other");
+      roles = roles.map((el) => convertArtistRole(el as VdbArtistRole) || "other");
       roles = [...new Set<string>(roles)];
       roles.sort((a, b) => {
         let aIdx = orderRolePriority.findIndex((val) => val === a);
@@ -454,8 +465,9 @@ export async function fetchDataFromVocaDb(
     if (!isReprint) {
       switch (pv.service) {
         case VdbPvService.yt:
-          thumbImages.push({
-            href: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
+          images.push({
+            type: ENUM_IMAGE_EMBED_SOURCE_TYPE.yt,
+            src: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
             alt: "YouTube thumbnail",
           });
           break;
@@ -464,15 +476,17 @@ export async function fetchDataFromVocaDb(
           break;
         case VdbPvService.nnd:
           if (pv.thumbUrl && pv.thumbUrl !== "")
-            thumbImages.push({
-              href: pv.thumbUrl + ".L",
+            images.push({
+              type: ENUM_IMAGE_EMBED_SOURCE_TYPE.nn,
+              src: pv.thumbUrl + ".L",
               alt: "Niconico thumbnail",
             });
           break;
         default:
           if (pv.thumbUrl && pv.thumbUrl !== "")
-            thumbImages.push({
-              href: pv.thumbUrl,
+            images.push({
+              type: null,
+              src: pv.thumbUrl,
               alt: `${pv.service} thumbnail`,
             });
           break;
@@ -519,7 +533,7 @@ export async function fetchDataFromVocaDb(
     lyrics: [],
     playLinks,
     extLinks,
-    // imageProps,
+    images,
   };
   return formData;
 }

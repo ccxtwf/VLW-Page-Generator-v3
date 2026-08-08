@@ -9,3 +9,10 @@ export enum ENUM_AI_WARNING_TYPE {
   verified,
   suspected,
 }
+
+export enum ENUM_IMAGE_EMBED_SOURCE_TYPE {
+  yt,
+  nn,
+  bb,
+  vdb,
+}

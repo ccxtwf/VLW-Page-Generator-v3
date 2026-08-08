@@ -44,11 +44,8 @@
     if (window.confirm($_("confirmClear"))) {
       const __a = { "1": "VocaDB" };
       try {
-        const __fetched = await fetchDataFromVocaDb(url);
-        // formData = {
-        //   ...formData,
-        //   ...__fetched,
-        // };
+        const fetched = await fetchDataFromVocaDb(url);
+        formData.updateState(fetched);
         window.alert($_("fetch.success", { values: __a }));
       } catch (err) {
         console.error(err);

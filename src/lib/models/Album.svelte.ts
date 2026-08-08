@@ -1,5 +1,5 @@
 import type { BaseModel, PreprocessorMixin } from "./base";
-import type { IAlbum } from "./schema";
+import type { IAlbum, IImageEmbed } from "./schema";
 import AlbumBroadcastLink from "./children/AlbumBroadcastLink.svelte";
 import AlbumTrackData from "./children/AlbumTrackData.svelte";
 import ExternalLink from "./children/ExternalLink.svelte";
@@ -15,7 +15,7 @@ import { preprocessStringParams, validateColour } from "../utils/utils";
 import type { MultiSelectItem } from "../../schemas/form";
 import { ALBUM_STREAMING_LINKS } from "../../constants";
 
-export default class Album implements BaseModel, IAlbum {
+export default class Album implements BaseModel<IAlbum> {
   origTitle: string = $state("");
   romTitle: string = $state("");
   engTitle: string = $state("");
@@ -31,6 +31,9 @@ export default class Album implements BaseModel, IAlbum {
   vdbAlbumId: string = $state("");
   vocaWikiPage: string = $state("");
   categoriesRaw: string = $state("");
+
+  image: IImageEmbed | null = $state(null);
+
   tracklist: AlbumTrackData[] = $state(
     Array(12)
       .fill(null)
@@ -47,7 +50,13 @@ export default class Album implements BaseModel, IAlbum {
 
   categories: string[] = [];
 
-  constructor() {}
+  constructor(data: Partial<IAlbum> = {}) {
+    Object.assign(this, data);
+  }
+
+  updateState(data: Partial<IAlbum>): void {
+    Object.assign(this, data);
+  }
 
   preprocess(): void {
     preprocessStringParams(this, [

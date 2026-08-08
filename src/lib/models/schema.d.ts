@@ -29,6 +29,7 @@ export interface ISong {
   lyrics: LyricRowData[];
   playLinks: PlayLinkData[];
   extLinks: ExternalLink[];
+  images: IImageEmbed[];
 }
 
 export interface IAlbum {
@@ -51,7 +52,9 @@ export interface IAlbum {
   tracklist: AlbumTrack[];
   broadcastLinks: AlbumBroadcastLink[];
   extLinks: ExternalLink[];
+  image: IImageEmbed | null;
 }
+
 export interface IProducer {
   prodCategory: string;
   splitAlbum: boolean;
@@ -65,6 +68,7 @@ export interface IProducer {
   songs: ProducerDiscographySongItem[];
   albums: ProducerDiscographyAlbumItem[];
   extLinks: ExternalLink[];
+  image: IImageEmbed | null;
 }
 
 export interface ILyricsRow {
@@ -90,6 +94,12 @@ export interface IExternalLink {
   isOfficial: boolean;
   isMedia?: boolean;
   isInactive: boolean;
+}
+
+export interface IImageEmbed {
+  type: ENUM_IMAGE_EMBED_SOURCE_TYPE | null;
+  src: string;
+  alt?: string;
 }
 
 export interface IExternalLinkForProducerPage extends IExternalLink {

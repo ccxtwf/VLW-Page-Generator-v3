@@ -22,6 +22,8 @@ import {
   VLWInvalidUrlError,
   VocaDBInvalidUrlError,
 } from "./exceptions";
+import type { IImageEmbed } from "../models/schema";
+import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../models/enums";
 
 /**
  * Generate {{links}} template.
@@ -213,6 +215,7 @@ export async function fetchDataFromVocaDb(
     | "roles"
     | "splitAlbum"
     | "extLinks"
+    | "image"
   >
 > {
   const vdbPageId = getVdbPageId(url, "Ar");
@@ -237,7 +240,14 @@ export async function fetchDataFromVocaDb(
   const labels: string[] = [];
   const affiliations: string[] = [];
 
-  let imageSrc: string | null = json.mainPicture?.urlOriginal || null;
+  let image: IImageEmbed | null = null;
+  if (json.mainPicture?.urlOriginal) {
+    image = {
+      type: ENUM_IMAGE_EMBED_SOURCE_TYPE.vdb,
+      src: json.mainPicture?.urlOriginal,
+      alt: "Producer cover image on VocaDB",
+    };
+  }
 
   const extLinks: ExternalLinkForProducerPage[] = [];
 
@@ -296,7 +306,7 @@ export async function fetchDataFromVocaDb(
       masterer: false,
     },
     extLinks,
-    // imageSrc,
+    image,
   };
   return formData;
 }
