@@ -10,7 +10,7 @@ import type { BaseModel } from "../models/base";
  * @param displayWarningsAndErrors
  * @returns
  */
-export function formSubmitHandler<T extends BaseModel>({
+export function formSubmitHandler<T extends BaseModel<any>>({
   fetchLatestSnapshot,
   generate,
   displayWarningsAndErrors,
