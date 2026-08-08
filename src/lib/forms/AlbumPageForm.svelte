@@ -232,14 +232,12 @@
 
   <Divider />
 
-  <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold">
-      {$_("albumGenForm.tracklist.label")}
-      <Tooltip required={true}>
-        {@html $_("albumGenForm.tracklist.tooltip")}
-      </Tooltip>
-    </h2>
-  </div>
+  <FlexRow
+    labelForHtmlId="tracklist"
+    labelI18nKey="albumGenForm.tracklist.label"
+    tooltipI18nKey="albumGenForm.tracklist.tooltip"
+    required={true}
+  />
 
   <Tracklist
     id="tracklist"
@@ -280,14 +278,11 @@
 
   <Divider />
 
-  <div class="col-span-full w-full">
-    <h2 class="mb-6 text-xl font-bold">
-      {$_("albumGenForm.officialLinks.label")}
-      <Tooltip required={false}>
-        {@html $_("albumGenForm.officialLinks.tooltip")}
-      </Tooltip>
-    </h2>
-  </div>
+  <FlexRow
+    labelForHtmlId="tracklist"
+    labelI18nKey="albumGenForm.officialLinks.label"
+    tooltipI18nKey="albumGenForm.officialLinks.tooltip"
+  />
 
   <AlbumOfficialLinksFieldCollection bind:links={formData.broadcastLinks} />
 
