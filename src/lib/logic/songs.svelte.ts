@@ -69,7 +69,7 @@ export function generatePage(formData: Song): string {
     categories,
   } = formData;
 
-  const lyrics = formData.lyrics.filter(({ original }) => original);
+  const lyrics = formData.lyrics;
   const playLinks = formData.playLinks.filter(({ url }) => url);
   const extLinks = formData.extLinks.filter(({ url }) => url);
 
