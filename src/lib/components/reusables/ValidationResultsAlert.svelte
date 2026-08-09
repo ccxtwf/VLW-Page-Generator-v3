@@ -40,7 +40,7 @@
         {$_("error.validationErrorsHeader")}
       </div>
       <div class="w-full">
-        <ul class="list-inside list-disc">
+        <ul class="list-outside list-disc pl-5">
           {#each errors as [i18nKey, i18nParams]}
             <li>
               {$_(i18nKey, {
@@ -63,7 +63,7 @@
         {$_("error.validationWarningsHeader")}
       </div>
       <div class="w-full">
-        <ul class="list-inside list-disc">
+        <ul class="list-outside list-disc pl-5">
           {#each warnings as [i18nKey, i18nParams]}
             <li>
               {$_(i18nKey, {
