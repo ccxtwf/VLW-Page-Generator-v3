@@ -6,9 +6,17 @@
   import Divider from "../components/reusables/Divider.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
+  import LyricsFreeEditTable from "../components/handsontables/LyricsFreeEditTable.svelte";
+  
+  import LyricRow from "../models/children/LyricsRow.svelte";
 
   let { forwardGeneratedResults }: { forwardGeneratedResults: (results: string) => void } =
     $props();
+
+  let lyrics: LyricRow[] = $state(Array(20).fill(null).map(() => new LyricRow()));
+  let toggleText: string = $state('{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}');
+  let translator: string = $state('');
+  let isOfficialTranslation: boolean = $state(false);
 
   function handleSubmit(e: Event) {
     e.preventDefault();
@@ -33,10 +41,19 @@
     <SimpleTextInput
       id="lyrics-toggle-wikitext"
       placeholder={$_("lyricsEditor.fields.lyricsToggleWikitext.placeholder")}
+      value={toggleText}
+      onblur={(e: Event) => {
+        //@ts-ignore
+        toggleText = e.currentTarget?.value || '';
+      }}
     />
   </div>
 
-  <div class="col-span-full h-32 w-full"></div>
+  <LyricsFreeEditTable 
+    id="lyrics"
+    class="col-span-full"
+    bind:toggleText={toggleText}
+  />
 
   <div class="w-full font-medium">
     <label
@@ -50,12 +67,14 @@
     <SimpleTextInput
       id="translator"
       placeholder={$_("lyricsEditor.fields.translator.placeholder")}
+      bind:value={translator}
     />
     <div class="flex flex-nowrap items-center gap-2">
       <SimpleCheckbox
         id="is-official-translation"
         textClass="text-xs"
         label={$_("lyricsEditor.fields.translator.isOfficialCheckboxLabel")}
+        bind:checked={isOfficialTranslation}
       />
       <Tooltip>
         {@html $_("lyricsEditor.fields.translator.isOfficialTooltip")}

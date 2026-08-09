@@ -59,7 +59,9 @@ export function lyricsRenderer(
     td.innerHTML = "";
     return td;
   }
-  const customStyle = hotInstance.getDataAtRowProp(row, "customStyle");
+  // We use `getDataAtCell(row, 0)` instead of `getDataAtRowProp(row, 'customStyle')`
+  // to maintain compatibility between LyricsFreeEditTable and LyricsTable
+  const customStyle = hotInstance.getDataAtCell(row, 0);
   let c = (value as string).replace(/^[^|{}\n]*?\|/, "");
   // value = (value as string).replace(/<br\s*\/?\s*>/, "\n");
   // value = (value as string).replace(/<ref\s*[^>]*\/>/gi, "*");

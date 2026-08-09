@@ -410,3 +410,85 @@ export function generateLyricsSegment(
   }
   return res;
 }
+
+/**
+ * Determine column headers from the given toggle template wikitext
+ *
+ * e.g. {{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}} ->
+ *      ['Japanese', 'Romaji', 'English']
+ *
+ * @param toggleText
+ */
+export function determineColumnHeaders(toggleText: string): string[] {
+  const res: string[] = [];
+  const components = toggleText
+    .trim()
+    .matchAll(/(?<=\{\{[Ll]yrics[_ ]toggle\s*\||\|).*?(?=\||\}\})/g);
+  for (const component of components) {
+    const [a, ...b] = component[0].split(":");
+    res.push(b.length ? b.join(":") : a);
+  }
+  return res;
+}
+
+const rxLyricsToggleTemplateComponents = /((?<=\{\{)[Ll]yrics[_ ]toggle|(?<=\|)[^|]*?(?=\||\}\}))/g;
+
+/**
+ * Inserts column(s) at the specified index in the {{lyrics toggle}} template
+ *
+ * @param toggleText
+ * @param index
+ * @param amount
+ * @returns
+ */
+export function addColumnsAtIndexToTheLeftToToggle(
+  toggleText: string,
+  index: number,
+  amount: number,
+): string {
+  const oldComponents = Array.from(toggleText.matchAll(rxLyricsToggleTemplateComponents)).map(
+    ([a, ..._b]) => a,
+  );
+  const newComponents = [
+    ...oldComponents.slice(0, index),
+    ...Array(amount)
+      .fill(null)
+      .map((_, idx) => `col${idx + 1}:Column ${idx + 1}`),
+    ...oldComponents.slice(index, oldComponents.length),
+  ];
+  return "{{" + newComponents.join("|") + "}}";
+}
+
+/**
+ * Inserts column(s) at the specified index in the {{lyrics toggle}} template
+ *
+ * @param toggleText
+ * @param index
+ * @param amount
+ * @returns
+ */
+export function addColumnsAtIndexToTheRightToToggle(
+  toggleText: string,
+  index: number,
+  amount: number,
+): string {
+  return addColumnsAtIndexToTheLeftToToggle(toggleText, index + 1, amount);
+}
+
+/**
+ * Removes column(s) at the specified indices in the {{lyrics toggle}} template
+ *
+ * @param toggleText
+ * @param columnIndices
+ * @returns
+ */
+export function removeColumnsAtIndexFromToggle(
+  toggleText: string,
+  columnIndices: number[],
+): string {
+  const oldComponents = Array.from(toggleText.matchAll(rxLyricsToggleTemplateComponents)).map(
+    ([a, ..._b]) => a,
+  );
+  const newComponents = oldComponents.filter((_, idx) => columnIndices.indexOf(idx) < 0);
+  return "{{" + newComponents.join("|") + "}}";
+}
