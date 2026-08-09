@@ -11,7 +11,7 @@
     id,
     label,
     checked = $bindable(false),
-    textClass = "",
+    textClass = "text-xs sm:text-base",
     ...rest
   }: SimpleToggleProps = $props();
 </script>
@@ -24,5 +24,5 @@
     class="toggle"
     {...rest}
   />
-  <span class={["label-text text-primary-content", textClass]}>{label}</span>
+  <span class={["label-text", textClass]}>{label}</span>
 </label>

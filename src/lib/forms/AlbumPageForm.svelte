@@ -19,18 +19,11 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import {
-    generatePage,
-    autoloadCategories,
-    fetchDataFromVocaDb,
-  } from "../logic/albums.svelte";
+  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums.svelte";
 
   import Album from "../models/Album.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
-  import {
-    ExternalWebServiceError,
-    VocaDBInvalidUrlError,
-  } from "../logic/exceptions";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
@@ -185,7 +178,6 @@
       <SimpleCheckbox
         id="is-compilation-album"
         label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
-        textClass="text-sm"
         bind:checked={formData.isCompilationAlbum}
       />
     </div>
@@ -313,7 +305,10 @@
     {#snippet showUnderLabel()}
       <AutoloadCategoriesButton onclick={handleAutoloadCategories} />
     {/snippet}
-    <SimpleTextFieldBox id="categories" bind:value={formData.categoriesRaw} />
+    <SimpleTextFieldBox
+      id="categories"
+      bind:value={formData.categoriesRaw}
+    />
   </FlexRow>
 
   <Divider />

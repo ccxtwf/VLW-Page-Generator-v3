@@ -24,7 +24,7 @@
   </div>
   <div class="flex w-full flex-wrap items-center justify-start gap-x-15 gap-y-2">
     <!-- BG Input -->
-    <div class="join">
+    <div class="join w-full md:w-72">
       <input
         id="infobox-bg-color"
         type="text"
@@ -46,7 +46,7 @@
     </div>
 
     <!-- FG Input -->
-    <div class="join">
+    <div class="join w-full md:w-72">
       <input
         id="infobox-fg-color"
         type="text"

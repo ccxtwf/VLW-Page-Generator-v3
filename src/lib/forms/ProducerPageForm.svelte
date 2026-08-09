@@ -67,8 +67,9 @@
     if (window.confirm($_("confirmClearDiscog"))) {
       const __a = { "1": "Vocaloid Lyrics Wiki" };
       try {
-        const { songs, albums, recommendToSplitAlbum } =
-          await fetchDiscographyFromVlw(formData.prodCategory || "");
+        const { songs, albums, recommendToSplitAlbum } = await fetchDiscographyFromVlw(
+          formData.prodCategory || "",
+        );
         formData.songs = songs;
         formData.albums = albums;
         formData.splitAlbum = recommendToSplitAlbum;
@@ -134,29 +135,25 @@
     required={true}
   >
     <div class="flex w-full flex-col gap-2">
-      <div class="join flex-item w-full">
+      <div class="sm:join flex-item block w-full">
         <SimpleTextInput
           id="producer-category"
           placeholder={$_("producerGenForm.mainProducerCategory.placeholder")}
           bind:value={formData.prodCategory}
         />
-        <div class="join-item border-none">
+        <div class="sm:join-item block [&]:border-none">
           <button
             type="button"
-            class="btn btn-neutral text-xs"
+            class="btn btn-neutral w-full text-xs sm:w-48"
             onclick={handleDiscographyLoading}
           >
-            {$_(
-              "producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText",
-            )}
+            {$_("producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText")}
           </button>
         </div>
       </div>
       <div class="flex-item w-full">
         <SimpleToggle
-          label={$_(
-            "producerGenForm.mainProducerCategory.splitAlbumTableToggleText",
-          )}
+          label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
           textClass="text-sm"
           bind:checked={formData.splitAlbum}
         />
@@ -193,7 +190,11 @@
     labelI18nKey="producerGenForm.labels.label"
     tooltipI18nKey="producerGenForm.labels.tooltip"
   >
-    <SimpleTextFieldBox id="labels" rows={3} bind:value={formData.labels} />
+    <SimpleTextFieldBox
+      id="labels"
+      rows={3}
+      bind:value={formData.labels}
+    />
   </FlexRow>
 
   <FlexRow
@@ -275,7 +276,7 @@
     labelI18nKey="producerGenForm.discographyAlbums.label"
     tooltipI18nKey="producerGenForm.discographyAlbums.tooltip"
   />
-  <div class="flex col-span-full flex-col gap-2">
+  <div class="col-span-full flex flex-col gap-2">
     <ProducerDiscographyTable
       id="discography-albums"
       class="w-full"

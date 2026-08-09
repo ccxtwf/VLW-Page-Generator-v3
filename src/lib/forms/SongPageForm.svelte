@@ -29,7 +29,7 @@
   import Song from "../models/Song.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
-  
+
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
@@ -109,10 +109,10 @@
     tooltipI18nKey="songGenForm.genAiWarning.tooltip"
   >
     <div class="flex w-full flex-col gap-y-2">
-      <div class="join w-full">
+      <div class="sm:join block w-full">
         <select
           id="gen-ai-warning"
-          class="select select-bordered join-item sm:w-48"
+          class="select select-bordered sm:join-item w-full sm:w-48"
           bind:value={formData.aiCwState}
         >
           {const genAiDropdownOptions = [
@@ -128,7 +128,7 @@
         </select>
         <SimpleTextInput
           id="gen-ai-usage"
-          class="input input-bordered join-item flex-1"
+          class="input input-bordered sm:join-item w-full flex-1"
           placeholder={$_("songGenForm.genAiWarning.placeholder")}
           bind:value={formData.aiWarningText1}
         />
@@ -150,10 +150,10 @@
     tooltipI18nKey="songGenForm.contentWarning.tooltip"
   >
     <div class="flex w-full flex-col gap-3">
-      <div class="join flex-item w-full">
+      <div class="sm:join flex-item block w-full">
         <select
           id="content-warning"
-          class="select select-bordered join-item sm:w-48"
+          class="select select-bordered sm:join-item w-full sm:w-48"
           bind:value={formData.cwState}
         >
           {const genAiDropdownOptions = [
@@ -168,7 +168,7 @@
         </select>
         <SimpleTextInput
           id="cw-text"
-          class="input input-bordered join-item w-full flex-1"
+          class="input input-bordered sm:join-item w-full flex-1"
           placeholder={$_("songGenForm.contentWarning.placeholder")}
           bind:value={formData.cwText}
         />
@@ -248,7 +248,7 @@
         bind:value={formData.altChTitle}
       />
       <div
-        class="join-item bg-neutral text-neutral-content flex flex-col justify-center border pr-2 pl-2"
+        class="join-item bg-neutral text-neutral-content flex flex-col justify-center border-none pr-2 pl-2"
       >
         <label class="swap">
           <input
@@ -289,16 +289,15 @@
     labelI18nKey="songGenForm.englishTitle.label"
     tooltipI18nKey="songGenForm.englishTitle.tooltip"
   >
-    <div class="join w-full">
+    <div class="sm:join block w-full">
       <SimpleTextInput
         id="english-title"
         placeholder={$_("songGenForm.englishTitle.placeholder")}
         bind:value={formData.engTitle}
       />
-      <div class="join-item flex flex-col justify-center border-none pr-2 pl-2">
+      <div class="sm:join-item block px-2 py-4 sm:py-2 [&]:border-none">
         <SimpleCheckbox
           id="is-official-translation"
-          class="checkbox"
           textClass="text-xs"
           label={$_("songGenForm.englishTitle.isOfficialCheckboxLabel")}
           bind:checked={formData.titleIsOfficiallyTranslated}
@@ -370,7 +369,7 @@
 
   <Divider />
 
-  <FlexRow 
+  <FlexRow
     labelForHtmlId="broadcast-links"
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
@@ -378,7 +377,7 @@
   />
 
   <div class="col-span-full block">
-    <BroadcastLinksTable 
+    <BroadcastLinksTable
       id="broadcast-links"
       class="w-full"
       data={formData.playLinks}
@@ -386,7 +385,7 @@
     />
   </div>
 
-  <div class="flex col-span-full flex-wrap px-4">
+  <div class="col-span-full flex flex-wrap gap-y-3 px-4 text-xs sm:text-base">
     <div class="basis-1/2">
       <SimpleCheckbox
         id="is-album-only"
@@ -405,19 +404,26 @@
 
   <Divider />
 
-  <FlexRow 
+  <FlexRow
     labelI18nKey="songGenForm.lyrics.label"
     tooltipI18nKey="songGenForm.lyrics.tooltip"
     required={true}
   />
-  {
-    let lyricsDataNorm = $derived(
-      formData.lyrics.map(({ customStyle, original, romanized, english }) => 
-        [customStyle, original, romanized, english]
-      )
-    )
-  }
-  <LyricsTable id="lyrics" class="col-span-full" data={lyricsDataNorm} bind:languages={formData.languages} bind:this={lyricsHotTable} />
+  {let lyricsDataNorm = $derived(
+    formData.lyrics.map(({ customStyle, original, romanized, english }) => [
+      customStyle,
+      original,
+      romanized,
+      english,
+    ]),
+  )}
+  <LyricsTable
+    id="lyrics"
+    class="col-span-full"
+    data={lyricsDataNorm}
+    bind:languages={formData.languages}
+    bind:this={lyricsHotTable}
+  />
 
   <FlexRow
     labelForHtmlId="translator"
@@ -458,7 +464,12 @@
     labelI18nKey="songGenForm.externalLinks.label"
     tooltipI18nKey="songGenForm.externalLinks.tooltip"
   >
-    <ExternalLinksTable id="external-links" class="w-full" data={formData.extLinks} bind:this={extLinksHotTable}/>
+    <ExternalLinksTable
+      id="external-links"
+      class="w-full"
+      data={formData.extLinks}
+      bind:this={extLinksHotTable}
+    />
   </FlexRow>
 
   <FlexRow

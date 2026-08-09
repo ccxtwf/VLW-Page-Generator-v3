@@ -11,7 +11,7 @@
     id,
     label,
     checked = $bindable(false),
-    textClass = "",
+    textClass = "text-xs sm:text-sm",
     ...rest
   }: SimpleCheckboxProps = $props();
 </script>
