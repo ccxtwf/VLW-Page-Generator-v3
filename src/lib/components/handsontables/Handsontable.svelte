@@ -23,6 +23,7 @@
   import { onMount, onDestroy } from "svelte";
   import Handsontable, { type HotInstance } from "handsontable";
   import type { GridSettings } from "handsontable";
+  import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
 
   type Constructor<T = any> = new (...args: any[]) => T;
 
@@ -69,7 +70,7 @@
     autoWrapCol = true,
     manualColumnResize = true,
 
-    licenseKey = "non-commercial-and-evaluation",
+    licenseKey = HANDSONTABLE_LICENSE_KEY,
     settings = {}, // any extra Handsontable settings you want to pass through
     onReady = undefined, // optional callback: (hotInstance) => void
   }: HandsontableProps = $props();
