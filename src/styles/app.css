@@ -1,0 +1,4 @@
+div.input-error.text-error {
+  border: solid 1px var(--color-error);
+  background-color: color-mix(in srgb, var(--color-error) 5%, transparent);
+}
