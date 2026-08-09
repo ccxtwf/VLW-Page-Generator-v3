@@ -410,8 +410,14 @@
     tooltipI18nKey="songGenForm.lyrics.tooltip"
     required={true}
   />
-  
-  <LyricsTable id="lyrics" class="col-span-full" data={formData.lyrics} bind:languages={formData.languages} bind:this={lyricsHotTable} />
+  {
+    let lyricsDataNorm = $derived(
+      formData.lyrics.map(({ customStyle, original, romanized, english }) => 
+        [customStyle, original, romanized, english]
+      )
+    )
+  }
+  <LyricsTable id="lyrics" class="col-span-full" data={lyricsDataNorm} bind:languages={formData.languages} bind:this={lyricsHotTable} />
 
   <FlexRow
     labelForHtmlId="translator"

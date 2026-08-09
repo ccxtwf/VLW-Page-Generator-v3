@@ -14,11 +14,10 @@
     id: string;
     class: string;
     languages: MultiSelectItem[];
-    data: LyricRow[];
+    data: (string | null | undefined)[][];
   }
 
   let hot: HotInstance | undefined = $state();
-  let child: SvelteComponent | null = null;
 
   let {
     id,
@@ -31,22 +30,18 @@
 
   const columnDefinitions: ColumnSettings[] = [
     {
-      data: "customStyle",
       type: "text",
       renderer: "lyrics-custom-style",
     },
     {
-      data: "original",
       type: "text",
       renderer: "lyrics",
     },
     {
-      data: "romanized",
       type: "text",
       renderer: "lyrics",
     },
     {
-      data: "english",
       type: "text",
       renderer: "lyrics",
     },
@@ -77,7 +72,18 @@
   });
 
   export function getLatestData() {
-    return child?.getLatestData();
+    if (!hot) {
+      return [];
+    }
+    return (hot!.getData() as unknown[][]).map((row) => {
+      const [customStyle, original, romanized, english] = row;
+      return new LyricRow({
+        customStyle: (customStyle as string) || "",
+        original: (original as string) || "",
+        romanized: (romanized as string) || "",
+        english: (english as string) || "",
+      });
+    });
   }
 </script>
 
@@ -85,7 +91,6 @@
   {id}
   class={className}
   bind:hot
-  bind:this={child}
   {data}
   dataSchema={LyricRow}
   rowHeaders={true}
