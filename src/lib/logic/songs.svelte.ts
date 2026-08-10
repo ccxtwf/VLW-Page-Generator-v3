@@ -164,7 +164,6 @@ export function generatePage(formData: Song): string {
     isOfficialTranslation,
     bgColour,
     fgColour,
-    createToggleElement: true,
   });
 
   unofficialLinksWikitext = extLinks

@@ -313,9 +313,9 @@ export function generateLyricsSegment(
     isOfficialTranslation = false,
     bgColour = "black",
     fgColour = "white",
-    createToggleElement = true,
+    toggleElement,
   }: {
-    headers: string[];
+    headers?: string[];
     needsRomanization: boolean;
     needsTranslation: boolean;
     showEnglishColumn?: boolean;
@@ -324,7 +324,7 @@ export function generateLyricsSegment(
     isOfficialTranslation?: boolean;
     bgColour?: string;
     fgColour?: string;
-    createToggleElement?: boolean;
+    toggleElement?: string;
   },
 ): string {
   const outputAsWikiTable = needsRomanization || needsTranslation;
@@ -361,9 +361,11 @@ export function generateLyricsSegment(
 
   let res: string = "";
 
-  if (createToggleElement && (needsRomanization || needsTranslation)) {
+  if (toggleElement) {
+    res += toggleElement + "\n";
+  } else if (needsRomanization || needsTranslation) {
     // Lyrics toggle & column headers definition
-    res += generateLyricsToggle(headers, needsRomanization, showEnglishColumn, isoLangCode);
+    res += generateLyricsToggle(headers || [], needsRomanization, showEnglishColumn, isoLangCode);
     res += "\n";
   }
 
@@ -372,7 +374,7 @@ export function generateLyricsSegment(
   }
 
   // Translator license
-  const referLicense = TRANSLATORS.find(({ name }) => name === translator);
+  const referLicense = translator ? TRANSLATORS.find(({ name }) => name === translator) : null;
   if (referLicense) {
     res += `{{TranslatorLicense|${referLicense.name}}}\n`;
   }

@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 import { generateLyricsSegment } from "../../src/lib/utils/lyricsUtils";
 import type { ILyricsRow } from "../../src/lib/models/schema.d";
 
@@ -17,7 +17,6 @@ describe("generateLyricsSegment - English columns", () => {
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -54,7 +53,6 @@ ${expectedLyricsTable}
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -91,7 +89,6 @@ ${expectedLyricsTable}
       isOfficialTranslation: true,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -116,6 +113,43 @@ ${expectedLyricsTable}
     expect(res).toBe(expected);
   });
 
+  test("Japanese song with official translation by anonymous", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
+    ];
+    const options = {
+      headers: ["Japanese", "Romaji", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isoLangCode: "ja",
+      translator: "",
+      isOfficialTranslation: true,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}`;
+    const expectedNotifications = `{{OfficialEnglishNotify}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|ABCDEFG
+|-
+|かきくけこ
+|kakikukeko
+|HIJKLMN
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedNotifications}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
   test("Japanese song with no translation (column is hidden)", () => {
     const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "あいうえお", romanized: "aiueo" },
@@ -128,7 +162,38 @@ ${expectedLyricsTable}
       isoLangCode: "ja",
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|-
+|かきくけこ
+|kakikukeko
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
+  test("Japanese song with no translation (but with a translator added in error)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko" },
+    ];
+    const options = {
+      headers: ["Japanese", "Romaji", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isoLangCode: "ja",
+      translator: "John Doe",
+      bgColour: "black",
+      fgColour: "white",
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -161,7 +226,6 @@ ${expectedLyricsTable}`;
       isoLangCode: "ja",
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -202,7 +266,6 @@ ${expectedLyricsTable}`;
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -228,6 +291,44 @@ ${expectedLyricsTable}
     expect(res).toBe(expected);
   });
 
+  test("Japanese song by a translator with a license", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
+    ];
+    const options = {
+      headers: ["Japanese", "Romaji", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isoLangCode: "ja",
+      translator: "CoolMikeHatsune22",
+      isOfficialTranslation: false,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}`;
+    const expectedTranslatorLicense = `{{TranslatorLicense|CoolMikeHatsune22}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|ABCDEFG
+|-
+|かきくけこ
+|kakikukeko
+|HIJKLMN
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedTranslatorLicense}
+${expectedLyricsTable}
+{{Translator|CoolMikeHatsune22}}`;
+    expect(res).toBe(expected);
+  });
+
   test("Indonesian song with fanmade translation", () => {
     const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "Bengawan Solo", english: "Solo River" },
@@ -246,7 +347,6 @@ ${expectedLyricsTable}
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -282,7 +382,39 @@ ${expectedLyricsTable}
       isoLangCode: "id",
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|id:Indonesian}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|Bengawan Solo
+|-
+|Riwayatmu ini sedari dulu jadi
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
+  test("Indonesian song with no translation (but with a translator added in error)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "Bengawan Solo" },
+      {
+        customStyle: "",
+        original: "Riwayatmu ini sedari dulu jadi",
+      },
+    ];
+    const options = {
+      headers: ["Indonesian", "", "English"],
+      needsRomanization: false,
+      needsTranslation: true,
+      isoLangCode: "id",
+      translator: "John Doe",
+      bgColour: "black",
+      fgColour: "white",
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -367,7 +499,6 @@ describe("generateLyricsSegment - integrated", () => {
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -477,7 +608,6 @@ ${expectedLyricsTable}
       isOfficialTranslation: false,
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -569,7 +699,6 @@ ${expectedLyricsTable}
       isoLangCode: "en",
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -630,7 +759,6 @@ Nor be intoxicated.</poem>`;
       isoLangCode: "en",
       bgColour: "black",
       fgColour: "white",
-      createToggleElement: true,
     };
     const res = generateLyricsSegment(lyrics, options);
 
@@ -645,6 +773,263 @@ We cross them today
 And we shall not have shallow dreams
 Nor be intoxicated.</poem>`;
     const expected = `${expectedLyricsToggle}${expectedLyricsPoem}`;
+    expect(res).toBe(expected);
+  });
+});
+
+describe("generateLyricsSegment - with toggle element", () => {
+  test("3 columns", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}",
+      headers: [],
+      needsRomanization: true,
+      needsTranslation: true,
+      translator: "John Doe",
+      isOfficialTranslation: false,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|ABCDEFG
+|-
+|かきくけこ
+|kakikukeko
+|HIJKLMN
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}
+{{Translator|John Doe}}`;
+    expect(res).toBe(expected);
+  });
+
+  test("5 columns", () => {
+    const lyrics: ILyricsRow[] = [
+      {
+        customStyle: "",
+        original: "あいうえお",
+        romanized: "aiueo",
+        english: "ABCDEFG",
+        additionalColumns: ["Eggs", "Bacon"],
+      },
+      {
+        customStyle: "",
+        original: "かきくけこ",
+        romanized: "kakikukeko",
+        english: "HIJKLMN",
+        additionalColumns: ["Ham", "Cheese"],
+      },
+    ];
+    const options = {
+      toggleElement:
+        "{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English|eng2:English 2|eng3:English 3}}",
+      headers: [],
+      needsRomanization: true,
+      needsTranslation: true,
+      translator: "John Doe",
+      isOfficialTranslation: false,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English|eng2:English 2|eng3:English 3}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|ABCDEFG
+|Eggs
+|Bacon
+|-
+|かきくけこ
+|kakikukeko
+|HIJKLMN
+|Ham
+|Cheese
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}
+{{Translator|John Doe}}`;
+    expect(res).toBe(expected);
+  });
+
+  test("2 columns (no English)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko" },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|jp:Japanese|rom:Romaji}}",
+      headers: [],
+      needsRomanization: true,
+      needsTranslation: true,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|-
+|かきくけこ
+|kakikukeko
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
+  test("2 columns (no English) (with a translator added in error)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "あいうえお", romanized: "aiueo" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko" },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|jp:Japanese|rom:Romaji}}",
+      headers: [],
+      needsRomanization: true,
+      needsTranslation: true,
+      translator: "John Doe",
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|jp:Japanese|rom:Romaji}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|あいうえお
+|aiueo
+|-
+|かきくけこ
+|kakikukeko
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
+  test("2 columns (with English)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "Bengawan Solo", english: "Solo River" },
+      {
+        customStyle: "",
+        original: "Riwayatmu ini sedari dulu jadi",
+        english: "As of now, your fate has",
+      },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|id:Indonesian|eng:English}}",
+      headers: [],
+      needsRomanization: false,
+      needsTranslation: true,
+      translator: "John Doe",
+      isOfficialTranslation: false,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|id:Indonesian|eng:English}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|Bengawan Solo
+|Solo River
+|-
+|Riwayatmu ini sedari dulu jadi
+|As of now, your fate has
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}
+{{Translator|John Doe}}`;
+    expect(res).toBe(expected);
+  });
+
+  test("1 column (no English)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "Bengawan Solo" },
+      {
+        customStyle: "",
+        original: "Riwayatmu ini sedari dulu jadi",
+      },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|id:Indonesian}}",
+      headers: [],
+      needsRomanization: false,
+      needsTranslation: true,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|id:Indonesian}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|Bengawan Solo
+|-
+|Riwayatmu ini sedari dulu jadi
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
+    expect(res).toBe(expected);
+  });
+
+  test("1 column (no English) (with a translator added in error)", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "", original: "Bengawan Solo" },
+      {
+        customStyle: "",
+        original: "Riwayatmu ini sedari dulu jadi",
+      },
+    ];
+    const options = {
+      toggleElement: "{{lyrics toggle|id:Indonesian}}",
+      headers: [],
+      needsRomanization: false,
+      needsTranslation: true,
+      translator: "John Doe",
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+
+    const expectedLyricsToggle = `{{lyrics toggle|id:Indonesian}}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|Bengawan Solo
+|-
+|Riwayatmu ini sedari dulu jadi
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedLyricsTable}`;
     expect(res).toBe(expected);
   });
 });
