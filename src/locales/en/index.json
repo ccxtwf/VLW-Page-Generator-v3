@@ -43,7 +43,7 @@
   },
   "infoboxColors": {
     "label": "Infobox BG/FG colors",
-    "tooltip": "Infobox background (left) and foreground (right) colour<br/>hexadecimal colour, e.g., #ff0000<br/><em>or</em><br/>colour name, e.g., red",
+    "tooltip": "Infobox background (left) and foreground (right) color<br/>hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red",
     "preview": "Preview"
   },
   "firstTimeGuide": {

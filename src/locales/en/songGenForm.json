@@ -2,7 +2,7 @@
   "songGenForm": {
     "preloadVocaDb": {
       "label": "Preload Song",
-      "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl"
+      "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a class=\"link\" href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl"
     },
     "pvStills": {
       "tooltip": "Save PV stills as local file<br/><br/>May fail to get working HQ images for older songs.<br/>Finicky when trying to get images from Bilibili."
@@ -35,7 +35,7 @@
     },
     "languageIsoCode": {
       "label": "Language ISO Code",
-      "tooltip": "The ISO Language of the original lyrics, used to ensure proper rendering of the lyrics column (refer to this <a href='https://meta.miraheze.org/wiki/User:PetraMagna/Why_you_should_use_language_attributes' target='_blank' rel='noopener noreferrer'>blogpost</a> for more details on how this works).<br /><br />List of ISO Language Codes: <a href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank' rel='noopener noreferrer'>[W3Schools]</a> <a href='https://www.loc.gov/standards/iso639-2/php/code_list.php' target='_blank' rel='noopener noreferrer'>[Library of Congress]</a>",
+      "tooltip": "The ISO Language of the original lyrics, used to ensure proper rendering of the lyrics column (refer to this <a class=\"link\" href='https://meta.miraheze.org/wiki/User:PetraMagna/Why_you_should_use_language_attributes' target='_blank' rel='noopener noreferrer'>blogpost</a> for more details on how this works).<br /><br />List of ISO Language Codes: <a class=\"link\" href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank' rel='noopener noreferrer'>[W3Schools]</a> <a class=\"link\" href='https://www.loc.gov/standards/iso639-2/php/code_list.php' target='_blank' rel='noopener noreferrer'>[Library of Congress]</a>",
       "placeholder": "ja"
     },
     "originalTitle": {
@@ -85,7 +85,7 @@
     },
     "lyrics": {
       "label": "Lyrics",
-      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/>Add text colour styling to the entire row by specifying the hexadecimal colour, e.g., #ff0000<br/><em>or</em><br/>colour name, e.g., red"
+      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/>Add text color styling to the entire row by specifying the hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red"
     },
     "translator": {
       "label": "Translator",

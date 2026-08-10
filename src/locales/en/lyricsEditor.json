@@ -32,7 +32,7 @@
       },
       "actions": {
         "decapitalize": "Decapitalize romanized lyrics",
-        "consolidateFormatting": "Consolidate per-cell span colour formatting to per-row",
+        "consolidateFormatting": "Consolidate per-cell span color formatting to per-row",
         "standardizeRomanization": "Romaji: Change 'wo' to 'o' and 'he' to 'e', 'dzu' to 'zu'",
         "removePinyinTones": "Pinyin: Remove Tones"
       }

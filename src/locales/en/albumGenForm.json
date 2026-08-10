@@ -2,7 +2,7 @@
   "albumGenForm": {
     "preloadVocaDb": {
       "label": "Preload Song",
-      "tooltip": "Input the URL to the VocaDB album page here.\n\n<br/><br/>e.g. <a href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a> Comic and Cosmic"
+      "tooltip": "Input the URL to the VocaDB album page here.\n\n<br/><br/>e.g. <a class=\"link\" href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a> Comic and Cosmic"
     },
     "originalTitle": {
       "label": "Original Title",
@@ -49,7 +49,7 @@
     },
     "vdbAlbumPageId": {
       "label": "VocaDB Album Page ID",
-      "tooltip": "The numerical ID of the album page entry on VocaDB. For example, the Page ID for the album \"Comic and Cosmic\" (<a href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a>) is 21149.",
+      "tooltip": "The numerical ID of the album page entry on VocaDB. For example, the Page ID for the album \"Comic and Cosmic\" (<a class=\"link\" href=\"https://vocadb.net/Al/21149\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/Al/21149</a>) is 21149.",
       "placeholder": "VocaDB Album Page ID"
     },
     "vocaloidWikiPage": {
