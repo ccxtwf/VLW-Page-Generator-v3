@@ -1,7 +1,18 @@
 {
   "lyricsEditor": {
     "headerText": "Input Wiki Page Source Code:",
-    "tooltip": "Use this tool to edit the lyrics table on a wikipage. It is primarily aimed for Japanese/Chinese/Korean song pages.<hr>To get the source code of the wiki page, you can either:<br><ol><li>Open the wiki page on Wiki Editor.</li><li>Append \"?action=raw\" to the URL of the wiki page, e.g.<a href=\"{wikiEntrypoint}/ECHO/Crusher-P?action=raw\" target=\"_blank\" rel=\"noopener noreferrer\">{wikiEntrypoint}/ECHO/Crusher-P?action=raw</a></li></ol>Copy and paste the contents of the source code into the box below.<br><br>Click the 'Extract Lyrics Table' button to extract the table into the columns below, and the 'Generate' button to generate the page source code/wikitext.",
+    "overview": "Use this tool to edit the lyrics table on a wikipage. It is primarily aimed for Japanese/Chinese/Korean song pages.",
+    "guide": {
+      "header": "How to use:",
+      "p1": "Copy and paste the contents of the page's source code into the box below.",
+      "p2": "Click the \"Extract Lyrics Table\" button to extract the table into the columns below.",
+      "p3": "Edit the lyrics as needed. Click the \"Generate\" button to turn the table back into wikitext.",
+      "wikiSourceHeader": "To get the source code of the wiki page, you can either:",
+      "s1": "Open the wiki page on Wiki Editor.",
+      "s2": "Append \"?action=raw\" to the URL of the wiki page, e.g.",
+      "s2Example": "ECHO/Crusher",
+      "s2AltText": "View the page's source code on the Vocaloid Lyrics Wiki"
+    },
     "lyricsExtractorState": {
       "noData": "No lyrics table found",
       "found": "Showing table no. {index} out of {total}"

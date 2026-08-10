@@ -12,9 +12,13 @@
 </script>
 
 <div class="page-container mx-auto max-w-5xl p-4">
-  <h1 class="mb-6 text-2xl font-bold">
+  <h1 class="mb-2 text-2xl font-bold">
     {$_("pages.lyricsEditor")}
   </h1>
+
+  <div class="mb-6 text-xs">
+    {@html $_("lyricsEditor.overview")}
+  </div>
 
   <hr />
 
