@@ -129,6 +129,7 @@
         <SimpleTextInput
           id="gen-ai-usage"
           class="input input-bordered sm:join-item w-full flex-1"
+          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
           placeholder={$_("songGenForm.genAiWarning.placeholder")}
           bind:value={formData.aiWarningText1}
         />
@@ -169,6 +170,7 @@
         <SimpleTextInput
           id="cw-text"
           class="input input-bordered sm:join-item w-full flex-1"
+          disabled={formData.cwState === ENUM_CW_STATES.noWarnings}
           placeholder={$_("songGenForm.contentWarning.placeholder")}
           bind:value={formData.cwText}
         />

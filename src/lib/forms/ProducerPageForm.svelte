@@ -167,7 +167,7 @@
     tooltipI18nKey="producerGenForm.producerMiscAlias.tooltip"
   >
     <SimpleTextInput
-      id="romanized-title"
+      id="producer-aliases"
       placeholder={$_("producerGenForm.producerMiscAlias.placeholder")}
       bind:value={formData.prodAliases}
     />
