@@ -21,28 +21,27 @@
    * Requires: npm install handsontable
    */
   import { onMount, onDestroy } from "svelte";
-  import Handsontable, { type HotInstance } from "handsontable";
-  import type { GridSettings } from "handsontable";
+  import Handsontable, { type HotInstance, type GridSettings } from "handsontable";
+  import { getTheme } from "handsontable/themes";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
 
   type Constructor<T = any> = new (...args: any[]) => T;
 
-  interface HandsontableProps
-    extends Pick<
-      GridSettings,
-      | "colHeaders"
-      | "rowHeaders"
-      | "height"
-      | "width"
-      | "licenseKey"
-      | "columns"
-      | "contextMenu"
-      | "autoWrapRow"
-      | "autoWrapCol"
-      | "manualColumnResize"
-      | "selectionMode"
-      | "stretchH"
-    > {
+  interface HandsontableProps extends Pick<
+    GridSettings,
+    | "colHeaders"
+    | "rowHeaders"
+    | "height"
+    | "width"
+    | "licenseKey"
+    | "columns"
+    | "contextMenu"
+    | "autoWrapRow"
+    | "autoWrapCol"
+    | "manualColumnResize"
+    | "selectionMode"
+    | "stretchH"
+  > {
     id?: string;
     class?: string;
     data: object[];
@@ -93,6 +92,7 @@
   onMount(() => {
     hot = new Handsontable(container, {
       data, // pass initial state only
+      theme: getTheme("main"),
       colHeaders,
       columns,
       rowHeaders,
@@ -134,4 +134,8 @@
   });
 </script>
 
-<div {id} class={cssClass} bind:this={container}></div>
+<div
+  {id}
+  class={cssClass}
+  bind:this={container}
+></div>

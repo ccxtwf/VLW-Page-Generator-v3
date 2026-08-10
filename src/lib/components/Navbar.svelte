@@ -1,6 +1,25 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { currentRoute, ROUTES } from "../router";
+
+  async function setTheme(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+    // console.log(e.currentTarget.value, e.currentTarget.checked);
+    const theme = (() => {
+      switch (e.currentTarget.value) {
+        case "dark":
+          return "dark";
+        case "corporate":
+          return "light";
+        default:
+          return "auto";
+      }
+    })();
+    window.dispatchEvent(
+      new CustomEvent("themeChanged", {
+        detail: { theme },
+      }),
+    );
+  }
 </script>
 
 <header class="navbar-header">
@@ -96,6 +115,7 @@
                 class="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
                 aria-label={label}
                 value={theme}
+                onchange={setTheme}
               />
             </li>
           {/each}
