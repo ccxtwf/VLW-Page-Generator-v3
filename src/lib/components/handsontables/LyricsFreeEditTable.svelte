@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import Handsontable, { type HotInstance } from "handsontable";
+  import { getTheme } from "handsontable/themes";
   import { lyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
@@ -11,6 +12,7 @@
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
+  import type { ThemeChangedEventPayload } from "../../../schemas/events";
 
   interface LyricsTableFreeEditProps {
     id: string;
@@ -21,18 +23,11 @@
   let hot: HotInstance | undefined = $state();
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
 
-  let {
-    id,
-    class: cssClass,
-    toggleText = $bindable(""),
-  }: LyricsTableFreeEditProps = $props();
+  let { id, class: cssClass, toggleText = $bindable("") }: LyricsTableFreeEditProps = $props();
 
   let headers = $derived(determineColumnHeaders(toggleText));
 
-  let colHeaders: string[] = $derived([
-    "Custom style",
-    ...$state.snapshot(headers),
-  ]);
+  let colHeaders: string[] = $derived(["Custom style", ...$state.snapshot(headers)]);
 
   $effect(() => {
     if (!hot) {
@@ -71,6 +66,10 @@
         });
   }
 
+  const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
+    hot?.updateSettings({ theme: getTheme(event.detail.theme) });
+  };
+
   onMount(() => {
     hot = new Handsontable(container, {
       colHeaders,
@@ -80,16 +79,9 @@
           rendererKey = "lyrics-custom-style";
         }
         const renderer = Handsontable.renderers.getRenderer(rendererKey);
-        return renderer(
-          hotInstance,
-          _td,
-          _row,
-          col,
-          _prop,
-          _value,
-          _cellProperties,
-        );
+        return renderer(hotInstance, _td, _row, col, _prop, _value, _cellProperties);
       },
+      theme: getTheme(window._theme || "auto"),
       rowHeaders: true,
       height: "auto",
       width: "100%",
@@ -104,32 +96,31 @@
       maxCols: 6,
       afterCreateCol(index, amount, source) {
         if (source === "ContextMenu.columnLeft") {
-          toggleText = addColumnsAtIndexToTheLeftToToggle(
-            toggleText,
-            index,
-            amount,
-          );
+          toggleText = addColumnsAtIndexToTheLeftToToggle(toggleText, index, amount);
         } else {
-          toggleText = addColumnsAtIndexToTheRightToToggle(
-            toggleText,
-            index,
-            amount,
-          );
+          toggleText = addColumnsAtIndexToTheRightToToggle(toggleText, index, amount);
         }
       },
       afterRemoveCol(_index, _amount, physicalColumns, _source) {
-        toggleText = removeColumnsAtIndexFromToggle(
-          toggleText,
-          physicalColumns,
-        );
+        toggleText = removeColumnsAtIndexFromToggle(toggleText, physicalColumns);
       },
       licenseKey: HANDSONTABLE_LICENSE_KEY,
     });
+
+    /**
+     * Listen to changes set upon the page's theme
+     */
+    window.addEventListener("themeChanged", cbWatchTheme);
   });
 
   onDestroy(() => {
     hot?.destroy();
+    window.removeEventListener("themeChanged", cbWatchTheme);
   });
 </script>
 
-<div {id} class={cssClass} bind:this={container}></div>
+<div
+  {id}
+  class={cssClass}
+  bind:this={container}
+></div>

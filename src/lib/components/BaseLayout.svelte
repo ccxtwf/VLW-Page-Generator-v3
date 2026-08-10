@@ -1,6 +1,4 @@
 <script lang="ts">
-  import "../../app.css";
-
   import Navbar from "./Navbar.svelte";
   import Footer from "./Footer.svelte";
   import type { Snippet } from "svelte";

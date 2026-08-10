@@ -9,6 +9,5 @@
   name: "dark";
 }
 
-@import "./styles/handsontable.css";
 @import "./styles/svelte-multiselect.css";
 @import "./styles/app.css";

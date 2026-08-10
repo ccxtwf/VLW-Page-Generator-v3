@@ -14,6 +14,7 @@
           return "auto";
       }
     })();
+    window._theme = theme;
     window.dispatchEvent(
       new CustomEvent("themeChanged", {
         detail: { theme },

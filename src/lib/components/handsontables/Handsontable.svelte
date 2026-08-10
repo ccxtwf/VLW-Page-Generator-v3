@@ -24,6 +24,7 @@
   import Handsontable, { type HotInstance, type GridSettings } from "handsontable";
   import { getTheme } from "handsontable/themes";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
+  import type { ThemeChangedEventPayload } from "../../../schemas/events";
 
   type Constructor<T = any> = new (...args: any[]) => T;
 
@@ -89,10 +90,14 @@
     });
   }
 
+  const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
+    hot?.updateSettings({ theme: getTheme(event.detail.theme) });
+  };
+
   onMount(() => {
     hot = new Handsontable(container, {
       data, // pass initial state only
-      theme: getTheme("main"),
+      theme: getTheme(window._theme || "auto"),
       colHeaders,
       columns,
       rowHeaders,
@@ -107,6 +112,11 @@
       licenseKey,
       ...settings,
     });
+
+    /**
+     * Listen to changes set upon the page's theme
+     */
+    window.addEventListener("themeChanged", cbWatchTheme);
 
     onReady?.(hot);
   });
@@ -131,6 +141,7 @@
 
   onDestroy(() => {
     hot?.destroy();
+    window.removeEventListener("themeChanged", cbWatchTheme);
   });
 </script>
 
