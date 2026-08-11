@@ -1,8 +1,8 @@
 import { preprocessStringParams } from "../../utils/utils";
 import { AlbumPageValidationErrorType } from "../../validationErrors/types";
-import type { IAlbumTrackData } from "../schema";
+import type { IAlbumTrack } from "../schema";
 
-export default class AlbumTrackData implements IAlbumTrackData {
+export default class AlbumTrackData implements IAlbumTrack {
   discNo: number | string = $state("");
   trackNo: number | string = $state("");
   pageTitle: string = $state("");
@@ -69,7 +69,7 @@ export default class AlbumTrackData implements IAlbumTrackData {
     return `|${discNo}tr${trackNo} = ${pageTitle}\n|${discNo}tr${trackNo}s = ${this.getCredits()}`;
   }
 
-  toJSON(): IAlbumTrackData {
+  toJSON(): IAlbumTrack {
     const { discNo, trackNo, pageTitle, producerCredit, singerCredit } = this;
     return {
       discNo,

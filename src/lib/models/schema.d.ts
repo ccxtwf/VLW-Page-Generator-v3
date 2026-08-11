@@ -26,9 +26,9 @@ export interface ISong {
   isOfficialTranslation: boolean;
   categoriesRaw: string;
   // categories?: string[];
-  lyrics: LyricRowData[];
-  playLinks: PlayLinkData[];
-  extLinks: ExternalLink[];
+  lyrics: ILyricsRow[];
+  playLinks: IPlayLink[];
+  extLinks: IExternalLink[];
   images: IImageEmbed[];
 }
 
@@ -49,9 +49,9 @@ export interface IAlbum {
   vocaWikiPage: string;
   categoriesRaw: string;
   // categories?: string[];
-  tracklist: AlbumTrack[];
-  broadcastLinks: AlbumBroadcastLink[];
-  extLinks: ExternalLink[];
+  tracklist: IAlbumTrack[];
+  broadcastLinks: IAlbumBroadcastLink[];
+  extLinks: IExternalLink[];
   image: IImageEmbed | null;
 }
 
@@ -64,10 +64,10 @@ export interface IProducer {
   languages: MultiSelectItem[];
   engines: MultiSelectItem[];
   description: string;
-  roles: ProducerRoles;
-  songs: ProducerDiscographySongItem[];
-  albums: ProducerDiscographyAlbumItem[];
-  extLinks: ExternalLink[];
+  roles: IProducerRoles;
+  songs: IProducerDiscographySongItem[];
+  albums: IProducerDiscographyAlbumItem[];
+  extLinks: IExternalLinkForProducerPage[];
   image: IImageEmbed | null;
 }
 
@@ -112,7 +112,7 @@ export interface IAlbumBroadcastLink {
   url: string;
 }
 
-export interface IAlbumTrackData {
+export interface IAlbumTrack {
   discNo: number | string;
   trackNo: number | string;
   pageTitle: string;
