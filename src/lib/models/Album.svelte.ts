@@ -77,7 +77,6 @@ export default class Album implements BaseModel<IAlbum> {
       "vocaWikiPage",
       "categoriesRaw",
     ]);
-    this.isCompilationAlbum = false;
     this.engines = this.engines || [];
     this.tracklist = this.tracklist || [];
     this.broadcastLinks = this.broadcastLinks || [];

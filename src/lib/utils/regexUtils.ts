@@ -21,7 +21,7 @@ export default class RegexUtils {
     bandori: "bandori",
   };
 
-  static rxVocadb = new RegExp(`^${escapeRegExp(VOCADB_ENTRYPOINT)}`);
+  static rxVocadb = new RegExp(`^${escapeRegExp(VOCADB_ENTRYPOINT)}(.*)`);
   static rxMiraheze = /^https?:\/\/(.*?).miraheze\.org\/wiki\/(.*)/;
   static rxFandom = /^https?:\/\/(.*?).fandom\.com\/wiki\/(.*)/;
   static rxHmWiki = /^https?:\/\/w\.atwiki\.jp\/hmiku\/pages\/(\d+)\.html$/;

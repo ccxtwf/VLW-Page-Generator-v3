@@ -90,8 +90,11 @@ export function generatePage(formData: Song): string {
   const langMetadata = getLanguageMetadata(languages);
 
   if (langMetadata.needsRomanization && romTitle !== "") {
+    sortTemplate = "{{sort}}";
     let sortkey = detonePinyin(romTitle);
-    sortTemplate = `{{sort|${sortkey}}}`;
+    if (sortkey.match(/[^ -~]/)) {
+      sortTemplate = `{{sort|${sortkey}}}`;
+    }
   }
 
   cwTemplates = hasEpilepsyWarning ? "{{Epilepsy}}" : "";

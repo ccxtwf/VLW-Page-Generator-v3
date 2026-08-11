@@ -22,7 +22,7 @@ export default class PlayLink implements IPlayLink {
     isReprint?: boolean;
     isAutogen?: boolean;
     isDeleted?: boolean;
-    viewCount?: "";
+    viewCount?: string;
   } = {}) {
     this.site = site;
     this.url = url;
