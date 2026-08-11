@@ -16,10 +16,22 @@
   }
 </script>
 
-<button
-  class="btn btn-outline btn-info w-32 transition-colors"
-  type="button"
-  onclick={copyToClipboard}
->
-  {isCopied ? $_("formActions.copiedOutput") : $_("formActions.copyOutput")}
-</button>
+<div class="relative inline-flex">
+  <button
+    class="btn btn-info w-32 transition-all duration-200"
+    class:btn-outline={!isCopied}
+    type="button"
+    onclick={copyToClipboard}
+  >
+    {$_("formActions.copyOutput")}
+  </button>
+
+  {#if isCopied}
+    <div
+      role="status"
+      class="bg-neutral text-neutral-content pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 animate-[tooltip-in_150ms_ease-out] rounded-md px-2.5 py-1.5 text-xs font-medium whitespace-nowrap shadow-lg"
+    >
+      {$_("formActions.copiedOutput")}
+    </div>
+  {/if}
+</div>

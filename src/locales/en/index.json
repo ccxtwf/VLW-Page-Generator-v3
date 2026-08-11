@@ -15,7 +15,9 @@
     "generate": "Generate",
     "ignoreErrors": "Ignore Errors",
     "copyOutput": "Copy Output",
-    "copiedOutput": "Copied!"
+    "copiedOutput": "Copied!",
+    "copyTitle": "Copy Title",
+    "copiedTitle": "Copied Title!"
   },
   "loading": {
     "text": "Loading...",
