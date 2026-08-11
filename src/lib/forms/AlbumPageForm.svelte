@@ -24,6 +24,7 @@
   import Album from "../models/Album.svelte";
   import { formSubmitHandler, formResetHandler } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
+  import { MONTHS } from "../../constants";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
@@ -195,11 +196,18 @@
         placeholder={$_("albumGenForm.albumPublicationDate.yearPlaceholder")}
         bind:value={formData.publishedYear}
       />
-      <SimpleTextInput
+      <select
+        class="select w-full"
         id="published-month"
-        placeholder={$_("albumGenForm.albumPublicationDate.monthPlaceholder")}
         bind:value={formData.publishedMonth}
-      />
+      >
+        <option value="">
+          {$_("albumGenForm.albumPublicationDate.monthPlaceholder")}
+        </option>
+        {#each MONTHS as month}
+          <option value={month}>{month}</option>
+        {/each}
+      </select>
       <SimpleTextInput
         id="published-day"
         placeholder={$_("albumGenForm.albumPublicationDate.dayPlaceholder")}
