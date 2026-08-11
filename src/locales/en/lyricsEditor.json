@@ -1,7 +1,7 @@
 {
   "lyricsEditor": {
     "headerText": "Input Wiki Page Source Code:",
-    "overview": "Use this tool to edit the lyrics table on a wikipage. It is primarily aimed for Japanese/Chinese/Korean song pages.",
+    "overview": "Use this tool to edit the lyrics table on a wikipage. It is primarily designed for Japanese/Chinese/Korean song pages.",
     "guide": {
       "header": "How to use:",
       "p1": "Copy and paste the contents of the page's source code into the box below.",
