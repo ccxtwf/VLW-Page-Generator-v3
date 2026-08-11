@@ -22,7 +22,7 @@
 
   <hr />
 
-  <LyricsParserPageForm handleButtonClick={console.log} />
+  <LyricsParserPageForm />
 
   <h1 class="mt-24 mb-6 text-2xl font-bold">
     {$_("lyricsEditor.fields.parsedLyricsHeader")}
@@ -30,7 +30,11 @@
 
   <hr />
 
-  <LyricsEditorPageForm forwardGeneratedResults={console.log} />
+  <LyricsEditorPageForm
+    ongenerate={(wikipage) => {
+      resultsBox.updateState(wikipage);
+    }}
+  />
 
   <Divider />
 

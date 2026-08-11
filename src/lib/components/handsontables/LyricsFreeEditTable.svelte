@@ -51,19 +51,60 @@
     }
   });
 
+  export function loadData(data: string[][]) {
+    hot!.loadData(data);
+  }
+
   export function getData() {
+    const i = headers.findIndex((h) => h.includes("English"));
     return !hot || hot.isDestroyed
       ? []
       : hot.getData().map((row) => {
-          let [a, b, c, d, ...e] = row;
+          let [customStyle, original, ...c] = row;
+          let romanized: string | undefined = undefined;
+          let english: string | undefined = undefined;
+          let offset: number = 0;
+          switch (i) {
+            case -1:
+              // English column not found
+              break;
+            case 1:
+              // Found English at second column
+              english = (c[0] as string) || "";
+              offset = 1;
+              break;
+            default:
+              romanized = (c[0] as string) || "";
+              english = (c[1] as string) || "";
+              offset = 2;
+              break;
+          }
+
           return new LyricRow({
-            customStyle: (a as string) || "",
-            original: (b as string) || "",
-            romanized: (c as string) || "",
-            english: (d as string) || "",
-            additionalColumns: e.map((f) => (f as string) || ""),
+            customStyle: (customStyle as string) || "",
+            original: (original as string) || "",
+            romanized,
+            english,
+            additionalColumns: c.slice(offset).map((e) => (e as string) || ""),
           });
         });
+  }
+
+  export function editAction(fn: (data: unknown[][]) => string[][]) {
+    const data = hot!.getData();
+    const transformed = fn(data);
+    hot!.loadData(transformed);
+
+    // Doesn't work as well as I would like?
+    // hot!.getPlugin("undoRedo").done(() => ({
+    //   actionType: "load_data",
+    //   undo: (hot: HotInstance) => {
+    //     hot.loadData(data);
+    //   },
+    //   redo: (hot: HotInstance) => {
+    //     hot.loadData(transformed);
+    //   },
+    // }));
   }
 
   const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {

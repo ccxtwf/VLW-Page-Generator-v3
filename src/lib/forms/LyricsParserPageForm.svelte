@@ -1,18 +1,24 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
+  import { extractLyricsTablesFromWikipageSrc, parseLyrics } from "../utils/lyricsEditFormActions";
+  import type { LyricsParsePayload } from "../../schemas/events";
 
   let selectedTable: number = $state(0);
   let nTables: number = $state(0);
 
   let textareaElement: HTMLTextAreaElement;
 
-  let { handleButtonClick }: { handleButtonClick: (contents: string) => void } = $props();
-
   function handleSubmit(e: Event) {
     e.preventDefault();
     const contents = textareaElement.value || "";
-    handleButtonClick(contents);
+    const rx = extractLyricsTablesFromWikipageSrc(contents)[selectedTable];
+    const [toggleText, lyrics, translator, isOfficialTranslation] = parseLyrics(rx);
+    window.dispatchEvent(
+      new CustomEvent<LyricsParsePayload>("parsedLyrics", {
+        detail: { toggleText, lyrics, translator, isOfficialTranslation },
+      }),
+    );
   }
 </script>
 
@@ -68,11 +74,11 @@
   class="mt-8 mb-4 flex w-full flex-col items-center justify-start gap-4"
   onsubmit={handleSubmit}
 >
+  {@render guide()}
+
   <h2 class="text-xl font-bold">
     {$_("lyricsEditor.headerText")}
   </h2>
-
-  {@render guide()}
 
   {#if nTables === 0}
     <div class="m-0 rounded-sm border border-gray-400 p-2 text-sm">
@@ -100,9 +106,16 @@
   <textarea
     class="textarea w-full"
     rows="20"
-    bind:this={textareaElement}></textarea>
+    bind:this={textareaElement}
+    onblur={(e) => {
+      const value = e.currentTarget.value || "";
+      nTables = extractLyricsTablesFromWikipageSrc(value).length;
+    }}></textarea>
 
-  <button class="btn btn-primary btn-block"
-    >{$_("lyricsEditor.extractLyricsTableButtonText")}</button
+  <button
+    type="submit"
+    class="btn btn-primary btn-block"
   >
+    {$_("lyricsEditor.extractLyricsTableButtonText")}
+  </button>
 </form>

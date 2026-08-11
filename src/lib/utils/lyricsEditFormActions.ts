@@ -77,14 +77,14 @@ export function parseLyrics(rxResults: RegExpMatchArray): [string, string[][], s
  * @param lyrics
  * @returns
  */
-export function consolidateCellInlineColourFormatting(lyrics: string[][]): string[][] {
+export function consolidateCellInlineColourFormatting(lyrics: unknown[][]): string[][] {
   const rxCellInlineColourFormatting =
     /^\s*<[Ss][Pp][Aa][Nn]\s+style\s*=\s*["']\s*color\s*:\s*([a-zA-Z0-9#]+);?["']\s*>(.*)<\/\s*[Ss][Pp][Aa][Nn]\s*>\s*$/;
   const rxSpanTagHead = /<span(?:\s+[^>]+|)\s*>/i;
   return lyrics.map((lyric) => {
     let m = [];
     for (let i = 1; i < lyric.length; i++) {
-      const l = (lyric[i] || "").trim();
+      const l = ((lyric[i] as string) || "").trim();
       const rxResults = l.match(rxCellInlineColourFormatting);
       m.push({ rxResults, isEmpty: l === "" });
     }
@@ -99,7 +99,7 @@ export function consolidateCellInlineColourFormatting(lyrics: string[][]): strin
         }
       }
     }
-    return lyric;
+    return lyric as string[];
   });
 }
 
@@ -109,18 +109,18 @@ export function consolidateCellInlineColourFormatting(lyrics: string[][]): strin
  * @param lyrics
  * @returns
  */
-export function decapitalizeRomanization(lyrics: string[][]): string[][] {
+export function decapitalizeRomanization(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = (lyric[2] || "").trim().replace(/^(?:["'`]*)\w/, (match: string) => {
+    lyric[2] = ((lyric[2] as string) || "").trim().replace(/^(?:["'`]*)\w/, (match: string) => {
       return match.toLowerCase();
     });
-    lyric[2] = lyric[2].replace(
+    lyric[2] = (lyric[2] as string).replace(
       /([.?!])\s*(["'`]*\s*)(\w)/g,
       (_, p: string, a: string, match: string) => {
         return `${p} ${a}${match.toLowerCase()}`;
       },
     );
-    return lyric;
+    return lyric as string[];
   });
 }
 
@@ -130,10 +130,10 @@ export function decapitalizeRomanization(lyrics: string[][]): string[][] {
  * @param lyrics
  * @returns
  */
-export function detonePinyinLyrics(lyrics: string[][]): string[][] {
+export function detonePinyinLyrics(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = detonePinyin((lyric[2] || "").trim(), true);
-    return lyric;
+    lyric[2] = detonePinyin(((lyric[2] as string) || "").trim(), true);
+    return lyric as string[];
   });
 }
 
@@ -143,19 +143,21 @@ export function detonePinyinLyrics(lyrics: string[][]): string[][] {
  * @param lyrics
  * @returns
  */
-export function standardizeHepburnRomanization(lyrics: string[][]): string[][] {
+export function standardizeHepburnRomanization(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = (lyric[2] || "").trim().replace(/(?=\b)(wo|he)(?<=\b)/gi, (match: string) => {
-      switch (match) {
-        case "wo":
-          return "o";
-        case "he":
-          return "e";
-        default:
-          return "";
-      }
-    });
-    lyric[2] = (lyric[2] || "").trim().replace(/dzu/gi, "zu");
-    return lyric;
+    lyric[2] = ((lyric[2] as string) || "")
+      .trim()
+      .replace(/(?=\b)(wo|he)(?<=\b)/gi, (match: string) => {
+        switch (match) {
+          case "wo":
+            return "o";
+          case "he":
+            return "e";
+          default:
+            return "";
+        }
+      });
+    lyric[2] = ((lyric[2] as string) || "").trim().replace(/dzu/gi, "zu");
+    return lyric as string[];
   });
 }
