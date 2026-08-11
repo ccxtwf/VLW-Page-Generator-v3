@@ -133,8 +133,8 @@ export function generatePage(formData: Producer): string {
     let lang: string = LANGUAGES[value]?.name || "";
     categories.push(`${lang} original producers`);
   }
-  for (let engine of engines) {
-    categories.push(`Producers using ${engine}`);
+  for (let { label } of engines) {
+    categories.push(`Producers using ${label}`);
   }
 
   let albumListSegment = "";
@@ -178,8 +178,16 @@ export function generatePage(formData: Producer): string {
 [[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
 ==Producer categories==
 {{ProdLinks|${prodCategory}}}
-${labels === "" ? "" : `==Labels==\n${labels}\n`}${
-    affiliations === "" ? "" : `==Affiliations==\n${affiliations}\n`
+${
+  labels === ""
+    ? ""
+    : `\n==Labels==\n${labels.split("\n").map((i) => (i.startsWith("*") ? i : "* " + i))}\n`
+}${
+    affiliations === ""
+      ? ""
+      : `\n==Affiliations==\n${affiliations
+          .split("\n")
+          .map((i) => (i.startsWith("*") ? i : "* " + i))}\n`
   }
 ${extLinksSegment}</div>
 
