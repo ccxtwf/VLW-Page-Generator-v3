@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { mapEngines, mapLanguages } from "./mapper";
+import { mapEngines, mapLanguages } from "../mapper";
 
 import Producer from "../../src/lib/models/Producer.svelte";
 import { generatePage } from "../../src/lib/logic/producers.svelte";

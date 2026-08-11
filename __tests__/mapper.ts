@@ -1,6 +1,6 @@
-import { LANGUAGES, SYNTH_ENGINES, ALBUM_STREAMING_LINKS } from "../../src/constants";
-import AlbumBroadcastLink from "../../src/lib/models/children/AlbumBroadcastLink.svelte";
-import { type MultiSelectItem } from "../../src/schemas/form.d";
+import { LANGUAGES, SYNTH_ENGINES, ALBUM_STREAMING_LINKS } from "../src/constants";
+import AlbumBroadcastLink from "../src/lib/models/children/AlbumBroadcastLink.svelte";
+import { type MultiSelectItem } from "../src/schemas/form.d";
 
 export const mapLanguages = (...languages: string[]): MultiSelectItem[] => {
   return languages.map((l) => ({

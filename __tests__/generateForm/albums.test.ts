@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { mapEngines, mapAlbumBroadcastLink } from "./mapper";
+import { mapEngines, mapAlbumBroadcastLink } from "../mapper";
 
 import Album from "../../src/lib/models/Album.svelte";
 import { generatePage } from "../../src/lib/logic/albums.svelte";
