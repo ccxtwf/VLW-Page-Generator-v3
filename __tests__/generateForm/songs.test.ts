@@ -24,8 +24,8 @@ describe("Generate song pages", () => {
       romTitle: "Rooringu Gaaru",
       engTitle: "Rolling Girl",
       titleIsOfficiallyTranslated: true,
-      bgColour: "black",
-      fgColour: "white",
+      bgColour: "red",
+      fgColour: "yellow",
       uploadDateRaw: "2010-02-14",
       isAlbumOnly: false,
       isUnavailable: false,
@@ -67,7 +67,7 @@ describe("Generate song pages", () => {
     const expected = `{{sort}}
 {{Infobox Song
 |songtitle = "'''ローリングガール'''"<br />Romaji: Rooringu Gaaru<br />Official English: Rolling Girl
-|color = black; color:white
+|color = red; color:yellow
 |original upload date = {{Date|2010|February|14}}
 |singer = [[Hatsune Miku (VOCALOID)]]
 |producer = [[wowaka]] (music, lyrics)
