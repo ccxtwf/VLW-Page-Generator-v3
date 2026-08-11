@@ -19,8 +19,8 @@
   <hr />
 
   <AlbumPageForm
-    ongenerate={(output) => {
-      resultsBox.updateState(output);
+    ongenerate={(output, title) => {
+      resultsBox.updateState(output, title);
     }}
   />
 

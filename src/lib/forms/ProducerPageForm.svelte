@@ -42,7 +42,7 @@
   let songListHotTable: SvelteComponent | undefined = $state();
   let albumListHotTable: SvelteComponent | undefined = $state();
 
-  let { ongenerate }: { ongenerate: (output: string) => void } = $props();
+  let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const handleFetchVocaDb = async (url: string) => {
     if (window.confirm($_("confirmClear"))) {
@@ -97,7 +97,8 @@
     },
     generate(formData) {
       const output = generatePage(formData);
-      ongenerate(output);
+      const title = formData.prodCategory;
+      ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
       warningsElement!.updateState({ errors, warnings, autoloadCategories });

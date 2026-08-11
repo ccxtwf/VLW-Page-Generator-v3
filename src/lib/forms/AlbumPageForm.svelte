@@ -33,7 +33,7 @@
   let tracklistHotTable: SvelteComponent | undefined = $state();
   let extLinksHotTable: SvelteComponent | undefined = $state();
 
-  let { ongenerate }: { ongenerate: (output: string) => void } = $props();
+  let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const handleFetchVocaDb = async (url: string) => {
     if (window.confirm($_("confirmClear"))) {
@@ -62,7 +62,11 @@
     },
     generate(formData) {
       const output = generatePage(formData);
-      ongenerate(output);
+      let title = formData.origTitle;
+      if (formData.romTitle) {
+        title += ` (${formData.romTitle})`;
+      }
+      ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
       warningsElement!.updateState({ errors, warnings, autoloadCategories });

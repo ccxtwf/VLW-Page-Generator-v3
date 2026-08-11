@@ -19,8 +19,8 @@
   <hr />
 
   <SongPageForm
-    ongenerate={(output) => {
-      resultsBox.updateState(output);
+    ongenerate={(output, title) => {
+      resultsBox.updateState(output, title);
     }}
   />
 
