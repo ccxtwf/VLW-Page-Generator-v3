@@ -107,7 +107,7 @@ export interface IExternalLinkForProducerPage extends IExternalLink {
 }
 
 export interface IAlbumBroadcastLink {
-  idx: number | null;
+  idx: number;
   site: string;
   url: string;
 }
