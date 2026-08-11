@@ -1,4 +1,24 @@
+/* Input errors */
 div.input-error.text-error {
   border: solid 1px var(--color-error);
   background-color: color-mix(in srgb, var(--color-error) 5%, transparent);
+}
+
+/* <ref> items on lyrics tables */
+body {
+  counter-reset: ref;
+}
+
+.ref {
+  font-size: 0;
+  counter-increment: ref;
+  margin-inline-start: 2px;
+  vertical-align: super;
+}
+
+.ref::after {
+  content: "[" counter(ref) "]";
+  font-size: 0.6rem;
+  vertical-align: super;
+  color: var(--color-info);
 }
