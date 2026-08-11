@@ -149,7 +149,7 @@ export default class Producer implements BaseModel<IProducer> {
       }
     }
 
-    if (songs.length === 0) {
+    if (songs.filter((song) => song.page).length === 0) {
       errors.push(getValidationError(ProducerPageValidationErrorType.NO_SONG_PAGE));
     }
 
