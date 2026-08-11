@@ -88,25 +88,17 @@ export function formSubmitHandler<T extends BaseModel<any>>({
 }
 
 /**
- * Utility function for resetting all state on a form.
+ * Utility function for resetting the warnings on a form, but not the data
  *
- * @param warnings
+ * @param form
  */
-export function formResetHandler(resetWarnings: () => void) {
-  const _onFormReset = (e: Event) => {
-    const form: HTMLFormElement = e.currentTarget as unknown as HTMLFormElement;
-
-    // Clear elements with error styling
-    const clearCssClass = (cssSelector: string) => {
-      const nodes = form.querySelectorAll(`.${cssSelector}`);
-      for (const n of nodes) {
-        n.classList.remove(cssSelector);
-      }
-    };
-    clearCssClass("text-error");
-    clearCssClass("input-error");
-
-    resetWarnings();
+export function resetFormWarnings(form: HTMLFormElement) {
+  const clearCssClass = (cssSelector: string) => {
+    const nodes = form.querySelectorAll(`.${cssSelector}`);
+    for (const n of nodes) {
+      n.classList.remove(cssSelector);
+    }
   };
-  return _onFormReset;
+  clearCssClass("text-error");
+  clearCssClass("input-error");
 }

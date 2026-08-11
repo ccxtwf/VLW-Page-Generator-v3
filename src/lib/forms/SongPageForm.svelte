@@ -19,6 +19,7 @@
   import Tooltip from "../components/reusables/Tooltip.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
+  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
@@ -27,12 +28,13 @@
   import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs.svelte";
 
   import Song from "../models/Song.svelte";
-  import { formSubmitHandler, formResetHandler } from "../logic";
+  import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
+  let form: HTMLFormElement;
   let warningsElement: SvelteComponent | null = null;
   let broadcastLinksHotTable: SvelteComponent | null = null;
   let extLinksHotTable: SvelteComponent | null = null;
@@ -59,7 +61,7 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<Song>({
+  const handleFormSubmit = formSubmitHandler<Song>({
     fetchLatestSnapshot() {
       formData.playLinks = broadcastLinksHotTable!.getLatestData();
       formData.lyrics = lyricsHotTable!.getLatestData();
@@ -78,10 +80,14 @@
       warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
-  const handleReset = formResetHandler(function () {
-    formData.resetHotTables();
+  const resetWarnings = () => {
+    resetFormWarnings(form);
     warningsElement!.resetState();
-  });
+  };
+  const handleFormReset = () => {
+    resetWarnings();
+    formData.resetHotTables();
+  };
   const handleAutoloadCategories = () => {
     const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
@@ -91,8 +97,9 @@
 <form
   name="song-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={handleSubmit}
-  onreset={handleReset}
+  onsubmit={handleFormSubmit}
+  onreset={handleFormReset}
+  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -495,7 +502,7 @@
   <Divider />
 
   <div class="flex items-start gap-2">
-    <ResetFormButton />
+    <ResetWarningsButton onclick={resetWarnings} />
   </div>
   <div class="flex w-full flex-col gap-3 sm:flex-row">
     <GenerateButton />
@@ -505,6 +512,7 @@
       textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
+    <ResetFormButton />
   </div>
 </form>
 

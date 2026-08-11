@@ -11,7 +11,8 @@
   "formActions": {
     "preload": "Preload",
     "autoloadCategories": "Autoload",
-    "reset": "Reset",
+    "reset": "Reset Warnings",
+    "clear": "Clear Form",
     "generate": "Generate",
     "ignoreErrors": "Ignore Errors",
     "copyOutput": "Copy Output",

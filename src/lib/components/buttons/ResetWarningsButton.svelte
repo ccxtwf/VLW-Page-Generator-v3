@@ -5,9 +5,9 @@
 </script>
 
 <button
-  class="btn btn-secondary btn-sm w-24"
+  class="btn btn-neutral w-24 text-xs max-sm:w-full"
   type="button"
   {onclick}
 >
-  {$_("formActions.autoloadCategories")}
+  {$_("formActions.reset")}
 </button>

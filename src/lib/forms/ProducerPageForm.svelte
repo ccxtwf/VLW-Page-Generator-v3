@@ -16,6 +16,7 @@
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
   import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
+  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
@@ -26,7 +27,7 @@
   } from "../logic/producers.svelte";
 
   import Producer from "../models/Producer.svelte";
-  import { formSubmitHandler, formResetHandler } from "../logic";
+  import { formSubmitHandler, resetFormWarnings } from "../logic";
   import {
     ExternalWebServiceError,
     VocaDBInvalidUrlError,
@@ -37,6 +38,7 @@
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
 
+  let form: HTMLFormElement;
   let warningsElement: SvelteComponent | undefined = $state();
   let extLintsHotTable: SvelteComponent | undefined = $state();
   let songListHotTable: SvelteComponent | undefined = $state();
@@ -88,7 +90,7 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<Producer>({
+  const handleFormSubmit = formSubmitHandler<Producer>({
     fetchLatestSnapshot() {
       formData.extLinks = extLintsHotTable!.getLatestData();
       formData.songs = songListHotTable!.getLatestData();
@@ -104,17 +106,22 @@
       warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
-  const handleReset = formResetHandler(function () {
-    formData.resetHotTables();
+  const resetWarnings = () => {
+    resetFormWarnings(form);
     warningsElement!.resetState();
-  });
+  };
+  const handleFormReset = () => {
+    resetWarnings();
+    formData.resetHotTables();
+  };
 </script>
 
 <form
   name="producer-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={handleSubmit}
-  onreset={handleReset}
+  onsubmit={handleFormSubmit}
+  onreset={handleFormReset}
+  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -293,7 +300,7 @@
   <Divider />
 
   <div class="flex items-start gap-2">
-    <ResetFormButton />
+    <ResetWarningsButton onclick={resetWarnings} />
   </div>
   <div class="flex w-full flex-col gap-3 sm:flex-row">
     <GenerateButton />
@@ -303,6 +310,7 @@
       textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
+    <ResetFormButton />
   </div>
 </form>
 

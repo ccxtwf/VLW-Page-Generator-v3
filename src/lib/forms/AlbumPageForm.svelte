@@ -16,19 +16,21 @@
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
+  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
   import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums.svelte";
 
   import Album from "../models/Album.svelte";
-  import { formSubmitHandler, formResetHandler } from "../logic";
+  import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
   import { MONTHS } from "../../constants";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
+  let form: HTMLFormElement;
   let warningsElement: SvelteComponent | undefined = $state();
   let tracklistHotTable: SvelteComponent | undefined = $state();
   let extLinksHotTable: SvelteComponent | undefined = $state();
@@ -54,7 +56,7 @@
       }
     }
   };
-  const handleSubmit = formSubmitHandler<Album>({
+  const handleFormSubmit = formSubmitHandler<Album>({
     fetchLatestSnapshot() {
       formData.tracklist = tracklistHotTable!.getLatestData();
       formData.extLinks = extLinksHotTable!.getLatestData();
@@ -72,10 +74,14 @@
       warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
-  const handleReset = formResetHandler(function () {
-    formData.resetHotTables();
+  const resetWarnings = () => {
+    resetFormWarnings(form);
     warningsElement!.resetState();
-  });
+  };
+  const handleFormReset = () => {
+    resetWarnings();
+    formData.resetHotTables();
+  };
   const handleAutoloadCategories = () => {
     const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
@@ -85,8 +91,9 @@
 <form
   name="album-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
-  onsubmit={handleSubmit}
-  onreset={handleReset}
+  onsubmit={handleFormSubmit}
+  onreset={handleFormReset}
+  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
@@ -326,7 +333,7 @@
   <Divider />
 
   <div class="flex items-start gap-2">
-    <ResetFormButton />
+    <ResetWarningsButton onclick={resetWarnings} />
   </div>
   <div class="flex w-full flex-col gap-3 sm:flex-row">
     <GenerateButton />
@@ -336,6 +343,7 @@
       textClass="text-xs"
       label={$_("formActions.ignoreErrors")}
     />
+    <ResetFormButton />
   </div>
 </form>
 
