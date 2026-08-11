@@ -1,19 +1,14 @@
 import { describe, expect, test } from "vite-plus/test";
+import { mapLanguages } from "./mapper";
+
 import Song from "../../src/lib/models/Song.svelte";
 import { generatePage } from "../../src/lib/logic/songs.svelte";
-import { LANGUAGES } from "../../src/constants";
-import { type MultiSelectItem } from "../../src/schemas/form";
+
 import LyricRow from "../../src/lib/models/children/LyricsRow.svelte";
 import PlayLink from "../../src/lib/models/children/PlayLink.svelte";
 import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
-import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../src/lib/models/enums";
 
-const mapLanguages = (...languages: string[]): MultiSelectItem[] => {
-  return languages.map((l) => ({
-    label: l,
-    value: LANGUAGES.findIndex((o) => o.name === l),
-  }));
-};
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../src/lib/models/enums";
 
 describe("Generate song pages", () => {
   test("Japanese song", () => {

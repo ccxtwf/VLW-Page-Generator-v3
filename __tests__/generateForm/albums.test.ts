@@ -1,28 +1,11 @@
 import { describe, expect, test } from "vite-plus/test";
+import { mapEngines, mapAlbumBroadcastLink } from "./mapper";
+
 import Album from "../../src/lib/models/Album.svelte";
 import { generatePage } from "../../src/lib/logic/albums.svelte";
-import { SYNTH_ENGINES, ALBUM_STREAMING_LINKS } from "../../src/constants";
-import { type MultiSelectItem } from "../../src/schemas/form";
+
 import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
-import AlbumBroadcastLink from "../../src/lib/models/children/AlbumBroadcastLink.svelte";
 import AlbumTrackData from "../../src/lib/models/children/AlbumTrackData.svelte";
-
-const mapEngines = (...engines: string[]): MultiSelectItem[] => {
-  return engines.map((e) => ({
-    label: e,
-    value: SYNTH_ENGINES.findIndex((o) => o.name === e),
-  }));
-};
-
-const mapAlbumBroadcastLink = (...args: { key: string; url: string }[]): AlbumBroadcastLink[] => {
-  return args.map(({ key, url }) => {
-    const idx = ALBUM_STREAMING_LINKS.findIndex((al) => al.paramKey === key);
-    if (idx === -1) {
-      throw new Error(`Error: Unable to find paramKey '${key}' in ALBUM_STREAMING_LINKS`);
-    }
-    return new AlbumBroadcastLink({ idx, site: ALBUM_STREAMING_LINKS[idx].name, url });
-  });
-};
 
 describe("Generate album pages", () => {
   test("Simple", () => {
