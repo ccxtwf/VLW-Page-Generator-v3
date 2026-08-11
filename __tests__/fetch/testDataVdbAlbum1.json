@@ -1,0 +1,2528 @@
+{
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 28,
+        "name": "PinocchioP",
+        "pictureMime": "image/jpeg",
+        "status": "Approved",
+        "version": 40
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "PinocchioP",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 1,
+        "name": "Hatsune Miku",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-08-31T00:00:00Z",
+        "status": "Locked",
+        "version": 39
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "カレント, KarenT",
+        "artistType": "Label",
+        "deleted": false,
+        "id": 276,
+        "name": "KARENT",
+        "pictureMime": "image/jpeg",
+        "status": "Locked",
+        "version": 28
+      },
+      "categories": "Label",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "KARENT",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク Append (Dark)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 75,
+        "name": "Hatsune Miku Append (Dark)",
+        "pictureMime": "image/png",
+        "releaseDate": "2010-04-30T00:00:00Z",
+        "status": "Locked",
+        "version": 23
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku Append (Dark)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク Append (Solid)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 76,
+        "name": "Hatsune Miku Append (Solid)",
+        "pictureMime": "image/png",
+        "releaseDate": "2010-04-30T00:00:00Z",
+        "status": "Locked",
+        "version": 20
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku Append (Solid)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "結月ゆかり",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 623,
+        "name": "Yuzuki Yukari",
+        "pictureMime": "image/png",
+        "releaseDate": "2011-12-22T00:00:00Z",
+        "status": "Locked",
+        "version": 40
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Yuzuki Yukari",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音リン, 鏡音鈴, 카가미네 린, 镜音铃",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 14,
+        "name": "Kagamine Rin",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-12-27T00:00:00Z",
+        "status": "Locked",
+        "version": 36
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Rin",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "グミ, Megpoid, メグッポイド",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 3,
+        "name": "GUMI",
+        "pictureMime": "image/png",
+        "releaseDate": "2009-06-26T00:00:00Z",
+        "status": "Locked",
+        "version": 42
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "GUMI",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "女声1 (AquesTalk), Josei 1 (AquesTalk), Female 1 (AquesTalk), F1 (AquesTalk)",
+        "artistType": "OtherVoiceSynthesizer",
+        "deleted": false,
+        "id": 11830,
+        "name": "Female Voice 1 (AquesTalk)",
+        "releaseDate": "2006-05-25T00:00:00Z",
+        "status": "Finished",
+        "version": 48
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Female Voice 1 (AquesTalk)",
+      "roles": "Default"
+    }
+  ],
+  "artistString": "PinocchioP feat. various",
+  "catalogNumber": "PINO-0007",
+  "createDate": "2016-12-15T12:14:31",
+  "defaultName": "Comic and Cosmic",
+  "defaultNameLanguage": "English",
+  "discType": "Album",
+  "id": 21149,
+  "mainPicture": {
+    "mime": "image/jpeg",
+    "urlOriginal": "https://static.vocadb.net/img/Album/mainOrig/21149.jpg?v=37",
+    "urlSmallThumb": "https://static.vocadb.net/img/Album/mainSmall/21149.jpg?v=37",
+    "urlThumb": "https://static.vocadb.net/img/Album/mainThumb/21149.jpg?v=37",
+    "urlTinyThumb": "https://static.vocadb.net/img/Album/mainTiny/21149.jpg?v=37"
+  },
+  "name": "Comic and Cosmic",
+  "names": [
+    {
+      "language": "English",
+      "value": "Comic and Cosmic"
+    }
+  ],
+  "pvs": [
+    {
+      "author": "ピノキオピー",
+      "disabled": false,
+      "id": 20091,
+      "length": 0,
+      "name": "【C91】Comic and Cosmic / ピノキオピー【trailer】",
+      "pvId": "sm30228946",
+      "service": "NicoNicoDouga",
+      "pvType": "Original",
+      "url": "http://www.nicovideo.jp/watch/sm30228946"
+    },
+    {
+      "author": "ピノキオピー PINOCCHIOP OFFICIAL CHANNEL",
+      "disabled": false,
+      "id": 26192,
+      "length": 0,
+      "name": "PinocchioP - Indies 3rd & 4th Remastered Album「Comic and Cosmic」/ ピノキオピー [trailer]",
+      "publishDate": "2016-12-15T00:00:00",
+      "pvId": "in90fSCxGKs",
+      "service": "Youtube",
+      "pvType": "Original",
+      "url": "https://youtu.be/in90fSCxGKs"
+    }
+  ],
+  "ratingAverage": 4.34,
+  "ratingCount": 43,
+  "releaseDate": {
+    "day": 31,
+    "isEmpty": false,
+    "month": 12,
+    "year": 2016
+  },
+  "status": "Approved",
+  "tracks": [
+    {
+      "discNumber": 1,
+      "id": 133313,
+      "name": "Floating Shelter",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834755,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834756,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T22:52:46.773",
+        "defaultName": "Floating Shelter",
+        "defaultNameLanguage": "English",
+        "favoritedTimes": 2,
+        "id": 308163,
+        "lengthSeconds": 224,
+        "name": "Floating Shelter",
+        "originalVersionId": 13875,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 16,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 1,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133314,
+      "name": "At the Mercy of Emptiness",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834757,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834758,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T22:55:22.38",
+        "defaultName": "からっぽのまにまに",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 4,
+        "id": 308164,
+        "lengthSeconds": 229,
+        "name": "At the Mercy of Emptiness",
+        "originalVersionId": 9205,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 18,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 2,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 85789,
+      "name": "Dream Cat",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 357955,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 357956,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "結月ゆかり",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 623,
+              "name": "Yuzuki Yukari",
+              "pictureMime": "image/png",
+              "releaseDate": "2011-12-22T00:00:00Z",
+              "status": "Locked",
+              "version": 40
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 357957,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Yuzuki Yukari",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku, Yuzuki Yukari",
+        "createDate": "2017-02-27T11:59:25",
+        "defaultName": "ユメネコ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 150106,
+        "lengthSeconds": 251,
+        "name": "Dream Cat",
+        "originalVersionId": 3340,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 9,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 6,
+        "cultureCodes": []
+      },
+      "trackNumber": 3,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133315,
+      "name": "tel tel",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834759,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834760,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T22:58:28.07",
+        "defaultName": "tel tel",
+        "defaultNameLanguage": "English",
+        "favoritedTimes": 1,
+        "id": 308165,
+        "lengthSeconds": 190,
+        "name": "tel tel",
+        "originalVersionId": 11832,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 7,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 4,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133316,
+      "name": "OZ",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834761,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834762,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:00:18.597",
+        "defaultName": "OZ",
+        "defaultNameLanguage": "English",
+        "favoritedTimes": 2,
+        "id": 308166,
+        "lengthSeconds": 352,
+        "name": "OZ",
+        "originalVersionId": 11833,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 14,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 5,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133317,
+      "name": "Rotten Heresy and Chocolate",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834763,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834764,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:04:01.443",
+        "defaultName": "腐れ外道とチョコレゐト",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 6,
+        "id": 308167,
+        "lengthSeconds": 196,
+        "name": "Rotten Heresy and Chocolate",
+        "originalVersionId": 136,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 38,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 6,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133318,
+      "name": "Transparency",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834765,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834766,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:05:53.497",
+        "defaultName": "とうめい",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 308168,
+        "lengthSeconds": 206,
+        "name": "Transparency",
+        "originalVersionId": 11834,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 7,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 7,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133319,
+      "name": "I Just Hate People",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834767,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク Append (Solid)",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 76,
+              "name": "Hatsune Miku Append (Solid)",
+              "pictureMime": "image/png",
+              "releaseDate": "2010-04-30T00:00:00Z",
+              "status": "Locked",
+              "version": 20
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 1898155,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku Append (Solid)",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku Append (Solid)",
+        "createDate": "2020-12-25T23:07:47.83",
+        "defaultName": "人間なんか大嫌い",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 5,
+        "id": 308169,
+        "lengthSeconds": 249,
+        "name": "I Just Hate People",
+        "originalVersionId": 11835,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 23,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 5,
+        "cultureCodes": []
+      },
+      "trackNumber": 8,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133320,
+      "name": "Mutant in Love",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834769,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834770,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:10:28.26",
+        "defaultName": "恋するミュータント",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 308170,
+        "lengthSeconds": 220,
+        "name": "Mutant in Love",
+        "originalVersionId": 11836,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 7,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 9,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 95055,
+      "name": "Happy Very Happy",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 438334,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 438335,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "女声1 (AquesTalk), Josei 1 (AquesTalk), Female 1 (AquesTalk), F1 (AquesTalk)",
+              "artistType": "OtherVoiceSynthesizer",
+              "deleted": false,
+              "id": 11830,
+              "name": "Female Voice 1 (AquesTalk)",
+              "releaseDate": "2006-05-25T00:00:00Z",
+              "status": "Finished",
+              "version": 48
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 438336,
+            "isCustomName": false,
+            "isSupport": true,
+            "name": "Female Voice 1 (AquesTalk)",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2017-11-25T20:44:40",
+        "defaultName": "はっぴーべりーはっぴー",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 3,
+        "id": 175618,
+        "lengthSeconds": 366,
+        "name": "Happy Very Happy",
+        "originalVersionId": 11837,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 11,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 6,
+        "cultureCodes": []
+      },
+      "trackNumber": 10,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133321,
+      "name": "Paradise",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834771,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834772,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:13:11.073",
+        "defaultName": "Paraíso",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308171,
+        "lengthSeconds": 178,
+        "name": "Paradise",
+        "originalVersionId": 11838,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 14,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 11,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133322,
+      "name": "Vague",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834773,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834774,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:15:28.377",
+        "defaultName": "アイマイナ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308172,
+        "lengthSeconds": 313,
+        "name": "Vague",
+        "originalVersionId": 2714,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 10,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 12,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133323,
+      "name": "Goodbye, Mr. Spirit",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834775,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834776,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:18:00.297",
+        "defaultName": "さよなら、たましいさん",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 308173,
+        "lengthSeconds": 285,
+        "name": "Goodbye, Mr. Spirit",
+        "originalVersionId": 11839,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 7,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 13,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 133324,
+      "name": "Doushite-chan's Theme",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834777,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834778,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:20:01.187",
+        "defaultName": "どうしてちゃんのテーマ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308174,
+        "lengthSeconds": 207,
+        "name": "Doushite-chan's Theme",
+        "originalVersionId": 11840,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 14,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 14,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 85080,
+      "name": "Mannerism",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 347149,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク Append (Dark)",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 75,
+              "name": "Hatsune Miku Append (Dark)",
+              "pictureMime": "image/png",
+              "releaseDate": "2010-04-30T00:00:00Z",
+              "status": "Locked",
+              "version": 23
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 874914,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku Append (Dark)",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク Append (Solid)",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 76,
+              "name": "Hatsune Miku Append (Solid)",
+              "pictureMime": "image/png",
+              "releaseDate": "2010-04-30T00:00:00Z",
+              "status": "Locked",
+              "version": 20
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 874915,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku Append (Solid)",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku Append (Dark), Hatsune Miku Append (Solid)",
+        "createDate": "2017-01-21T22:39:00",
+        "defaultName": "マンネリズム",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 146748,
+        "lengthSeconds": 208,
+        "name": "Mannerism",
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 19,
+        "songType": "Original",
+        "status": "Finished",
+        "version": 9,
+        "cultureCodes": ["ja"]
+      },
+      "trackNumber": 15,
+      "computedCultureCodes": ["ja"]
+    },
+    {
+      "discNumber": 2,
+      "id": 133325,
+      "name": "'Cause I'm a Dreg Too",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834779,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834780,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "女声1 (AquesTalk), Josei 1 (AquesTalk), Female 1 (AquesTalk), F1 (AquesTalk)",
+              "artistType": "OtherVoiceSynthesizer",
+              "deleted": false,
+              "id": 11830,
+              "name": "Female Voice 1 (AquesTalk)",
+              "releaseDate": "2006-05-25T00:00:00Z",
+              "status": "Finished",
+              "version": 48
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834781,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Female Voice 1 (AquesTalk)",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku, Female Voice 1 (AquesTalk)",
+        "createDate": "2020-12-25T23:30:39.25",
+        "defaultName": "ぼくも屑だから",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 4,
+        "id": 308175,
+        "lengthSeconds": 273,
+        "name": "'Cause I'm a Dreg Too",
+        "originalVersionId": 42967,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 22,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 1,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133326,
+      "name": "Whole Lotta No's",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834782,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834783,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:33:04.297",
+        "defaultName": "胸いっぱいのダメを",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 308176,
+        "lengthSeconds": 242,
+        "name": "Whole Lotta No's",
+        "originalVersionId": 41705,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 9,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 2,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133327,
+      "name": "Tho",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834784,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834785,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:34:21.94",
+        "defaultName": "ニナ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308177,
+        "lengthSeconds": 208,
+        "name": "Tho",
+        "originalVersionId": 42901,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 12,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 3,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133328,
+      "name": "Weekly Shounen BYE-BYE",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "鏡音リン, 鏡音鈴, 카가미네 린, 镜音铃",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 14,
+              "name": "Kagamine Rin",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-12-27T00:00:00Z",
+              "status": "Locked",
+              "version": 36
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834786,
+            "isCustomName": false,
+            "isSupport": true,
+            "name": "Kagamine Rin",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834787,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834788,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:36:52.5",
+        "defaultName": "週刊少年バイバイ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 3,
+        "id": 308178,
+        "lengthSeconds": 204,
+        "name": "Weekly Shounen BYE-BYE",
+        "originalVersionId": 16289,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 19,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 4,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133329,
+      "name": "Scalpel",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834789,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834790,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:38:31.763",
+        "defaultName": "m/es",
+        "defaultNameLanguage": "Romaji",
+        "favoritedTimes": 3,
+        "id": 308179,
+        "lengthSeconds": 220,
+        "name": "Scalpel",
+        "originalVersionId": 19256,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 21,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 5,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133330,
+      "name": "Funny Face! -miku ver.-",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834791,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834792,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:47:09.91",
+        "defaultName": "アッカンベーダ -miku ver.-",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308180,
+        "lengthSeconds": 266,
+        "name": "Funny Face! -miku ver.-",
+        "originalVersionId": 42968,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 12,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 6,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133331,
+      "name": "What Children are Made of",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834793,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834794,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:49:18.09",
+        "defaultName": "こどものしくみ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 3,
+        "id": 308181,
+        "lengthSeconds": 250,
+        "name": "What Children are Made of",
+        "originalVersionId": 36166,
+        "publishDate": "2014-12-03T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 23,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 6,
+        "cultureCodes": []
+      },
+      "trackNumber": 7,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 97566,
+      "name": "Strange Animal",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 454897,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 454898,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2018-01-12T22:55:07",
+        "defaultName": "ストレンジアニマル",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 4,
+        "id": 181032,
+        "lengthSeconds": 204,
+        "name": "Strange Animal",
+        "originalVersionId": 35768,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 22,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 8,
+        "cultureCodes": []
+      },
+      "trackNumber": 8,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133332,
+      "name": "Frogs' Song",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834795,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "鏡音リン, 鏡音鈴, 카가미네 린, 镜音铃",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 14,
+              "name": "Kagamine Rin",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-12-27T00:00:00Z",
+              "status": "Locked",
+              "version": 36
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834797,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Kagamine Rin",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Kagamine Rin",
+        "createDate": "2020-12-25T23:51:43.133",
+        "defaultName": "かえるたちのうた",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 1,
+        "id": 308182,
+        "lengthSeconds": 265,
+        "name": "Frogs' Song",
+        "originalVersionId": 11770,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 7,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 9,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 83011,
+      "name": "Planet Masshirake",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 92826,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 92933,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "齊藤雄磨, Saitou Yuuma, サイトウユウマ, はっぴ太朗",
+              "artistType": "Animator",
+              "deleted": false,
+              "id": 3327,
+              "name": "Yuma Saito",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Animator, Illustrator",
+            "effectiveRoles": "Animator, Illustrator",
+            "id": 341955,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Yuma Saito",
+            "roles": "Animator, Illustrator"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2013-11-03T12:59:11",
+        "defaultName": "遊星まっしらけ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 8,
+        "id": 42969,
+        "lengthSeconds": 231,
+        "name": "Planet Masshirake",
+        "originalVersionId": 145124,
+        "publishDate": "2016-12-25T00:00:00Z",
+        "pvServices": "NicoNicoDouga, Youtube, Bandcamp",
+        "ratingScore": 44,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 18,
+        "cultureCodes": []
+      },
+      "trackNumber": 10,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133333,
+      "name": "Lonely UFO",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834798,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834799,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:54:27.33",
+        "defaultName": "ひとりぼっちのユーエフオー",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 4,
+        "id": 308183,
+        "lengthSeconds": 251,
+        "name": "Lonely UFO",
+        "originalVersionId": 32994,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 24,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 5,
+        "cultureCodes": []
+      },
+      "trackNumber": 11,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133334,
+      "name": "I Forgot Why",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834800,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834801,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:56:09.94",
+        "defaultName": "忘れちゃったのどうして",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308184,
+        "lengthSeconds": 376,
+        "name": "I Forgot Why",
+        "originalVersionId": 42970,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 8,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 5,
+        "cultureCodes": []
+      },
+      "trackNumber": 12,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133335,
+      "name": "Game Specter 2",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834802,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834803,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-25T23:57:38.423",
+        "defaultName": "ゲームスペクター2",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 2,
+        "id": 308185,
+        "lengthSeconds": 289,
+        "name": "Game Specter 2",
+        "originalVersionId": 26440,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 12,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 13,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 133336,
+      "name": "Perverted Human",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 834804,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 834805,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2020-12-26T00:00:19.403",
+        "defaultName": "スケベニンゲン",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 3,
+        "id": 308186,
+        "lengthSeconds": 233,
+        "name": "Perverted Human",
+        "originalVersionId": 5200,
+        "publishDate": "2016-12-31T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 19,
+        "songType": "Remaster",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 14,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 2,
+      "id": 83016,
+      "name": "Fun Homework",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 338313,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 28,
+              "name": "PinocchioP",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 40
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 338314,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "PinocchioP",
+            "roles": "Default"
+          }
+        ],
+        "artistString": "PinocchioP feat. Hatsune Miku",
+        "createDate": "2016-12-15T12:30:08",
+        "defaultName": "たのしいホームワーク",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 4,
+        "id": 143261,
+        "lengthSeconds": 286,
+        "name": "Fun Homework",
+        "publishDate": "2016-12-28T00:00:00Z",
+        "pvServices": "Youtube, Bandcamp",
+        "ratingScore": 20,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 15,
+        "cultureCodes": []
+      },
+      "trackNumber": 15,
+      "computedCultureCodes": ["ja"]
+    }
+  ],
+  "version": 37,
+  "webLinks": [
+    {
+      "category": "Reference",
+      "description": "Website (Announcement)",
+      "disabled": false,
+      "id": 43272,
+      "url": "http://pinocchiop.com/news/287"
+    },
+    {
+      "category": "Commercial",
+      "description": "Amazon",
+      "disabled": false,
+      "id": 44416,
+      "url": "https://www.amazon.co.jp/dp/B01NAKFKSA/"
+    },
+    {
+      "category": "Commercial",
+      "description": "BOOTH",
+      "disabled": false,
+      "id": 45144,
+      "url": "https://pinocchiop.booth.pm/items/390002"
+    },
+    {
+      "category": "Commercial",
+      "description": "KarenT",
+      "disabled": true,
+      "id": 45322,
+      "url": "http://karent.jp/album/2019"
+    },
+    {
+      "category": "Commercial",
+      "description": "iTunes (JP)",
+      "disabled": true,
+      "id": 45323,
+      "url": "https://itunes.apple.com/jp/album/comic-and-cosmic/id1202806805?app=itunes"
+    },
+    {
+      "category": "Commercial",
+      "description": "AmazonMP3",
+      "disabled": false,
+      "id": 64824,
+      "url": "https://www.amazon.co.jp/%E3%83%94%E3%83%8E%E3%82%AD%E3%82%AA%E3%83%94%E3%83%BC/dp/B079JYF54G/"
+    },
+    {
+      "category": "Official",
+      "description": "Website",
+      "disabled": false,
+      "id": 64825,
+      "url": "http://pinocchiop.com/discography/300"
+    },
+    {
+      "category": "Commercial",
+      "description": "TuneCore",
+      "disabled": false,
+      "id": 64826,
+      "url": "https://linkco.re/qg9GzCa3"
+    },
+    {
+      "category": "Commercial",
+      "description": "iTunes (JP)",
+      "disabled": false,
+      "id": 64827,
+      "url": "https://itunes.apple.com/jp/album/1343834465"
+    },
+    {
+      "category": "Commercial",
+      "description": "iTunes (US)",
+      "disabled": false,
+      "id": 64828,
+      "url": "https://itunes.apple.com/us/album/1343834465"
+    },
+    {
+      "category": "Commercial",
+      "description": "Spotify",
+      "disabled": false,
+      "id": 64829,
+      "url": "https://open.spotify.com/album/3Ydz6UhhXxgsoj36DKSv9L"
+    },
+    {
+      "category": "Commercial",
+      "description": "YouTube Music",
+      "disabled": false,
+      "id": 64830,
+      "url": "https://music.youtube.com/playlist?list=OLAK5uy_lEg6rOZGRgRKv5_aXH7mI2jwdL6xDJEB4"
+    },
+    {
+      "category": "Commercial",
+      "description": "Bandcamp",
+      "disabled": false,
+      "id": 70938,
+      "url": "https://pinocchiop.bandcamp.com/album/comic-and-cosmic"
+    },
+    {
+      "category": "Reference",
+      "description": "Vocaloid Wiki",
+      "disabled": false,
+      "id": 90774,
+      "url": "https://vocaloid.fandom.com/wiki/Comic_and_Cosmic"
+    },
+    {
+      "category": "Commercial",
+      "description": "LINE MUSIC",
+      "disabled": false,
+      "id": 152669,
+      "url": "https://music.line.me/webapp/album/mb00000000015cb0ba"
+    },
+    {
+      "category": "Commercial",
+      "description": "Amazon (US)",
+      "disabled": false,
+      "id": 152670,
+      "url": "https://www.amazon.com/music/player/albums/B079K4V8N9"
+    },
+    {
+      "category": "Commercial",
+      "description": "ORICON MUSIC",
+      "disabled": false,
+      "id": 152671,
+      "url": "https://music.oricon.co.jp/php/cd/CdTop.php?cd=SPC01931081"
+    },
+    {
+      "category": "Commercial",
+      "description": "KKBOX",
+      "disabled": false,
+      "id": 152672,
+      "url": "https://www.kkbox.com/tw/tc/album/8qOCVLvFOgKctLgRxP"
+    },
+    {
+      "category": "Commercial",
+      "description": "dmusic.docomo",
+      "disabled": false,
+      "id": 152673,
+      "url": "https://dmusic.docomo.ne.jp/album/A2001164597"
+    },
+    {
+      "category": "Commercial",
+      "description": "TOWER RECORDS MUSIC",
+      "disabled": false,
+      "id": 152674,
+      "url": "https://music.tower.jp/album/detail/1009476937"
+    },
+    {
+      "category": "Commercial",
+      "description": "recochoku",
+      "disabled": false,
+      "id": 152675,
+      "url": "https://recochoku.jp/album/A2001164597"
+    },
+    {
+      "category": "Commercial",
+      "description": "Deezer",
+      "disabled": false,
+      "id": 152676,
+      "url": "https://www.deezer.com/en/album/78951802"
+    },
+    {
+      "category": "Commercial",
+      "description": "AWA",
+      "disabled": false,
+      "id": 152677,
+      "url": "https://s.awa.fm/album/09d394f32c13d2d07b76"
+    },
+    {
+      "category": "Commercial",
+      "description": "OTOTOY",
+      "disabled": false,
+      "id": 152678,
+      "url": "https://ototoy.jp/_/default/p/94998"
+    },
+    {
+      "category": "Commercial",
+      "description": "Music Store",
+      "disabled": false,
+      "id": 152679,
+      "url": "https://musicstore.auone.jp/s/album/2001164597/ALBUM"
+    },
+    {
+      "category": "Commercial",
+      "description": "MySound",
+      "disabled": false,
+      "id": 152680,
+      "url": "https://mysound.jp/album/202514/"
+    },
+    {
+      "category": "Commercial",
+      "description": "mora",
+      "disabled": false,
+      "id": 152681,
+      "url": "https://mora.jp/package/43000074/TCJPR0000418438/"
+    },
+    {
+      "category": "Commercial",
+      "description": "dhits.docomo",
+      "disabled": false,
+      "id": 152682,
+      "url": "https://dhits.docomo.ne.jp/music/1009476938"
+    },
+    {
+      "category": "Commercial",
+      "description": "Spotify",
+      "disabled": false,
+      "id": 233772,
+      "url": "https://open.spotify.com/album/0rclMLKSwOEJ9I7xauRFbF"
+    },
+    {
+      "category": "Commercial",
+      "description": "TIDAL",
+      "disabled": false,
+      "id": 233773,
+      "url": "https://tidal.com/album/321058292"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "additionalNames": "ピノキオピー, ピノキオP, 工藤大発見, DAIHAKKEN, Kudou Daihakken, 匹诺曹P, 피노키오피, 昆布, Konbu",
+  "artistLinks": [
+    {
+      "artist": {
+        "additionalNames": "ガスコンロ, ガスコンロ[こ][け][し]",
+        "artistType": "Circle",
+        "deleted": false,
+        "id": 15888,
+        "name": "GASCONRO",
+        "status": "Finished",
+        "version": 5
+      },
+      "linkType": "Group"
+    },
+    {
+      "artist": {
+        "additionalNames": "カレント, KarenT",
+        "artistType": "Label",
+        "deleted": false,
+        "id": 276,
+        "name": "KARENT",
+        "pictureMime": "image/jpeg",
+        "status": "Locked",
+        "version": 28
+      },
+      "linkType": "Group"
+    },
+    {
+      "artist": {
+        "additionalNames": "ふぬけ",
+        "artistType": "Circle",
+        "deleted": false,
+        "id": 9456,
+        "name": "Funuke",
+        "status": "Draft",
+        "version": 3
+      },
+      "linkType": "Group"
+    },
+    {
+      "artist": {
+        "additionalNames": "UMAA, United Music And Arts, Third-Ear JPN, ユーマ",
+        "artistType": "Label",
+        "deleted": false,
+        "id": 393,
+        "name": "U/M/A/A",
+        "pictureMime": "image/jpeg",
+        "status": "Approved",
+        "version": 11
+      },
+      "linkType": "Group"
+    }
+  ],
+  "artistType": "Producer",
+  "createDate": "2011-07-31T00:00:00",
+  "defaultName": "ピノキオピー",
+  "defaultNameLanguage": "Japanese",
+  "description": "A Vocaloid producer known for the fast paced and unique lyrics in his songs and his unique characters such as [Aimaina-chan](https://vocadb.net/T/8644/aimaina-chan) and [Doushite-chan](https://vocadb.net/T/8643/doushite-chan).\nHis producer name comes from his first song [Hummed Song (Hana Uta)](https://vocadb.net/S/10493), which literally means \"nose song\".\n\n+ He collaborated with a cafe named [Shuminova](https://web.archive.org/web/*/https://shuminova.net) to create [Pinocchio-Tei](https://web.archive.org/web/*/https://shuminova.net/pinova).",
+  "id": 28,
+  "mainPicture": {
+    "mime": "image/jpeg",
+    "urlOriginal": "https://static.vocadb.net/img/Artist/mainOrig/28.jpg?v=40",
+    "urlSmallThumb": "https://static.vocadb.net/img/Artist/mainSmall/28.jpg?v=40",
+    "urlThumb": "https://static.vocadb.net/img/Artist/mainThumb/28.jpg?v=40",
+    "urlTinyThumb": "https://static.vocadb.net/img/Artist/mainTiny/28.jpg?v=40"
+  },
+  "name": "PinocchioP",
+  "pictureMime": "image/jpeg",
+  "status": "Approved",
+  "version": 40,
+  "webLinks": [
+    {
+      "category": "Reference",
+      "description": "MikuWiki",
+      "disabled": false,
+      "id": 1771,
+      "url": "https://w.atwiki.jp/hmiku/pages/4671.html"
+    },
+    {
+      "category": "Official",
+      "description": "NND MyList",
+      "disabled": false,
+      "id": 1772,
+      "url": "https://www.nicovideo.jp/mylist/11284855"
+    },
+    {
+      "category": "Official",
+      "description": "NND MyList (collabs)",
+      "disabled": false,
+      "id": 1773,
+      "url": "https://www.nicovideo.jp/mylist/14716117"
+    },
+    {
+      "category": "Official",
+      "description": "Piapro",
+      "disabled": false,
+      "id": 1775,
+      "url": "https://piapro.jp/pinokiop"
+    },
+    {
+      "category": "Commercial",
+      "description": "KARENT",
+      "disabled": false,
+      "id": 1776,
+      "url": "https://karent.jp/artist/pp000236"
+    },
+    {
+      "category": "Official",
+      "description": "Twitter",
+      "disabled": false,
+      "id": 5885,
+      "url": "https://twitter.com/pinocchiop"
+    },
+    {
+      "category": "Official",
+      "description": "Pixiv",
+      "disabled": false,
+      "id": 5886,
+      "url": "https://www.pixiv.net/member.php?id=1746464"
+    },
+    {
+      "category": "Official",
+      "description": "NND Account",
+      "disabled": false,
+      "id": 21051,
+      "url": "https://www.nicovideo.jp/user/865591"
+    },
+    {
+      "category": "Reference",
+      "description": "UtaiteDB",
+      "disabled": false,
+      "id": 61743,
+      "url": "https://utaitedb.net/Ar/1525"
+    },
+    {
+      "category": "Official",
+      "description": "Facebook",
+      "disabled": false,
+      "id": 61920,
+      "url": "https://www.facebook.com/pinocchiop.official"
+    },
+    {
+      "category": "Reference",
+      "description": "NicoNicoPedia",
+      "disabled": false,
+      "id": 94114,
+      "url": "https://dic.nicovideo.jp/a/ピノキオP"
+    },
+    {
+      "category": "Reference",
+      "description": "Vocaloid Wiki",
+      "disabled": false,
+      "id": 94115,
+      "url": "https://vocaloid.wikia.com/wiki/Pinocchio-P"
+    },
+    {
+      "category": "Official",
+      "description": "Website",
+      "disabled": false,
+      "id": 115405,
+      "url": "https://pinocchiop.com/"
+    },
+    {
+      "category": "Commercial",
+      "description": "BOOTH",
+      "disabled": false,
+      "id": 130272,
+      "url": "https://pinocchiop.booth.pm/"
+    },
+    {
+      "category": "Official",
+      "description": "Bilibili",
+      "disabled": false,
+      "id": 136307,
+      "url": "https://space.bilibili.com/203655966/#!/"
+    },
+    {
+      "category": "Official",
+      "description": "Weibo",
+      "disabled": false,
+      "id": 136308,
+      "url": "https://weibo.com/u/6356534323"
+    },
+    {
+      "category": "Commercial",
+      "description": "Spotify",
+      "disabled": false,
+      "id": 150568,
+      "url": "https://play.spotify.com/artist/3b7jPCedJ2VH4l4rcOTvNC"
+    },
+    {
+      "category": "Official",
+      "description": "YouTube Channel (Custom - user)",
+      "disabled": false,
+      "id": 150569,
+      "url": "https://www.youtube.com/user/pinocchiopchannel"
+    },
+    {
+      "category": "Official",
+      "description": "Instagram",
+      "disabled": false,
+      "id": 164185,
+      "url": "https://www.instagram.com/pinocchiop_official/"
+    },
+    {
+      "category": "Official",
+      "description": "YouTube Channel [DAIHAKKEN]",
+      "disabled": false,
+      "id": 191168,
+      "url": "https://www.youtube.com/channel/UCA-uf3L3crYzMsSbqRRLMwg"
+    },
+    {
+      "category": "Official",
+      "description": "Twitter [DAIHAKKEN]",
+      "disabled": false,
+      "id": 191169,
+      "url": "https://twitter.com/KudoDaihakken"
+    },
+    {
+      "category": "Official",
+      "description": "YouTube Channel",
+      "disabled": false,
+      "id": 214359,
+      "url": "https://www.youtube.com/channel/UCMMBGMjrrWcRZmG_lW4jC-Q"
+    },
+    {
+      "category": "Commercial",
+      "description": "Bandcamp",
+      "disabled": false,
+      "id": 224940,
+      "url": "https://pinocchiop.bandcamp.com/"
+    },
+    {
+      "category": "Commercial",
+      "description": "TuneCore Japan",
+      "disabled": false,
+      "id": 234878,
+      "url": "https://www.tunecore.co.jp/artists/pinocchiop"
+    },
+    {
+      "category": "Reference",
+      "description": "Wikipedia (CH)",
+      "disabled": false,
+      "id": 287317,
+      "url": "https://zh.wikipedia.org/zh-hans/匹诺曹P"
+    },
+    {
+      "category": "Official",
+      "description": "Bluesky",
+      "disabled": false,
+      "id": 343367,
+      "url": "https://bsky.app/profile/pinocchiop.bsky.social"
+    },
+    {
+      "category": "Official",
+      "description": "SoundCloud",
+      "disabled": false,
+      "id": 478477,
+      "url": "https://soundcloud.com/pinocchiop-music"
+    },
+    {
+      "category": "Reference",
+      "description": "Wikipedia (JP)",
+      "disabled": false,
+      "id": 509054,
+      "url": "https://ja.wikipedia.org/wiki/ピノキオピー"
+    },
+    {
+      "category": "Reference",
+      "description": "Wikipedia (EN)",
+      "disabled": false,
+      "id": 519738,
+      "url": "https://en.wikipedia.org/wiki/PinocchioP"
+    },
+    {
+      "category": "Official",
+      "description": "YouTube Channel (Custom - @)",
+      "disabled": false,
+      "id": 519739,
+      "url": "https://www.youtube.com/@pinocchiop"
+    }
+  ]
+}

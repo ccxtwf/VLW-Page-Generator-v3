@@ -1,0 +1,243 @@
+{
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "現実逃避P, GenjitsutouhiP",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 53,
+        "name": "wowaka",
+        "pictureMime": "image/png",
+        "status": "Approved",
+        "version": 45
+      },
+      "categories": "Producer, Illustrator",
+      "effectiveRoles": "Composer, Illustrator, Lyricist",
+      "id": 661,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "wowaka",
+      "roles": "Composer, Illustrator, Lyricist"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 1,
+        "name": "Hatsune Miku",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-08-31T00:00:00Z",
+        "status": "Locked",
+        "version": 39
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 662,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Hatsune Miku",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "グミ, Megpoid, メグッポイド",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 3,
+        "name": "GUMI",
+        "pictureMime": "image/png",
+        "releaseDate": "2009-06-26T00:00:00Z",
+        "status": "Locked",
+        "version": 42
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 2351107,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "GUMI",
+      "roles": "Default"
+    }
+  ],
+  "artistString": "wowaka feat. Hatsune Miku",
+  "createDate": "2011-11-01T22:10:01",
+  "defaultName": "ローリンガール",
+  "defaultNameLanguage": "Japanese",
+  "favoritedTimes": 782,
+  "id": 1501,
+  "lengthSeconds": 196,
+  "name": "Rollin' Girl",
+  "names": [
+    {
+      "language": "Japanese",
+      "value": "ローリンガール"
+    },
+    {
+      "language": "English",
+      "value": "Rollin' Girl"
+    },
+    {
+      "language": "Unspecified",
+      "value": "Rolling Girl"
+    },
+    {
+      "language": "Unspecified",
+      "value": "翻滚少女"
+    },
+    {
+      "language": "Unspecified",
+      "value": "롤링 걸"
+    }
+  ],
+  "publishDate": "2010-02-14T00:00:00Z",
+  "pvs": [
+    {
+      "author": "wowaka",
+      "description": "■wowakaです。　mylist/12484677　Web　http://www.hitorie.jp　Twitter　http://twitter.com/wowaka",
+      "disabled": false,
+      "id": 356640,
+      "length": 196,
+      "name": "初音ミク　オリジナル曲　「ローリンガール」",
+      "publishDate": "2010-02-14T00:00:00",
+      "pvId": "sm9714351",
+      "service": "NicoNicoDouga",
+      "pvType": "Original",
+      "thumbUrl": "https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351",
+      "url": "http://www.nicovideo.jp/watch/sm9714351"
+    },
+    {
+      "author": "ヒトリエ / wowaka",
+      "description": "wowakaです。\n\nWeb：http://www.hitorie.jp\nTwitter：http://twitter.com/wowaka\n\nWritten by wowaka\nProduced by wowaka\n\nIllustration ＆ Movie : wowaka",
+      "disabled": false,
+      "id": 356641,
+      "length": 197,
+      "name": "wowaka 『ローリンガール』feat. 初音ミク / wowaka - Rollin Girl (Official Video) ft. Hatsune Miku",
+      "publishDate": "2017-09-05T00:00:00",
+      "pvId": "vnw8zURAxkU",
+      "service": "Youtube",
+      "pvType": "Original",
+      "thumbUrl": "https://i.ytimg.com/vi/vnw8zURAxkU/default.jpg",
+      "url": "https://youtu.be/vnw8zURAxkU"
+    },
+    {
+      "author": "HATSUNE_MIKU",
+      "disabled": false,
+      "id": 356642,
+      "length": 199,
+      "name": "Hatsune miku - rolling girl",
+      "publishDate": "2012-07-22T00:00:00",
+      "pvId": "53691886 hatsune_uke/hatsune-miku-rolling-girl",
+      "service": "SoundCloud",
+      "pvType": "Reprint",
+      "thumbUrl": "https://i1.sndcdn.com/artworks-000027110327-z01o64-t500x500.jpg",
+      "url": "http://soundcloud.com/hatsune_uke/hatsune-miku-rolling-girl"
+    }
+  ],
+  "pvServices": "NicoNicoDouga, Youtube, SoundCloud",
+  "ratingScore": 3577,
+  "songType": "Original",
+  "status": "Approved",
+  "version": 39,
+  "webLinks": [
+    {
+      "category": "Reference",
+      "description": "NicoNicoPedia",
+      "disabled": false,
+      "id": 3988,
+      "url": "https://dic.nicovideo.jp/v/sm9714351"
+    },
+    {
+      "category": "Reference",
+      "description": "UtaiteDB",
+      "disabled": false,
+      "id": 6144,
+      "url": "http://utaitedb.net/S/2860"
+    },
+    {
+      "category": "Reference",
+      "description": "MikuWiki",
+      "disabled": false,
+      "id": 6145,
+      "url": "https://w.atwiki.jp/hmiku/pages/8759.html"
+    },
+    {
+      "category": "Reference",
+      "description": "Vocaloid Wiki",
+      "disabled": false,
+      "id": 65420,
+      "url": "https://vocaloid.fandom.com/wiki/ローリンガール_(Rolling_Girl)"
+    },
+    {
+      "category": "Reference",
+      "description": "Vocaloid Lyrics Wiki",
+      "disabled": false,
+      "id": 65421,
+      "url": "https://vocaloidlyrics.miraheze.org/wiki/ローリンガール_(Rolling_Girl)"
+    },
+    {
+      "category": "Reference",
+      "description": "Pixiv Encyclopedia",
+      "disabled": false,
+      "id": 82945,
+      "url": "https://dic.pixiv.net/a/ローリンガール"
+    },
+    {
+      "category": "Official",
+      "description": "Pixiv (Illustration)",
+      "disabled": false,
+      "id": 82946,
+      "url": "https://www.pixiv.net/artworks/10324371"
+    },
+    {
+      "category": "Reference",
+      "description": "Moegirlpedia",
+      "disabled": false,
+      "id": 82947,
+      "url": "https://zh.moegirl.org/Rolling_Girl"
+    },
+    {
+      "category": "Reference",
+      "description": "MusicBrainz (recording)",
+      "disabled": false,
+      "id": 166485,
+      "url": "https://musicbrainz.org/recording/fc4d953f-ba3e-4b28-a08d-e8c41099dca5"
+    },
+    {
+      "category": "Reference",
+      "description": "Namu Wiki",
+      "disabled": false,
+      "id": 166486,
+      "url": "https://namu.wiki/w/롤링 걸"
+    },
+    {
+      "category": "Reference",
+      "description": "Project SEKAI Wiki",
+      "disabled": false,
+      "id": 166487,
+      "url": "https://projectsekai.fandom.com/wiki/Rolling_Girl"
+    },
+    {
+      "category": "Reference",
+      "description": "Sekaipedia",
+      "disabled": false,
+      "id": 166488,
+      "url": "https://www.sekaipedia.org/wiki/Rollin'_Girl"
+    },
+    {
+      "category": "Reference",
+      "description": "RemyWiki",
+      "disabled": false,
+      "id": 166489,
+      "url": "https://remywiki.com/Rolling_girl"
+    },
+    {
+      "category": "Official",
+      "description": "Piapro (Instrumental)",
+      "disabled": true,
+      "id": 185469,
+      "url": "http://piapro.jp/content/oxbdzzrokaaqzcwp"
+    }
+  ],
+  "cultureCodes": ["ja"]
+}

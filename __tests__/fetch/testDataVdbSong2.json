@@ -1,0 +1,325 @@
+{
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "苍穹, 苍穹 (SynthV), 蒼穹, ツァンチォン, CangQiong, Cāng Qióng",
+        "artistType": "SynthesizerV",
+        "deleted": false,
+        "id": 73875,
+        "name": "Cangqiong",
+        "pictureMime": "image/png",
+        "releaseDate": "2019-07-09T00:00:00Z",
+        "status": "Finished",
+        "version": 28
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 737063,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Cangqiong",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "坐标P, ZuobiaoP, 建立坐标系ZYW, 老艾克",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 59572,
+        "name": "Coordinate-P",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 10
+      },
+      "categories": "Producer",
+      "effectiveRoles": "VoiceManipulator",
+      "id": 737064,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Coordinate-P",
+      "roles": "VoiceManipulator"
+    },
+    {
+      "artist": {
+        "additionalNames": "Mzf小慕, MzfXiaoMu",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 48756,
+        "name": "Mzf Xiaomu",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Arranger",
+      "id": 737065,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Mzf Xiaomu",
+      "roles": "Arranger"
+    },
+    {
+      "artist": {
+        "additionalNames": "麻薯映像, Mashu Yingxiang, 宁波麻薯文化传媒有限公司",
+        "artistType": "OtherGroup",
+        "deleted": false,
+        "id": 56527,
+        "name": "MOCHI IMAGE",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Animator",
+      "effectiveRoles": "Animator",
+      "id": 737066,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "MOCHI IMAGE",
+      "roles": "Animator"
+    },
+    {
+      "artist": {
+        "additionalNames": "二胡妹, Oo二胡妹oO",
+        "artistType": "OtherIndividual",
+        "deleted": false,
+        "id": 66915,
+        "name": "Erhu Mei",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "id": 737067,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Erhu Mei",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "赤羽, Chì Yǔ, 404, チーユ, ChiYu, 츠위",
+        "artistType": "SynthesizerV",
+        "deleted": false,
+        "id": 72386,
+        "name": "Chiyu",
+        "pictureMime": "image/png",
+        "releaseDate": "2019-04-19T00:00:00Z",
+        "status": "Finished",
+        "version": 41
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "id": 737068,
+      "isCustomName": false,
+      "isSupport": true,
+      "name": "Chiyu",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "塔库",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 56498,
+        "name": "KBShinya",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 14
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Composer",
+      "id": 737069,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "KBShinya",
+      "roles": "Composer"
+    },
+    {
+      "categories": "Illustrator",
+      "effectiveRoles": "Illustrator",
+      "id": 737080,
+      "isCustomName": true,
+      "isSupport": false,
+      "name": "酒绛子",
+      "roles": "Illustrator"
+    },
+    {
+      "categories": "Illustrator",
+      "effectiveRoles": "Illustrator",
+      "id": 737081,
+      "isCustomName": true,
+      "isSupport": false,
+      "name": "喜八斤",
+      "roles": "Illustrator"
+    },
+    {
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "id": 737082,
+      "isCustomName": true,
+      "isSupport": false,
+      "name": "囚牛",
+      "roles": "Instrumentalist"
+    },
+    {
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "id": 737083,
+      "isCustomName": true,
+      "isSupport": false,
+      "name": "Riyo",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "原生小白牛, 原生正太",
+        "artistType": "Illustrator",
+        "deleted": false,
+        "id": 76465,
+        "name": "原生不在",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 5
+      },
+      "categories": "Illustrator",
+      "effectiveRoles": "Illustrator",
+      "id": 897987,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "原生不在",
+      "roles": "Illustrator"
+    },
+    {
+      "artist": {
+        "additionalNames": "",
+        "artistType": "Lyricist",
+        "deleted": false,
+        "id": 76326,
+        "name": "骆栖淮",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 5
+      },
+      "categories": "Other",
+      "effectiveRoles": "Lyricist",
+      "id": 897988,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "骆栖淮",
+      "roles": "Lyricist"
+    },
+    {
+      "artist": {
+        "additionalNames": "Mr.曾经, Mr_曾经, Mr曾经",
+        "artistType": "OtherVocalist",
+        "deleted": false,
+        "id": 76466,
+        "name": "Mr. Cengjing",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 6
+      },
+      "categories": "Other",
+      "effectiveRoles": "Mixer",
+      "id": 897989,
+      "isCustomName": false,
+      "isSupport": false,
+      "name": "Mr. Cengjing",
+      "roles": "Mixer"
+    }
+  ],
+  "artistString": "KBShinya, Coordinate-P, Mzf Xiaomu feat. Cangqiong",
+  "createDate": "2020-04-01T05:13:35.893",
+  "defaultName": "木兰行",
+  "defaultNameLanguage": "Japanese",
+  "favoritedTimes": 8,
+  "id": 276852,
+  "lengthSeconds": 210,
+  "name": "Ballad of Mulan",
+  "names": [
+    {
+      "language": "Japanese",
+      "value": "木兰行"
+    },
+    {
+      "language": "English",
+      "value": "Ballad of Mulan"
+    },
+    {
+      "language": "Unspecified",
+      "value": "The Travels of Mulan"
+    },
+    {
+      "language": "Unspecified",
+      "value": "Journey of Mulan"
+    },
+    {
+      "language": "Romaji",
+      "value": "Mùlán Háng"
+    }
+  ],
+  "publishDate": "2020-04-01T00:00:00Z",
+  "pvs": [
+    {
+      "author": "忘川风华录",
+      "description": "总策划：木宁木蒙\n企划运营：塔库、炸三宝\n监制：顾雪柔\n作曲：塔库 | 作词：骆栖淮 | 编曲：Mzf小慕 |和声编写：雾敛\n演唱：苍穹 | 调教：坐标P | 混音：Mr.曾经 | 二胡：二胡妹 | 吉他：Riyo| 笛子/箫：囚牛\n视频：麻薯映像\n曲绘：原生正太（关山度若飞）| 酒绛子（从此替爷征）| 喜八斤（将军百战死/对镜贴花黄）\n书法：朔辰-Eric（标题）\n“昔为烈士雄，今为娇子容。亲戚持酒贺父母，始知生女与男同。”\n前作助攻 【青鸟衔风】BV1tJ411r793【天下局】BV1z4411q74Y【竹林间】BV1Xx411f7SU【如见青山】BV1ab411g7Fb【祖龙吟】BV11b411k7ym【心上秋】BV1Ht411y7Ug【栖凰】BV1Tt411o74P【簪花人间】BV1BW411r7h4【山河令】BV1UW41197Wk【易水诀】BV1Cs411A7gd 【洛阳怀】BV1ds411H7hb 【多情岸】BV1Hs41177ZZ",
+      "disabled": false,
+      "extendedMetadata": {
+        "json": "{\"Aid\":837540509,\"Bvid\":\"BV1Gg4y1a7vg\",\"Cid\":171692304}"
+      },
+      "id": 396772,
+      "length": 210,
+      "name": "【苍穹原创】木兰行【忘川风华录】",
+      "publishDate": "2020-04-01T00:00:00",
+      "pvId": "837540509",
+      "service": "Bilibili",
+      "pvType": "Original",
+      "thumbUrl": "http://i0.hdslb.com/bfs/archive/d5c0189aaa72c7a043b24f4e651222227e273dd6.jpg",
+      "url": "https://www.bilibili.com/video/av837540509"
+    },
+    {
+      "author": "我是人",
+      "description": "总策划：木宁木蒙\n企划运营：塔库、炸三宝\n监制：卿雅、顾雪柔\n作曲：塔库 | 作词：骆栖淮 | 编曲：Mzf小慕 |和声编写：雾敛\n演唱：苍穹 | 调教：坐标P | 混音：Mr.曾经 | 二胡：二胡妹 | 吉他：Riyo| 笛子/箫：囚牛\n视频：麻薯映像\n曲绘：原生正太（关山度若飞）| 酒绛子（从此替爷征）| 喜八斤（将军百战死/对镜贴花黄）\n书法：朔辰-Eric（标题）\n“昔为烈士雄，今为娇子容。亲戚持酒贺父母，始知生女与男同。”\n\n杀伐阵云密布 红缨猎火 惹天命谁主\n挥军千营共呼 交锋擂鼓 弯弓折眉目\n抛掷前生如故 洗净明珠 不屑荣辱\n豪气力挽山湖 春风代渡\n\n游丝投机杼 木兰当户 为拆解歧途\n辛勤换罗幕 开眼将扶 不见惭辜\n腻粉下尘土 行规百弊 纵是弃之又何如\n卸发拔剑舞 竟披戎服 慷慨奔赴\n\n扬鞭策过江湖\n仰望天地朝暮\n黄沙涌没马足\n随处是白骨\n我见朔风吹拂\n我见胡骑报复\n都化作一剑出\n\n杀伐阵云密布 红缨猎火 惹天命谁主\n挥军千营共呼 交锋擂鼓 弯弓折眉目\n抛掷前生如故 洗净明珠 不屑荣辱\n豪气力挽山湖 春风代渡\n\n领万里归复 天子面晤 策勋转高途\n认功勇封付 拒以尚书 隆恩不赴\n打马还家故 裳钗妆梳 对镜而视知者无\n谓旁人于我 安能痛饮 倾杯交互\n\n扬鞭策过江湖\n仰望天地朝暮\n黄沙涌没马足\n随处是白骨\n我见朔风吹拂\n我见胡骑报复\n都化作一剑出\n\n杀伐阵云密布 红缨猎火 惹天命谁主\n挥军千营共呼 交锋擂鼓 弯弓折眉目\n抛掷前生如故 洗净明珠 不屑荣辱\n豪气力挽山湖 春风代渡\n\n环顾苍生悲苦 倦鸟啼哭 荒凉聚坟土\n深陷百战桎梏 旌旗凋卒 滑簪仗剑除\n此去衣冠翻覆 心性犹固 浩然称怒\n何惧生死长物 一往前无",
+      "disabled": false,
+      "id": 1120433,
+      "length": 210,
+      "name": "【苍穹原创】木兰行【忘川风华录】",
+      "publishDate": "2020-04-01T00:00:00",
+      "pvId": "c-ySybwtJxc",
+      "service": "Youtube",
+      "pvType": "Reprint",
+      "thumbUrl": "https://i.ytimg.com/vi/c-ySybwtJxc/default.jpg",
+      "url": "https://youtu.be/c-ySybwtJxc"
+    }
+  ],
+  "pvServices": "Youtube, Bilibili",
+  "ratingScore": 46,
+  "songType": "Original",
+  "status": "Finished",
+  "version": 13,
+  "webLinks": [
+    {
+      "category": "Official",
+      "description": "NCM Song Release",
+      "disabled": false,
+      "id": 100406,
+      "url": "https://music.163.com/#/song?id=1436879629"
+    },
+    {
+      "category": "Commercial",
+      "description": "Spotify",
+      "disabled": false,
+      "id": 138494,
+      "url": "https://open.spotify.com/track/2Imuj7wNo9J1EVdNWcXXmB"
+    },
+    {
+      "category": "Official",
+      "description": "NCM Song Release (Instrumental)",
+      "disabled": false,
+      "id": 138507,
+      "url": "https://music.163.com/#/song?id=1436879980"
+    }
+  ],
+  "cultureCodes": ["zh"]
+}
