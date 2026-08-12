@@ -88,10 +88,10 @@ export function convertTwitterLink(url: string) {
 export function getOtherMediaWikiPageName(url: string, articlePath: string): string | null {
   const rx = new RegExp(`^${escapeRegExp(articlePath)}([^?]+)`);
   const m = rx.exec(url);
-  if (!m || !m.groups) {
+  if (!m) {
     return null;
   }
-  return m.groups[1];
+  return m[1].replaceAll(/_/g, " ");
 }
 
 /**

@@ -452,6 +452,9 @@ export async function fetchDataFromVocaDb(
     let idx = ALBUM_STREAMING_LINKS.findIndex(({ regex }) => {
       return regex.exec(url) !== null;
     });
+    if (idx < 0) {
+      return;
+    }
     const o = officialStreaming[idx];
     if (!o.url) {
       o.url = url;
