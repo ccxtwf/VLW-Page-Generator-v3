@@ -501,7 +501,7 @@ export async function fetchDataFromVocaDb(
         vocaWikiPage = getOtherMediaWikiPageName(url, VOCALOID_WIKI_ARTICLE_ENTRYPOINT) || "";
       }
     }
-    extLinks.push(new ExternalLink({ url, description, isOfficial, isInactive: false }));
+    extLinks.push(new ExternalLink({ url, description, isOfficial, isInactive: link.disabled }));
 
     /**
      * Add as an official streaming link if a match is found
