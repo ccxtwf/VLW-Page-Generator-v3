@@ -460,4 +460,97 @@ describe("fetchDataFromVocaDb - albums", () => {
       `https://vocadb.net/api/albums/21149?fields=MainPicture%2CNames%2CPVs%2CArtists%2CTracks%2CWebLinks&songFields=Artists&lang=English&origin=${process.env.VITE_REFER_FROM_ORIGIN}`,
     );
   });
+
+  test("case 2", async () => {
+    const json = readFileSync(resolve(__dirname, "./testDataVdbAlbum2.json"), {
+      encoding: "utf-8",
+      flag: "r",
+    });
+    const fetchMock = vi.fn().mockResolvedValue(new Response(json));
+
+    vi.stubGlobal("fetch", fetchMock);
+
+    const entity = await fetchDataFromVocaDb("https://vocadb.net/Al/51089");
+    const expected = {
+      origTitle: "初音ミク「マジカルミライ 2025」ライブ音源CD",
+      romTitle: 'Hatsune Miku "Magical Mirai 2025" Live Ongen CD',
+      engTitle: "Hatsune Miku Magical Mirai 2025 Live CD",
+      label: "Crypton Future Media",
+      description: "a compilation album",
+      isCompilationAlbum: true,
+      publishedYear: "2026",
+      publishedMonth: "February",
+      publishedDay: "4",
+      engines: mapEngines("VOCALOID", "Piapro Studio"),
+      vdbAlbumId: "51089",
+      vocaWikiPage: "",
+      categoriesRaw: "",
+      tracklist: [
+        new AlbumTrackData({
+          discNo: 1,
+          trackNo: 1,
+          pageTitle: "メテオ",
+          producerCredit: "John",
+          singerCredit: "[[Hatsune Miku (VOCALOID)]]",
+        }),
+        new AlbumTrackData({
+          discNo: 1,
+          trackNo: 2,
+          pageTitle: "Flyway",
+          producerCredit: "halyosy",
+          singerCredit: "[[Kagamine Len (VOCALOID)]] and [[KAITO]]",
+        }),
+        new AlbumTrackData({
+          discNo: 1,
+          trackNo: 3,
+          pageTitle: "黙ってロックをやれって言ってんの！",
+          producerCredit: "Nekotachi Kotatsu",
+          singerCredit:
+            "[[Hatsune Miku (Piapro Studio)]], [[Megurine Luka]], [[MEIKO]] and [[Kagamine Rin (VOCALOID)]]",
+        }),
+        new AlbumTrackData({
+          discNo: 1,
+          trackNo: 4,
+          pageTitle: "ストリートライト",
+          producerCredit: "Negi ShowerP",
+          singerCredit: "Hatsune Miku, Megurine Luka, Kagamine Rin, Kagamine Len, KAITO and MEIKO",
+        }),
+        new AlbumTrackData({
+          discNo: 1,
+          trackNo: 5,
+          pageTitle: "ラストラス",
+          producerCredit: "*Luna",
+          singerCredit: "Hatsune Miku",
+        }),
+      ],
+      broadcastLinks: mapAlbumBroadcastLink(),
+      extLinks: [
+        new ExternalLink({
+          url: "https://x.com/magicalmirai/status/1995055199832969385/photo/1",
+          description: "X (Twitter)",
+          isOfficial: true,
+        }),
+      ],
+      image: {
+        type: ENUM_IMAGE_EMBED_SOURCE_TYPE.vdb,
+        src: "https://static.vocadb.net/img/Album/mainOrig/51089.jpg?v=9",
+        alt: "Album cover image on VocaDB",
+      },
+    };
+
+    expect(entity).toEqual(expected);
+    expect(entity.tracklist.map((el) => el.toJSON())).toEqual(
+      expected.tracklist.map((el) => el.toJSON()),
+    );
+    expect(entity.broadcastLinks.map((el) => el.toJSON())).toEqual(
+      expected.broadcastLinks.map((el) => el.toJSON()),
+    );
+    expect(entity.extLinks.map((el) => el.toJSON())).toEqual(
+      expected.extLinks.map((el) => el.toJSON()),
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      `https://vocadb.net/api/albums/51089?fields=MainPicture%2CNames%2CPVs%2CArtists%2CTracks%2CWebLinks&songFields=Artists&lang=English&origin=${process.env.VITE_REFER_FROM_ORIGIN}`,
+    );
+  });
 });

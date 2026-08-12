@@ -1,0 +1,1638 @@
+{
+  "artists": [
+    {
+      "artist": {
+        "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 1,
+        "name": "Hatsune Miku",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-08-31T00:00:00Z",
+        "status": "Locked",
+        "version": 39
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク Append (Dark)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 75,
+        "name": "Hatsune Miku Append (Dark)",
+        "pictureMime": "image/png",
+        "releaseDate": "2010-04-30T00:00:00Z",
+        "status": "Locked",
+        "version": 23
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku Append (Dark)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク Append (Sweet)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 79,
+        "name": "Hatsune Miku Append (Sweet)",
+        "pictureMime": "image/png",
+        "releaseDate": "2010-04-30T00:00:00Z",
+        "status": "Locked",
+        "version": 22
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku Append (Sweet)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク V4X (Original), 初音ミク V4Xβ, Hatsune Miku V4Xβ",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 50234,
+        "name": "Hatsune Miku V4X (Original)",
+        "pictureMime": "image/png",
+        "releaseDate": "2016-08-31T00:00:00Z",
+        "status": "Finished",
+        "version": 13
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku V4X (Original)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク V4X (Dark)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 50233,
+        "name": "Hatsune Miku V4X (Dark)",
+        "pictureMime": "image/png",
+        "releaseDate": "2016-08-31T00:00:00Z",
+        "status": "Finished",
+        "version": 10
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku V4X (Dark)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "初音ミク NT (Original＋)",
+        "artistType": "NewType",
+        "deleted": false,
+        "id": 84430,
+        "name": "Hatsune Miku NT (Original+)",
+        "pictureMime": "image/png",
+        "releaseDate": "2020-11-27T00:00:00Z",
+        "status": "Finished",
+        "version": 11
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Hatsune Miku NT (Original+)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音リン V4X (Power)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 43217,
+        "name": "Kagamine Rin V4X (Power)",
+        "pictureMime": "image/png",
+        "releaseDate": "2015-12-24T00:00:00Z",
+        "status": "Finished",
+        "version": 14
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Rin V4X (Power)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音レン Append (Power)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 350,
+        "name": "Kagamine Len Append (Power)",
+        "pictureMime": "image/png",
+        "releaseDate": "2010-12-27T00:00:00Z",
+        "status": "Approved",
+        "version": 18
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Len Append (Power)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音レン V4X (Power)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 43213,
+        "name": "Kagamine Len V4X (Power)",
+        "pictureMime": "image/png",
+        "releaseDate": "2015-12-24T00:00:00Z",
+        "status": "Finished",
+        "version": 14
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Len V4X (Power)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "巡音ルカ V4X (Soft)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 29488,
+        "name": "Megurine Luka V4X (Soft)",
+        "pictureMime": "image/png",
+        "releaseDate": "2015-03-19T00:00:00Z",
+        "status": "Approved",
+        "version": 17
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Megurine Luka V4X (Soft)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "巡音ルカ SP (Original), 巡音ルカ SUPER PACK (Original), Megurine Luka SUPER PACK (Original), LUKA SP -original-, LUKA SP",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 142623,
+        "name": "Megurine Luka SP (Original)",
+        "pictureMime": "image/png",
+        "releaseDate": "2024-08-30T00:00:00Z",
+        "status": "Finished",
+        "version": 10
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Megurine Luka SP (Original)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "メイコV3 (Power)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 15948,
+        "name": "MEIKO V3 (Power)",
+        "pictureMime": "image/png",
+        "releaseDate": "2014-02-04T00:00:00Z",
+        "status": "Finished",
+        "version": 15
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "MEIKO V3 (Power)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "MEIKO SUPER PACK (Original), MEIKO SP -original-, MEIKO SP",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 142624,
+        "name": "MEIKO SP (Original)",
+        "pictureMime": "image/png",
+        "releaseDate": "2024-08-30T00:00:00Z",
+        "status": "Finished",
+        "version": 22
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "MEIKO SP (Original)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "カイトV3 (Straight)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 5588,
+        "name": "KAITO V3 (Straight)",
+        "pictureMime": "image/png",
+        "releaseDate": "2013-02-15T00:00:00Z",
+        "status": "Finished",
+        "version": 16
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "KAITO V3 (Straight)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "カイトV3 (Soft)",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 5589,
+        "name": "KAITO V3 (Soft)",
+        "pictureMime": "image/png",
+        "releaseDate": "2013-02-15T00:00:00Z",
+        "status": "Finished",
+        "version": 14
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "KAITO V3 (Soft)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "Unknown arranger, Anonymous producer(s), Anonymous arranger, 作者不明, 名無し, ななし, 774, ななしのよっしん, 匿名, 匿名希望, 账号已注销, [unknown]",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 23966,
+        "name": "Unknown producer(s)",
+        "status": "Approved",
+        "version": 12
+      },
+      "categories": "Producer",
+      "effectiveRoles": "VoiceManipulator",
+      "isSupport": false,
+      "name": "Unknown producer(s)",
+      "roles": "VoiceManipulator"
+    },
+    {
+      "artist": {
+        "additionalNames": "びび, びびびびーむ, bibian0115",
+        "artistType": "CoverArtist",
+        "deleted": false,
+        "id": 5658,
+        "name": "bibi",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 16
+      },
+      "categories": "Producer",
+      "effectiveRoles": "VoiceManipulator",
+      "isSupport": false,
+      "name": "bibi",
+      "roles": "VoiceManipulator"
+    },
+    {
+      "artist": {
+        "additionalNames": "",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 1620,
+        "name": "*Luna",
+        "pictureMime": "image/png",
+        "status": "Approved",
+        "version": 30
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "*Luna",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "ネギシャワーP, 加賀, Kaga",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 58940,
+        "name": "Negi ShowerP",
+        "pictureMime": "image/png",
+        "status": "Finished",
+        "version": 16
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Negi ShowerP",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "猫舘こたつ",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 124735,
+        "name": "Nekotachi Kotatsu",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 5
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Nekotachi Kotatsu",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "森晴義, Mori Haruyoshi, ハルヨシ, 하루요시",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 715,
+        "name": "halyosy",
+        "pictureMime": "image/jpeg",
+        "status": "Approved",
+        "version": 24
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "halyosy",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "じょん, John Zeroness, Akira Takizawa, JZness, jonsann, 滝沢章",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 451,
+        "name": "John",
+        "pictureMime": "image/png",
+        "status": "Approved",
+        "version": 18
+      },
+      "categories": "Producer",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "John",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "クリプトン・フューチャー・メディア, CFM, クリプトン・フューチャー・メディア（株）, Crypton Future Media, Inc., SONICWIRE, piapro",
+        "artistType": "Label",
+        "deleted": false,
+        "id": 25,
+        "name": "Crypton Future Media",
+        "pictureMime": "image/gif",
+        "status": "Locked",
+        "version": 31
+      },
+      "categories": "Label",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Crypton Future Media",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音リン SP (Original), 鏡音リン SUPER PACK (Original), Kagamine Rin SUPER PACK (Original), RIN SP -original-, RIN SP",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 142621,
+        "name": "Kagamine Rin SP (Original)",
+        "pictureMime": "image/png",
+        "releaseDate": "2024-08-30T00:00:00Z",
+        "status": "Finished",
+        "version": 9
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Rin SP (Original)",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "カイト",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 71,
+        "name": "KAITO",
+        "pictureMime": "image/png",
+        "releaseDate": "2006-02-14T00:00:00Z",
+        "status": "Locked",
+        "version": 34
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "KAITO",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音レン, 鏡音連, 카가미네 렌, 镜音连",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 15,
+        "name": "Kagamine Len",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-12-27T00:00:00Z",
+        "status": "Locked",
+        "version": 34
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Len",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "メイコ",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 176,
+        "name": "MEIKO",
+        "pictureMime": "image/png",
+        "releaseDate": "2004-11-05T00:00:00Z",
+        "status": "Locked",
+        "version": 34
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "MEIKO",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "鏡音リン, 鏡音鈴, 카가미네 린, 镜音铃",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 14,
+        "name": "Kagamine Rin",
+        "pictureMime": "image/png",
+        "releaseDate": "2007-12-27T00:00:00Z",
+        "status": "Locked",
+        "version": 36
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Kagamine Rin",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "巡音ルカ, 巡音流歌, 메구리네 루카",
+        "artistType": "Vocaloid",
+        "deleted": false,
+        "id": 2,
+        "name": "Megurine Luka",
+        "pictureMime": "image/png",
+        "releaseDate": "2009-01-30T00:00:00Z",
+        "status": "Locked",
+        "version": 27
+      },
+      "categories": "Vocalist",
+      "effectiveRoles": "Default",
+      "isSupport": false,
+      "name": "Megurine Luka",
+      "roles": "Default"
+    },
+    {
+      "artist": {
+        "additionalNames": "三沢崇篤",
+        "artistType": "Instrumentalist",
+        "deleted": false,
+        "id": 76707,
+        "name": "Takahiro Misawa",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 3
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "isSupport": false,
+      "name": "Takahiro Misawa",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "宇都圭輝, cake",
+        "artistType": "Instrumentalist",
+        "deleted": false,
+        "id": 14786,
+        "name": "Uto Keiki",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 11
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "isSupport": false,
+      "name": "Uto Keiki",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+        "artistType": "Producer",
+        "deleted": false,
+        "id": 2994,
+        "name": "Masaru Angelo Teramae",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 10
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "isSupport": false,
+      "name": "Masaru Angelo Teramae",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "山本淳也",
+        "artistType": "OtherIndividual",
+        "deleted": false,
+        "id": 102110,
+        "name": "Junya Yamamoto",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 1
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "isSupport": false,
+      "name": "Junya Yamamoto",
+      "roles": "Instrumentalist"
+    },
+    {
+      "artist": {
+        "additionalNames": "浅倉高昭",
+        "artistType": "Instrumentalist",
+        "deleted": false,
+        "id": 115815,
+        "name": "Takaaki Asakura",
+        "pictureMime": "image/jpeg",
+        "status": "Finished",
+        "version": 2
+      },
+      "categories": "Other",
+      "effectiveRoles": "Instrumentalist",
+      "isSupport": false,
+      "name": "Takaaki Asakura",
+      "roles": "Instrumentalist"
+    }
+  ],
+  "artistString": "Various artists",
+  "catalogNumber": "CSA-358",
+  "createDate": "2025-12-01T05:49:02.58",
+  "defaultName": "初音ミク「マジカルミライ 2025」ライブ音源CD",
+  "defaultNameLanguage": "Japanese",
+  "discType": "Compilation",
+  "id": 51089,
+  "mainPicture": {
+    "mime": "image/jpeg",
+    "urlOriginal": "https://static.vocadb.net/img/Album/mainOrig/51089.jpg?v=9",
+    "urlSmallThumb": "https://static.vocadb.net/img/Album/mainSmall/51089.jpg?v=9",
+    "urlThumb": "https://static.vocadb.net/img/Album/mainThumb/51089.jpg?v=9",
+    "urlTinyThumb": "https://static.vocadb.net/img/Album/mainTiny/51089.jpg?v=9"
+  },
+  "name": "Hatsune Miku Magical Mirai 2025 Live CD",
+  "names": [
+    {
+      "language": "Japanese",
+      "value": "初音ミク「マジカルミライ 2025」ライブ音源CD"
+    },
+    {
+      "language": "Romaji",
+      "value": "Hatsune Miku \"Magical Mirai 2025\" Live Ongen CD"
+    },
+    {
+      "language": "English",
+      "value": "Hatsune Miku Magical Mirai 2025 Live CD"
+    }
+  ],
+  "pvs": [],
+  "ratingAverage": 5,
+  "ratingCount": 1,
+  "releaseDate": {
+    "day": 4,
+    "isEmpty": false,
+    "month": 2,
+    "year": 2026
+  },
+  "status": "Finished",
+  "tracks": [
+    {
+      "discNumber": 1,
+      "id": 280093,
+      "name": "メテオ",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876667,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "じょん, John Zeroness, Akira Takizawa, JZness, jonsann, 滝沢章",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 451,
+              "name": "John",
+              "pictureMime": "image/png",
+              "status": "Approved",
+              "version": 18
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 2876668,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "John",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 2994,
+              "name": "Masaru Angelo Teramae",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876684,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Masaru Angelo Teramae",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "宇都圭輝, cake",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 14786,
+              "name": "Uto Keiki",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876685,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Uto Keiki",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "三沢崇篤",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 76707,
+              "name": "Takahiro Misawa",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 3
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876686,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takahiro Misawa",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "山本淳也",
+              "artistType": "OtherIndividual",
+              "deleted": false,
+              "id": 102110,
+              "name": "Junya Yamamoto",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 1
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876687,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Junya Yamamoto",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "浅倉高昭",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 115815,
+              "name": "Takaaki Asakura",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 2
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876688,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takaaki Asakura",
+            "roles": "Instrumentalist"
+          }
+        ],
+        "artistString": "John feat. Hatsune Miku",
+        "createDate": "2026-06-19T10:47:44.58",
+        "defaultName": "メテオ",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 0,
+        "id": 990741,
+        "lengthSeconds": 248,
+        "name": "メテオ",
+        "originalVersionId": 8175,
+        "publishDate": "2026-02-04T00:00:00Z",
+        "pvServices": "Nothing",
+        "ratingScore": 0,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 4,
+        "cultureCodes": []
+      },
+      "trackNumber": 1,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 280094,
+      "name": "Flyway",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "鏡音レン, 鏡音連, 카가미네 렌, 镜音连",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 15,
+              "name": "Kagamine Len",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-12-27T00:00:00Z",
+              "status": "Locked",
+              "version": 34
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876669,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Kagamine Len",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "カイト",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 71,
+              "name": "KAITO",
+              "pictureMime": "image/png",
+              "releaseDate": "2006-02-14T00:00:00Z",
+              "status": "Locked",
+              "version": 34
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876670,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "KAITO",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "森晴義, Mori Haruyoshi, ハルヨシ, 하루요시",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 715,
+              "name": "halyosy",
+              "pictureMime": "image/jpeg",
+              "status": "Approved",
+              "version": 24
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 2876671,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "halyosy",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 2994,
+              "name": "Masaru Angelo Teramae",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876689,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Masaru Angelo Teramae",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "宇都圭輝, cake",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 14786,
+              "name": "Uto Keiki",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876690,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Uto Keiki",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "三沢崇篤",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 76707,
+              "name": "Takahiro Misawa",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 3
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876691,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takahiro Misawa",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "山本淳也",
+              "artistType": "OtherIndividual",
+              "deleted": false,
+              "id": 102110,
+              "name": "Junya Yamamoto",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 1
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876692,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Junya Yamamoto",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "浅倉高昭",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 115815,
+              "name": "Takaaki Asakura",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 2
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876693,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takaaki Asakura",
+            "roles": "Instrumentalist"
+          }
+        ],
+        "artistString": "halyosy feat. Kagamine Len, KAITO",
+        "createDate": "2026-06-19T10:47:45.207",
+        "defaultName": "Flyway",
+        "defaultNameLanguage": "English",
+        "favoritedTimes": 0,
+        "id": 990742,
+        "lengthSeconds": 218,
+        "name": "Flyway",
+        "originalVersionId": 471637,
+        "publishDate": "2026-02-04T00:00:00Z",
+        "pvServices": "Nothing",
+        "ratingScore": 0,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 3,
+        "cultureCodes": []
+      },
+      "trackNumber": 2,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 255728,
+      "name": "DO THE ROCK!",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "猫舘こたつ",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 124735,
+              "name": "Nekotachi Kotatsu",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 5
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 2395705,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Nekotachi Kotatsu",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "初音ミク NT (Original＋)",
+              "artistType": "NewType",
+              "deleted": false,
+              "id": 84430,
+              "name": "Hatsune Miku NT (Original+)",
+              "pictureMime": "image/png",
+              "releaseDate": "2020-11-27T00:00:00Z",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2395728,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku NT (Original+)",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "巡音ルカ SP (Original), 巡音ルカ SUPER PACK (Original), Megurine Luka SUPER PACK (Original), LUKA SP -original-, LUKA SP",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 142623,
+              "name": "Megurine Luka SP (Original)",
+              "pictureMime": "image/png",
+              "releaseDate": "2024-08-30T00:00:00Z",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2528438,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Megurine Luka SP (Original)",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "MEIKO SUPER PACK (Original), MEIKO SP -original-, MEIKO SP",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 142624,
+              "name": "MEIKO SP (Original)",
+              "pictureMime": "image/png",
+              "releaseDate": "2024-08-30T00:00:00Z",
+              "status": "Finished",
+              "version": 22
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2528439,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "MEIKO SP (Original)",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "鏡音リン SP (Original), 鏡音リン SUPER PACK (Original), Kagamine Rin SUPER PACK (Original), RIN SP -original-, RIN SP",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 142621,
+              "name": "Kagamine Rin SP (Original)",
+              "pictureMime": "image/png",
+              "releaseDate": "2024-08-30T00:00:00Z",
+              "status": "Finished",
+              "version": 9
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2528440,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Kagamine Rin SP (Original)",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 2994,
+              "name": "Masaru Angelo Teramae",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876694,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Masaru Angelo Teramae",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "宇都圭輝, cake",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 14786,
+              "name": "Uto Keiki",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876695,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Uto Keiki",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "三沢崇篤",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 76707,
+              "name": "Takahiro Misawa",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 3
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876696,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takahiro Misawa",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "山本淳也",
+              "artistType": "OtherIndividual",
+              "deleted": false,
+              "id": 102110,
+              "name": "Junya Yamamoto",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 1
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876697,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Junya Yamamoto",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "浅倉高昭",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 115815,
+              "name": "Takaaki Asakura",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 2
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876698,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takaaki Asakura",
+            "roles": "Instrumentalist"
+          }
+        ],
+        "artistString": "Nekotachi Kotatsu feat. various",
+        "createDate": "2025-09-07T18:36:28.803",
+        "defaultName": "黙ってロックをやれって言ってんの！",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 0,
+        "id": 836474,
+        "lengthSeconds": 302,
+        "name": "DO THE ROCK!",
+        "originalVersionId": 640328,
+        "publishDate": "2026-02-04T00:00:00Z",
+        "pvServices": "Youtube",
+        "ratingScore": 2,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 11,
+        "cultureCodes": []
+      },
+      "trackNumber": 3,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 280095,
+      "name": "ストリートライト",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876672,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "巡音ルカ, 巡音流歌, 메구리네 루카",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 2,
+              "name": "Megurine Luka",
+              "pictureMime": "image/png",
+              "releaseDate": "2009-01-30T00:00:00Z",
+              "status": "Locked",
+              "version": 27
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876673,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Megurine Luka",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "鏡音リン, 鏡音鈴, 카가미네 린, 镜音铃",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 14,
+              "name": "Kagamine Rin",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-12-27T00:00:00Z",
+              "status": "Locked",
+              "version": 36
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876674,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Kagamine Rin",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "鏡音レン, 鏡音連, 카가미네 렌, 镜音连",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 15,
+              "name": "Kagamine Len",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-12-27T00:00:00Z",
+              "status": "Locked",
+              "version": 34
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876675,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Kagamine Len",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "カイト",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 71,
+              "name": "KAITO",
+              "pictureMime": "image/png",
+              "releaseDate": "2006-02-14T00:00:00Z",
+              "status": "Locked",
+              "version": 34
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876676,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "KAITO",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "メイコ",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 176,
+              "name": "MEIKO",
+              "pictureMime": "image/png",
+              "releaseDate": "2004-11-05T00:00:00Z",
+              "status": "Locked",
+              "version": 34
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876677,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "MEIKO",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "ネギシャワーP, 加賀, Kaga",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 58940,
+              "name": "Negi ShowerP",
+              "pictureMime": "image/png",
+              "status": "Finished",
+              "version": 16
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 2876678,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Negi ShowerP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 2994,
+              "name": "Masaru Angelo Teramae",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876699,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Masaru Angelo Teramae",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "宇都圭輝, cake",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 14786,
+              "name": "Uto Keiki",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876700,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Uto Keiki",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "三沢崇篤",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 76707,
+              "name": "Takahiro Misawa",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 3
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876701,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takahiro Misawa",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "山本淳也",
+              "artistType": "OtherIndividual",
+              "deleted": false,
+              "id": 102110,
+              "name": "Junya Yamamoto",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 1
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876702,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Junya Yamamoto",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "浅倉高昭",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 115815,
+              "name": "Takaaki Asakura",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 2
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876703,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takaaki Asakura",
+            "roles": "Instrumentalist"
+          }
+        ],
+        "artistString": "Negi ShowerP feat. various",
+        "createDate": "2026-06-19T10:47:45.27",
+        "defaultName": "ストリートライト",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 0,
+        "id": 990743,
+        "lengthSeconds": 232,
+        "name": "ストリートライト",
+        "originalVersionId": 746114,
+        "publishDate": "2026-02-04T00:00:00Z",
+        "pvServices": "Nothing",
+        "ratingScore": 0,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 3,
+        "cultureCodes": []
+      },
+      "trackNumber": 4,
+      "computedCultureCodes": []
+    },
+    {
+      "discNumber": 1,
+      "id": 280096,
+      "name": "ラストラス",
+      "song": {
+        "artists": [
+          {
+            "artist": {
+              "additionalNames": "初音ミク, 初音未来, Chūyīn Wèilái, 하츠네 미쿠, 初音未來",
+              "artistType": "Vocaloid",
+              "deleted": false,
+              "id": 1,
+              "name": "Hatsune Miku",
+              "pictureMime": "image/png",
+              "releaseDate": "2007-08-31T00:00:00Z",
+              "status": "Locked",
+              "version": 39
+            },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 2876679,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Hatsune Miku",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 1620,
+              "name": "*Luna",
+              "pictureMime": "image/png",
+              "status": "Approved",
+              "version": 30
+            },
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 2876680,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "*Luna",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "寺前“アンジェロ”甲, 寺前甲, Teramae Masaru, 徳南, Tokunan, アンジェロ, Angelo",
+              "artistType": "Producer",
+              "deleted": false,
+              "id": 2994,
+              "name": "Masaru Angelo Teramae",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 10
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876704,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Masaru Angelo Teramae",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "宇都圭輝, cake",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 14786,
+              "name": "Uto Keiki",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 11
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876705,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Uto Keiki",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "三沢崇篤",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 76707,
+              "name": "Takahiro Misawa",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 3
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876706,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takahiro Misawa",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "山本淳也",
+              "artistType": "OtherIndividual",
+              "deleted": false,
+              "id": 102110,
+              "name": "Junya Yamamoto",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 1
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876707,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Junya Yamamoto",
+            "roles": "Instrumentalist"
+          },
+          {
+            "artist": {
+              "additionalNames": "浅倉高昭",
+              "artistType": "Instrumentalist",
+              "deleted": false,
+              "id": 115815,
+              "name": "Takaaki Asakura",
+              "pictureMime": "image/jpeg",
+              "status": "Finished",
+              "version": 2
+            },
+            "categories": "Other",
+            "effectiveRoles": "Instrumentalist",
+            "id": 2876708,
+            "isCustomName": false,
+            "isSupport": false,
+            "name": "Takaaki Asakura",
+            "roles": "Instrumentalist"
+          }
+        ],
+        "artistString": "*Luna feat. Hatsune Miku",
+        "createDate": "2026-06-19T10:47:46.47",
+        "defaultName": "ラストラス",
+        "defaultNameLanguage": "Japanese",
+        "favoritedTimes": 0,
+        "id": 990744,
+        "lengthSeconds": 337,
+        "name": "ラストラス",
+        "originalVersionId": 789209,
+        "publishDate": "2026-02-04T00:00:00Z",
+        "pvServices": "Nothing",
+        "ratingScore": 0,
+        "songType": "Cover",
+        "status": "Finished",
+        "version": 3,
+        "cultureCodes": []
+      },
+      "trackNumber": 5,
+      "computedCultureCodes": []
+    }
+  ],
+  "version": 9,
+  "webLinks": [
+    {
+      "category": "Official",
+      "description": "X (Twitter)",
+      "disabled": false,
+      "id": 220164,
+      "url": "https://x.com/magicalmirai/status/1995055199832969385/photo/1"
+    }
+  ]
+}
