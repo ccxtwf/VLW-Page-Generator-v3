@@ -11,6 +11,20 @@ import { mapLanguages } from "../mapper";
 import PlayLink from "../../src/lib/models/children/PlayLink.svelte";
 import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
 
+// Mock import
+vi.mock("../../src/lib/utils/dbBufferUtils", async () => {
+  return {
+    getDbBuffer: vi.fn().mockImplementation(async () => {
+      const dbFile = readFileSync(resolve(__dirname, "../../public/synths.db"));
+      const arrayBuffer = dbFile.buffer.slice(
+        dbFile.byteOffset,
+        dbFile.byteOffset + dbFile.byteLength,
+      );
+      return arrayBuffer;
+    }),
+  };
+});
+
 afterEach(() => {
   vi.restoreAllMocks();
 });

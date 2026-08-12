@@ -7,6 +7,20 @@ import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
 import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../src/lib/models/enums";
 import AlbumTrackData from "../../src/lib/models/children/AlbumTrackData.svelte";
 
+// Mock import
+vi.mock("../../src/lib/utils/dbBufferUtils", async () => {
+  return {
+    getDbBuffer: vi.fn().mockImplementation(async () => {
+      const dbFile = readFileSync(resolve(__dirname, "../../public/synths.db"));
+      const arrayBuffer = dbFile.buffer.slice(
+        dbFile.byteOffset,
+        dbFile.byteOffset + dbFile.byteLength,
+      );
+      return arrayBuffer;
+    }),
+  };
+});
+
 afterEach(() => {
   vi.restoreAllMocks();
 });
@@ -150,7 +164,7 @@ describe("fetchDataFromVocaDb - albums", () => {
           trackNo: 1,
           pageTitle: "ぼくも屑だから",
           producerCredit: "PinocchioP",
-          singerCredit: "Hatsune Miku and [[Aques Talk Josei 1]]",
+          singerCredit: "Hatsune Miku and [[AquesTalk Josei 1]]",
         }),
         new AlbumTrackData({
           discNo: 2,
@@ -252,7 +266,7 @@ describe("fetchDataFromVocaDb - albums", () => {
         }),
       ],
       broadcastLinks: mapAlbumBroadcastLink(
-        { key: "nn-xfade", url: "http://www.nicovideo.jp/watch/sm30228946" },
+        { key: "nn-xfade", url: "https://www.nicovideo.jp/watch/sm30228946" },
         { key: "yt-xfade", url: "https://www.youtube.com/watch?v=in90fSCxGKs" },
         { key: "sp-embed", url: "https://open.spotify.com/album/3Ydz6UhhXxgsoj36DKSv9L" },
         {
@@ -262,14 +276,14 @@ describe("fetchDataFromVocaDb - albums", () => {
       ),
       extLinks: [
         new ExternalLink({
-          url: "http://www.nicovideo.jp/watch/sm30228946",
+          url: "https://www.nicovideo.jp/watch/sm30228946",
           description: "Album crossfade - Niconico",
-          isOfficial: false,
+          isOfficial: true,
         }),
         new ExternalLink({
           url: "https://www.youtube.com/watch?v=in90fSCxGKs",
           description: "Album crossfade - YouTube",
-          isOfficial: false,
+          isOfficial: true,
         }),
         new ExternalLink({
           url: "http://pinocchiop.com/news/287",
@@ -288,7 +302,7 @@ describe("fetchDataFromVocaDb - albums", () => {
         }),
         new ExternalLink({
           url: "http://karent.jp/album/2019",
-          description: "KarenT",
+          description: "KARENT",
           isOfficial: true,
           isInactive: true,
         }),
@@ -340,7 +354,7 @@ describe("fetchDataFromVocaDb - albums", () => {
         }),
         new ExternalLink({
           url: "https://vocaloid.fandom.com/wiki/Comic_and_Cosmic",
-          description: "Vocaloid Wiki",
+          description: "VOCALOID Wiki",
           isOfficial: false,
         }),
         new ExternalLink({
@@ -399,8 +413,8 @@ describe("fetchDataFromVocaDb - albums", () => {
           isOfficial: true,
         }),
         new ExternalLink({
-          url: "MySound",
-          description: "https://mysound.jp/album/202514/",
+          url: "https://mysound.jp/album/202514/",
+          description: "MySound",
           isOfficial: true,
         }),
         new ExternalLink({
