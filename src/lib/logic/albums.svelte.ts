@@ -364,11 +364,11 @@ export async function fetchDataFromVocaDb(
             const { category, baseName, engine } = r;
             engineIds.add(engine);
             vdbSingerIdsCache.set(id, baseName);
-            if (addedSingers.has(baseName)) {
+            if (addedSingers.has(category)) {
               songSingers.add(baseName);
             } else {
               songSingers.add(`[[${category}]]`);
-              addedSingers.add(baseName);
+              addedSingers.add(category);
             }
           } else {
             songSingers.add(artist.artist?.name || "");
