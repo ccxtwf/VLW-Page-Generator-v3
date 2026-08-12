@@ -10,20 +10,30 @@ export const mapLanguages = (...languages: string[]): MultiSelectItem[] => {
 };
 
 export const mapEngines = (...engines: string[]): MultiSelectItem[] => {
-  return engines.map((e) => ({
-    label: e,
-    value: SYNTH_ENGINES.findIndex((o) => o.name === e),
-  }));
+  return engines.map((e) => {
+    const engine = SYNTH_ENGINES.find((o) => o.name === e);
+    if (!engine) {
+      throw new Error(`Error: Unable to find engine '${e}' in synthEngines.json`);
+    }
+    return {
+      label: engine.name,
+      value: engine.id,
+    };
+  });
 };
 
 export const mapAlbumBroadcastLink = (
   ...args: { key: string; url: string }[]
 ): AlbumBroadcastLink[] => {
-  return args.map(({ key, url }) => {
+  const res = ALBUM_STREAMING_LINKS.map(
+    ({ name }, idx) => new AlbumBroadcastLink({ idx, site: name }),
+  );
+  for (const { key, url } of args) {
     const idx = ALBUM_STREAMING_LINKS.findIndex((al) => al.paramKey === key);
     if (idx === -1) {
-      throw new Error(`Error: Unable to find paramKey '${key}' in ALBUM_STREAMING_LINKS`);
+      throw new Error(`Error: Unable to find paramKey '${key}' in albumLinkDomains.json`);
     }
-    return new AlbumBroadcastLink({ idx, site: ALBUM_STREAMING_LINKS[idx].name, url });
-  });
+    res[idx].url = url;
+  }
+  return res;
 };
