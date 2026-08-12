@@ -67,11 +67,12 @@ describe("Generate producer pages", () => {
       },
       songs: [
         new ProducerDiscographySongItem({ page: "Page 1" }),
-        new ProducerDiscographySongItem({ page: "Page 2" }),
+        new ProducerDiscographySongItem({ page: "Page 2", additionalParameters: "eng=English" }),
       ],
       albums: [
         new ProducerDiscographyAlbumItem({ page: "Album 1" }),
         new ProducerDiscographyAlbumItem({ page: "Album 2", isCompilation: true }),
+        new ProducerDiscographyAlbumItem({ page: "Album 3", additionalParameters: "rom=Romaji" }),
       ],
       extLinks: [
         new ExternalLinkForProducerPage({
@@ -136,7 +137,7 @@ PinocchioP is a prolific VOCALOID producer.
 |-
 | {{pwt row|Page 1}}
 |-
-| {{pwt row|Page 2}}
+| {{pwt row|Page 2|eng=English}}
 |}
 
 ==Discography==
@@ -147,6 +148,8 @@ PinocchioP is a prolific VOCALOID producer.
 | {{awt row|Album 1}}
 |-
 | {{awt row|Album 2}}
+|-
+| {{awt row|Album 3|rom=Romaji}}
 |}
 
 [[Category:Producers]]
@@ -184,11 +187,17 @@ PinocchioP is a prolific VOCALOID producer.
       },
       songs: [
         new ProducerDiscographySongItem({ page: "Page 1" }),
-        new ProducerDiscographySongItem({ page: "Page 2" }),
+        new ProducerDiscographySongItem({ page: "Page 2", additionalParameters: "eng=English" }),
       ],
       albums: [
         new ProducerDiscographyAlbumItem({ page: "Album 1" }),
         new ProducerDiscographyAlbumItem({ page: "Album 2", isCompilation: true }),
+        new ProducerDiscographyAlbumItem({ page: "Album 3", additionalParameters: "rom=Romaji" }),
+        new ProducerDiscographyAlbumItem({
+          page: "Album 4",
+          isCompilation: true,
+          additionalParameters: "kanji=Kanji",
+        }),
       ],
       extLinks: [
         new ExternalLinkForProducerPage({
@@ -253,7 +262,7 @@ PinocchioP is a prolific VOCALOID producer.
 |-
 | {{pwt row|Page 1}}
 |-
-| {{pwt row|Page 2}}
+| {{pwt row|Page 2|eng=English}}
 |}
 
 ==Discography==
@@ -262,6 +271,8 @@ PinocchioP is a prolific VOCALOID producer.
 ! {{awt head}}
 |-
 | {{awt row|Album 1}}
+|-
+| {{awt row|Album 3|rom=Romaji}}
 |}
 
 ===Compilations===
@@ -270,6 +281,8 @@ PinocchioP is a prolific VOCALOID producer.
 ! {{awt head}}
 |-
 | {{awt row|Album 2}}
+|-
+| {{awt row|Album 4|kanji=Kanji}}
 |}
 
 [[Category:Producers]]
