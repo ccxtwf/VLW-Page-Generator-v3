@@ -101,10 +101,10 @@ def list_unlisted_synths(
 
     # Print to console
     console.print("")
-    if len(filtered) == 0:
+    if len(results) == 0:
       console.print(f"== No missing items that needed adding on synths.db ==\n", style="bold green")
     else:
-      console.print(f"== Got {len(filtered)} items on VocaDB that are missing on synths.db ==\n", style="bold green")
+      console.print(f"== Got {len(results)} items on VocaDB that are missing on synths.db ==\n", style="bold green")
 
       if draft_sql:
         last_id, = db.execute("SELECT MAX(id) FROM synths s ;").fetchone()
