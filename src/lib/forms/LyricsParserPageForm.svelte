@@ -94,7 +94,7 @@
         selected
       >
         {$_("lyricsEditor.lyricsExtractorState.found", {
-          values: { index: selectedTable, total: nTables },
+          values: { index: selectedTable + 1, total: nTables },
         })}
       </option>
       {#each { length: nTables } as _, i}
