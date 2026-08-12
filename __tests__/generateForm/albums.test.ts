@@ -8,6 +8,26 @@ import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
 import AlbumTrackData from "../../src/lib/models/children/AlbumTrackData.svelte";
 
 describe("Generate album pages", () => {
+  test("Empty form state", () => {
+    const formData = new Album();
+
+    const page = generatePage(formData);
+
+    const expected = `{{Album Infobox
+|title = 
+|label = 
+|desc = 
+|date = 
+|vdb = 
+|vw = 
+
+|color = black; color:white
+
+}}`;
+
+    expect(page).toEqual(expected);
+  });
+
   test("Simple", () => {
     const formData = new Album({
       origTitle: "桜のビンゴ",

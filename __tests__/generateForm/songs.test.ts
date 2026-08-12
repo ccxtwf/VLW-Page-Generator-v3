@@ -11,6 +11,72 @@ import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../src/lib/models/enums";
 
 describe("Generate song pages", () => {
+  test("Empty form state", () => {
+    const formData = new Song();
+
+    const page = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = 
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|-
+|<br />
+|}`;
+
+    expect(page).toEqual(expected);
+  });
+
   test("Japanese song", () => {
     const formData = new Song({
       languages: mapLanguages("Japanese"),

@@ -8,6 +8,42 @@ import ProducerDiscographyAlbumItem from "../../src/lib/models/children/Producer
 import ExternalLinkForProducerPage from "../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
 
 describe("Generate producer pages", () => {
+  test("Empty form state", () => {
+    const formData = new Producer();
+
+    const page = generatePage(formData);
+
+    const expected = `<div class="producer-links">
+[[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
+==Producer categories==
+{{ProdLinks|}}
+
+==External links==
+===Unofficial===
+{{links |p=yes
+  |atmiku = 
+  |atutau = 
+  |nico   = 
+  |vocadb = 
+  |tag    = 
+  |mgp    = 
+}}
+</div>
+
+
+
+==Works==
+{| class="sortable producer-table"
+|- class="vcolor-default"
+! {{pwt head}}
+|}
+
+
+[[Category:Producers]]`;
+
+    expect(page).toEqual(expected);
+  });
+
   test("Simple", () => {
     const formData = new Producer({
       prodCategory: "PinocchioP",
