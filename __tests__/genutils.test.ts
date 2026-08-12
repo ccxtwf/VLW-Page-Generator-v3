@@ -6,6 +6,7 @@ import {
   standardizeYoutubeLink,
   upgradeInsecureHttpLink,
   convertTwitterLink,
+  getOtherMediaWikiPageName,
 } from "../src/lib/utils/urlUtils";
 import { getVdbPageId } from "../src/lib/utils/vdbUtils";
 import { VdbPageType } from "../src/schemas/vocadb.d";
@@ -94,6 +95,31 @@ describe("test URL functions", () => {
 
   test("upgradeInsecureHttpLink", () => {
     expect(upgradeInsecureHttpLink("http://example.com")).toBe("https://example.com");
+  });
+
+  test.each([
+    {
+      url: "https://vocaloid.fandom.com/wiki/Article",
+      entrypoint: "https://vocaloid.fandom.com/wiki/",
+      o: "Article",
+    },
+    {
+      url: "https://vocaloid.fandom.com/wiki/Article_1",
+      entrypoint: "https://vocaloid.fandom.com/wiki/",
+      o: "Article 1",
+    },
+    {
+      url: "https://vocaloid.miraheze.org/wiki/Article_1",
+      entrypoint: "https://vocaloid.miraheze.org/wiki/",
+      o: "Article 1",
+    },
+    {
+      url: "https://vocaloid.miraheze.org/wiki/Article_1",
+      entrypoint: "https://vocaloid.fandom.com/wiki/",
+      o: null,
+    },
+  ])("getOtherMediaWikiPageName", ({ url, entrypoint, o }) => {
+    expect(getOtherMediaWikiPageName(url, entrypoint)).toEqual(o);
   });
 });
 
