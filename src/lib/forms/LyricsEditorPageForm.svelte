@@ -52,6 +52,10 @@
     hot!.loadData(b);
     translator = c;
     isOfficialTranslation = d;
+    document.querySelector("form[name='lyrics-generator']")?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   };
   onMount(() => {
     window.addEventListener("parsedLyrics", cbEventListener);
