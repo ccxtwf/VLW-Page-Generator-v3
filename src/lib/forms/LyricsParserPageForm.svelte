@@ -89,7 +89,7 @@
       {$_("lyricsEditor.lyricsExtractorState.noData")}
     </div>
   {:else}
-    <select class="select select-ghost text-xs" bind:value={selectedTable}>
+    <select class="select text-xs" bind:value={selectedTable}>
       <option disabled selected>
         {$_("lyricsEditor.lyricsExtractorState.found", {
           values: { index: selectedTable + 1, total: nTables },
