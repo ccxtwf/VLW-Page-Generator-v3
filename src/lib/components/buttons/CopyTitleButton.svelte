@@ -7,7 +7,7 @@
   let timeout: ReturnType<typeof setTimeout>;
 
   export function updateState(_title: string) {
-    title.innerText = _title || "[PAGE TITLE]";
+    title.innerText = _title || $_("previewTitlePlaceholder");
   }
 
   async function copy() {
@@ -35,7 +35,7 @@
     aria-label={isCopied ? $_("formActions.copiedTitle") : $_("formActions.copyTitle")}
     title={isCopied ? $_("formActions.copiedTitle") : $_("formActions.copyTitle")}
   >
-    <div bind:this={title}>[PAGE TITLE]</div>
+    <div bind:this={title}>{$_("previewTitlePlaceholder")}</div>
     <span class="relative grid h-4 w-4 place-items-center">
       <svg
         class="absolute h-4 w-4 animate-[scale-in_150ms_ease-out]"
