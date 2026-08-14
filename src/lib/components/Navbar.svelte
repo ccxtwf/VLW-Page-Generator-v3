@@ -2,6 +2,19 @@
   import { _ } from "svelte-i18n";
   import { currentRoute, ROUTES } from "../router";
 
+  let show = $state(false);
+
+  let prevScrollPos = window.pageYOffset;
+  window.onscroll = function () {
+    let currentScrollPos = window.pageYOffset;
+    if (prevScrollPos > currentScrollPos) {
+      show = false;
+    } else {
+      show = true;
+    }
+    prevScrollPos = currentScrollPos;
+  };
+
   async function setTheme(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
     // console.log(e.currentTarget.value, e.currentTarget.checked);
     const theme = (() => {
@@ -23,8 +36,12 @@
   }
 </script>
 
-<header class="navbar-header">
-  <div class="navbar bg-neutral text-neutral-content border-black-800 border-b-2 shadow-sm">
+<header 
+  class="fixed w-full transition-transform duration-300 transform-gpu z-50 shadow-sm navbar-header" 
+  class:-translate-y-full={show} 
+  class:translate-y-0={!show}
+>
+  <div class="navbar bg-neutral text-neutral-content border-black-800 border-b-2">
     <div class="navbar-start">
       <div class="dropdown">
         <div

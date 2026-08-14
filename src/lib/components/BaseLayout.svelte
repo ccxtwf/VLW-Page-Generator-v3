@@ -9,7 +9,7 @@
 <div class="layout-wrapper">
   <Navbar />
 
-  <main>
+  <main class="mt-20">
     {#if children}
       {@render children()}
     {/if}
