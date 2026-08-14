@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
+  import { preventDefault } from "../../utils/utils";
 
   interface InfoboxColorInputFieldProps {
     backgroundColor: string;
@@ -32,6 +33,7 @@
         placeholder="black"
         defaultValue="black"
         bind:value={backgroundColor}
+        onkeypress={preventDefault}
       />
       <div
         id="infobox-bg-color-picker"
@@ -54,6 +56,7 @@
         placeholder="white"
         defaultValue="white"
         bind:value={color}
+        onkeypress={preventDefault}
       />
       <div
         id="infobox-fg-color-picker"

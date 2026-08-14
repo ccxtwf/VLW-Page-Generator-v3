@@ -17,10 +17,17 @@
       type="text"
       {placeholder}
       bind:value={vdbUrl}
+      onkeydown={function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          document.getElementById("vocadb-preload-url-button")?.click();
+        }
+      }}
     />
   </label>
   <div class="join-item border-none">
     <button
+      id="vocadb-preload-url-button"
       type="button"
       class="btn btn-neutral"
       onclick={() => {

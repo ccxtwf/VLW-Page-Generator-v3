@@ -1,6 +1,10 @@
 import modSanitizeHtml from "sanitize-html";
 import { COLOURS } from "../../constants";
 
+export function preventDefault(e: Event) {
+  e.preventDefault();
+}
+
 /**
  *
  * @param colour

@@ -14,7 +14,6 @@
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import SimpleToggle from "../components/inputFields/SimpleToggle.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
@@ -148,9 +147,16 @@
           id="producer-category"
           placeholder={$_("producerGenForm.mainProducerCategory.placeholder")}
           bind:value={formData.prodCategory}
+          onkeypress={function (e) {
+            e.preventDefault();
+            if (e.key === "Enter") {
+              document.getElementById("fetch-vlw-button")?.click();
+            }
+          }}
         />
         <div class="sm:join-item block [&]:border-none">
           <button
+            id="fetch-vlw-button"
             type="button"
             class="btn btn-neutral w-full text-xs sm:w-48"
             onclick={handleDiscographyLoading}
@@ -160,9 +166,10 @@
         </div>
       </div>
       <div class="flex-item w-full">
-        <SimpleToggle
+        <SimpleCheckbox
           label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
           textClass="text-sm"
+          isToggle={true}
           bind:checked={formData.splitAlbum}
         />
       </div>
