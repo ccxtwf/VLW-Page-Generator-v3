@@ -1,7 +1,10 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import { extractLyricsTablesFromWikipageSrc, parseLyrics } from "../utils/lyricsEditFormActions";
+  import {
+    extractLyricsTablesFromWikipageSrc,
+    parseLyrics,
+  } from "../utils/lyricsEditFormActions";
   import type { LyricsParsePayload } from "../../schemas/events";
 
   let selectedTable: number = $state(0);
@@ -13,7 +16,11 @@
     e.preventDefault();
     const contents = textareaElement.value || "";
     const rx = extractLyricsTablesFromWikipageSrc(contents)[selectedTable];
-    const [toggleText, lyrics, translator, isOfficialTranslation] = parseLyrics(rx);
+    if (!rx) {
+      return;
+    }
+    const [toggleText, lyrics, translator, isOfficialTranslation] =
+      parseLyrics(rx);
     window.dispatchEvent(
       new CustomEvent<LyricsParsePayload>("parsedLyrics", {
         detail: { toggleText, lyrics, translator, isOfficialTranslation },
@@ -23,10 +30,7 @@
 </script>
 
 {#snippet guide()}
-  <div
-    role="alert"
-    class="alert alert-soft block w-full"
-  >
+  <div role="alert" class="alert alert-soft block w-full">
     <h4 class="text-md mb-2 font-bold">
       {$_("lyricsEditor.guide.header")}
     </h4>
@@ -85,14 +89,8 @@
       {$_("lyricsEditor.lyricsExtractorState.noData")}
     </div>
   {:else}
-    <select
-      class="select select-ghost text-xs"
-      bind:value={selectedTable}
-    >
-      <option
-        disabled
-        selected
-      >
+    <select class="select select-ghost text-xs" bind:value={selectedTable}>
+      <option disabled selected>
         {$_("lyricsEditor.lyricsExtractorState.found", {
           values: { index: selectedTable + 1, total: nTables },
         })}
@@ -110,12 +108,11 @@
     onblur={(e) => {
       const value = e.currentTarget.value || "";
       nTables = extractLyricsTablesFromWikipageSrc(value).length;
-    }}></textarea>
+      selectedTable = 0; // always reset
+    }}
+  ></textarea>
 
-  <button
-    type="submit"
-    class="btn btn-primary btn-block"
-  >
+  <button type="submit" class="btn btn-primary btn-block">
     {$_("lyricsEditor.extractLyricsTableButtonText")}
   </button>
 </form>
