@@ -37,6 +37,7 @@
   "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
   "confirmClearDiscog": "This will clear the existing songs and albums listed on the form. Are you sure that you want to continue?",
   "previewTitlePlaceholder": "[PAGE TITLE]",
+  "required": "required",
   "fetch": {
     "invalidVdb": "VocaDB URL must follow the specified format: e.g. https://vocadb.net/{1}",
     "invalidVlw": "Producer category page name must not be empty!",
