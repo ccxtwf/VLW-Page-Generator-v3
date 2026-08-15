@@ -3,22 +3,22 @@ import { writable } from "svelte/store";
 export const ROUTES = [
   {
     path: "/songs",
-    component: "./lib/pages/SongPage.svelte",
+    loader: () => import("./pages/SongPage.svelte"),
     labelKey: "songGenerator",
   },
   {
     path: "/albums",
-    component: "./lib/pages/AlbumPage.svelte",
+    loader: () => import("./pages/AlbumPage.svelte"),
     labelKey: "albumGenerator",
   },
   {
     path: "/producers",
-    component: "./lib/pages/ProducerPage.svelte",
+    loader: () => import("./pages/ProducerPage.svelte"),
     labelKey: "producerGenerator",
   },
   {
     path: "/lyrics-editor",
-    component: "./lib/pages/LyricsEditorPage.svelte",
+    loader: () => import("./pages/LyricsEditorPage.svelte"),
     labelKey: "lyricsEditor",
   },
 ];
