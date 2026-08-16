@@ -6,7 +6,7 @@ import {
   standardizeHepburnRomanization,
 } from "../../src/lib/utils/lyricsEditFormActions";
 
-describe("parseLyrics", () => {
+describe("lyricsEditActions", () => {
   test("consolidateCellInlineColourFormatting", () => {
     const input = [
       [
