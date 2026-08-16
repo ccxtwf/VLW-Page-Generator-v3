@@ -26,16 +26,16 @@
     routes[$currentRoute] ? routes[$currentRoute]() : routes["/not-found"](),
   );
 
-  window.addEventListener("beforeunload", (event) => {
+  window.onbeforeunload = (event) => {
     event.preventDefault();
     event.returnValue = "";
-  });
+  };
 
-  navigation.addEventListener("navigate", (event) => {
+  navigation.onnavigate = (event) => {
     if (!window.confirm($_("confirmNav"))) {
       event.preventDefault();
     }
-  });
+  };
 </script>
 
 {#if $isLoading}
@@ -54,20 +54,9 @@
     {:then module}
       <module.default />
     {:catch error}
-      <div class="p-2 text-center text-red-600">
-        <p>{$_("loading.error")}</p>
+      <div class="page-container mx-auto my-20 max-w-5xl p-4 text-center">
+        <p class="text-secondary">{$_("loading.error")}</p>
       </div>
     {/await}
   </BaseLayout>
 {/if}
-
-<style>
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-</style>

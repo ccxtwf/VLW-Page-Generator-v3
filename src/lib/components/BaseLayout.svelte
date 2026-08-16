@@ -6,7 +6,7 @@
   let { children }: { children?: Snippet } = $props();
 </script>
 
-<div class="layout-wrapper">
+<div class="flex flex-col min-h-screen layout-wrapper">
   <Navbar />
 
   <main class="mt-20">
@@ -20,9 +20,6 @@
 
 <style>
   .layout-wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     font-family:
       system-ui,
       -apple-system,
