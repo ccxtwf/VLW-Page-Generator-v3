@@ -1,0 +1,81 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pageids": [
+      "46402",
+      "47398",
+      "47382",
+      "47434",
+      "47424",
+      "303924"
+    ],
+    "pages": {
+      "46402": {
+        "pageid": 46402,
+        "ns": 0,
+        "title": "华哉有夏 (Huá Zāi Yǒu Xià) (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      },
+      "47398": {
+        "pageid": 47398,
+        "ns": 0,
+        "title": "华哉有夏·贰 (Huá Zāi Yǒu Xià·Èr) (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      },
+      "47382": {
+        "pageid": 47382,
+        "ns": 0,
+        "title": "柒 (Qī) (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      },
+      "47434": {
+        "pageid": 47434,
+        "ns": 0,
+        "title": "拾 (Shí) (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      },
+      "47424": {
+        "pageid": 47424,
+        "ns": 0,
+        "title": "心语 (Xīn Yǔ) (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      },
+      "303924": {
+        "pageid": 303924,
+        "ns": 0,
+        "title": "∞ (album)",
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Compilation albums"
+          }
+        ]
+      }
+    }
+  }
+}
