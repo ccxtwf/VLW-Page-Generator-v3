@@ -17,7 +17,7 @@
 
   $effect(() => {
     // on root, redirect to the songs page generator
-    if ($currentRoute == "/") {
+    if ($currentRoute === "/") {
       navigate("/songs");
     }
   });
@@ -32,7 +32,7 @@
   };
 
   navigation.onnavigate = (event) => {
-    if (!window.confirm($_("confirmNav"))) {
+    if ($currentRoute !== "/" && !window.confirm($_("confirmNav"))) {
       event.preventDefault();
     }
   };
