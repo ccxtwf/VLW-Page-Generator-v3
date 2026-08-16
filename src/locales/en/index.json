@@ -36,6 +36,7 @@
   "results": "Results",
   "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
   "confirmClearDiscog": "This will clear the existing songs and albums listed on the form. Are you sure that you want to continue?",
+  "confirmNav": "You have unsaved changes. Are you sure that you want to leave this page?",
   "previewTitlePlaceholder": "[PAGE TITLE]",
   "required": "required",
   "fetch": {

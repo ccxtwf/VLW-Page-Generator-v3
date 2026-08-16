@@ -25,6 +25,17 @@
   let pageLoader = $derived(
     routes[$currentRoute] ? routes[$currentRoute]() : routes["/not-found"](),
   );
+
+  window.addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+    event.returnValue = "";
+  });
+
+  navigation.addEventListener("navigate", (event) => {
+    if (!window.confirm($_("confirmNav"))) {
+      event.preventDefault();
+    }
+  });
 </script>
 
 {#if $isLoading}
