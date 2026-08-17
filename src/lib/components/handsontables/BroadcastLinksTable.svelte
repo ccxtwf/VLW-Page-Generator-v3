@@ -20,14 +20,7 @@
 
   let { id, class: className, data }: BroadcastLinksTableProps = $props();
 
-  const headerText: string[] = [
-    "Site",
-    "URL",
-    "Reprint?",
-    "Auto-gen?",
-    "Deleted?",
-    "View Count",
-  ];
+  const headerText: string[] = ["Site", "URL", "Reprint?", "Auto-gen?", "Deleted?", "View Count"];
   const columnDefinitions: ColumnSettings[] = [
     {
       data: "site",

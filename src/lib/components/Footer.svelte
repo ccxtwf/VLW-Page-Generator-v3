@@ -14,7 +14,7 @@
   ];
 </script>
 
-<footer class="bg-neutral text-neutral-content p-10 mt-auto justify-self-end-safe">
+<footer class="bg-neutral text-neutral-content mt-auto justify-self-end-safe p-10">
   <div class="footer sm:footer-horizontal">
     <aside>
       <div>

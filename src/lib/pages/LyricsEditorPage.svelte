@@ -38,5 +38,8 @@
 
   <Divider />
 
-  <GeneratedResultsTextBox showTitle={false} bind:this={resultsBox} />
+  <GeneratedResultsTextBox
+    showTitle={false}
+    bind:this={resultsBox}
+  />
 </div>

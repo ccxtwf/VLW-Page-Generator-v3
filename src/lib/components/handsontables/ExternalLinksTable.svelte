@@ -20,12 +20,7 @@
   let hot: HotInstance | undefined = $state();
   let child: SvelteComponent | null = null;
 
-  let {
-    id,
-    class: className,
-    data,
-    forProducerPage,
-  }: ExternalLinksTableProps = $props();
+  let { id, class: className, data, forProducerPage }: ExternalLinksTableProps = $props();
 
   const headerText: string[] = ["URL", "Description", "Official"];
   const columnDefinitions: ColumnSettings[] = [

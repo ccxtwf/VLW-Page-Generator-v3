@@ -19,12 +19,7 @@
 
   let hot: HotInstance | undefined = $state();
 
-  let {
-    id,
-    class: className,
-    languages = $bindable([]),
-    data,
-  }: LyricsTableProps = $props();
+  let { id, class: className, languages = $bindable([]), data }: LyricsTableProps = $props();
 
   const languageMetadata = $derived(getLanguageMetadata(languages));
 
@@ -52,8 +47,7 @@
      * Change column headers and column visibility when a different selection of
      * languages is selected
      */
-    const { headers, needsRomanization, needsTranslation } =
-      $state.snapshot(languageMetadata);
+    const { headers, needsRomanization, needsTranslation } = $state.snapshot(languageMetadata);
     const hiddenColumns: number[] = [];
     if (!needsRomanization) {
       hiddenColumns.push(2);

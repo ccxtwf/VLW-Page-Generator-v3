@@ -37,9 +37,7 @@
   <div class="flex w-full flex-row items-center justify-between gap-4">
     <div class="flex-item grow">
       <label for={labelForHtmlId}>
-        {labelI18nKey
-          ? $_(labelI18nKey, { values: labelI18nParams })
-          : rawLabelString}
+        {labelI18nKey ? $_(labelI18nKey, { values: labelI18nParams }) : rawLabelString}
       </label>
     </div>
     <div class="flex-item flex-none">
@@ -56,7 +54,10 @@
     </div>
   {/if}
 </div>
-<div class="flex w-full flex-col gap-2 sm:flex-row" class:hidden>
+<div
+  class="flex w-full flex-col gap-2 sm:flex-row"
+  class:hidden
+>
   {#if children}
     {@render children()}
   {/if}

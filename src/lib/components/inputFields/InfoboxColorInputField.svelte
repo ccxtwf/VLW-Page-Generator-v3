@@ -7,10 +7,8 @@
     color: string;
   }
 
-  let {
-    backgroundColor = $bindable(""),
-    color = $bindable(""),
-  }: InfoboxColorInputFieldProps = $props();
+  let { backgroundColor = $bindable(""), color = $bindable("") }: InfoboxColorInputFieldProps =
+    $props();
 </script>
 
 <div class="flex w-full flex-col gap-4">

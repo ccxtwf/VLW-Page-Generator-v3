@@ -25,5 +25,8 @@
     <CopyTitleButton bind:this={copyTitle} />
   </div>
 {/if}
-<textarea readonly class="textarea w-full" rows="30" bind:this={textarea}
-></textarea>
+<textarea
+  readonly
+  class="textarea w-full"
+  rows="30"
+  bind:this={textarea}></textarea>

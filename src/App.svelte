@@ -4,16 +4,14 @@
   import { currentRoute, navigate, ROUTES } from "./lib/router";
   import type { Component } from "svelte";
 
-  const routes: Record<string, () => Promise<{ default: Component<any> }>> =
-    ROUTES.reduce(
-      (acc, { path, loader }) => ({
-        ...acc,
-        [path]: loader,
-      }),
-      {},
-    );
-  routes["/not-found"] = () =>
-    import("./lib/pages/PageNotFoundErrorPage.svelte");
+  const routes: Record<string, () => Promise<{ default: Component<any> }>> = ROUTES.reduce(
+    (acc, { path, loader }) => ({
+      ...acc,
+      [path]: loader,
+    }),
+    {},
+  );
+  routes["/not-found"] = () => import("./lib/pages/PageNotFoundErrorPage.svelte");
 
   $effect(() => {
     // on root, redirect to the songs page generator

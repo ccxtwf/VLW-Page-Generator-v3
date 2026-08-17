@@ -36,9 +36,9 @@
   }
 </script>
 
-<header 
-  class="fixed w-full transition-transform duration-300 transform-gpu z-50 shadow-sm navbar-header" 
-  class:-translate-y-full={show} 
+<header
+  class="navbar-header fixed z-50 w-full transform-gpu shadow-sm transition-transform duration-300"
+  class:-translate-y-full={show}
   class:translate-y-0={!show}
 >
   <div class="navbar bg-neutral text-neutral-content border-black-800 border-b-2">

@@ -20,12 +20,7 @@
     forAlbums?: boolean;
   }
 
-  let {
-    id,
-    class: className,
-    data,
-    forAlbums,
-  }: ProducerDiscographyTableProps = $props();
+  let { id, class: className, data, forAlbums }: ProducerDiscographyTableProps = $props();
 
   const headerText: string[] = [
     forAlbums ? "Album pages" : "Song pages",
@@ -79,9 +74,7 @@
   class={className}
   bind:this={child}
   {data}
-  dataSchema={forAlbums
-    ? ProducerDiscographyAlbumItem
-    : ProducerDiscographySongItem}
+  dataSchema={forAlbums ? ProducerDiscographyAlbumItem : ProducerDiscographySongItem}
   rowHeaders={true}
   colHeaders={headerText}
   columns={columnDefinitions}

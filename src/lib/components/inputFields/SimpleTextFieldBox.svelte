@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { HTMLTextareaAttributes } from 'svelte/elements';
+  import type { HTMLTextareaAttributes } from "svelte/elements";
 
   interface Props extends HTMLTextareaAttributes {
     value?: string;
   }
 
-  let { placeholder, id, value = $bindable(''), ...rest }: Props = $props();
+  let { placeholder, id, value = $bindable(""), ...rest }: Props = $props();
 </script>
 
 <textarea
@@ -13,5 +13,4 @@
   class="textarea textarea-bordered w-full"
   {placeholder}
   bind:value
-  {...rest}
-></textarea>
+  {...rest}></textarea>
