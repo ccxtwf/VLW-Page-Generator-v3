@@ -23,11 +23,18 @@
   let hot: HotInstance | undefined = $state();
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
 
-  let { id, class: cssClass, toggleText = $bindable("") }: LyricsTableFreeEditProps = $props();
+  let {
+    id,
+    class: cssClass,
+    toggleText = $bindable(""),
+  }: LyricsTableFreeEditProps = $props();
 
   let headers = $derived(determineColumnHeaders(toggleText));
 
-  let colHeaders: string[] = $derived(["Custom style", ...$state.snapshot(headers)]);
+  let colHeaders: string[] = $derived([
+    "Custom style",
+    ...$state.snapshot(headers),
+  ]);
 
   $effect(() => {
     if (!hot) {
@@ -67,6 +74,10 @@
           switch (i) {
             case -1:
               // English column not found
+              if (c.length) {
+                romanized = (c[0] as string) || "";
+                offset = 1;
+              }
               break;
             case 1:
               // Found English at second column
@@ -74,6 +85,8 @@
               offset = 1;
               break;
             default:
+              // Ideally, the English column would be at the third column
+              // No guarantee is made
               romanized = (c[0] as string) || "";
               english = (c[1] as string) || "";
               offset = 2;
@@ -120,7 +133,15 @@
           rendererKey = "lyrics-custom-style";
         }
         const renderer = Handsontable.renderers.getRenderer(rendererKey);
-        return renderer(hotInstance, _td, _row, col, _prop, _value, _cellProperties);
+        return renderer(
+          hotInstance,
+          _td,
+          _row,
+          col,
+          _prop,
+          _value,
+          _cellProperties,
+        );
       },
       theme: getTheme(window._theme || "auto"),
       rowHeaders: true,
@@ -135,15 +156,20 @@
       startRows: 20,
       minCols: 2,
       maxCols: 6,
+      startCols: 4,
       afterCreateCol(index, amount, source) {
-        if (source === "ContextMenu.columnLeft") {
-          toggleText = addColumnsAtIndexToTheLeftToToggle(toggleText, index, amount);
-        } else {
-          toggleText = addColumnsAtIndexToTheRightToToggle(toggleText, index, amount);
-        }
+        DEBUG && console.log("CREATED COL", index, amount, source);
+        toggleText = addColumnsAtIndexToTheLeftToToggle(
+          toggleText,
+          index,
+          amount,
+        );
       },
       afterRemoveCol(_index, _amount, physicalColumns, _source) {
-        toggleText = removeColumnsAtIndexFromToggle(toggleText, physicalColumns);
+        toggleText = removeColumnsAtIndexFromToggle(
+          toggleText,
+          physicalColumns,
+        );
       },
       licenseKey: HANDSONTABLE_LICENSE_KEY,
     });
@@ -160,8 +186,4 @@
   });
 </script>
 
-<div
-  {id}
-  class={cssClass}
-  bind:this={container}
-></div>
+<div {id} class={cssClass} bind:this={container}></div>
