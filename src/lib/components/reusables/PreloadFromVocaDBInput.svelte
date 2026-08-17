@@ -17,6 +17,7 @@
       type="text"
       {placeholder}
       bind:value={vdbUrl}
+      autocomplete="off"
       onkeydown={function (e) {
         if (e.key === "Enter") {
           e.preventDefault();

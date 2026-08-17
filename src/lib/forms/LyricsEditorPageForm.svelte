@@ -109,6 +109,7 @@
     <SimpleTextInput
       id="translator"
       placeholder={$_("lyricsEditor.fields.translator.placeholder")}
+      autocomplete="on"
       bind:value={translator}
     />
     <div class="flex flex-nowrap items-center gap-2">

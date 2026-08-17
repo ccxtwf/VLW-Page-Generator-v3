@@ -218,6 +218,7 @@
       id="language-iso-code"
       class="input input-bordered w-full md:w-32"
       placeholder={$_("songGenForm.languageIsoCode.placeholder")}
+      autocomplete="language"
       bind:value={formData.isoLangCode}
     />
   </FlexRow>
@@ -447,6 +448,7 @@
       <SimpleTextInput
         id="translator"
         placeholder="John Doe"
+        autocomplete="on"
         bind:value={formData.translator}
       />
     </div>

@@ -16,5 +16,6 @@
   {placeholder}
   bind:value
   onkeydown={keydownPreventDefault}
+  autocomplete="off"
   {...rest}
 />
