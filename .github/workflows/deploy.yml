@@ -1,0 +1,66 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    # deploy on changes to source code only
+    # do not rebuild/redeploy on changes to package.json & package-lock.json (explicitly must require manual deployment)
+    paths:
+      - "src/**"
+      - "public/**"
+
+  # Allow manual deployments from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Vite Plus app
+        uses: voidzero-dev/setup-vp@v1.17.0
+        with:
+          node-version: "24"
+          cache: true
+
+      - name: Set environment variables
+        run: |
+          echo "VITE_REFER_FROM_ORIGIN={{ github.repository_owner }}.github.io" >> $GITHUB_ENV
+
+          echo "VITE_GITHUB_REPO_LINK=https://github.com/{{ github.repository }}" >> $GITHUB_ENV
+          echo "VITE_GITLAB_REPO_LINK={{ vars.gitlabUrl }}" >> $GITHUB_ENV
+
+          echo "VITE_BUILD_CODE=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "VITE_BUILD_DATE=$(date -Iseconds)" >> $GITHUB_ENV
+
+      - run: vp install
+      - run: vp build --base "{{ github.event.repository.name }}"
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
