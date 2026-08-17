@@ -1,8 +1,10 @@
 import modSanitizeHtml from "sanitize-html";
 import { COLOURS } from "../../constants";
 
-export function preventDefault(e: Event) {
-  e.preventDefault();
+export function keydownPreventDefault(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
 }
 
 /**

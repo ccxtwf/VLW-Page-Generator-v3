@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { preventDefault } from "../../utils/utils";
+  import { keydownPreventDefault } from "../../utils/utils";
 
   interface Props extends Omit<HTMLInputAttributes, "type"> {
     value?: string;
@@ -15,6 +15,6 @@
   class="input input-bordered w-full"
   {placeholder}
   bind:value
-  onkeypress={preventDefault}
+  onkeydown={keydownPreventDefault}
   {...rest}
 />

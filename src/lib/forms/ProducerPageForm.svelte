@@ -147,7 +147,7 @@
           id="producer-category"
           placeholder={$_("producerGenForm.mainProducerCategory.placeholder")}
           bind:value={formData.prodCategory}
-          onkeypress={function (e) {
+          onkeydown={function (e) {
             e.preventDefault();
             if (e.key === "Enter") {
               document.getElementById("fetch-vlw-button")?.click();

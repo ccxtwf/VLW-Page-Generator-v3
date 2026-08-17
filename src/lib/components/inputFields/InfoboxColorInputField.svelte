@@ -1,14 +1,16 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import { preventDefault } from "../../utils/utils";
+  import { keydownPreventDefault } from "../../utils/utils";
 
   interface InfoboxColorInputFieldProps {
     backgroundColor: string;
     color: string;
   }
 
-  let { backgroundColor = $bindable(""), color = $bindable("") }: InfoboxColorInputFieldProps =
-    $props();
+  let {
+    backgroundColor = $bindable(""),
+    color = $bindable(""),
+  }: InfoboxColorInputFieldProps = $props();
 </script>
 
 <div class="flex w-full flex-col gap-4">
@@ -33,7 +35,7 @@
         placeholder="black"
         defaultValue="black"
         bind:value={backgroundColor}
-        onkeypress={preventDefault}
+        onkeydown={keydownPreventDefault}
       />
       <div
         id="infobox-bg-color-picker"
@@ -56,7 +58,7 @@
         placeholder="white"
         defaultValue="white"
         bind:value={color}
-        onkeypress={preventDefault}
+        onkeydown={keydownPreventDefault}
       />
       <div
         id="infobox-fg-color-picker"
