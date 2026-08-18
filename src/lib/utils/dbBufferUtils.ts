@@ -4,7 +4,7 @@
  * @returns
  */
 export async function getDbBuffer(): Promise<ArrayBuffer> {
-  const res = await fetch("/synths.db");
+  const res = await fetch(`${ASSETS_PATH}synths.db`);
   if (!res.ok) {
     throw new Error(`Got unexpected response from server: ${res.status} ${res.statusText}`);
   }

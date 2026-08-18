@@ -1,0 +1,58 @@
+name: Detect changes made to assets and commit these changes to the branch `origin/data`
+
+on:
+  push:
+    branches:
+      - main
+    # deploy on changes to assets only
+    paths:
+      - "public/**"
+
+  # Allow manual deployments from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-assets
+  cancel-in-progress: true
+
+jobs:
+  upload-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Stage public/ contents
+        run: |
+          TEMP_DIR=$(mktemp -d)
+          cp -r "$GITHUB_WORKSPACE/public" "$TEMP_DIR/public"
+          echo "TEMP_DIR=$TEMP_DIR" >> "$GITHUB_ENV"
+
+      - name: Switch to data branch
+        run: |
+          if git ls-remote --exit-code --heads origin data; then
+            git switch data
+          else
+            git switch --orphan data
+          fi
+          git rm -rf --ignore-unmatch .
+          git clean -fdx
+
+      - name: Commit assets
+        run: |
+          cp -a "$TEMP_DIR/public/." ./
+          git add .
+          git diff --cached --quiet || git commit -m "Update assets"
+          git push origin data
