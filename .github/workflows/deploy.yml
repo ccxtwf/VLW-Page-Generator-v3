@@ -44,8 +44,8 @@ jobs:
         run: |
           echo "VITE_REFER_FROM_ORIGIN={{ github.repository_owner }}.github.io" >> $GITHUB_ENV
 
-          echo "VITE_GITHUB_REPO_LINK=https://github.com/{{ github.repository }}" >> $GITHUB_ENV
-          echo "VITE_GITLAB_REPO_LINK={{ vars.gitlabUrl }}" >> $GITHUB_ENV
+          echo "VITE_GITHUB_REPO_LINK={{ github.server_url }}/{{ github.repository }}" >> $GITHUB_ENV
+          echo "VITE_GITLAB_REPO_LINK={{ vars.GITLAB_URL }}" >> $GITHUB_ENV
 
           echo "VITE_BUILD_CODE=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "VITE_BUILD_DATE=$(date -Iseconds)" >> $GITHUB_ENV
