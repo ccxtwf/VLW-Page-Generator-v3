@@ -9,7 +9,7 @@ export default defineConfig((env) => ({
   },
 
   fmt: {
-    ignorePatterns: [],
+    ignorePatterns: ["**/*.md", "**/*.json", "index.html"],
 
     semi: true,
     singleQuote: false,
@@ -23,11 +23,23 @@ export default defineConfig((env) => ({
   },
 
   lint: {
-    ignorePatterns: [],
+    ignorePatterns: ["**/*.md", "**/*.json", "index.html"],
 
     jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
-    rules: { "vite-plus/prefer-vite-plus-imports": "error" },
-    options: { typeAware: true, typeCheck: true },
+    rules: {
+      "vite-plus/prefer-vite-plus-imports": "error",
+      "no-unused-expressions": [
+        "error",
+        {
+          allowShortCircuit: true,
+        },
+      ],
+      "no-useless-default-assignment": "off",
+    },
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
   },
 
   plugins: lazyPlugins(() => [tailwindcss(), svelte()]),
