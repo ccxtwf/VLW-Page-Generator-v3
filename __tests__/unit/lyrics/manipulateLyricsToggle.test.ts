@@ -3,7 +3,7 @@ import {
   addColumnsAtIndexToTheLeftToToggle,
   addColumnsAtIndexToTheRightToToggle,
   removeColumnsAtIndexFromToggle,
-} from "../../src/lib/utils/lyricsUtils";
+} from "../../../src/lib/utils/lyricsUtils";
 
 describe("manipulateLyricsToggle", () => {
   test.each([

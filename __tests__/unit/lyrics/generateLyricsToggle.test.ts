@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { generateLyricsToggle } from "../../src/lib/utils/lyricsUtils";
+import { generateLyricsToggle } from "../../../src/lib/utils/lyricsUtils";
 
 describe("generateLyricsToggle", () => {
   test("Toggle for Japanese-only songs - show English", () => {

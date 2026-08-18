@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { determineColumnHeaders } from "../../src/lib/utils/lyricsUtils";
+import { determineColumnHeaders } from "../../../src/lib/utils/lyricsUtils";
 
 describe("determineColumnHeaders", () => {
   test.each([

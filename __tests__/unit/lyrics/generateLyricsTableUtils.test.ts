@@ -3,8 +3,8 @@ import {
   renderTableCellWikitext,
   renderLyricsRowWikitext,
   generateSingerPartsElement,
-} from "../../src/lib/utils/lyricsUtils";
-import type { ILyricsRow } from "../../src/lib/models/schema.d";
+} from "../../../src/lib/utils/lyricsUtils";
+import type { ILyricsRow } from "../../../src/lib/models/schema.d";
 
 describe("renderTableCellWikitext", () => {
   test.each([

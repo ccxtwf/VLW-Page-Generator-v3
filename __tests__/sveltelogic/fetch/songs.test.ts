@@ -1,21 +1,21 @@
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { fetchDataFromVocaDb } from "../../src/lib/logic/songs.svelte";
+import { fetchDataFromVocaDb } from "../../../src/lib/logic/songs.svelte";
 import {
   ENUM_AI_WARNING_TYPE,
   ENUM_CW_STATES,
   ENUM_IMAGE_EMBED_SOURCE_TYPE,
-} from "../../src/lib/models/enums";
-import { mapLanguages } from "../mapper";
-import PlayLink from "../../src/lib/models/children/PlayLink.svelte";
-import ExternalLink from "../../src/lib/models/children/ExternalLink.svelte";
+} from "../../../src/lib/models/enums";
+import { mapLanguages } from "../../mapper";
+import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
+import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
 
 // Mock import
-vi.mock("../../src/lib/utils/dbBufferUtils", async () => {
+vi.mock("../../../src/lib/utils/dbBufferUtils", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
-      const dbFile = readFileSync(resolve(__dirname, "../../public/synths.db"));
+      const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
       const arrayBuffer = dbFile.buffer.slice(
         dbFile.byteOffset,
         dbFile.byteOffset + dbFile.byteLength,

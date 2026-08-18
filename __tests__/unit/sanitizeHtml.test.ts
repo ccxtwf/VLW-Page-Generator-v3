@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { sanitizeHtml } from "../src/lib/utils/utils";
+import { sanitizeHtml } from "../../src/lib/utils/utils";
 
 describe("test sanitizeHtml", () => {
   test.each([

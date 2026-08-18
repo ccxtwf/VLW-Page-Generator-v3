@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { getDbBuffer } from "../../src/lib/utils/dbBufferUtils";
-import { getDb } from "../../src/lib/utils/dbUtils";
-import { getVocalistBasedOnVdbId } from "../../src/lib/utils/vdbUtils";
+import { getDbBuffer } from "../../../src/lib/utils/dbBufferUtils";
+import { getDb } from "../../../src/lib/utils/dbUtils";
+import { getVocalistBasedOnVdbId } from "../../../src/lib/utils/vdbUtils";
 
 // Mock import
-vi.mock("../../src/lib/utils/dbBufferUtils", async () => {
+vi.mock("../../../src/lib/utils/dbBufferUtils", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
-      const dbFile = readFileSync(resolve(__dirname, "../../public/synths.db"));
+      const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
       const arrayBuffer = dbFile.buffer.slice(
         dbFile.byteOffset,
         dbFile.byteOffset + dbFile.byteLength,

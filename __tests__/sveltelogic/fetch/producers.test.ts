@@ -1,17 +1,20 @@
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { fetchDataFromVocaDb, fetchDiscographyFromVlw } from "../../src/lib/logic/producers.svelte";
-import ExternalLinkForProducerPage from "../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
-import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../src/lib/models/enums";
-import ProducerDiscographySongItem from "../../src/lib/models/children/ProducerDiscographySongItem.svelte";
-import ProducerDiscographyAlbumItem from "../../src/lib/models/children/ProducerDiscographyAlbumItem.svelte";
+import {
+  fetchDataFromVocaDb,
+  fetchDiscographyFromVlw,
+} from "../../../src/lib/logic/producers.svelte";
+import ExternalLinkForProducerPage from "../../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
+import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../../src/lib/models/enums";
+import ProducerDiscographySongItem from "../../../src/lib/models/children/ProducerDiscographySongItem.svelte";
+import ProducerDiscographyAlbumItem from "../../../src/lib/models/children/ProducerDiscographyAlbumItem.svelte";
 
 // Mock import
-vi.mock("../../src/lib/utils/dbBufferUtils", async () => {
+vi.mock("../../../src/lib/utils/dbBufferUtils", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
-      const dbFile = readFileSync(resolve(__dirname, "../../public/synths.db"));
+      const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
       const arrayBuffer = dbFile.buffer.slice(
         dbFile.byteOffset,
         dbFile.byteOffset + dbFile.byteLength,

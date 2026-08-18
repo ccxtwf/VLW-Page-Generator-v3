@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import { generateLyricsPoemElement } from "../../src/lib/utils/lyricsUtils";
-import { ILyricsRow } from "../../src/lib/models/schema.d";
+import { generateLyricsPoemElement } from "../../../src/lib/utils/lyricsUtils";
+import { ILyricsRow } from "../../../src/lib/models/schema.d";
 
 describe("generateLyricsPoemElement", () => {
   test("simple", () => {
