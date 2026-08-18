@@ -7,7 +7,7 @@
   let selectedTable: number = $state(0);
   let nTables: number = $state(0);
 
-  let textareaElement: HTMLTextAreaElement;
+  let textareaElement: HTMLTextAreaElement; //oxlint-disable-line no-unassigned-vars
 
   function handleSubmit(e: Event) {
     e.preventDefault();

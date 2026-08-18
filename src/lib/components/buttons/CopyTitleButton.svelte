@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  let title: HTMLDivElement;
+  let title: HTMLDivElement; //oxlint-disable-line no-unassigned-vars
 
   let isCopied = $state(false);
   let timeout: ReturnType<typeof setTimeout>;

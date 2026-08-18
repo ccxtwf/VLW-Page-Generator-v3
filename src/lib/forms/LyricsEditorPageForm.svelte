@@ -24,7 +24,7 @@
   let translator: string = $state("");
   let isOfficialTranslation: boolean = $state(false);
 
-  let hot: SvelteComponent;
+  let hot: SvelteComponent; //oxlint-disable-line no-unassigned-vars
 
   function handleSubmit(e: Event) {
     e.preventDefault();

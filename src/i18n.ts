@@ -19,6 +19,7 @@ const _locs = [{ locale: "en", modules: enModules }];
 
 _locs.forEach(({ locale, modules }) => buildLocale(locale, modules));
 
+// oxlint-disable-next-line no-floating-promises
 init({
   fallbackLocale: "en",
   initialLocale: "en",

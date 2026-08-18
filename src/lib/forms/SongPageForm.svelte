@@ -34,7 +34,7 @@
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
-  let form: HTMLFormElement;
+  let form: HTMLFormElement; //oxlint-disable-line no-unassigned-vars
   let warningsElement: SvelteComponent | null = null;
   let broadcastLinksHotTable: SvelteComponent | null = null;
   let extLinksHotTable: SvelteComponent | null = null;

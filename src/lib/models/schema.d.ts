@@ -1,3 +1,5 @@
+import type { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_IMAGE_EMBED_SOURCE_TYPE } from "./enums";
+
 export interface ISong {
   aiCwState: ENUM_AI_WARNING_TYPE;
   aiWarningText1: string;

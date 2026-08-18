@@ -1,3 +1,4 @@
+// oxlint-disable no-duplicate-enum-values
 export enum COLOURS {
   aliceblue = "#f0f8ff",
   antiquewhite = "#faebd7",

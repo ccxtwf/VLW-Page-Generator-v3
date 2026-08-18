@@ -4,7 +4,7 @@
 
   let { onclose } = $props();
 
-  let tooltip: HTMLDivElement;
+  let tooltip: HTMLDivElement; //oxlint-disable-line no-unassigned-vars
 
   async function copyDiacritic(e: Event) {
     try {

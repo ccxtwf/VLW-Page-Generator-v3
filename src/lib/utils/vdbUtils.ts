@@ -58,8 +58,8 @@ export async function getVocalistBasedOnVdbId(vdbId: number): Promise<{
     );
     if (vb) {
       return {
-        category: vb.wikicat_name!.toString(),
-        baseName: vb.basevb_name!.toString(),
+        category: vb.wikicat_name! as string,
+        baseName: vb.basevb_name! as string,
         engine: vb.engine_id! as number,
       };
     }

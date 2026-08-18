@@ -30,10 +30,12 @@
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
+  /* oxlint-disable no-unassigned-vars */
   let form: HTMLFormElement;
-  let warningsElement: SvelteComponent | undefined = $state();
-  let tracklistHotTable: SvelteComponent | undefined = $state();
-  let extLinksHotTable: SvelteComponent | undefined = $state();
+  let warningsElement: SvelteComponent;
+  let tracklistHotTable: SvelteComponent;
+  let extLinksHotTable: SvelteComponent;
+  /* oxlint-enable no-unassigned-vars */
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 

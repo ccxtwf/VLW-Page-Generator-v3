@@ -7,8 +7,10 @@
 
   let { showTitle = true }: { showTitle?: boolean } = $props();
 
+  /* oxlint-disable no-unassigned-vars */
   let textarea: HTMLTextAreaElement;
   let copyTitle: SvelteComponent;
+  /* oxlint-enable no-unassigned-vars */
 
   export function updateState(generatedPage: string, pageTitle: string): void {
     textarea.value = generatedPage;

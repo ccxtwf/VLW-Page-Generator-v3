@@ -181,13 +181,17 @@ export function generatePage(formData: Producer): string {
 ${
   labels === ""
     ? ""
-    : `\n==Labels==\n${labels.split("\n").map((i) => (i.startsWith("*") ? i : "* " + i))}\n`
+    : `\n==Labels==\n${labels
+        .split("\n")
+        .map((i) => (i.startsWith("*") ? i : "* " + i))
+        .join("\n")}\n`
 }${
     affiliations === ""
       ? ""
       : `\n==Affiliations==\n${affiliations
           .split("\n")
-          .map((i) => (i.startsWith("*") ? i : "* " + i))}\n`
+          .map((i) => (i.startsWith("*") ? i : "* " + i))
+          .join("\n")}\n`
   }
 ${extLinksSegment}</div>
 

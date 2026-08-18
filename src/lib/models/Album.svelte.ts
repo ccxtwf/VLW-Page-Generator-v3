@@ -148,7 +148,7 @@ export default class Album implements BaseModel<IAlbum> {
     } else {
       const tracklistValidationErrors = Array.from(
         new Set(tracklist.flatMap((t) => t.validate())).keys(),
-      ).sort();
+      ).sort((a, b) => a - b);
       for (const c of tracklistValidationErrors) {
         errors.push(getValidationError(c));
       }

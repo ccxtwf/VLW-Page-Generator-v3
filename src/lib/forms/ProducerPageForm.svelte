@@ -37,11 +37,13 @@
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
 
+  /* oxlint-disable no-unassigned-vars */
   let form: HTMLFormElement;
-  let warningsElement: SvelteComponent | undefined = $state();
-  let extLintsHotTable: SvelteComponent | undefined = $state();
-  let songListHotTable: SvelteComponent | undefined = $state();
-  let albumListHotTable: SvelteComponent | undefined = $state();
+  let warningsElement: SvelteComponent;
+  let extLintsHotTable: SvelteComponent;
+  let songListHotTable: SvelteComponent;
+  let albumListHotTable: SvelteComponent;
+  /* oxlint-enable no-unassigned-vars */
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
