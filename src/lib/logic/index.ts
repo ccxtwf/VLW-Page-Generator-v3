@@ -11,10 +11,15 @@ import type { BaseModel } from "../models/base";
  * @returns
  */
 export function formSubmitHandler<T extends BaseModel<any>>({
+  resetWarnings,
   fetchLatestSnapshot,
   generate,
   displayWarningsAndErrors,
 }: {
+  /**
+   * A callback function that will be called to reset the last form warnings
+   */
+  resetWarnings: () => void;
   /**
    * A callback function that will be called to get the last snapshot of
    * `ignoreErrors` and `formData`
@@ -43,6 +48,8 @@ export function formSubmitHandler<T extends BaseModel<any>>({
 }): (e: Event) => void {
   const _onFormSubmit = (e: Event) => {
     e.preventDefault();
+
+    resetWarnings();
 
     const [ignoreErrors, formData] = fetchLatestSnapshot();
 

@@ -40,8 +40,14 @@
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
+  const resetWarnings = () => {
+    resetFormWarnings(form);
+    warningsElement!.resetState();
+  };
+
   const handleFetchVocaDb = async (url: string) => {
     if (window.confirm($_("confirmClear"))) {
+      resetWarnings();
       const __a = { "1": "VocaDB" };
       try {
         const fetched = await fetchDataFromVocaDb(url);
@@ -60,6 +66,7 @@
     }
   };
   const handleFormSubmit = formSubmitHandler<Album>({
+    resetWarnings,
     fetchLatestSnapshot() {
       formData.tracklist = tracklistHotTable!.getLatestData();
       formData.extLinks = extLinksHotTable!.getLatestData();
@@ -77,10 +84,6 @@
       warningsElement!.updateState({ errors, warnings, autoloadCategories });
     },
   });
-  const resetWarnings = () => {
-    resetFormWarnings(form);
-    warningsElement!.resetState();
-  };
   const handleFormReset = () => {
     resetWarnings();
     formData.resetHotTables();
