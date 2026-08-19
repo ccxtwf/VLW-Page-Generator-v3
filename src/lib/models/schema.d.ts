@@ -102,6 +102,8 @@ export interface IImageEmbed {
   type: ENUM_IMAGE_EMBED_SOURCE_TYPE | null;
   src: string;
   alt?: string;
+  "data-thumburl"?: string | null;
+  "data-ytid"?: string | null;
 }
 
 export interface IExternalLinkForProducerPage extends IExternalLink {

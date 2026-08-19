@@ -471,6 +471,8 @@ export async function fetchDataFromVocaDb(
             type: ENUM_IMAGE_EMBED_SOURCE_TYPE.yt,
             src: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
             alt: "YouTube thumbnail",
+            "data-ytid": pv.pvId,
+            "data-thumburl": pv.thumbUrl,
           });
           break;
         case VdbPvService.bb:
@@ -482,6 +484,7 @@ export async function fetchDataFromVocaDb(
               type: ENUM_IMAGE_EMBED_SOURCE_TYPE.nn,
               src: pv.thumbUrl + ".L",
               alt: "Niconico thumbnail",
+              "data-thumburl": pv.thumbUrl,
             });
           break;
         default:

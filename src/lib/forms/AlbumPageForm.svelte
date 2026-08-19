@@ -14,6 +14,7 @@
   import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
   import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
+  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
@@ -150,6 +151,14 @@
   </FlexRow>
 
   <Divider />
+
+  {#if formData.image}
+    <div class="col-span-full m-auto">
+      <ImageEmbed {...formData.image} />
+    </div>
+
+    <Divider />
+  {/if}
 
   <FlexRow
     labelForHtmlId="infobox-colors"

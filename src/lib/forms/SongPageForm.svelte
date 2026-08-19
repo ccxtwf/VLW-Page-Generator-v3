@@ -17,6 +17,7 @@
   import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
   import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
   import Tooltip from "../components/reusables/Tooltip.svelte";
+  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
   import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
@@ -321,6 +322,16 @@
   </FlexRow>
 
   <Divider />
+
+  {#if formData.images.length}
+    <div class="col-span-full flex flex-wrap items-center justify-center gap-3">
+      {#each formData.images as image}
+        <ImageEmbed {...image} />
+      {/each}
+    </div>
+
+    <Divider />
+  {/if}
 
   <FlexRow
     labelForHtmlId="infobox-colors"
