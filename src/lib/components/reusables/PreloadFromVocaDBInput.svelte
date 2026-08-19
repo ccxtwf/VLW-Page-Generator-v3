@@ -1,12 +1,13 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   interface PreloadFromVocaDBInputProps {
-    onfetch: (url: string) => void;
+    onfetch: (url: string) => Promise<void>;
     placeholder: string;
   }
 
   let { onfetch, placeholder }: PreloadFromVocaDBInputProps = $props();
   let vdbUrl = $state("");
+  let isLoading = $state(false);
 </script>
 
 <div class="join w-full">
@@ -30,12 +31,21 @@
     <button
       id="vocadb-preload-url-button"
       type="button"
-      class="btn btn-neutral"
-      onclick={() => {
-        onfetch($state.snapshot(vdbUrl));
+      class="btn btn-neutral w-22"
+      onclick={async () => {
+        try {
+          isLoading = true;
+          await onfetch($state.snapshot(vdbUrl));
+        } finally {
+          isLoading = false;
+        }
       }}
     >
-      {$_("formActions.preload")}
+      {#if isLoading}
+        <span class="loading loading-dots loading-xs"></span>
+      {:else}
+        {$_("formActions.preload")}
+      {/if}
     </button>
   </div>
 </div>
