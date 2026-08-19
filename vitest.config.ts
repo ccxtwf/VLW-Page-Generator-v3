@@ -6,6 +6,9 @@ export default defineConfig({
   test: {
     projects: [
       {
+        define: {
+          DEBUG: false,
+        },
         test: {
           environment: "node",
           name: "unit",
@@ -13,11 +16,29 @@ export default defineConfig({
         },
       },
       {
+        define: {
+          DEBUG: false,
+        },
         plugins: [svelte()],
         test: {
           environment: "jsdom",
           name: "sveltelogic",
           include: ["__tests__/sveltelogic/**/*.test.{js,ts}"],
+        },
+      },
+      {
+        define: {
+          DEBUG: false,
+        },
+        plugins: [svelte()],
+        test: {
+          name: "browser",
+          include: ["__tests__/browsertests/**/*.test.{js,ts}"],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
+          },
         },
       },
     ],
