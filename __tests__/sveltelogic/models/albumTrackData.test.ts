@@ -73,7 +73,7 @@ describe("test state management logic for AlbumTrackData", () => {
         producerCredit: "[[wowaka]]",
         singerCredit: "",
       },
-      o: "|tr1 = [[A Song]]\n|tr1s = [[wowaka]] ft. Instrumental",
+      o: "|tr1 = [[A Song]]\n|tr1s = [[wowaka]] ft. ",
     },
     {
       d: "no credits listed",

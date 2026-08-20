@@ -57,7 +57,7 @@ export default class AlbumTrackData implements IAlbumTrack {
 
   getCredits(): string {
     let credits: string = this.singerCredit;
-    if (this.producerCredit !== "") {
+    if (this.producerCredit) {
       credits = `${this.producerCredit} ft. ${credits}`;
     }
     return credits;
