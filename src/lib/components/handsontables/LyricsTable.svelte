@@ -1,27 +1,32 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable";
-  import type { SvelteComponent } from "svelte";
-
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
   import { lyricsContextMenu } from "./contextMenus/lyrics";
-
-  import type { MultiSelectItem } from "../../../schemas/form";
-  import { getLanguageMetadata } from "../../utils/lyricsUtils";
+  import type { LanguageMetadata } from "../../utils/lyricsUtils";
 
   interface LyricsTableProps {
     id: string;
     class: string;
-    languages: MultiSelectItem[];
+    languageMetadata: LanguageMetadata;
     data: (string | null | undefined)[][];
   }
 
   let hot: HotInstance | undefined = $state();
 
-  let { id, class: className, languages = $bindable([]), data }: LyricsTableProps = $props();
-
-  const languageMetadata = $derived(getLanguageMetadata(languages));
+  let {
+    id,
+    class: className,
+    languageMetadata = $bindable({
+      headers: [],
+      needsRomanization: false,
+      needsTranslation: false,
+      isChinese: false,
+      isoLangCode: null,
+    }),
+    data,
+  }: LyricsTableProps = $props();
 
   const columnDefinitions: ColumnSettings[] = [
     {
@@ -47,7 +52,7 @@
      * Change column headers and column visibility when a different selection of
      * languages is selected
      */
-    const { headers, needsRomanization, needsTranslation } = $state.snapshot(languageMetadata);
+    const { headers, needsRomanization, needsTranslation } = languageMetadata;
     const hiddenColumns: number[] = [];
     if (!needsRomanization) {
       hiddenColumns.push(2);

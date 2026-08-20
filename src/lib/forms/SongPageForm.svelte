@@ -32,6 +32,8 @@
   import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
+  import { getLanguageMetadata } from "../utils/lyricsUtils";
+
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
@@ -40,6 +42,8 @@
   let broadcastLinksHotTable: SvelteComponent | null = null;
   let extLinksHotTable: SvelteComponent | null = null;
   let lyricsHotTable: SvelteComponent | null = null;
+
+  let languageMetadata = $derived(getLanguageMetadata(formData.languages));
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
@@ -245,15 +249,12 @@
       ? $_("songGenForm.altChineseTitle.traditionalToggleOption")
       : $_("songGenForm.altChineseTitle.simplifiedToggleOption"),
   )}
-  {let hideAltChRow = $derived(
-    formData.languages.every(({ label }) => label !== "Mandarin" && label !== "Cantonese"),
-  )}
   <FlexRow
     labelForHtmlId="alternative-chinese-title"
     labelI18nKey="songGenForm.altChineseTitle.label"
     labelI18nParams={{ mode }}
     tooltipI18nKey="songGenForm.altChineseTitle.tooltip"
-    hidden={hideAltChRow}
+    hidden={!languageMetadata.isChinese}
   >
     {let altChPlaceholder = $derived(
       $_("songGenForm.altChineseTitle.placeholder", { values: { mode } }),
@@ -294,6 +295,7 @@
     labelForHtmlId="romanized-title"
     labelI18nKey="songGenForm.romanizedTitle.label"
     tooltipI18nKey="songGenForm.romanizedTitle.tooltip"
+    hidden={!languageMetadata.needsRomanization}
   >
     <SimpleTextInput
       id="romanized-title"
@@ -306,6 +308,7 @@
     labelForHtmlId="english-title"
     labelI18nKey="songGenForm.englishTitle.label"
     tooltipI18nKey="songGenForm.englishTitle.tooltip"
+    hidden={!languageMetadata.needsTranslation}
   >
     <div class="sm:join block w-full">
       <SimpleTextInput
@@ -449,7 +452,7 @@
     id="lyrics"
     class="col-span-full"
     data={lyricsDataNorm}
-    bind:languages={formData.languages}
+    bind:languageMetadata
     bind:this={lyricsHotTable}
   />
 

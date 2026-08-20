@@ -2,18 +2,20 @@ import { LANGUAGES, TRANSLATORS } from "../../constants";
 import type { ILyricsRow } from "../models/schema.d";
 import type { MultiSelectItem } from "../../schemas/form";
 
-/**
- *
- * @param languages
- * @returns
- */
-export function getLanguageMetadata(languages: MultiSelectItem[]): {
+export interface LanguageMetadata {
   headers: string[];
   needsRomanization: boolean;
   needsTranslation: boolean;
   isChinese: boolean;
   isoLangCode: string | null;
-} {
+}
+
+/**
+ *
+ * @param languages
+ * @returns
+ */
+export function getLanguageMetadata(languages: MultiSelectItem[]): LanguageMetadata {
   let headers: string[] = [];
   let needsRomanization = false;
   let needsTranslation = true;
