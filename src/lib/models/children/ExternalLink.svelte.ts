@@ -54,7 +54,7 @@ export default class ExternalLink implements IExternalLink {
         const [_, p1, p2] = m;
         if (p1 === VOCALOID_LYRICS_WIKI_NAME) {
           const isCategory = /^[Cc]at(?:egory|)/.test(p2);
-          wikitext = `[[${isCategory ? ":" : ""}${p2}|${description}]]`;
+          wikitext = `[[${isCategory ? ":" : ""}${p2.replaceAll(/_/g, " ")}|${description}]]`;
         } else if (p1 in RegexUtils.RECOGNIZED_MH_INTERWIKI) {
           wikitext = `{{${RegexUtils.RECOGNIZED_MH_INTERWIKI[p1]}|${p2}|${description}}}`;
         } else {
