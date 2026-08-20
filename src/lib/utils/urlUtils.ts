@@ -101,6 +101,7 @@ export function getOtherMediaWikiPageName(url: string, articlePath: string): str
  * @returns
  */
 export function processExternalLinkFromVocaDb(url: string) {
+  url = url.replaceAll(/\s/g, "_");
   const referUrl = RECOGNIZED_LINKS.find(({ re }) => {
     return url.match(re) !== null;
   });
