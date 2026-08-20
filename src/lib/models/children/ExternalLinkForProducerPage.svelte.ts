@@ -27,7 +27,6 @@ export default class ExternalLinkForProducerPage
   preprocess() {
     super.preprocess();
     this.isMedia = this.isMedia || false;
-    this.isInactive = this.isInactive || false;
   }
 
   toJSON(): IExternalLinkForProducerPage {

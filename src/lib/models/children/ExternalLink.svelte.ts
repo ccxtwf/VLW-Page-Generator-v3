@@ -29,6 +29,7 @@ export default class ExternalLink implements IExternalLink {
   preprocess() {
     preprocessStringParams(this, ["url", "description"]);
     this.isOfficial = this.isOfficial || false;
+    this.isInactive = this.isInactive || false;
   }
 
   getWikitext(): string {
