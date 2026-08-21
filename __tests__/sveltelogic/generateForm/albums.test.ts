@@ -135,10 +135,10 @@ describe("Generate album pages", () => {
       publishedYear: "2016",
       publishedMonth: "December",
       publishedDay: "31",
-      engines: mapEngines("VOCALOID"),
+      engines: mapEngines("VOCALOID", "UTAU"),
       vdbAlbumId: "21149",
       categoriesRaw:
-        "Albums featuring VOCALOID\nAlbums featuring Hatsune Miku (VOCALOID)\nSakura songs list/Albums",
+        "Albums featuring VOCALOID\nAlbums featuring UTAU\nAlbums featuring Hatsune Miku (VOCALOID)\nAlbums featuring Kasane Teto (UTAU)\nSakura songs list/Albums",
       tracklist: [
         new AlbumTrackData({
           discNo: 1,
@@ -152,7 +152,7 @@ describe("Generate album pages", () => {
           trackNo: 2,
           pageTitle: "[[Page 2]]",
           producerCredit: "",
-          singerCredit: "Hatsune Miku",
+          singerCredit: "[[Kasane Teto (UTAU)]]",
         }),
         new AlbumTrackData({
           discNo: 2,
@@ -200,7 +200,7 @@ describe("Generate album pages", () => {
 |tr1 = [[Page 1]]
 |tr1s = [[Hatsune Miku (VOCALOID)]]
 |tr2 = [[Page 2]]
-|tr2s = Hatsune Miku
+|tr2s = [[Kasane Teto (UTAU)]]
 |2tr1 = Page 1 - Remix
 |2tr1s = Sakurabi ft. Instrumental
 }}
@@ -211,7 +211,9 @@ describe("Generate album pages", () => {
 * {{VDB|Al/21149}}
 
 [[Category:Albums featuring VOCALOID]]
+[[Category:Albums featuring UTAU]]
 [[Category:Albums featuring Hatsune Miku (VOCALOID)]]
+[[Category:Albums featuring Kasane Teto (UTAU)]]
 [[Category:Sakura songs list/Albums]]`;
 
     expect(page).toEqual(expected);

@@ -19,7 +19,7 @@ describe("Generate song pages", () => {
     const expected = `{{Infobox Song
 |songtitle = "''''''"
 |color = black; color:white
-|original upload date = 
+|original upload date = {{DateUnknown}}
 |singer = 
 |producer = 
 |#views = N/A
@@ -32,47 +32,7 @@ describe("Generate song pages", () => {
 {| {{lyrics table class}}
 |- class="lyrics-table-header"
 ! {{lyrics header}}
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|-
-|<br />
-|}`;
+${"|-\n|<br />\n".repeat(20)}|}`;
 
     expect(page).toEqual(expected);
   });
@@ -100,6 +60,8 @@ describe("Generate song pages", () => {
         new LyricRow({ original: "あいうえお", romanized: "aiueo", english: "ABCD" }),
         new LyricRow({ original: "かきくけこ", romanized: "kakikukeko", english: "EFGH" }),
         new LyricRow({ original: "さしすせそ", romanized: "sasisuseso", english: "IJKL" }),
+        new LyricRow({ original: "", romanized: "", english: "" }),
+        new LyricRow({ original: "SHOUT!", romanized: "SHOUT!", english: "SHOUT!" }),
       ],
       playLinks: [
         new PlayLink({
@@ -156,6 +118,10 @@ describe("Generate song pages", () => {
 |さしすせそ
 |sasisuseso
 |IJKL
+|-
+|<br />
+|-
+| {{shared}} SHOUT!
 |}
 
 ==External Links==
@@ -292,6 +258,8 @@ describe("Generate song pages", () => {
         new LyricRow({ original: "aiueo", english: "ABCD" }),
         new LyricRow({ original: "kakikukeko", english: "EFGH" }),
         new LyricRow({ original: "sasisuseso", english: "IJKL" }),
+        new LyricRow({ original: "", romanized: "", english: "" }),
+        new LyricRow({ original: "SHOUT!", romanized: "SHOUT!", english: "SHOUT!" }),
       ],
       playLinks: [
         new PlayLink({
@@ -344,6 +312,10 @@ describe("Generate song pages", () => {
 |-
 |sasisuseso
 |IJKL
+|-
+|<br />
+|-
+| {{shared}} SHOUT!
 |}
 
 ==External Links==

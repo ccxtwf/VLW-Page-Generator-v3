@@ -142,7 +142,7 @@ describe("fetchDataFromVocaDb - songs", () => {
           isOfficial: false,
         }),
         new ExternalLink({
-          url: "https://namu.wiki/w/롤링 걸",
+          url: "https://namu.wiki/w/롤링_걸",
           description: "Namu Wiki",
           isOfficial: false,
         }),
