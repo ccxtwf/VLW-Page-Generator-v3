@@ -1,6 +1,10 @@
 import modSanitizeHtml from "sanitize-html";
 import { COLOURS } from "../../constants";
 
+/**
+ *
+ * @param e
+ */
 export function keydownPreventDefault(e: KeyboardEvent) {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -57,6 +61,15 @@ export function renderAsCommaSeparatedList(list: string[]): string {
     res += list.slice(0, -1).join(", ") + " and " + list.at(-1);
   }
   return res;
+}
+
+/**
+ *
+ * @param s
+ * @returns
+ */
+export function renderTextAsHtmlTextContent(s: string) {
+  return s.split("\n").join("<br />");
 }
 
 /**

@@ -13,7 +13,12 @@ import {
   type FetchedVdbSongEntity,
 } from "../../schemas/vocadb.d";
 
-import { detonePinyin, parseDateAsUtc, renderAsCommaSeparatedList } from "../utils/utils";
+import {
+  detonePinyin,
+  parseDateAsUtc,
+  renderAsCommaSeparatedList,
+  renderTextAsHtmlTextContent,
+} from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import {
   convertArtistRole,
@@ -21,7 +26,11 @@ import {
   getVdbPageId,
   getVocalistBasedOnVdbId,
 } from "../utils/vdbUtils";
-import { generateLyricsSegment, getLanguageMetadata } from "../utils/lyricsUtils";
+import {
+  generateLyricsSegment,
+  getLanguageMetadata,
+  type LanguageMetadata,
+} from "../utils/lyricsUtils";
 
 import { VOCADB_ENTRYPOINT } from "../../config";
 import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS } from "../../constants";
@@ -42,121 +51,29 @@ import type { IImageEmbed } from "../models/schema";
  */
 export function generatePage(formData: Song): string {
   const {
-    aiCwState,
-    aiWarningText1,
-    aiWarningText2,
-    cwState,
-    cwText,
-    hasEpilepsyWarning,
-    origTitle,
-    altChTitle,
-    altChIsTraditional,
-    romTitle,
-    engTitle,
-    titleIsOfficiallyTranslated,
     bgColour,
     fgColour,
-    uploadDate,
-    singers,
-    producers,
-    description,
     languages,
     isoLangCode,
-    isUnavailable,
-    isAlbumOnly,
     translator,
     isOfficialTranslation,
     categories,
   } = formData;
 
   const lyrics = formData.lyrics;
-  const playLinks = formData.playLinks.filter(({ url }) => url);
   const extLinks = formData.extLinks.filter(({ url }) => url);
 
-  let displayTitleTemplate: string = "";
-  let sortTemplate: string = "";
-  let unavailableTemplate: string = "";
-  let cwTemplates: string = "";
-  let titlesSegment: string = "";
-  let dateSegment: string = "";
   let lyricsSegment: string = "";
-  let songLinksSegment: string = "";
-  let viewCountsSegment: string = "";
-  let languageSegment: string = languages.map(({ label }) => label).join(";");
   let officialLinksWikitext: string = "";
   let unofficialLinksWikitext: string = "";
   let extLinksSegment: string = "";
 
   const langMetadata = getLanguageMetadata(languages);
 
-  if (langMetadata.needsRomanization && romTitle !== "") {
-    sortTemplate = "{{sort}}";
-    let sortkey = detonePinyin(romTitle);
-    if (sortkey.match(/[^ -~]/)) {
-      sortTemplate = `{{sort|${sortkey}}}`;
-    }
-  }
-
-  cwTemplates = hasEpilepsyWarning ? "{{Epilepsy}}" : "";
-  cwTemplates +=
-    cwState === ENUM_CW_STATES.questionable
-      ? `{{Questionable${cwText === "" ? "" : `|${cwText}`}}}`
-      : cwState === ENUM_CW_STATES.explicit
-        ? `{{Explicit${cwText === "" ? "" : `|${cwText}`}}}`
-        : "";
-  if (aiCwState !== ENUM_AI_WARNING_TYPE.none) {
-    cwTemplates += `{{AIusage|${aiWarningText1}|${aiWarningText2}${aiCwState === ENUM_AI_WARNING_TYPE.suspected ? "|unverified=1" : ""}}}`;
-  }
-
-  // const hasOfficiallyAvailablePlayLinks = playLinks.some(link => link.isOfficiallyAvailable);
-  if (isUnavailable) {
-    unavailableTemplate = "{{Unavailable}}";
-  }
-
-  if (origTitle.match(/_/g)) {
-    displayTitleTemplate = `{{DISPLAYTITLE:${origTitle}${
-      romTitle === "" ? "" : ` (${romTitle})`
-    }}}`;
-  } else if (origTitle.match(/^[a-z]/)) {
-    displayTitleTemplate = "{{Lowercase}}";
-  }
-
-  titlesSegment = `"'''${origTitle}'''"`;
-  if (langMetadata.isChinese && altChTitle !== "") {
-    titlesSegment += `<br />${altChIsTraditional ? "Traditional" : "Simplified"} Chinese: ${altChTitle}`;
-  }
-  if (langMetadata.needsRomanization && romTitle !== "") {
-    titlesSegment += `<br />${langMetadata.headers[1]}: ${romTitle}`;
-  }
-  if (langMetadata.needsTranslation && engTitle !== "") {
-    titlesSegment += `<br />${titleIsOfficiallyTranslated ? "Official " : ""}English: ${engTitle}`;
-  }
-
-  if (uploadDate !== null) {
-    dateSegment = `{{Date|${uploadDate!.getUTCFullYear()}|${
-      MONTHS[uploadDate!.getUTCMonth()]
-    }|${uploadDate!.getUTCDate()}}}`;
-  }
-
-  if (playLinks.length === 0) {
-    songLinksSegment = "N/A";
-  } else {
-    songLinksSegment = playLinks.map((playLink) => playLink.getPlayLinkWikitext()).join(" ");
-  }
-  const viewCounts = playLinks
-    .filter((playLink) => !playLink.isReprint && PV_SERVICE_ABBREVIATIONS.has(playLink.site))
-    .map((playLink) => ({
-      vc: playLink.getFormattedViewCount(),
-      abbr: PV_SERVICE_ABBREVIATIONS.get(playLink.site),
-    }));
-  if (viewCounts.length > 1) {
-    viewCountsSegment = viewCounts.map((el) => `${el.vc} (${el.abbr})`).join(", ");
-  } else {
-    viewCountsSegment = viewCounts.map((el) => el.vc).join(", ");
-  }
-  if (viewCountsSegment === "") {
-    viewCountsSegment = "N/A";
-  }
+  const { displayTitle, sort, unavailable, cw, infobox } = buildSongPageComponents(
+    formData,
+    langMetadata,
+  );
 
   lyricsSegment = generateLyricsSegment(lyrics, {
     headers: langMetadata.headers,
@@ -185,17 +102,8 @@ export function generatePage(formData: Song): string {
       unofficialLinksWikitext === "" ? "" : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
   }
 
-  return `${displayTitleTemplate}${sortTemplate}${unavailableTemplate}${cwTemplates}
-{{Infobox Song
-|songtitle = ${titlesSegment}
-|color = ${bgColour}; color:${fgColour}
-|original upload date = ${dateSegment}
-|singer = ${singers}
-|producer = ${producers}
-|#views = ${viewCountsSegment}
-|link = ${songLinksSegment}${isAlbumOnly ? "\n|album-only = 1" : ""}${description ? `\n|description = ${description}` : ""}
-|language = ${languageSegment}
-}}
+  return `${displayTitle}${sort}${unavailable}${cw}
+${infobox}
 
 ==Lyrics==
 ${lyricsSegment}
@@ -541,4 +449,128 @@ export async function fetchDataFromVocaDb(
     images,
   };
   return formData;
+}
+
+export function buildSongPageComponents(
+  {
+    aiCwState,
+    aiWarningText1,
+    aiWarningText2,
+    cwState,
+    cwText,
+    hasEpilepsyWarning,
+    origTitle,
+    altChTitle,
+    altChIsTraditional,
+    romTitle,
+    engTitle,
+    titleIsOfficiallyTranslated,
+    bgColour,
+    fgColour,
+    uploadDate,
+    playLinks,
+    singers,
+    producers,
+    description,
+    languages,
+    isUnavailable,
+    isAlbumOnly,
+  }: Song,
+  langMetadata: LanguageMetadata,
+): { displayTitle: string; sort: string; unavailable: string; cw: string; infobox: string } {
+  let displayTitle: string = "";
+  let sort: string = "";
+  let unavailable: string = "";
+  let cw: string = "";
+
+  let titlesSegment: string = "";
+  let languageSegment: string = languages.map(({ label }) => label).join(";");
+  let dateSegment: string = "";
+
+  let songLinksSegment: string = "";
+  let viewCountsSegment: string = "";
+
+  playLinks = playLinks.filter(({ url }) => url);
+
+  if (langMetadata.needsRomanization && romTitle !== "") {
+    sort = "{{sort}}";
+    let sortkey = detonePinyin(romTitle);
+    if (sortkey.match(/[^ -~]/)) {
+      sort = `{{sort|${sortkey}}}`;
+    }
+  }
+
+  cw = hasEpilepsyWarning ? "{{Epilepsy}}" : "";
+  cw +=
+    cwState === ENUM_CW_STATES.questionable
+      ? `{{Questionable${cwText === "" ? "" : `|${cwText}`}}}`
+      : cwState === ENUM_CW_STATES.explicit
+        ? `{{Explicit${cwText === "" ? "" : `|${cwText}`}}}`
+        : "";
+  if (aiCwState !== ENUM_AI_WARNING_TYPE.none) {
+    cw += `{{AIusage|${aiWarningText1}|${aiWarningText2}${aiCwState === ENUM_AI_WARNING_TYPE.suspected ? "|unverified=1" : ""}}}`;
+  }
+
+  // const hasOfficiallyAvailablePlayLinks = playLinks.some(link => link.isOfficiallyAvailable);
+  if (isUnavailable) {
+    unavailable = "{{Unavailable}}";
+  }
+
+  if (origTitle.match(/_/g)) {
+    displayTitle = `{{DISPLAYTITLE:${origTitle}${romTitle === "" ? "" : ` (${romTitle})`}}}`;
+  } else if (origTitle.match(/^[a-z]/)) {
+    displayTitle = "{{Lowercase}}";
+  }
+
+  titlesSegment = `"'''${origTitle}'''"`;
+  if (langMetadata.isChinese && altChTitle !== "") {
+    titlesSegment += `<br />${altChIsTraditional ? "Traditional" : "Simplified"} Chinese: ${altChTitle}`;
+  }
+  if (langMetadata.needsRomanization && romTitle !== "") {
+    titlesSegment += `<br />${langMetadata.headers[1]}: ${romTitle}`;
+  }
+  if (langMetadata.needsTranslation && engTitle !== "") {
+    titlesSegment += `<br />${titleIsOfficiallyTranslated ? "Official " : ""}English: ${engTitle}`;
+  }
+
+  if (uploadDate) {
+    dateSegment = `{{Date|${uploadDate!.getUTCFullYear()}|${
+      MONTHS[uploadDate!.getUTCMonth()]
+    }|${uploadDate!.getUTCDate()}}}`;
+  } else {
+    dateSegment = "{{DateUnknown}}";
+  }
+
+  if (playLinks.length === 0) {
+    songLinksSegment = "N/A";
+  } else {
+    songLinksSegment = playLinks.map((playLink) => playLink.getPlayLinkWikitext()).join(" ");
+  }
+  const viewCounts = playLinks
+    .filter((playLink) => !playLink.isReprint && PV_SERVICE_ABBREVIATIONS.has(playLink.site))
+    .map((playLink) => ({
+      vc: playLink.getFormattedViewCount(),
+      abbr: PV_SERVICE_ABBREVIATIONS.get(playLink.site),
+    }));
+  if (viewCounts.length > 1) {
+    viewCountsSegment = viewCounts.map((el) => `${el.vc} (${el.abbr})`).join(", ");
+  } else {
+    viewCountsSegment = viewCounts.map((el) => el.vc).join(", ");
+  }
+  if (viewCountsSegment === "") {
+    viewCountsSegment = "N/A";
+  }
+
+  const infobox = `{{Infobox Song
+|songtitle = ${titlesSegment}
+|color = ${bgColour}; color:${fgColour}
+|original upload date = ${dateSegment}
+|singer = ${renderTextAsHtmlTextContent(singers)}
+|producer = ${renderTextAsHtmlTextContent(producers)}
+|#views = ${viewCountsSegment}
+|link = ${songLinksSegment}${isAlbumOnly ? "\n|album-only = 1" : ""}${description ? `\n|description = ${renderTextAsHtmlTextContent(description)}` : ""}
+|language = ${languageSegment}
+}}`;
+
+  return { displayTitle, sort, unavailable, cw, infobox };
 }

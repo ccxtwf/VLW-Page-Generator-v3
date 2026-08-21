@@ -13,7 +13,11 @@ import {
   type FetchedVdbAlbumEntity,
 } from "../../schemas/vocadb.d";
 
-import { detonePinyin, renderAsCommaSeparatedList } from "../utils/utils";
+import {
+  detonePinyin,
+  renderAsCommaSeparatedList,
+  renderTextAsHtmlTextContent,
+} from "../utils/utils";
 import { getOtherMediaWikiPageName, processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import { convertPvService, getVdbPageId, getVocalistBasedOnVdbId } from "../utils/vdbUtils";
 
@@ -126,8 +130,8 @@ export function generatePage(formData: Album): string {
   return `
 ${displayTitleTemplate}{{Album Infobox
 |title = ${romTitle === "" ? origTitle : romTitle}${romTitle === "" ? "" : `\n|orgtitle = ${origTitle}`}${engTitle === "" ? "" : `\n|english = ${engTitle}`}
-|label = ${label}
-|desc = ${description}
+|label = ${renderTextAsHtmlTextContent(label)}
+|desc = ${renderTextAsHtmlTextContent(description)}
 |date = ${dateSegment}
 |vdb = ${vdbAlbumId}
 |vw = ${vocaWikiPage}${isCompilationAlbum ? "\n|compilation = 1" : ""}${moreInfoLinksSegment === "" ? "" : "\n" + moreInfoLinksSegment}
