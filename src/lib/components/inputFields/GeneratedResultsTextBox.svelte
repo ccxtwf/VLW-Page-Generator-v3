@@ -29,6 +29,8 @@
 {/if}
 <textarea
   readonly
+  id="page-output"
   class="textarea w-full"
   rows="30"
-  bind:this={textarea}></textarea>
+  bind:this={textarea}
+></textarea>

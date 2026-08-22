@@ -86,7 +86,7 @@
       >
     </div>
     <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
+      <ul class="menu menu-horizontal px-1" role='navigation'>
         {#each ROUTES as route}
           <li
             class="nav-link"

@@ -79,7 +79,7 @@
     <nav class="w-full">
       <h6 class="footer-title">{$_("metadata.wikiGuidelinesHeader")}</h6>
       {#each wikiGuidelinePages as pageName}
-        {let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}/${pageName}`}
+        {let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}${pageName}`}
         {let displayedPageName = pageName.slice(5).replaceAll(/_/g, " ")}
         <a
           href={url}
