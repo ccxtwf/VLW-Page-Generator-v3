@@ -1,6 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import {
   assertTableColumnNumber,
+  assertTableRowNumber,
   fillBroadcastLinksTable,
   fillExternalLinksTable,
   fillLyricsTable,
@@ -34,14 +35,11 @@ test.describe("Song page generator tests", async () => {
     ];
 
     for (const { id, nrows } of handsontables) {
-      const table = form.locator(`#${id} .ht-root-wrapper`);
-      await expect(table).toBeVisible();
-      let tbodyRows = await table.locator(".ht-grid-content .ht_master .htCore tbody tr").all();
-      expect(tbodyRows.length).toBe(nrows);
+      await assertTableRowNumber(getHandsontableInstance(form, id), nrows);
     }
   });
 
-  test("should output when on empty state", async ({ page }) => {
+  test("should output when on empty state", async ({ page, context }) => {
     const form = getFormLocator(page);
 
     await form.getByRole("checkbox", { name: "Ignore Errors" }).click();

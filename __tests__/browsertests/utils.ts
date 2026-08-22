@@ -1,5 +1,5 @@
 import { type Locator, type Page, expect } from "@playwright/test";
-import { IExternalLink, ILyricsRow, IPlayLink } from "../../src/lib/models/schema";
+import { IAlbumTrack, IExternalLink, ILyricsRow, IPlayLink } from "../../src/lib/models/schema";
 
 /**
  *
@@ -14,6 +14,8 @@ export function getHandsontableInstance(form: Locator, id: string) {
 const HANDSONTABLE_ROW_LABEL_SELECTOR =
   ".ht-grid-content .ht_clone_inline_start.ht_clone_left .htCore tbody tr";
 const HANDSONTABLE_ROW_SELECTOR = ".ht-grid-content .ht_master .htCore tbody tr";
+const HANDSONTABLE_EDITOR_SELECTOR =
+  '.handsontableInputHolder.ht_clone_master textarea.handsontableInput:not([role="combobox"])';
 
 /**
  * On Playwright tests, remove all rows of a Handsontable instance starting from and
@@ -44,6 +46,17 @@ export async function assertTableColumnNumber(table: Locator, ncolumns: number) 
 }
 
 /**
+ * Assert that the Handontable instance has the given number of rows
+ *
+ * @param table
+ * @param ncolumns
+ */
+export async function assertTableRowNumber(table: Locator, nrows: number) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  expect(tbodyRows.length).toBe(nrows);
+}
+
+/**
  *
  * @param table
  * @param data
@@ -68,7 +81,7 @@ export async function fillBroadcastLinksTable(
     const { url, viewCount, isReprint = false, isAutogen = false, isDeleted = false } = data[i].i;
 
     await urlCell.click({ clickCount: 2 });
-    const inputTextArea = table.locator('textarea.handsontableInput:not([role="combobox"])');
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
     await inputTextArea.fill(url);
     await inputTextArea.press("Tab");
     await expect(urlCell).toHaveText(data[i].o.url);
@@ -118,7 +131,7 @@ export async function fillExternalLinksTable(
     let isOfficialCell = rw.locator("td").nth(2);
 
     await urlCell.dblclick();
-    const inputTextArea = table.locator("textarea.handsontableInput");
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
     await inputTextArea.fill(data[i].i.url);
     await inputTextArea.press("Tab");
     await expect(descCell).toHaveText(data[i].o.desc);
@@ -148,8 +161,8 @@ export async function fillLyricsTable(
 
   // Summon Handsontable textarea editor to DOM
   await tbodyRows[0].locator('[role="gridcell"]').first().dblclick();
-  await table.locator("textarea").waitFor({ state: "attached" });
-  const inputTextArea = table.locator("textarea.handsontableInput");
+  await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+  const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
   await inputTextArea.press("Escape");
 
   for (let i = 0; i < data.length; i++) {
@@ -164,22 +177,72 @@ export async function fillLyricsTable(
     if (customStyle) {
       await styleCell.dblclick();
       await inputTextArea.fill(customStyle);
+      await inputTextArea.press("Tab");
     }
-    await inputTextArea.press("Tab");
     if (original) {
       await origCell.dblclick();
       await inputTextArea.fill(original);
+      await inputTextArea.press("Tab");
     }
-    await inputTextArea.press("Tab");
     if (romCell && romanized) {
       await romCell.dblclick();
       await inputTextArea.fill(romanized);
+      await inputTextArea.press("Tab");
     }
-    await inputTextArea.press("Tab");
     if (engCell && english) {
       await engCell.dblclick();
       await inputTextArea.fill(english);
+      await inputTextArea.press("Tab");
     }
-    await inputTextArea.press("Tab");
+  }
+}
+
+export async function fillTracklistTable(table: Locator, data: IAlbumTrack[]) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+
+  for (let i = 0; i < data.length; i++) {
+    let rw = tbodyRows[i];
+    const { discNo, trackNo, pageTitle, producerCredit, singerCredit } = data[i];
+    let dnCell = rw.locator("td").nth(0);
+    let tnCell = rw.locator("td").nth(1);
+    let pageTitleCell = rw.locator("td").nth(2);
+    let prodCreditsCell = rw.locator("td").nth(3);
+    let singerCreditsCell = rw.locator("td").nth(4);
+
+    if (discNo) {
+      await dnCell.dblclick();
+      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      await inputTextArea.fill("" + discNo);
+      await inputTextArea.press("Tab");
+    }
+    if (trackNo) {
+      await tnCell.dblclick();
+      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      await inputTextArea.fill("" + trackNo);
+      await inputTextArea.press("Tab");
+    }
+    if (pageTitle) {
+      await pageTitleCell.dblclick();
+      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      await inputTextArea.fill(pageTitle);
+      await inputTextArea.press("Tab");
+    }
+    if (producerCredit) {
+      await prodCreditsCell.dblclick();
+      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      await inputTextArea.fill(producerCredit);
+      await inputTextArea.press("Tab");
+    }
+    if (singerCredit) {
+      await singerCreditsCell.dblclick();
+      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
+      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      await inputTextArea.fill(singerCredit);
+      await inputTextArea.press("Tab");
+    }
   }
 }
