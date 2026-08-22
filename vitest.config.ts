@@ -33,7 +33,7 @@ export default defineConfig({
         plugins: [svelte()],
         test: {
           name: "browser",
-          include: ["__tests__/browsertests/**/*.test.{js,ts}"],
+          include: ["__tests__/components/**/*.test.{js,ts}"],
           browser: {
             enabled: true,
             provider: playwright(),
