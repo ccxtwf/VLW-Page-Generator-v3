@@ -236,6 +236,246 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     expect(page).toEqual(expected);
   });
 
+  test("Chinese song with alt Traditional title", () => {
+    const formData = new Song({
+      languages: mapLanguages("Mandarin"),
+      isoLangCode: "zh-Hans",
+      origTitle: "过得好",
+      romTitle: "Guò dé Hǎo",
+      altChTitle: "過得好",
+      altChIsTraditional: true,
+      engTitle: "Doing Well",
+      titleIsOfficiallyTranslated: false,
+      bgColour: "red",
+      fgColour: "yellow",
+      uploadDateRaw: "2013-01-03",
+      isAlbumOnly: false,
+      isUnavailable: false,
+      singers: "[[Luo Tianyi (VOCALOID)]]",
+      producers: "[[李]] (music)\n[[苏]] (lyrics)",
+      description: "This is a demo song.",
+      translator: "",
+      isOfficialTranslation: true,
+      categoriesRaw: "李 songs list\n苏 songs list/Lyrics",
+      lyrics: [
+        new LyricRow({
+          customStyle: "",
+          original: "好一朵茉莉花,",
+          romanized: "hǎo yī duo mòlìhuā,",
+          english: "What a jasmine flower!",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "滿園花開香也香不過她,",
+          romanized: "mǎn yuán huā kāi xiāng yě xiāng bùguò tā,",
+          english:
+            "Of all the fragrant flowers and grasses in the garden, there is none as fragrant as it.",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "我有心采一朵戴",
+          romanized: "wǒ yǒuxīn cǎi yī duo dài",
+          english: "I want to pluck one and wear it,",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "又怕看花的人兒罵.",
+          romanized: "yòu pà kàn huā de rén er mà.",
+          english: "but the gardener would scold me.",
+        }),
+      ],
+      playLinks: [
+        new PlayLink({
+          site: "YouTube",
+          url: "https://www.youtube.com/watch?v=vnw8zURAxkU",
+          viewCount: "1,000,000+",
+        }),
+      ],
+      extLinks: [
+        new ExternalLink({
+          description: "Pixiv",
+          url: "https://www.pixiv.net/artworks/10324371",
+          isOfficial: true,
+        }),
+        new ExternalLink({
+          description: "VocaDB",
+          url: "https://vocadb.net/S/1501",
+          isOfficial: false,
+        }),
+      ],
+    });
+    formData.preprocess();
+
+    const page = generatePage(formData);
+
+    const expected = `{{sort}}
+{{Infobox Song
+|songtitle = "'''过得好'''"<br />Traditional Chinese: 過得好<br />Pinyin: Guò dé Hǎo<br />English: Doing Well
+|color = red; color:yellow
+|original upload date = {{Date|2013|January|3}}
+|singer = [[Luo Tianyi (VOCALOID)]]
+|producer = [[李]] (music)<br />[[苏]] (lyrics)
+|#views = 1,000,000+
+|link = {{#|https://www.youtube.com/watch?v=vnw8zURAxkU}}
+|description = This is a demo song.
+|language = Mandarin
+}}
+
+==Lyrics==
+{{lyrics toggle|cn:Mandarin|py:Pinyin|eng:English}}
+{{OfficialEnglishNotify}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|好一朵茉莉花,
+|hǎo yī duo mòlìhuā,
+|What a jasmine flower!
+|-
+|滿園花開香也香不過她,
+|mǎn yuán huā kāi xiāng yě xiāng bùguò tā,
+|Of all the fragrant flowers and grasses in the garden, there is none as fragrant as it.
+|-
+|我有心采一朵戴
+|wǒ yǒuxīn cǎi yī duo dài
+|I want to pluck one and wear it,
+|-
+|又怕看花的人兒罵.
+|yòu pà kàn huā de rén er mà.
+|but the gardener would scold me.
+|}
+
+==External Links==
+* [https://www.pixiv.net/artworks/10324371 Pixiv]
+===Unofficial===
+* {{VDB|S/1501}}
+
+[[Category:李 songs list]]
+[[Category:苏 songs list/Lyrics]]`;
+
+    expect(page).toEqual(expected);
+  });
+
+  test("Chinese song with alt Simplified title", () => {
+    const formData = new Song({
+      languages: mapLanguages("Mandarin"),
+      isoLangCode: "zh-Hans",
+      origTitle: "過得好",
+      romTitle: "Guò dé Hǎo",
+      altChTitle: "过得好",
+      altChIsTraditional: false,
+      engTitle: "Doing Well",
+      titleIsOfficiallyTranslated: false,
+      bgColour: "red",
+      fgColour: "yellow",
+      uploadDateRaw: "2013-01-03",
+      isAlbumOnly: false,
+      isUnavailable: false,
+      singers: "[[Luo Tianyi (VOCALOID)]]",
+      producers: "[[李]] (music)\n[[苏]] (lyrics)",
+      description: "This is a demo song.",
+      translator: "",
+      isOfficialTranslation: true,
+      categoriesRaw: "李 songs list\n苏 songs list/Lyrics",
+      lyrics: [
+        new LyricRow({
+          customStyle: "",
+          original: "好一朵茉莉花,",
+          romanized: "hǎo yī duo mòlìhuā,",
+          english: "What a jasmine flower!",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "滿園花開香也香不過她,",
+          romanized: "mǎn yuán huā kāi xiāng yě xiāng bùguò tā,",
+          english:
+            "Of all the fragrant flowers and grasses in the garden, there is none as fragrant as it.",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "我有心采一朵戴",
+          romanized: "wǒ yǒuxīn cǎi yī duo dài",
+          english: "I want to pluck one and wear it,",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "又怕看花的人兒罵.",
+          romanized: "yòu pà kàn huā de rén er mà.",
+          english: "but the gardener would scold me.",
+        }),
+      ],
+      playLinks: [
+        new PlayLink({
+          site: "YouTube",
+          url: "https://www.youtube.com/watch?v=vnw8zURAxkU",
+          viewCount: "1,000,000+",
+        }),
+      ],
+      extLinks: [
+        new ExternalLink({
+          description: "Pixiv",
+          url: "https://www.pixiv.net/artworks/10324371",
+          isOfficial: true,
+        }),
+        new ExternalLink({
+          description: "VocaDB",
+          url: "https://vocadb.net/S/1501",
+          isOfficial: false,
+        }),
+      ],
+    });
+    formData.preprocess();
+
+    const page = generatePage(formData);
+
+    const expected = `{{sort}}
+{{Infobox Song
+|songtitle = "'''過得好'''"<br />Simplified Chinese: 过得好<br />Pinyin: Guò dé Hǎo<br />English: Doing Well
+|color = red; color:yellow
+|original upload date = {{Date|2013|January|3}}
+|singer = [[Luo Tianyi (VOCALOID)]]
+|producer = [[李]] (music)<br />[[苏]] (lyrics)
+|#views = 1,000,000+
+|link = {{#|https://www.youtube.com/watch?v=vnw8zURAxkU}}
+|description = This is a demo song.
+|language = Mandarin
+}}
+
+==Lyrics==
+{{lyrics toggle|cn:Mandarin|py:Pinyin|eng:English}}
+{{OfficialEnglishNotify}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|好一朵茉莉花,
+|hǎo yī duo mòlìhuā,
+|What a jasmine flower!
+|-
+|滿園花開香也香不過她,
+|mǎn yuán huā kāi xiāng yě xiāng bùguò tā,
+|Of all the fragrant flowers and grasses in the garden, there is none as fragrant as it.
+|-
+|我有心采一朵戴
+|wǒ yǒuxīn cǎi yī duo dài
+|I want to pluck one and wear it,
+|-
+|又怕看花的人兒罵.
+|yòu pà kàn huā de rén er mà.
+|but the gardener would scold me.
+|}
+
+==External Links==
+* [https://www.pixiv.net/artworks/10324371 Pixiv]
+===Unofficial===
+* {{VDB|S/1501}}
+
+[[Category:李 songs list]]
+[[Category:苏 songs list/Lyrics]]`;
+
+    expect(page).toEqual(expected);
+  });
+
   test("Indonesian song", () => {
     const formData = new Song({
       languages: mapLanguages("Indonesian"),

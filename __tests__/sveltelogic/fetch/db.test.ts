@@ -41,4 +41,10 @@ describe("dbUtils", () => {
       engine: 2,
     });
   });
+
+  test("should return null when a match is not found", async () => {
+    const vdbId = 28;
+    const res = await getVocalistBasedOnVdbId(vdbId);
+    expect(res).toBeNull();
+  });
 });
