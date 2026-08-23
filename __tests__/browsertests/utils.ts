@@ -10,6 +10,18 @@ import {
 } from "../../src/lib/models/schema";
 
 /**
+ * Get the texts of each list item listed in the given validation alert element
+ *
+ * @param locator
+ * @returns
+ */
+export async function getValidationItems(locator: Locator) {
+  const elements = await locator.locator("ul > li").all();
+  const texts = await Promise.all(elements.map((el) => el.innerText()));
+  return texts;
+}
+
+/**
  *
  * @param id
  * @param form
