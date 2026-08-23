@@ -228,24 +228,27 @@ export async function fillLyricsTable(
     let romCell = needsRomanization ? rw.locator("td").nth(2) : null;
     let engCell = needsTranslation ? rw.locator("td").nth(needsRomanization ? 3 : 2) : null;
 
-    await expect(inputTextArea).toBeAttached();
     if (customStyle) {
       await styleCell.dblclick();
+      await inputTextArea.waitFor({ state: "visible" });
       await inputTextArea.fill(customStyle);
       await inputTextArea.press("Tab");
     }
     if (original) {
       await origCell.dblclick();
+      await inputTextArea.waitFor({ state: "visible" });
       await inputTextArea.fill(original);
       await inputTextArea.press("Tab");
     }
     if (romCell && romanized) {
       await romCell.dblclick();
+      await inputTextArea.waitFor({ state: "visible" });
       await inputTextArea.fill(romanized);
       await inputTextArea.press("Tab");
     }
     if (engCell && english) {
       await engCell.dblclick();
+      await inputTextArea.waitFor({ state: "visible" });
       await inputTextArea.fill(english);
       await inputTextArea.press("Tab");
     }
