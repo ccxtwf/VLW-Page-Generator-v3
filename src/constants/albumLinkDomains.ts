@@ -29,13 +29,13 @@ export const ALBUM_STREAMING_LINKS: AlbumStreamingLink[] = [
     name: "YouTube Music Playlist",
     paramKey: "yt-playlist",
     regex: /^https?:\/\/(?:music\.|www\.|)youtube\.com\/playlist\?list=(?<embedid>[^/?]+)/,
-    placeholder: "https://www.youtube.com/playlist?list=**************",
+    placeholder: "https://www.youtube.com/playlist?list=OLAK5uy_************",
   },
   {
     name: "Bandamp Embed ID",
     paramKey: "bc-embed",
     regex: /^(?<embedid>\d+)$/,
-    placeholder: "https://*.bandcamp.com/**************",
+    placeholder: "123456789",
   },
   {
     name: "SoundCloud Crossfade",
