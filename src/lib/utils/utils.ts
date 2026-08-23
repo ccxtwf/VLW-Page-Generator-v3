@@ -81,7 +81,7 @@ export function renderTextAsHtmlTextContent(s: string) {
  */
 export function preprocessStringParams<T extends Record<string, any>>(
   formData: T,
-  keys: string[],
+  keys: (keyof typeof formData)[],
 ): T {
   for (const key of keys) {
     if (!formData[key]) {
