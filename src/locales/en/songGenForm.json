@@ -67,7 +67,7 @@
     },
     "singers": {
       "label": "Singer(s)",
-      "tooltip": "Markup for singer(s), e.g.:<br/>[[Kagamine Rin]] and [[Kagamine Len]]<br/><br/>Be sure to check whether the correct singer category has been put in."
+      "tooltip": "Markup for singer(s), e.g.:<br/>[[Kagamine Rin (VOCALOID)]] and [[Kagamine Len (VOCALOID)]]<br/><br/>Be sure to check whether the correct singer category has been put in."
     },
     "producers": {
       "label": "Producer(s)",
