@@ -19,7 +19,7 @@ export function convertAvidToBvId(url: string): string {
   let id: string | RegExpMatchArray | null = url.match(
     /^https?:\/\/www\.bilibili\.com\/video\/av(\d+)/,
   );
-  if (id === null) {
+  if (!id) {
     return url;
   }
   id = id[1];
@@ -51,7 +51,7 @@ export function standardizeYoutubeLink(url: string) {
   const matchDomain =
     /^https?:\/\/(?:(?:www\.|music\.|)youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/;
   const m = url.match(matchDomain);
-  if (m === null) {
+  if (!m) {
     return url;
   }
   return `https://www.youtube.com/watch?v=${m[1]}`;
@@ -76,7 +76,9 @@ export function upgradeInsecureHttpLink(url: string) {
 export function convertTwitterLink(url: string) {
   const matchDomain = /^https?:\/\/(?:www\.|)twitter\.com\/(.*)$/;
   const m = url.match(matchDomain);
-  if (m === null) return url;
+  if (!m) {
+    return url;
+  }
   return `https://x.com/${m[1]}`;
 }
 

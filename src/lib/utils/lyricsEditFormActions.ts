@@ -86,7 +86,7 @@ export function consolidateCellInlineColourFormatting(lyrics: unknown[][]): stri
     for (let i = 1; i < lyric.length; i++) {
       const l = ((lyric[i] as string) || "").trim();
       const rxResults = l.match(rxCellInlineColourFormatting);
-      m.push({ rxResults, isEmpty: l === "" });
+      m.push({ rxResults, isEmpty: !l });
     }
     if (m.every((el) => el.isEmpty || !!el.rxResults)) {
       // Skip if the contents enclosed within the span tags in the original lyrics contain another span tag.

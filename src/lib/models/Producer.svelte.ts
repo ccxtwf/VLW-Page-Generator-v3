@@ -121,7 +121,7 @@ export default class Producer implements BaseModel<IProducer> {
 
     const errors: ValidationError<ProducerPageValidationErrorType>[] = [];
 
-    if (prodCategory === "") {
+    if (!prodCategory) {
       errors.push(getValidationError(ProducerPageValidationErrorType.NO_PRODUCER_CATEGORY));
     }
 
@@ -135,14 +135,14 @@ export default class Producer implements BaseModel<IProducer> {
       );
     }
 
-    if (description === "") {
+    if (!description) {
       errors.push(getValidationError(ProducerPageValidationErrorType.DESCRIPTION_IS_NOT_SET));
     }
 
-    if (extLinks.length === 0) {
+    if (extLinks.filter((l) => l.url).length === 0) {
       errors.push(getValidationError(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_LISTED));
     } else {
-      if (extLinks.every((link) => !link.isOfficial)) {
+      if (extLinks.filter((l) => l.url).every((link) => !link.isOfficial)) {
         errors.push(
           getValidationError(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_OFFICIAL),
         );

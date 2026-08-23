@@ -37,19 +37,19 @@ export default class AlbumTrackData implements IAlbumTrack {
 
   validate(): AlbumPageValidationErrorType[] {
     const res: AlbumPageValidationErrorType[] = [];
-    if (this.trackNo === "") {
+    if (!this.trackNo) {
       res.push(AlbumPageValidationErrorType.NO_TRACK_LIST_NUMBERING);
     }
-    if (this.discNo !== "" && isNaN(+this.discNo)) {
+    if (this.discNo && isNaN(+this.discNo)) {
       res.push(AlbumPageValidationErrorType.DISC_NUMBER_IS_NOT_NUMERIC);
     }
-    if (this.trackNo !== "" && isNaN(+this.trackNo)) {
+    if (this.trackNo && isNaN(+this.trackNo)) {
       res.push(AlbumPageValidationErrorType.TRACK_NUMBER_IS_NOT_NUMERIC);
     }
-    if (this.pageTitle === "") {
+    if (!this.pageTitle) {
       res.push(AlbumPageValidationErrorType.EMPTY_TRACK_NAME);
     }
-    if (this.singerCredit === "" && this.producerCredit === "") {
+    if (!this.singerCredit && !this.producerCredit) {
       res.push(AlbumPageValidationErrorType.EMPTY_TRACK_CREDITS);
     }
     return res;

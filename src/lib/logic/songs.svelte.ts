@@ -97,9 +97,10 @@ export function generatePage(formData: Song): string {
   if (unofficialLinksWikitext !== "" || officialLinksWikitext !== "") {
     extLinksSegment = "==External Links==\n";
     extLinksSegment += officialLinksWikitext;
-    extLinksSegment += officialLinksWikitext === "" ? "" : "\n";
-    extLinksSegment +=
-      unofficialLinksWikitext === "" ? "" : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
+    extLinksSegment += officialLinksWikitext ? "\n" : "";
+    extLinksSegment += unofficialLinksWikitext
+      ? `===Unofficial===\n${unofficialLinksWikitext}\n\n`
+      : "";
   }
 
   return `${displayTitle}${sort}${unavailable}${cw}
@@ -121,7 +122,7 @@ export function autoloadCategories({ producers = "" }: Song): string[] {
 
   const standardizeCategory = (base: string): string | null => {
     base = base.trim();
-    if (base === "") {
+    if (!base) {
       return null;
     }
     if (base.match(/^:[Cc]ategory:(?:.*) songs list/)) {
@@ -153,7 +154,7 @@ export function autoloadCategories({ producers = "" }: Song): string[] {
     const splitRoles = role.toLowerCase().split(/\s*,\s*/g);
     let matchedSubtags: Set<string> = new Set();
     for (let role of splitRoles) {
-      if (role === "" || role === "music" || role === "compose" || role === "composition") {
+      if (!role || role === "music" || role === "compose" || role === "composition") {
         matchedSubtags = new Set();
         matchedSubtags.add("");
         break;
@@ -351,7 +352,7 @@ export async function fetchDataFromVocaDb(
     const pvUrl = processExternalLinkFromVocaDb(pv.url || "");
     const isDeleted = pv.disabled;
     const isReprint = pv.pvType !== VdbPvType.original;
-    if (pvService === null) {
+    if (!pvService) {
       extLinks.push(
         new ExternalLink({
           url: pvUrl,
@@ -502,11 +503,9 @@ export function buildSongPageComponents(
 
   cw = hasEpilepsyWarning ? "{{Epilepsy}}" : "";
   cw +=
-    cwState === ENUM_CW_STATES.questionable
-      ? `{{Questionable${cwText === "" ? "" : `|${cwText}`}}}`
-      : cwState === ENUM_CW_STATES.explicit
-        ? `{{Explicit${cwText === "" ? "" : `|${cwText}`}}}`
-        : "";
+    cwState === ENUM_CW_STATES.noWarnings
+      ? ""
+      : `{{${cwState === ENUM_CW_STATES.questionable ? "Questionable" : "Explicit"}${cwText ? `|${cwText}` : ""}}}`;
   if (aiCwState !== ENUM_AI_WARNING_TYPE.none) {
     cw += `{{AIusage|${aiWarningText1}|${aiWarningText2}${aiCwState === ENUM_AI_WARNING_TYPE.suspected ? "|unverified=1" : ""}}}`;
   }
@@ -517,7 +516,7 @@ export function buildSongPageComponents(
   }
 
   if (origTitle.match(/_/g)) {
-    displayTitle = `{{DISPLAYTITLE:${origTitle}${romTitle === "" ? "" : ` (${romTitle})`}}}`;
+    displayTitle = `{{DISPLAYTITLE:${origTitle}${romTitle ? ` (${romTitle})` : ""}}}`;
   } else if (origTitle.match(/^[a-z]/)) {
     displayTitle = "{{Lowercase}}";
   }
@@ -557,7 +556,7 @@ export function buildSongPageComponents(
   } else {
     viewCountsSegment = viewCounts.map((el) => el.vc).join(", ");
   }
-  if (viewCountsSegment === "") {
+  if (!viewCountsSegment) {
     viewCountsSegment = "N/A";
   }
 

@@ -17,9 +17,7 @@ export function keydownPreventDefault(e: KeyboardEvent) {
  * @returns
  */
 export function validateColour(colour: string) {
-  return (
-    colour === "" || colour.match(/^#[0-9a-fA-F]{3,6}$/) || Object.keys(COLOURS).includes(colour)
-  );
+  return !colour || colour.match(/^#[0-9a-fA-F]{3,6}$/) || Object.keys(COLOURS).includes(colour);
 }
 
 /**

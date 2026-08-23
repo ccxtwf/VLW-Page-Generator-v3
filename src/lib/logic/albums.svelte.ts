@@ -73,7 +73,7 @@ export function generatePage(formData: Album): string {
     displayTitleTemplate = "{{Lowercase}}";
   }
 
-  if (publishedYear !== "" || publishedMonth !== "" || publishedDay !== "") {
+  if ([publishedYear, publishedMonth, publishedDay].some(Boolean)) {
     dateSegment = `{{DateAlbum|${publishedYear}|${publishedMonth}|${publishedDay}}}`;
   }
 
@@ -109,15 +109,16 @@ export function generatePage(formData: Album): string {
       return `|${k} = ${v}`;
     })
     .join("\n");
-  if (unofficialLinksWikitext !== "" || officialLinksWikitext !== "") {
+  if (unofficialLinksWikitext || officialLinksWikitext) {
     extLinksSegment = "==External Links==\n";
     extLinksSegment += officialLinksWikitext;
-    extLinksSegment += officialLinksWikitext === "" ? "" : "\n";
-    extLinksSegment +=
-      unofficialLinksWikitext === "" ? "" : `===Unofficial===\n${unofficialLinksWikitext}\n\n`;
+    extLinksSegment += officialLinksWikitext ? "\n" : "";
+    extLinksSegment += unofficialLinksWikitext
+      ? `===Unofficial===\n${unofficialLinksWikitext}\n\n`
+      : "";
   }
 
-  if (romTitle !== origTitle && romTitle !== "") {
+  if (romTitle && romTitle !== origTitle) {
     sortTemplateSegment = "{{sort-album";
     const plcRom = detonePinyin(romTitle, false);
     if (plcRom.replace(/[ -~]/g, "") !== "") {
@@ -156,7 +157,7 @@ function detectProducerOrSingerInMarkup(wikitext: string): string[] {
   for (let markup of arrMarkup) {
     let { base = "" } = markup.groups || {};
     base = base.trim();
-    if (base === "") {
+    if (!base) {
       continue;
     }
     // Producer category tag
@@ -236,7 +237,7 @@ export async function fetchDataFromVocaDb(
   >
 > {
   const vdbPageId = getVdbPageId(url, "Al");
-  if (vdbPageId === null) {
+  if (!vdbPageId) {
     throw new Error("VocaDB page ID is empty or invalid!");
   }
 
@@ -328,7 +329,7 @@ export async function fetchDataFromVocaDb(
   if (json.releaseDate.isEmpty === false) {
     const { year, month, day } = json.releaseDate;
     publishedYear = `${year || ""}`;
-    publishedMonth = month === null ? "" : MONTHS[month - 1];
+    publishedMonth = month ? MONTHS[month - 1] : "";
     publishedDay = `${day || ""}`;
   }
 
@@ -357,7 +358,7 @@ export async function fetchDataFromVocaDb(
       }
       if (artist.categories === VdbArtistCategory.vocalist) {
         const id = artist.artist?.id || null;
-        if (id === null) {
+        if (!id) {
           songSingers.add(artist?.name || "");
         } else if (vdbSingerIdsCache.has(id)) {
           songSingers.add(vdbSingerIdsCache.get(id) || "");
@@ -472,7 +473,7 @@ export async function fetchDataFromVocaDb(
      */
     const url = processExternalLinkFromVocaDb(link.url || "");
     let description = convertPvService(link.service);
-    description = "Album crossfade" + (description === null ? "" : ` - ${description}`);
+    description = "Album crossfade" + (description ? ` - ${description}` : "");
     extLinks.push(new ExternalLink({ url, description, isOfficial: true, isInactive: false }));
 
     /**

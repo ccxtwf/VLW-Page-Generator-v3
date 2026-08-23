@@ -55,7 +55,7 @@ export function lyricsRenderer(
   value: unknown,
   _cellProperties: CellProperties,
 ) {
-  if (value === null) {
+  if (!value) {
     td.innerHTML = "";
     return td;
   }

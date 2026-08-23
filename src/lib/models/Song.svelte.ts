@@ -97,8 +97,8 @@ export default class Song implements BaseModel<ISong> {
       "translator",
       "categoriesRaw",
     ]);
-    this.uploadDate = this.uploadDateRaw === "" ? null : new Date(this.uploadDateRaw);
-    this.categories = this.categoriesRaw === "" ? [] : this.categoriesRaw.split("\n");
+    this.uploadDate = this.uploadDateRaw ? new Date(this.uploadDateRaw) : null;
+    this.categories = this.categoriesRaw ? this.categoriesRaw.split("\n") : [];
 
     for (const a of [this.lyrics, this.playLinks, this.extLinks] as PreprocessorMixin[][]) {
       a.forEach((e) => e.preprocess());
@@ -129,15 +129,15 @@ export default class Song implements BaseModel<ISong> {
 
     const errors: ValidationError<SongPageValidationErrorType>[] = [];
 
-    if (cwState !== ENUM_CW_STATES.noWarnings && cwText === "") {
+    if (cwState !== ENUM_CW_STATES.noWarnings && !cwText) {
       errors.push(
         getValidationError(SongPageValidationErrorType.CONTENT_WARNING_HAS_NO_JUSTIFICATION),
       );
     }
-    if (aiCwState !== ENUM_AI_WARNING_TYPE.none && aiWarningText1 === "") {
+    if (aiCwState !== ENUM_AI_WARNING_TYPE.none && !aiWarningText1) {
       errors.push(getValidationError(SongPageValidationErrorType.GEN_AI_HAS_NO_USAGE_ATTRIBUTION));
     }
-    if (aiCwState !== ENUM_AI_WARNING_TYPE.none && aiWarningText2 === "") {
+    if (aiCwState !== ENUM_AI_WARNING_TYPE.none && !aiWarningText2) {
       errors.push(getValidationError(SongPageValidationErrorType.GEN_AI_HAS_NO_SOURCE));
     }
 
@@ -145,7 +145,7 @@ export default class Song implements BaseModel<ISong> {
       errors.push(getValidationError(SongPageValidationErrorType.LANGUAGE_IS_NOT_SELECTED));
     }
 
-    if (origTitle === "") {
+    if (!origTitle) {
       errors.push(getValidationError(SongPageValidationErrorType.SONG_TITLE_IS_NOT_SET));
     }
 
@@ -153,10 +153,10 @@ export default class Song implements BaseModel<ISong> {
       errors.push(getValidationError(SongPageValidationErrorType.PUBLICATION_IS_NOT_SET));
     }
 
-    if (bgColour === "") {
+    if (!bgColour) {
       errors.push(getValidationError(SongPageValidationErrorType.BG_COLOR_IS_EMPTY));
     }
-    if (fgColour === "") {
+    if (!fgColour) {
       errors.push(getValidationError(SongPageValidationErrorType.FG_COLOR_IS_EMPTY));
     }
     if (!validateColour(bgColour)) {
@@ -166,32 +166,30 @@ export default class Song implements BaseModel<ISong> {
       errors.push(getValidationError(SongPageValidationErrorType.FG_COLOR_IS_INVALID));
     }
 
-    if (singers === "") {
+    if (!singers) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_SINGER_IS_LISTED));
     }
-    if (
-      singers.match(/\[\[[^\]]*\]\]/gm) === null &&
-      singers.match(/\{\{[Ss]inger\|[^}]*\}\}/gm) === null
-    ) {
+    if (!singers.match(/\[\[[^\]]*\]\]/gm) && !singers.match(/\{\{[Ss]inger\|[^}]*\}\}/gm)) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_SINGER_IN_MARKUP));
     }
-    if (producers === "") {
+    if (!producers) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_PRODUCER_IS_LISTED));
     } else {
-      if (producers.match(/\[\[[^\]]*\]\]/gm) === null) {
+      if (!producers.match(/\[\[[^\]]*\]\]/gm)) {
         errors.push(getValidationError(SongPageValidationErrorType.NO_PRODUCER_IN_MARKUP));
       }
     }
 
-    if (!isUnavailable && !isAlbumOnly && playLinks.length === 0) {
+    if (!isUnavailable && !isAlbumOnly && playLinks.filter((l) => l.url).length === 0) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_PLAY_LINK));
     }
 
     const forgotViewCounts = playLinks
       .filter(
-        (link) => !link.isReprint && !link.isDeleted && PV_SERVICE_ABBREVIATIONS.has(link.site),
+        (link) =>
+          link.url && !link.isReprint && !link.isDeleted && PV_SERVICE_ABBREVIATIONS.has(link.site),
       )
-      .some((link) => link.viewCount === "");
+      .some((link) => !link.viewCount);
     if (forgotViewCounts) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_VIEW_COUNT));
     }
@@ -205,20 +203,19 @@ export default class Song implements BaseModel<ISong> {
 
     const langMetadata = getLanguageMetadata(languages);
 
-    const hasNoOriginalLyrics = lyrics.every((lyric) => lyric.original === "");
+    const hasNoOriginalLyrics = lyrics.every((lyric) => !lyric.original);
     if (hasNoOriginalLyrics) {
       errors.push(getValidationError(SongPageValidationErrorType.ORIGINAL_LYRICS_ARE_EMPTY));
     }
 
-    const hasRomanization = lyrics.some((lyric) => !!lyric.romanized && lyric.romanized !== "");
+    const hasRomanization = lyrics.some((lyric) => lyric.romanized);
     if (langMetadata.needsRomanization && !hasRomanization) {
       errors.push(getValidationError(SongPageValidationErrorType.ROMANIZED_LYRICS_ARE_EMPTY));
     }
 
     const hasEnglishTranslation =
-      langMetadata.needsTranslation &&
-      lyrics.some((lyric) => !!lyric.english && lyric.english !== "");
-    if (hasEnglishTranslation && translator === "" && !isOfficialTranslation) {
+      langMetadata.needsTranslation && lyrics.some((lyric) => lyric.english);
+    if (hasEnglishTranslation && !translator && !isOfficialTranslation) {
       errors.push(getValidationError(SongPageValidationErrorType.UNCREDITED_TRANSLATION));
     }
 

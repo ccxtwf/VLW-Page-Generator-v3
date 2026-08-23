@@ -219,7 +219,7 @@ const addLyricsRowsStyling = (customStyle: string) => {
     }
     const data = this.getData();
     for (let i = fromRow; i <= toRow; i++) {
-      if (((data[i][1] as string) || "").trim() === "") {
+      if (!((data[i][1] as string) || "").trim()) {
         continue;
       }
       if (!data[i][0]) {

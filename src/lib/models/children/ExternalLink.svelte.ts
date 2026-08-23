@@ -44,7 +44,7 @@ export default class ExternalLink implements IExternalLink {
       RegexUtils.rxMgp,
     ].map((rx) => [rx, rx.exec(url)]);
     for (const [rx, m] of rm) {
-      if (m === null) {
+      if (!m) {
         continue;
       }
       if (rx === RegexUtils.rxVocadb) {

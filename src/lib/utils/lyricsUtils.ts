@@ -169,7 +169,7 @@ export function renderLyricsRowWikitext(
   // romanized = romanized.trim();
   // english = english.trim();
 
-  let wikitext: string = `|-${customStyle === "" ? "" : ` style="${customStyle}"`}\n`;
+  let wikitext: string = `|-${customStyle ? ` style="${customStyle}"` : ""}\n`;
 
   /**
    * Merge the cells if:
@@ -194,7 +194,7 @@ export function renderLyricsRowWikitext(
   ];
   let isLineBreak = false;
   const areColumnsShared = compareCells.every((s) => s === original);
-  if (areColumnsShared && original === "") {
+  if (areColumnsShared && !original) {
     isLineBreak = true;
   }
 
@@ -265,7 +265,7 @@ export function generateLyricsPoemElement(lyrics: ILyricsRow[]): string {
 
   for (const lyric of lyrics) {
     // Skip line breaks
-    if (lyric.original === "") {
+    if (!lyric.original) {
       curSpan.contents += "\n";
       continue;
     }
@@ -343,7 +343,7 @@ export function generateLyricsSegment(
 
   for (const lyric of lyrics) {
     let detectedRowColour = lyric.customStyle.match(/color\s*:\s*([#0-9a-zA-Z]+);?/);
-    if (detectedRowColour === null) {
+    if (!detectedRowColour) {
       usedColours.add("");
     } else {
       usedColours.add(detectedRowColour[1]);
@@ -402,7 +402,7 @@ export function generateLyricsSegment(
     res += "|}";
 
     if (hasTranslation && (!isOfficialTranslation || translator !== "")) {
-      res += `\n{{Translator|${translator === "" ? "Anonymous" : translator}}}`;
+      res += `\n{{Translator|${translator || "Anonymous"}}}`;
     }
   } else {
     res += generateLyricsPoemElement(lyrics);

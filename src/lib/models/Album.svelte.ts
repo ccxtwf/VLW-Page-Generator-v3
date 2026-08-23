@@ -82,7 +82,7 @@ export default class Album implements BaseModel<IAlbum> {
     this.broadcastLinks = this.broadcastLinks || [];
     this.extLinks = this.extLinks || [];
 
-    this.categories = this.categoriesRaw === "" ? [] : this.categoriesRaw.split("\n");
+    this.categories = this.categoriesRaw ? this.categoriesRaw.split("\n") : [];
 
     for (const a of [this.tracklist, this.broadcastLinks, this.extLinks] as PreprocessorMixin[][]) {
       a.forEach((e) => e.preprocess());
@@ -107,14 +107,14 @@ export default class Album implements BaseModel<IAlbum> {
 
     const errors: ValidationError<AlbumPageValidationErrorType>[] = [];
 
-    if (origTitle === "") {
+    if (!origTitle) {
       errors.push(getValidationError(AlbumPageValidationErrorType.ALBUM_TITLE_IS_NOT_SET));
     }
 
-    if (bgColour === "") {
+    if (!bgColour) {
       errors.push(getValidationError(AlbumPageValidationErrorType.BG_COLOR_IS_EMPTY));
     }
-    if (fgColour === "") {
+    if (!fgColour) {
       errors.push(getValidationError(AlbumPageValidationErrorType.FG_COLOR_IS_EMPTY));
     }
     if (!validateColour(bgColour)) {
@@ -124,37 +124,41 @@ export default class Album implements BaseModel<IAlbum> {
       errors.push(getValidationError(AlbumPageValidationErrorType.FG_COLOR_IS_INVALID));
     }
 
-    if (description === "") {
+    if (!description) {
       errors.push(getValidationError(AlbumPageValidationErrorType.DESCRIPTION_IS_NOT_SET));
     }
 
-    if (publishedYear === "" && publishedMonth === "" && publishedDay === "") {
+    if (!publishedYear && !publishedMonth && !publishedDay) {
       errors.push(getValidationError(AlbumPageValidationErrorType.PUB_DATE_IS_NOT_SET));
-    } else if (publishedYear === "") {
+    } else if (!publishedYear) {
       errors.push(getValidationError(AlbumPageValidationErrorType.PUB_YEAR_IS_NOT_SET));
-    } else if (publishedMonth === "" && publishedDay !== "") {
+    } else if (!publishedMonth && publishedDay) {
       errors.push(getValidationError(AlbumPageValidationErrorType.PUB_MONTH_IS_NOT_SET));
     }
-    if (publishedYear !== "" && publishedYear.length !== 4) {
+    if (publishedYear && publishedYear.length !== 4) {
       errors.push(getValidationError(AlbumPageValidationErrorType.PUB_YEAR_IS_INVALID));
     }
 
-    if (vdbAlbumId === "") {
+    if (!vdbAlbumId) {
       errors.push(getValidationError(AlbumPageValidationErrorType.NO_VOCADB_LINK));
     }
 
-    if (tracklist.every((track) => track.pageTitle === "")) {
+    if (tracklist.every((track) => !track.pageTitle)) {
       errors.push(getValidationError(AlbumPageValidationErrorType.NO_TRACK_IS_LISTED));
     } else {
       const tracklistValidationErrors = Array.from(
-        new Set(tracklist.flatMap((t) => t.validate())).keys(),
+        new Set(
+          tracklist
+            .filter((l) => l.pageTitle || l.discNo || l.trackNo)
+            .flatMap((t) => t.validate()),
+        ).keys(),
       ).sort((a, b) => a - b);
       for (const c of tracklistValidationErrors) {
         errors.push(getValidationError(c));
       }
     }
 
-    if (broadcastLinks.length === 0) {
+    if (broadcastLinks.filter((l) => l.url).length === 0) {
       errors.push(getValidationError(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED));
     } else {
       const invalidIds = broadcastLinks.filter(({ __computed: { isValid } }) => !isValid);

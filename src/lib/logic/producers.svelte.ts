@@ -122,9 +122,9 @@ export function generatePage(formData: Producer): string {
   let unofficialLinks: string = getUnofficialProdLinks(extLinks.filter((link) => !link.isOfficial));
 
   extLinksSegment += `==External links==\n`;
-  extLinksSegment += officialLinks === "" ? "" : officialLinks + "\n";
-  extLinksSegment += mediaLinks === "" ? "" : `===Media===\n${mediaLinks}\n`;
-  extLinksSegment += unofficialLinks === "" ? "" : `===Unofficial===\n${unofficialLinks}`;
+  extLinksSegment += officialLinks ? officialLinks + "\n" : "";
+  extLinksSegment += mediaLinks ? `===Media===\n${mediaLinks}\n` : "";
+  extLinksSegment += unofficialLinks ? `===Unofficial===\n${unofficialLinks}` : "";
 
   for (const [role, isChecked] of Object.entries(roles)) {
     if (isChecked) {
@@ -181,26 +181,26 @@ export function generatePage(formData: Producer): string {
 ==Producer categories==
 {{ProdLinks|${prodCategory}}}
 ${
-  labels === ""
-    ? ""
-    : `\n==Labels==\n${labels
+  labels
+    ? `\n==Labels==\n${labels
         .split("\n")
         .map((i) => (i.startsWith("*") ? i : "* " + i))
         .join("\n")}\n`
+    : ""
 }${
-    affiliations === ""
-      ? ""
-      : `\n==Affiliations==\n${affiliations
+    affiliations
+      ? `\n==Affiliations==\n${affiliations
           .split("\n")
           .map((i) => (i.startsWith("*") ? i : "* " + i))
           .join("\n")}\n`
+      : ""
   }
 ${extLinksSegment}
 </div>
 
 ${description}
 
-==Works==${prodAliases === "" ? "" : `\n{{pwt alias|${prodAliases}}}`}
+==Works==${prodAliases ? `\n{{pwt alias|${prodAliases}}}` : ""}
 {| class="sortable producer-table"
 |- class="vcolor-default"
 ! {{pwt head}}
@@ -336,7 +336,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
   albums: ProducerDiscographyAlbumItem[];
   recommendToSplitAlbum: boolean;
 }> {
-  if (prodcat.trim() === "") {
+  if (!prodcat.trim()) {
     throw new VLWInvalidUrlError();
   }
   let subcats: Set<string> = new Set();
@@ -379,7 +379,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
       } catch {
         title = page.title;
       }
-      let sortkey: string = (page.sortkeyprefix || "") === "" ? title : page.sortkeyprefix || "";
+      let sortkey: string = page.sortkeyprefix || title;
       if (page.ns === 0) {
         songs.set(sortkey, title);
       } else {
@@ -435,7 +435,7 @@ export async function fetchDiscographyFromVlw(prodcat: string): Promise<{
           } catch {
             title = el.title;
           }
-          let sortkey = (el.sortkeyprefix || "") === "" ? title : el.sortkeyprefix || "";
+          let sortkey = el.sortkeyprefix || title;
           return { title, sortkey };
         }),
       );
