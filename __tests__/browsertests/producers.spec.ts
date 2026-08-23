@@ -143,7 +143,7 @@ test.describe("Producer page generator tests", async () => {
         {
           i: {
             url: "https://www.nicovideo.jp/mylist/11284855",
-            isOfficial: false,
+            isOfficial: true,
             isMedia: true,
           },
           o: {
@@ -165,7 +165,7 @@ test.describe("Producer page generator tests", async () => {
         {
           i: {
             url: "https://piapro.jp/pinokiop",
-            isOfficial: false,
+            isOfficial: true,
             isMedia: true,
             isInactive: true,
           },
@@ -349,7 +349,7 @@ test.describe("Producer page generator tests", async () => {
         {
           i: {
             url: "https://www.nicovideo.jp/mylist/11284855",
-            isOfficial: false,
+            isOfficial: true,
             isMedia: true,
           },
           o: {
@@ -371,7 +371,7 @@ test.describe("Producer page generator tests", async () => {
         {
           i: {
             url: "https://piapro.jp/pinokiop",
-            isOfficial: false,
+            isOfficial: true,
             isMedia: true,
             isInactive: true,
           },
