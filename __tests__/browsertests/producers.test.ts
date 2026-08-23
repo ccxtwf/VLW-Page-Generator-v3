@@ -20,7 +20,7 @@ test.describe("Producer page generator tests", async () => {
 
   test("Form should be mounted", async ({ page }) => {
     const form = getFormLocator(page);
-    expect(form).toBeVisible();
+    await expect(form).toBeVisible();
   });
 
   test("Handsontable tables should be loaded with initial data", async ({ page }) => {
@@ -198,7 +198,9 @@ test.describe("Producer page generator tests", async () => {
       ];
       await fillDiscographyTable(albumsTable, data, true);
     }
-    expect(form.getByRole("checkbox", { name: "Split album table in two" })).not.toBeChecked();
+    await expect(
+      form.getByRole("checkbox", { name: "Split album table in two" }),
+    ).not.toBeChecked();
 
     await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
     await form.getByRole("button", { name: "Generate" }).click();
@@ -402,7 +404,7 @@ test.describe("Producer page generator tests", async () => {
       ];
       await fillDiscographyTable(albumsTable, data, true);
     }
-    expect(form.getByRole("checkbox", { name: "Split album table in two" })).toBeChecked();
+    await expect(form.getByRole("checkbox", { name: "Split album table in two" })).toBeChecked();
 
     await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
     await form.getByRole("button", { name: "Generate" }).click();

@@ -22,7 +22,7 @@ test.describe("Song page generator tests", async () => {
 
   test("Form should be mounted", async ({ page }) => {
     const form = getFormLocator(page);
-    expect(form).toBeVisible();
+    await expect(form).toBeVisible();
   });
 
   test("Handsontable tables should be loaded with initial data", async ({ page }) => {
@@ -39,7 +39,7 @@ test.describe("Song page generator tests", async () => {
     }
   });
 
-  test("should output when on empty state", async ({ page, context }) => {
+  test("should output when on empty state", async ({ page }) => {
     const form = getFormLocator(page);
 
     await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
@@ -624,11 +624,11 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     /* Titles */
     await form.getByRole("textbox", { name: "Original Title" }).click();
     await form.getByRole("textbox", { name: "Original Title" }).fill("过得好");
-    expect(form.getByRole("textbox", { name: "Traditional Chinese Title" })).toBeVisible();
+    await expect(form.getByRole("textbox", { name: "Traditional Chinese Title" })).toBeVisible();
     await form.getByRole("textbox", { name: "Traditional Chinese Title" }).click();
     await form.getByRole("textbox", { name: "Traditional Chinese Title" }).fill("過得好");
     const toggle = form.locator(".swap").filter({ hasText: "繁⇔简 简⇔繁" });
-    expect(toggle.locator('input[type="checkbox"]')).toBeChecked();
+    await expect(toggle.locator('input[type="checkbox"]')).toBeChecked();
     await form.getByRole("textbox", { name: "Transliterated Title" }).click();
     await form.getByRole("textbox", { name: "Transliterated Title" }).fill("Guò dé Hǎo");
     await form.getByRole("textbox", { name: "Translated Title" }).click();
@@ -735,12 +735,12 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     /* Titles */
     await form.getByRole("textbox", { name: "Original Title" }).click();
     await form.getByRole("textbox", { name: "Original Title" }).fill("過得好");
-    expect(form.getByRole("textbox", { name: "Traditional Chinese Title" })).toBeVisible();
+    await expect(form.getByRole("textbox", { name: "Traditional Chinese Title" })).toBeVisible();
     await form.getByRole("textbox", { name: "Traditional Chinese Title" }).click();
     await form.getByRole("textbox", { name: "Traditional Chinese Title" }).fill("过得好");
     const toggle = form.locator(".swap").filter({ hasText: "繁⇔简 简⇔繁" });
     await toggle.click();
-    expect(toggle.locator('input[type="checkbox"]')).not.toBeChecked();
+    await expect(toggle.locator('input[type="checkbox"]')).not.toBeChecked();
     await form.getByRole("textbox", { name: "Transliterated Title" }).click();
     await form.getByRole("textbox", { name: "Transliterated Title" }).fill("Guò dé Hǎo");
     await form.getByRole("textbox", { name: "Translated Title" }).click();

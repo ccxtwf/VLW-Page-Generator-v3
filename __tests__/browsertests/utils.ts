@@ -228,7 +228,7 @@ export async function fillLyricsTable(
     let romCell = needsRomanization ? rw.locator("td").nth(2) : null;
     let engCell = needsTranslation ? rw.locator("td").nth(needsRomanization ? 3 : 2) : null;
 
-    expect(inputTextArea).toBeAttached();
+    await expect(inputTextArea).toBeAttached();
     if (customStyle) {
       await styleCell.dblclick();
       await inputTextArea.fill(customStyle);

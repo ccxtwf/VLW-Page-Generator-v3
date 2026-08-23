@@ -20,7 +20,7 @@ test.describe("Album page generator tests", async () => {
 
   test("Form should be mounted", async ({ page }) => {
     const form = getFormLocator(page);
-    expect(form).toBeVisible();
+    await expect(form).toBeVisible();
   });
 
   test("Handsontable tables should be loaded with initial data", async ({ page }) => {
@@ -80,7 +80,7 @@ test.describe("Album page generator tests", async () => {
     await form.getByRole("textbox", { name: "Label" }).fill("KarenT");
     await form.getByRole("textbox", { name: "Description" }).click();
     await form.getByRole("textbox", { name: "Description" }).fill("an album by [[John Doe]]");
-    expect(
+    await expect(
       form.getByRole("checkbox", { name: "Is the album a compilation album?" }),
     ).not.toBeChecked();
 
@@ -247,7 +247,7 @@ test.describe("Album page generator tests", async () => {
     await form.getByRole("textbox", { name: "Label" }).fill("KarenT");
     await form.getByRole("textbox", { name: "Description" }).click();
     await form.getByRole("textbox", { name: "Description" }).fill("an album by [[John Doe]]");
-    expect(
+    await expect(
       form.getByRole("checkbox", { name: "Is the album a compilation album?" }),
     ).not.toBeChecked();
 
@@ -419,7 +419,9 @@ test.describe("Album page generator tests", async () => {
       .getByRole("textbox", { name: "Description" })
       .fill("a compilation album by various producers");
     await form.getByRole("checkbox", { name: "Is the album a compilation album?" }).click();
-    expect(form.getByRole("checkbox", { name: "Is the album a compilation album?" })).toBeChecked();
+    await expect(
+      form.getByRole("checkbox", { name: "Is the album a compilation album?" }),
+    ).toBeChecked();
 
     /* Publication dates */
     await form.getByPlaceholder("year").click();

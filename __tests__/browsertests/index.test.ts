@@ -22,7 +22,7 @@ test.describe("Webpage tests", async () => {
 
   test("Navbar should navigate successfully", async ({ page }) => {
     const navbar = page.locator("header");
-    expect(navbar).toBeVisible();
+    await expect(navbar).toBeVisible();
 
     page.on("dialog", async (dialog) => {
       await dialog.accept();
@@ -31,7 +31,7 @@ test.describe("Webpage tests", async () => {
     const albumGenNavLink = page
       .getByRole("banner")
       .getByRole("link", { name: "Album Page Generator" });
-    expect(albumGenNavLink).toBeVisible();
+    await expect(albumGenNavLink).toBeVisible();
     await albumGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/albums/);
@@ -39,8 +39,8 @@ test.describe("Webpage tests", async () => {
     const producerGenNavLink = page
       .getByRole("banner")
       .getByRole("link", { name: "Producer Page Generator" });
-    expect(producerGenNavLink).toBeVisible();
-    expect(producerGenNavLink).toBeVisible();
+    await expect(producerGenNavLink).toBeVisible();
+    await expect(producerGenNavLink).toBeVisible();
     await producerGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/producers/);
@@ -48,8 +48,8 @@ test.describe("Webpage tests", async () => {
     const lyricsEditorNavLink = page
       .getByRole("banner")
       .getByRole("link", { name: "Lyrics Editor" });
-    expect(lyricsEditorNavLink).toBeVisible();
-    expect(lyricsEditorNavLink).toBeVisible();
+    await expect(lyricsEditorNavLink).toBeVisible();
+    await expect(lyricsEditorNavLink).toBeVisible();
     await lyricsEditorNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/lyrics-editor/);
@@ -57,7 +57,7 @@ test.describe("Webpage tests", async () => {
     const songGenNavLink = page
       .getByRole("banner")
       .getByRole("link", { name: "Song Page Generator" });
-    expect(songGenNavLink).toBeVisible();
+    await expect(songGenNavLink).toBeVisible();
     await songGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/songs/);
@@ -65,7 +65,7 @@ test.describe("Webpage tests", async () => {
 
   test("Footer should navigate successfully", async ({ page }) => {
     const footer = page.locator("footer");
-    expect(footer).toBeVisible();
+    await expect(footer).toBeVisible();
 
     page.on("dialog", async (dialog) => {
       await dialog.accept();
@@ -74,7 +74,7 @@ test.describe("Webpage tests", async () => {
     const albumGenNavLink = page
       .getByRole("contentinfo")
       .getByRole("link", { name: "Album Page Generator" });
-    expect(albumGenNavLink).toBeVisible();
+    await expect(albumGenNavLink).toBeVisible();
     await albumGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/albums/);
@@ -82,8 +82,8 @@ test.describe("Webpage tests", async () => {
     const producerGenNavLink = page
       .getByRole("contentinfo")
       .getByRole("link", { name: "Producer Page Generator" });
-    expect(producerGenNavLink).toBeVisible();
-    expect(producerGenNavLink).toBeVisible();
+    await expect(producerGenNavLink).toBeVisible();
+    await expect(producerGenNavLink).toBeVisible();
     await producerGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/producers/);
@@ -91,8 +91,8 @@ test.describe("Webpage tests", async () => {
     const lyricsEditorNavLink = page
       .getByRole("contentinfo")
       .getByRole("link", { name: "Lyrics Editor" });
-    expect(lyricsEditorNavLink).toBeVisible();
-    expect(lyricsEditorNavLink).toBeVisible();
+    await expect(lyricsEditorNavLink).toBeVisible();
+    await expect(lyricsEditorNavLink).toBeVisible();
     await lyricsEditorNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/lyrics-editor/);
@@ -100,7 +100,7 @@ test.describe("Webpage tests", async () => {
     const songGenNavLink = page
       .getByRole("contentinfo")
       .getByRole("link", { name: "Song Page Generator" });
-    expect(songGenNavLink).toBeVisible();
+    await expect(songGenNavLink).toBeVisible();
     await songGenNavLink.click();
     await page.waitForLoadState("load");
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/songs/);
