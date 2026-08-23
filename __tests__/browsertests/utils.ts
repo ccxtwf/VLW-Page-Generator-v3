@@ -1,5 +1,13 @@
 import { type Locator, type Page, expect } from "@playwright/test";
-import { IAlbumTrack, IExternalLink, ILyricsRow, IPlayLink } from "../../src/lib/models/schema";
+import {
+  IAlbumTrack,
+  IExternalLink,
+  IExternalLinkForProducerPage,
+  ILyricsRow,
+  IPlayLink,
+  IProducerDiscographyAlbumItem,
+  IProducerDiscographySongItem,
+} from "../../src/lib/models/schema";
 
 /**
  *
@@ -149,6 +157,53 @@ export async function fillExternalLinksTable(
  * @param table
  * @param data
  */
+export async function fillExternalLinksTableForProducerPage(
+  table: Locator,
+  data: {
+    i: Partial<IExternalLinkForProducerPage> & Pick<IExternalLinkForProducerPage, "url">;
+    o: { desc: RegExp | string; url: RegExp | string };
+  }[],
+) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  for (let i = 0; i < data.length; i++) {
+    let rw = tbodyRows[i];
+    let urlCell = rw.locator("td").nth(0);
+    let descCell = rw.locator("td").nth(1);
+    let isOfficialCell = rw.locator("td").nth(2);
+    let isMediaCell = rw.locator("td").nth(3);
+    let isInactiveCell = rw.locator("td").nth(4);
+
+    const { url, isOfficial, isMedia, isInactive } = data[i].i;
+
+    await urlCell.dblclick();
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    await inputTextArea.fill(url);
+    await inputTextArea.press("Tab");
+    await expect(descCell).toHaveText(data[i].o.desc);
+    await expect(urlCell).toHaveText(data[i].o.url);
+    if (isOfficial) {
+      const cb = isOfficialCell.locator('input[type="checkbox"]');
+      await cb.click();
+      await expect(isOfficialCell.getByRole("checkbox")).toBeChecked();
+    }
+    if (isMedia) {
+      const cb = isMediaCell.locator('input[type="checkbox"]');
+      await cb.click();
+      await expect(isMediaCell.getByRole("checkbox")).toBeChecked();
+    }
+    if (isInactive) {
+      const cb = isInactiveCell.locator('input[type="checkbox"]');
+      await cb.click();
+      await expect(isInactiveCell.getByRole("checkbox")).toBeChecked();
+    }
+  }
+}
+
+/**
+ *
+ * @param table
+ * @param data
+ */
 export async function fillLyricsTable(
   table: Locator,
   data: Partial<ILyricsRow>[],
@@ -243,6 +298,42 @@ export async function fillTracklistTable(table: Locator, data: IAlbumTrack[]) {
       const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
       await inputTextArea.fill(singerCredit);
       await inputTextArea.press("Tab");
+    }
+  }
+}
+
+/**
+ *
+ * @param table
+ * @param data
+ */
+export async function fillDiscographyTable(
+  table: Locator,
+  data: (IProducerDiscographySongItem | IProducerDiscographyAlbumItem)[],
+  forAlbumsList: boolean = false,
+) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  for (let i = 0; i < data.length; i++) {
+    let rw = tbodyRows[i];
+    let pageTitleCell = rw.locator("td").nth(0);
+    let moreParamsCell = rw.locator("td").nth(1);
+    let isCompilationAlbumCell = forAlbumsList ? rw.locator("td").nth(2) : null;
+
+    await pageTitleCell.dblclick();
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    await inputTextArea.fill(data[i].page);
+    await inputTextArea.press("Tab");
+
+    if (data[i].additionalParameters) {
+      await moreParamsCell.dblclick();
+      await inputTextArea.fill(data[i].additionalParameters);
+      await inputTextArea.press("Tab");
+    }
+
+    if (forAlbumsList && (data[i] as IProducerDiscographyAlbumItem).isCompilation) {
+      const cb = isCompilationAlbumCell!.locator('input[type="checkbox"]');
+      await cb.click();
+      await expect(isCompilationAlbumCell!.getByRole("checkbox")).toBeChecked();
     }
   }
 }
