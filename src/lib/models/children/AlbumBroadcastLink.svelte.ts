@@ -20,6 +20,10 @@ export default class AlbumBroadcastLink implements IAlbumBroadcastLink {
 
   preprocess(): void {
     preprocessStringParams(this, ["site", "url"]);
+    if (this.idx < 0) {
+      this.__computed = { paramKey: null, isValid: true, embedid: null };
+      return;
+    }
     const c = ALBUM_STREAMING_LINKS[this.idx];
     const m = c.regex.exec(this.url);
     const isValid = this.url ? !!m : true;

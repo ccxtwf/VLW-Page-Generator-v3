@@ -129,14 +129,14 @@ export function generatePage(formData: Album): string {
 
   return `
 ${displayTitleTemplate}{{Album Infobox
-|title = ${romTitle === "" ? origTitle : romTitle}${romTitle === "" ? "" : `\n|orgtitle = ${origTitle}`}${engTitle === "" ? "" : `\n|english = ${engTitle}`}
+|title = ${romTitle || origTitle}${romTitle ? `\n|orgtitle = ${origTitle}` : ""}${engTitle ? `\n|english = ${engTitle}` : ""}
 |label = ${renderTextAsHtmlTextContent(label)}
 |desc = ${renderTextAsHtmlTextContent(description)}
 |date = ${dateSegment}
 |vdb = ${vdbAlbumId}
-|vw = ${vocaWikiPage}${isCompilationAlbum ? "\n|compilation = 1" : ""}${moreInfoLinksSegment === "" ? "" : "\n" + moreInfoLinksSegment}
+|vw = ${vocaWikiPage}${isCompilationAlbum ? "\n|compilation = 1" : ""}${moreInfoLinksSegment ? "\n" + moreInfoLinksSegment : ""}
 
-${streamingSegment === "" ? "" : streamingSegment + "\n\n"}|color = ${bgColour}; color:${fgColour}
+${streamingSegment ? streamingSegment + "\n\n" : ""}|color = ${bgColour}; color:${fgColour}
 ${trackListSegment}
 }}
 

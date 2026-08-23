@@ -37,7 +37,7 @@ export function getUnofficialProdLinks(links: ExternalLinkForProducerPage[]): st
     (rx: RegExp) =>
     (key: string, link: ExternalLinkForProducerPage): boolean => {
       const m = rx.exec(link.url);
-      if (m === null) {
+      if (!m) {
         return false;
       }
       detectedDomains[key] = m[1];
@@ -65,7 +65,9 @@ export function getUnofficialProdLinks(links: ExternalLinkForProducerPage[]): st
     let domainIsDetected = false;
     for (let [key, fn] of Object.entries(rxCommonLinks)) {
       domainIsDetected = fn(key, link);
-      break;
+      if (domainIsDetected) {
+        break;
+      }
     }
     if (!domainIsDetected) {
       wikitextForUndetectedDomains += `* ${link.getWikitext()}\n`;
@@ -81,7 +83,7 @@ export function getUnofficialProdLinks(links: ExternalLinkForProducerPage[]): st
   |mgp    = ${detectedDomains.MGP || ""}
 }}`.trim();
 
-  return `${wikitextForDetectedDomains}\n${wikitextForUndetectedDomains}`;
+  return `${wikitextForDetectedDomains}\n${wikitextForUndetectedDomains}`.trim();
 }
 
 /**
@@ -193,7 +195,8 @@ ${
           .map((i) => (i.startsWith("*") ? i : "* " + i))
           .join("\n")}\n`
   }
-${extLinksSegment}</div>
+${extLinksSegment}
+</div>
 
 ${description}
 

@@ -102,7 +102,7 @@ export function vlwInternalLinkRenderer(
     /^(?:\[\[(?!fandom:|wikia:|mh:|m:|meta:|metawiki:|commons:|w:))(?:([^|]*)(?:|\|.*))\]\]$/i,
   );
   if (m) {
-    let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}${encodeURIComponent(m.groups![1])}`;
+    let url = `${VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT}${encodeURIComponent(m[1])}`;
     td.innerHTML = renderAsAnchorElement({ url, caption: v }).outerHTML;
   } else {
     td.innerText = v;

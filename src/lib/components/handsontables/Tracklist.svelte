@@ -47,7 +47,7 @@
    */
   const onVlwPageInput = handleInputEvent("pageTitle", (change) => {
     const page = getOtherMediaWikiPageName(
-      (change[2] as string) || "",
+      (change[3] as string) || "",
       VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT,
     );
     if (page) {

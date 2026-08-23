@@ -21,7 +21,7 @@ export function getVdbPageId(url: string, mode: VdbPageType): string | null {
   }
   const rxVdb = new RegExp(`^${escapeRegExp(VOCADB_ENTRYPOINT)}${mode}\\/(\\d+)`);
   const tryMatch = rxVdb.exec(url.trim());
-  if (tryMatch === null) {
+  if (!tryMatch) {
     return null;
   }
   return tryMatch[1];

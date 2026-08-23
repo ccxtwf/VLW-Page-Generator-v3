@@ -83,7 +83,7 @@
     generate(formData) {
       const output = generatePage(formData);
       let title = formData.origTitle;
-      if (formData.romTitle) {
+      if (title && formData.romTitle) {
         title += ` (${formData.romTitle})`;
       }
       ongenerate(output, title);

@@ -75,8 +75,11 @@
     generate(formData) {
       const output = generatePage(formData);
       let title = formData.origTitle;
-      if (formData.romTitle) {
+      if (title && formData.romTitle) {
         title += ` (${formData.romTitle})`;
+      }
+      if (title) {
+        title += " (album)";
       }
       ongenerate(output, title);
     },
@@ -89,6 +92,7 @@
     formData.resetHotTables();
   };
   const handleAutoloadCategories = () => {
+    formData.tracklist = tracklistHotTable!.getLatestData();
     const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
   };
