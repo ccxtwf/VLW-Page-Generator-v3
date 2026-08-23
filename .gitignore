@@ -26,3 +26,13 @@ dist-ssr
 *.sw?
 
 __pycache__/
+
+# Vitest Coverage
+/coverage/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
