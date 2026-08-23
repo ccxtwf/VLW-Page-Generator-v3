@@ -4,7 +4,6 @@ import {
   fillDiscographyTable,
   fillExternalLinksTableForProducerPage,
   getHandsontableInstance,
-  removeHandsontableRows,
 } from "./utils";
 
 test.describe("Producer page generator tests", async () => {
@@ -174,9 +173,20 @@ test.describe("Producer page generator tests", async () => {
             url: /^https:\/\/piapro\.jp\/pinokiop$/,
           },
         },
+        {
+          i: {
+            url: "https://pinocchiop.com/",
+            description: "Website",
+            isOfficial: true,
+            isMedia: false,
+          },
+          o: {
+            desc: "Website",
+            url: /^https:\/\/pinocchiop\.com/,
+          },
+        },
       ];
       await fillExternalLinksTableForProducerPage(externalLinksTable, data);
-      await removeHandsontableRows(page, externalLinksTable, data.length);
     }
 
     /* Discography */
@@ -202,8 +212,12 @@ test.describe("Producer page generator tests", async () => {
       form.getByRole("checkbox", { name: "Split album table in two" }),
     ).not.toBeChecked();
 
-    await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
     await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
 
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
@@ -228,6 +242,12 @@ test.describe("Producer page generator tests", async () => {
 * Circle 2
 
 ==External links==
+* Website: [https://pinocchiop.com/ ]
+
+===Media===
+* [https://www.nicovideo.jp/mylist/11284855 Niconico]
+* <s>[https://piapro.jp/pinokiop piapro]</s>
+
 ===Unofficial===
 {{links |p=yes
   |atmiku = 4671
@@ -237,8 +257,6 @@ test.describe("Producer page generator tests", async () => {
   |tag    = 
   |mgp    = 
 }}
-* [https://www.nicovideo.jp/mylist/11284855 Niconico]
-* <s>[https://piapro.jp/pinokiop piapro]</s>
 </div>
 
 '''Hachi''' is a prolific vocal synth producer. This is a simple piece of placeholder text.
@@ -380,9 +398,20 @@ test.describe("Producer page generator tests", async () => {
             url: /^https:\/\/piapro\.jp\/pinokiop$/,
           },
         },
+        {
+          i: {
+            url: "https://pinocchiop.com/",
+            description: "Website",
+            isOfficial: true,
+            isMedia: false,
+          },
+          o: {
+            desc: "Website",
+            url: /^https:\/\/pinocchiop\.com/,
+          },
+        },
       ];
       await fillExternalLinksTableForProducerPage(externalLinksTable, data);
-      await removeHandsontableRows(page, externalLinksTable, data.length);
     }
 
     /* Discography */
@@ -406,8 +435,12 @@ test.describe("Producer page generator tests", async () => {
     }
     await expect(form.getByRole("checkbox", { name: "Split album table in two" })).toBeChecked();
 
-    await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
     await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
 
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
@@ -432,6 +465,12 @@ test.describe("Producer page generator tests", async () => {
 * Circle 2
 
 ==External links==
+* Website: [https://pinocchiop.com/ ]
+
+===Media===
+* [https://www.nicovideo.jp/mylist/11284855 Niconico]
+* <s>[https://piapro.jp/pinokiop piapro]</s>
+
 ===Unofficial===
 {{links |p=yes
   |atmiku = 4671
@@ -441,8 +480,6 @@ test.describe("Producer page generator tests", async () => {
   |tag    = 
   |mgp    = 
 }}
-* [https://www.nicovideo.jp/mylist/11284855 Niconico]
-* <s>[https://piapro.jp/pinokiop piapro]</s>
 </div>
 
 '''Hachi''' is a prolific vocal synth producer. This is a simple piece of placeholder text.

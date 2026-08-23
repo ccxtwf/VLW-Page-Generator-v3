@@ -217,6 +217,11 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -413,6 +418,11 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -560,6 +570,9 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -683,6 +696,9 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -794,6 +810,9 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     );
 
     await form.getByRole("button", { name: "generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
 
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
@@ -964,6 +983,9 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -1116,6 +1138,11 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -1264,6 +1291,11 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     );
 
     await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
 
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");

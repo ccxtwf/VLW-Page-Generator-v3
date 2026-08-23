@@ -187,6 +187,11 @@ test.describe("Album page generator tests", async () => {
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -355,6 +360,11 @@ test.describe("Album page generator tests", async () => {
 
     await form.getByRole("button", { name: "Generate" }).click();
 
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");
 
@@ -517,6 +527,9 @@ test.describe("Album page generator tests", async () => {
     );
 
     await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
 
     const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
     const pageOutput = page.locator("#page-output");

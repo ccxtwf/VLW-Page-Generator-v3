@@ -185,14 +185,19 @@ export async function fillExternalLinksTableForProducerPage(
     let isMediaCell = rw.locator("td").nth(3);
     let isInactiveCell = rw.locator("td").nth(4);
 
-    const { url, isOfficial, isMedia, isInactive } = data[i].i;
+    const { url, description, isOfficial, isMedia, isInactive } = data[i].i;
 
     await urlCell.dblclick();
     const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
     await inputTextArea.fill(url);
     await inputTextArea.press("Tab");
-    await expect(descCell).toHaveText(data[i].o.desc);
     await expect(urlCell).toHaveText(data[i].o.url);
+    if (description) {
+      await descCell.dblclick();
+      await inputTextArea.fill(description);
+      await inputTextArea.press("Tab");
+    }
+    await expect(descCell).toHaveText(data[i].o.desc);
     if (isOfficial) {
       const cb = isOfficialCell.locator('input[type="checkbox"]');
       await cb.click();

@@ -113,9 +113,9 @@ test.describe("Album page generator tests", async () => {
     const form = getFormLocator(page);
 
     /* Assertions */
-    expect(form.getByPlaceholder("year")).toHaveValue("");
-    expect(form.locator("#published-month")).toHaveValue("");
-    expect(form.getByPlaceholder("day")).toHaveValue("");
+    await expect(form.getByPlaceholder("year")).toHaveValue("");
+    await expect(form.locator("#published-month")).toHaveValue("");
+    await expect(form.getByPlaceholder("day")).toHaveValue("");
 
     let fatalErrors: string[];
     const emptyStateErrorMessage = "You must add an album publication date.";
