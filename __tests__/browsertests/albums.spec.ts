@@ -577,4 +577,137 @@ test.describe("Album page generator tests", async () => {
 [[Category:Jane Doe songs list/Albums]]
 [[Category:Jill Doe songs list/Albums]]`);
   });
+
+  test("should support all broadcasting links", async ({ page }) => {
+    const form = getFormLocator(page);
+
+    /* Titles */
+    await form.getByRole("textbox", { name: "Original Title" }).click();
+    await form.getByRole("textbox", { name: "Original Title" }).fill("アルバム");
+    await form.getByRole("textbox", { name: "Transliterated Title" }).click();
+    await form.getByRole("textbox", { name: "Transliterated Title" }).fill("Arubamu");
+
+    /* Colours */
+    await form.locator('#infobox-bg-color-picker input[type="color"]').fill("#474747");
+    await form.locator('#infobox-fg-color-picker input[type="color"]').fill("#cccccc");
+
+    /* General Information */
+    await form.getByRole("textbox", { name: "Label" }).click();
+    await form.getByRole("textbox", { name: "Label" }).fill("KarenT");
+    await form.getByRole("textbox", { name: "Description" }).click();
+    await form
+      .getByRole("textbox", { name: "Description" })
+      .fill("a compilation album by various producers");
+    await form.getByRole("checkbox", { name: "Is the album a compilation album?" }).click();
+    await expect(
+      form.getByRole("checkbox", { name: "Is the album a compilation album?" }),
+    ).toBeChecked();
+
+    /* Publication dates */
+    await form.getByPlaceholder("year").click();
+    await form.getByPlaceholder("year").fill("2010");
+    await form.locator("#published-month").selectOption("May");
+    await form.getByPlaceholder("day").click();
+    await form.getByPlaceholder("day").fill("25");
+
+    /* Synth Engines */
+    await form.getByRole("combobox", { name: "Used Synth Engines" }).click();
+    await form.getByRole("option", { name: "VOCALOID" }).click();
+    await page.keyboard.press("Escape");
+
+    /* Tracklist */
+    {
+      const tracklistTable = getHandsontableInstance(form, "tracklist");
+      const data = [
+        {
+          discNo: 1,
+          trackNo: 1,
+          pageTitle: "[[Page 1]]",
+          producerCredit: "[[John Doe]]",
+          singerCredit: "[[Hatsune Miku (VOCALOID)]]",
+        },
+      ];
+      await fillTracklistTable(tracklistTable, data);
+      await removeHandsontableRows(page, tracklistTable, data.length);
+    }
+
+    /* Streaming links */
+    {
+      const data = [
+        {
+          label: "Niconico Crossfade",
+          value: "https://www.nicovideo.jp/watch/sm30228946",
+        },
+        {
+          label: "YouTube Crossfade",
+          value: "https://www.youtube.com/watch?v=in90fSCxGKs",
+        },
+        {
+          label: "Spotify",
+          value: "https://open.spotify.com/album/0alAqCK9UfmE4o0cIpKDeo",
+        },
+        {
+          label: "YouTube Music Playlist",
+          value: "https://www.youtube.com/playlist?list=OLAK5uy_mlF1GayzzkIWAHcGFs-00ZBbZezi4c9A0",
+        },
+        {
+          label: "Bandamp Embed ID",
+          value: "1234567890",
+        },
+        {
+          label: "SoundCloud Crossfade",
+          value: "https://soundcloud.com/wanderful-opportunity/wan-opo-vol-08_crossfade",
+        },
+      ];
+      for (const { label, value } of data) {
+        await form.getByRole("textbox", { name: label }).click();
+        await form.getByRole("textbox", { name: label }).fill(value);
+      }
+    }
+
+    await form.getByRole("button", { name: "Autoload" }).click();
+    await expect(form.getByRole("textbox", { name: "Categories" })).toHaveValue(
+      "Albums featuring VOCALOID\nAlbums featuring Hatsune Miku (VOCALOID)\nJohn Doe songs list/Albums",
+    );
+
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+
+    const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
+    const pageOutput = page.locator("#page-output");
+
+    await expect(copyTitleButton).toBeVisible();
+    await expect(pageOutput).toBeVisible();
+    await pageOutput.scrollIntoViewIfNeeded();
+
+    await expect(copyTitleButton).toHaveText("アルバム (Arubamu) (album)");
+    await expect(pageOutput).toHaveValue(`{{Album Infobox
+|title = Arubamu
+|orgtitle = アルバム
+|label = KarenT
+|desc = a compilation album by various producers
+|date = {{DateAlbum|2010|May|25}}
+|vdb = 
+|vw = 
+|compilation = 1
+
+|nn-xfade = sm30228946
+|yt-xfade = in90fSCxGKs
+|sp-embed = 0alAqCK9UfmE4o0cIpKDeo
+|yt-playlist = OLAK5uy_mlF1GayzzkIWAHcGFs-00ZBbZezi4c9A0
+|bc-embed = 1234567890
+|sc-xfade = https://soundcloud.com/wanderful-opportunity/wan-opo-vol-08_crossfade
+
+|color = #474747; color:#cccccc
+|tr1 = [[Page 1]]
+|tr1s = [[John Doe]] ft. [[Hatsune Miku (VOCALOID)]]
+}}
+
+{{sort-album}}
+[[Category:Albums featuring VOCALOID]]
+[[Category:Albums featuring Hatsune Miku (VOCALOID)]]
+[[Category:John Doe songs list/Albums]]`);
+  });
 });
