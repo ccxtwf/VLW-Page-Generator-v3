@@ -457,4 +457,78 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).not.toContain(errorMessage5);
     }
   });
+
+  test("should output validation warnings when invalid album streaming links are set", async ({
+    page,
+  }) => {
+    const form = getFormLocator(page);
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const pageOutput = page.locator("#page-output");
+
+    const data = [
+      {
+        label: "Niconico Crossfade",
+        value: "invalid-url",
+      },
+      {
+        label: "YouTube Crossfade",
+        value: "invalid-url",
+      },
+      {
+        label: "Spotify",
+        value: "invalid-url",
+      },
+      {
+        label: "YouTube Music Playlist",
+        value: "invalid-url",
+      },
+      {
+        label: "Bandamp Embed ID",
+        value: "invalid-url",
+      },
+      {
+        label: "SoundCloud Crossfade",
+        value: "invalid-url",
+      },
+    ];
+    const getExpectedError = (moreInfo: string) => {
+      return `An invalid embed URL is supplied for the following services: ${moreInfo}`;
+    };
+    for (const { label, value } of data) {
+      await form.getByRole("textbox", { name: label }).click();
+      await form.getByRole("textbox", { name: label }).fill(value);
+
+      /* Click Generate Button */
+      await form.getByRole("button", { name: "Generate" }).click();
+
+      await expect(pageOutput).toHaveValue("");
+
+      await expect(fatalErrorsAlert).toBeVisible();
+      const fatalErrors = await getValidationItems(fatalErrorsAlert);
+
+      expect(fatalErrors).toContain(getExpectedError(label));
+
+      // Clear for next input
+      await form.getByRole("textbox", { name: label }).clear();
+    }
+
+    /* An error with multiple services */
+    {
+      await form.getByRole("textbox", { name: "Niconico Crossfade" }).click();
+      await form.getByRole("textbox", { name: "Niconico Crossfade" }).fill("invalid-url");
+      await form.getByRole("textbox", { name: "YouTube Crossfade" }).click();
+      await form.getByRole("textbox", { name: "YouTube Crossfade" }).fill("invalid-url");
+
+      /* Click Generate Button */
+      await form.getByRole("button", { name: "Generate" }).click();
+
+      await expect(pageOutput).toHaveValue("");
+
+      await expect(fatalErrorsAlert).toBeVisible();
+      const fatalErrors = await getValidationItems(fatalErrorsAlert);
+
+      expect(fatalErrors).toContain(getExpectedError("Niconico Crossfade, YouTube Crossfade"));
+    }
+  });
 });
