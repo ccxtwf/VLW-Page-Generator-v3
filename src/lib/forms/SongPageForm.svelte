@@ -273,6 +273,10 @@
           <input
             type="checkbox"
             bind:checked={formData.altChIsTraditional}
+            onkeydown={(e) => {
+              formData.altChIsTraditional = !formData.altChIsTraditional;
+              e.preventDefault();
+            }}
           />
           <div class="swap-on">
             <span
