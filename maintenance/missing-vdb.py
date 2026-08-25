@@ -1,18 +1,20 @@
 """
   This is a maintenance script that does the following tasks:
-    - Logs new synths added to VocaDB that are not listed in src/assets/synths.db
+    - Logs new synths added to VocaDB that are not listed in public/synths.db
 """
-
+import os 
+from dotenv import load_dotenv
 import argparse
-import json
 
-from utils import console, get_db_connection
+from utils import console, get_db_connection, retry_request
 
 from dataclasses import dataclass
 
 from typing import Literal, List, get_args
 
-VOCADB_API_ENTRYPOINT = "https://vocadb.net/api/artists"
+load_dotenv()
+
+VOCADB_API_ENTRYPOINT = os.getenv("VOCADB_ARTIST_API_ENTRYPOINT")
 
 VocadbArtistType = Literal[
   "Vocaloid", "UTAU", "CeVIO", "SynthesizerV", 
@@ -42,7 +44,6 @@ def list_unlisted_synths(
     This task is not responsible for adding the missing synths to 
     synths.db.
   """
-  import requests
 
   results: List[UnlistedSynth] = []
 
@@ -64,16 +65,15 @@ def list_unlisted_synths(
     default_vdb_params["artistTypes"] = ",".join(for_types)
 
   try:
+    assert(VOCADB_API_ENTRYPOINT is not None)
     for i in range(n_requests):
       default_vdb_params["start"] = i * fetch_page_size
-      with requests.get(
-        VOCADB_API_ENTRYPOINT,
-        params=default_vdb_params
+      with retry_request(
+        url=VOCADB_API_ENTRYPOINT,
+        method='GET',
+        params=default_vdb_params,
       ) as res:
-        console.print(f"Making a request to {res.request.url}")
-
-        if not res.ok:
-          raise Exception(f"Got unexpected response from the VocaDB API:\nSTATUS: {res.status_code}\nBODY: {res.text}")
+        console.print(f"Made a request to {res.request.url}")
 
         jo = res.json()
         items = jo.get("items", [])

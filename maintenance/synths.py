@@ -10,9 +10,6 @@ from pathlib import Path
 
 from utils import console, get_db_connection
 
-from collections import namedtuple
-from typing import Dict, Tuple, List
-
 def recreate_synth_engines_json():
   """
     Task to recreate the list of synth engines that is used to 
