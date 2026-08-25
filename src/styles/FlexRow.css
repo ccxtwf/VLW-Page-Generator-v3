@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@layer components {
+  .vlw-flex-row-left {
+    @apply flex w-full flex-col items-start justify-start gap-4 font-medium;
+  }
+  .vlw-flex-row-right {
+    @apply flex w-full flex-col gap-2 sm:flex-row;
+  }
+  .vlw-flex-row-label {
+    @apply flex w-full flex-row items-center justify-between gap-4;
+  }
+}

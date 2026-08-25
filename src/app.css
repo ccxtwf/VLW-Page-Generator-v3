@@ -19,4 +19,6 @@
 }
 
 @import "./styles/svelte-multiselect.css";
+@import "./styles/FlexRow.css";
+@import "./styles/Tooltip.css";
 @import "./styles/app.css";

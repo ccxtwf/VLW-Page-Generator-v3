@@ -31,10 +31,10 @@
 </script>
 
 <div
-  class="flex w-full flex-col items-start justify-start gap-4 font-medium"
+  class="vlw-flex-row-left"
   class:hidden
 >
-  <div class="flex w-full flex-row items-center justify-between gap-4">
+  <div class="vlw-flex-row-label">
     <div class="flex-item grow">
       <label for={labelForHtmlId}>
         {labelI18nKey ? $_(labelI18nKey, { values: labelI18nParams }) : rawLabelString}
@@ -55,7 +55,7 @@
   {/if}
 </div>
 <div
-  class="flex w-full flex-col gap-2 sm:flex-row"
+  class="vlw-flex-row-right"
   class:hidden
 >
   {#if children}
