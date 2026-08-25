@@ -118,5 +118,9 @@
   {
     "id": 30,
     "name": "DiffSinger"
+  },
+  {
+    "id": 31,
+    "name": "SAPI"
   }
 ]
