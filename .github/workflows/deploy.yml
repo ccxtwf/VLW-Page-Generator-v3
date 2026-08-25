@@ -57,7 +57,10 @@ jobs:
 
           cat $GITHUB_ENV
 
-      - run: vp install
+      - run: |
+          vp install
+          git apply --ignore-space-change --ignore-whitespace --directory=node_modules/ patches/*.patch
+
       - run: vp build --base "${{ github.event.repository.name }}"
 
       - name: Setup GitHub Pages

@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "git apply --ignore-whitespace --directory=node_modules/ patches/*.patch",
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",

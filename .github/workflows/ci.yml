@@ -38,6 +38,9 @@ jobs:
           node-version: "24"
           cache: true
 
-      - run: vp install
+      - run: |
+          vp install
+          git apply --ignore-space-change --ignore-whitespace --directory=node_modules/ patches/*.patch
+
       - run: vp check --no-fmt
       - run: vp test
