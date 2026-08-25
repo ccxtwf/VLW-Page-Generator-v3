@@ -11,7 +11,7 @@ export default defineConfig((env) => {
     },
 
     fmt: {
-      ignorePatterns: ["**/*.md", "**/*.json", "index.html"],
+      ignorePatterns: ["**/*.md", "**/*.json", "maintenance/**", "index.html"],
 
       semi: true,
       singleQuote: false,
@@ -25,7 +25,7 @@ export default defineConfig((env) => {
     },
 
     lint: {
-      ignorePatterns: ["**/*.md", "**/*.json", "index.html"],
+      ignorePatterns: ["**/*.md", "**/*.json", "maintenance/**", "index.html"],
 
       jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
       rules: {
