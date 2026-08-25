@@ -444,7 +444,6 @@ export async function fetchDataFromVocaDb(
     translator: "",
     isOfficialTranslation: false,
     categoriesRaw: "",
-    lyrics: [],
     playLinks,
     extLinks,
     images,
