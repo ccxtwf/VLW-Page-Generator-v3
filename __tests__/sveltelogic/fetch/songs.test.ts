@@ -66,7 +66,6 @@ describe("fetchDataFromVocaDb - songs", () => {
       translator: "",
       isOfficialTranslation: false,
       categoriesRaw: "",
-      lyrics: [],
       playLinks: [
         new PlayLink({
           site: "Niconico",
@@ -230,7 +229,6 @@ describe("fetchDataFromVocaDb - songs", () => {
       translator: "",
       isOfficialTranslation: false,
       categoriesRaw: "",
-      lyrics: [],
       playLinks: [
         new PlayLink({
           site: "bilibili",
