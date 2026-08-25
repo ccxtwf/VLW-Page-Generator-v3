@@ -94,6 +94,10 @@
   });
   const handleFormReset = () => {
     resetWarnings();
+    formData.updateState({
+      images: [],
+      languages: [],
+    });
     formData.resetHotTables();
   };
   const handleAutoloadCategories = () => {

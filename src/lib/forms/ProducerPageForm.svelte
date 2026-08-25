@@ -117,6 +117,11 @@
   });
   const handleFormReset = () => {
     resetWarnings();
+    formData.updateState({
+      image: null,
+      languages: [],
+      engines: [],
+    });
     formData.resetHotTables();
   };
 </script>
