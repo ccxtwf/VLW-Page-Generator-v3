@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -45,18 +45,20 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "VITE_REFER_FROM_ORIGIN={{ github.repository_owner }}.github.io" >> $GITHUB_ENV
+          echo "VITE_REFER_FROM_ORIGIN=${{ github.repository_owner }}.github.io" >> $GITHUB_ENV
 
-          echo "ASSETS_PATH=https://cdn.jsdelivr.net/gh/{{ github.repository }}@data/" >> $GITHUB_ENV
+          echo "ASSETS_PATH=https://cdn.jsdelivr.net/gh/${{ github.repository }}@data/" >> $GITHUB_ENV
 
-          echo "VITE_GITHUB_REPO_LINK={{ github.server_url }}/{{ github.repository }}" >> $GITHUB_ENV
-          echo "VITE_GITLAB_REPO_LINK={{ vars.GITLAB_URL }}" >> $GITHUB_ENV
+          echo "VITE_GITHUB_REPO_LINK=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
+          echo "VITE_GITLAB_REPO_LINK=${{ vars.GITLAB_URL }}" >> $GITHUB_ENV
 
           echo "VITE_BUILD_CODE=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "VITE_BUILD_DATE=$(date -Iseconds)" >> $GITHUB_ENV
 
+          cat $GITHUB_ENV
+
       - run: vp install
-      - run: vp build --base "{{ github.event.repository.name }}"
+      - run: vp build --base "${{ github.event.repository.name }}"
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -69,3 +71,27 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Determine semantic version
+        id: version
+        uses: paulhatch/semantic-version@v5.4.0
+        with:
+          # The prefix to use to identify tags
+          tag_prefix: "v"
+          # A string which, if present in a git commit, indicates that a change represents a
+          # major (breaking) change, supports regular expressions wrapped with '/'
+          major_pattern: "/!:|BREAKING CHANGE:/"
+          # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
+          minor_pattern: "/FEAT:(\\(.+\\))?:/"
+
+          # bump semver only on changes to src/
+          change_path: "src"
+          bump_each_commit: false
+
+      - name: Create and push tag
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.version.outputs.version_tag }}"
+          git push origin "${{ steps.version.outputs.version_tag }}"
