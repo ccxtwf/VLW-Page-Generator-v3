@@ -224,7 +224,7 @@ def check_misaligned_data(batch_size: int = 100):
 
 def init_argparse() -> argparse.ArgumentParser:
   parser = argparse.ArgumentParser(
-    usage="uv run check.py [--n INT] [--fetch INT] [--sql]",
+    usage="uv run check.py <mode> [--n INT]",
     description="Maintenance scripts to check data in synths.db",
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
   )
