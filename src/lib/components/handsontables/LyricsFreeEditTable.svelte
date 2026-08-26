@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import Handsontable, { type HotInstance } from "handsontable/base";
+  import { getRenderer } from "handsontable/renderers";
   import { getTheme } from "handsontable/themes";
   import { lyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
@@ -124,7 +125,7 @@
         if (col === 0) {
           rendererKey = "lyrics-custom-style";
         }
-        const renderer = Handsontable.renderers.getRenderer(rendererKey);
+        const renderer = getRenderer(rendererKey);
         return renderer(hotInstance, _td, _row, col, _prop, _value, _cellProperties);
       },
       theme: getTheme(window._theme || "auto"),
