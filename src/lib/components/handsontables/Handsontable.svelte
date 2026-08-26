@@ -21,7 +21,7 @@
    * Requires: npm install handsontable
    */
   import { onMount, onDestroy } from "svelte";
-  import Handsontable, { type HotInstance, type GridSettings } from "handsontable";
+  import Handsontable, { type HotInstance, type GridSettings } from "handsontable/base";
   import { getTheme } from "handsontable/themes";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
   import type { ThemeChangedEventPayload } from "../../../schemas/events";

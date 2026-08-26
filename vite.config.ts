@@ -1,6 +1,7 @@
 import { defineConfig, lazyPlugins, loadEnv } from "vite-plus";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vite.dev/config/
 export default defineConfig((env) => {
@@ -44,7 +45,15 @@ export default defineConfig((env) => {
       },
     },
 
-    plugins: lazyPlugins(() => [tailwindcss(), svelte()]),
+    plugins: lazyPlugins(() => [
+      tailwindcss(),
+      svelte(),
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+      }),
+    ]),
 
     define: {
       /**
@@ -59,6 +68,30 @@ export default defineConfig((env) => {
 
     build: {
       copyPublicDir: false,
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                test: /node_modules\/handsontable\/3rdparty/,
+                name: "vendor",
+              },
+              {
+                test: /node_modules\/handsontable/,
+                name: "vendor",
+              },
+              {
+                test: /node_modules\/@sqlite\.org/,
+                name: "vendor",
+              },
+              {
+                test: /node_modules/,
+                name: "vendor",
+              },
+            ],
+          },
+        },
+      },
     },
     optimizeDeps: {
       exclude: ["@sqlite.org/sqlite-wasm"],

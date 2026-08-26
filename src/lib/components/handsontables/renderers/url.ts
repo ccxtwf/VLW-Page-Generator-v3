@@ -1,4 +1,4 @@
-import { type CellProperties, type HotInstance } from "handsontable";
+import { type CellProperties, type HotInstance } from "handsontable/base";
 import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../../config";
 
 import { isValidUrl } from "../../../utils/urlUtils";

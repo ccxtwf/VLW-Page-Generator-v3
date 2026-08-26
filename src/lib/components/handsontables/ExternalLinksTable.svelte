@@ -1,6 +1,6 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
-  import { type ColumnSettings, type HotInstance } from "handsontable";
+  import { type ColumnSettings, type HotInstance } from "handsontable/base";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
   import type { SvelteComponent } from "svelte";
 

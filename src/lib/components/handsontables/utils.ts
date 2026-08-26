@@ -1,4 +1,4 @@
-import { type CellChange, type ChangeSource } from "handsontable";
+import { type CellChange, type ChangeSource } from "handsontable/base";
 import {
   convertAvidToBvId,
   convertTwitterLink,

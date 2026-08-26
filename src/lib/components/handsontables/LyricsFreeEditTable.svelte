@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import Handsontable, { type HotInstance } from "handsontable";
+  import Handsontable, { type HotInstance } from "handsontable/base";
   import { getTheme } from "handsontable/themes";
   import { lyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
@@ -8,7 +8,6 @@
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
   import {
     addColumnsAtIndexToTheLeftToToggle,
-    addColumnsAtIndexToTheRightToToggle,
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";

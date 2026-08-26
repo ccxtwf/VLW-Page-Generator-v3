@@ -1,6 +1,6 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
-  import type { ColumnSettings, HotInstance } from "handsontable";
+  import type { ColumnSettings, HotInstance } from "handsontable/base";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
   import { lyricsContextMenu } from "./contextMenus/lyrics";

@@ -1,4 +1,4 @@
-import type { CellCoords, HotInstance } from "handsontable";
+import type { CellCoords, HotInstance } from "handsontable/base";
 import type { MenuItemConfig } from "handsontable/plugins/contextMenu";
 import { renderListInWikiInternalLinkMarkup } from "../../../utils/utils";
 

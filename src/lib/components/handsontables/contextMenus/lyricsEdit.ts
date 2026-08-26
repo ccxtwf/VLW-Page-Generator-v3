@@ -1,4 +1,4 @@
-import type { HotInstance } from "handsontable";
+import type { HotInstance } from "handsontable/base";
 import { lyricsContextMenu } from "./lyrics";
 
 export const lyricsEditContextMenu = {

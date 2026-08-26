@@ -1,4 +1,4 @@
-import type { CellProperties, HotInstance } from "handsontable";
+import type { CellProperties, HotInstance } from "handsontable/base";
 import { sanitizeHtml } from "../../../utils/utils";
 
 /**
