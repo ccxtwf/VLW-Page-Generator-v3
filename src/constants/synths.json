@@ -177,7 +177,7 @@
     },
     {
       "base": "Luo Tianyi",
-      "cat": "Luo Tianyi (ACE Virtual Singer)",
+      "cat": "Luo Tianyi (ACE Studio)",
       "eng": 6
     },
     {
@@ -212,7 +212,7 @@
     },
     {
       "base": "YANHE",
-      "cat": "YANHE (ACE Virtual Singer)",
+      "cat": "YANHE (ACE Studio)",
       "eng": 6
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "base": "Yuezheng Ling",
-      "cat": "Yuezheng Ling (ACE Virtual Singer)",
+      "cat": "Yuezheng Ling (ACE Studio)",
       "eng": 6
     },
     {
@@ -242,12 +242,12 @@
     },
     {
       "base": "Luo Tianyi",
-      "cat": "Luo Tianyi (X Studio Singer)",
+      "cat": "Luo Tianyi (X Studio)",
       "eng": 27
     },
     {
       "base": "Yuezheng Longya",
-      "cat": "Yuezheng Longya (ACE Virtual Singer)",
+      "cat": "Yuezheng Longya (ACE Studio)",
       "eng": 6
     },
     {
@@ -257,7 +257,7 @@
     },
     {
       "base": "Mo Qingxian",
-      "cat": "Mo Qingxian (ACE Virtual Singer)",
+      "cat": "Mo Qingxian (ACE Studio)",
       "eng": 6
     },
     {
@@ -287,7 +287,7 @@
     },
     {
       "base": "Zhiyu Moke",
-      "cat": "Zhiyu Moke (ACE Virtual Singer)",
+      "cat": "Zhiyu Moke (ACE Studio)",
       "eng": 6
     }
   ],
