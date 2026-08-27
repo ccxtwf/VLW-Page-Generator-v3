@@ -7,6 +7,7 @@ import {
   fillLyricsTable,
   getHandsontableInstance,
   removeHandsontableRows,
+  getSnapshotsDir,
 } from "./utils";
 
 test.describe("Song page generator tests", async () => {
@@ -39,7 +40,7 @@ test.describe("Song page generator tests", async () => {
     }
   });
 
-  test("should output when on empty state", async ({ page }) => {
+  test("should output when on empty state", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     await form.getByRole("checkbox", { name: "Ignore Errors" }).click();
@@ -69,9 +70,16 @@ test.describe("Song page generator tests", async () => {
 |- class="lyrics-table-header"
 ! {{lyrics header}}
 ${"|-\n|<br />\n".repeat(20)}|}`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/empty.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for Japanese songs", async ({ page }) => {
+  test("should output a page for Japanese songs", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Content Warnings */
@@ -279,9 +287,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 * {{VDB|S/1501}}
 
 [[Category:wowaka songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/japanese.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for Japanese songs without a translation", async ({ page }) => {
+  test("should output a page for Japanese songs without a translation", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Content Warnings */
@@ -475,9 +490,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 * {{VDB|S/1501}}
 
 [[Category:wowaka songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/japanese-no-tl.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for Chinese songs", async ({ page }) => {
+  test("should output a page for Chinese songs", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -620,11 +642,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
 [[Category:李 songs list]]
 [[Category:苏 songs list/Lyrics]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/chinese.png`,
+      fullPage: true,
+    });
   });
 
   test("should output a page for Chinese songs with alt Traditional Chinese title", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -734,11 +761,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
 [[Category:李 songs list]]
 [[Category:苏 songs list/Lyrics]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/chinese-alt-trad-title.png`,
+      fullPage: true,
+    });
   });
 
   test("should output a page for Chinese songs with alt Simplified Chinese title", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -849,9 +881,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
 [[Category:李 songs list]]
 [[Category:苏 songs list/Lyrics]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/chinese-alt-simp-title.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for Indonesian songs", async ({ page }) => {
+  test("should output a page for Indonesian songs", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -1033,9 +1072,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 {{Translator|Anonymous}}
 
 [[Category:Budi Purnomo songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/indonesian.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for Indonesian songs without a translation", async ({ page }) => {
+  test("should output a page for Indonesian songs without a translation", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -1186,9 +1232,16 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 |}
 
 [[Category:Budi Purnomo songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/indonesian-no-tl.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page for English songs", async ({ page }) => {
+  test("should output a page for English songs", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -1333,5 +1386,10 @@ EFGH</span>
 <span style="color:yellow;">IJKL</span></poem>
 
 [[Category:Jane Doe songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/english.png`,
+      fullPage: true,
+    });
   });
 });

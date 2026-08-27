@@ -27,6 +27,8 @@ dist-ssr
 
 __pycache__/
 
+__tests__/browsertests/snapshots/
+
 # Vitest Coverage
 /coverage/
 

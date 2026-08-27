@@ -1,5 +1,10 @@
 import { test, expect, type Page } from "@playwright/test";
-import { getValidationItems, fillTracklistTable, getHandsontableInstance } from "./utils";
+import {
+  getValidationItems,
+  fillTracklistTable,
+  getHandsontableInstance,
+  getSnapshotsDir,
+} from "./utils";
 
 test.describe("Album page generator tests", async () => {
   test.beforeEach(async ({ page }) => {
@@ -50,8 +55,8 @@ test.describe("Album page generator tests", async () => {
     await expect(pageOutput).toHaveValue("");
   });
 
-  test("should output validation warnings when invalid infobox colours are set", async ({
-    page,
+  test("should output validation warnings when invalid infobox colours are set", async ({ page }, {
+    project: { name: browser },
   }) => {
     const form = getFormLocator(page);
 
@@ -78,6 +83,11 @@ test.describe("Album page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage3);
     expect(fatalErrors).not.toContain(errorMessage4);
 
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/validation-no-colour.png`,
+      fullPage: true,
+    });
+
     await expect(pageOutput).toHaveValue("");
 
     /* Set invalid colours */
@@ -92,6 +102,11 @@ test.describe("Album page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage2);
     expect(fatalErrors).toContain(errorMessage3);
     expect(fatalErrors).toContain(errorMessage4);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/validation-invalid-colour.png`,
+      fullPage: true,
+    });
 
     /* Set valid colours */
     await page.locator("#infobox-bg-color").fill("black");
@@ -109,7 +124,7 @@ test.describe("Album page generator tests", async () => {
 
   test("should output validation warnings when invalid publication dates are set", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Assertions */
@@ -160,9 +175,14 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).toContain(errorMessage1);
       expect(fatalErrors).not.toContain(errorMessage2);
       expect(fatalErrors).not.toContain(errorMessage3);
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-year.png`,
+        fullPage: true,
+      });
     }
 
-    /* Invalid publication day */
+    /* Invalid publication month */
     {
       /* Set valid publication year */
       await form.getByPlaceholder("year").click();
@@ -185,6 +205,11 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).toContain(errorMessage3);
 
       await expect(pageOutput).toHaveValue("");
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-month.png`,
+        fullPage: true,
+      });
     }
 
     /* Valid date */
@@ -209,7 +234,9 @@ test.describe("Album page generator tests", async () => {
     }
   });
 
-  test("should output validation warnings when invalid tracklist data is set", async ({ page }) => {
+  test("should output validation warnings when invalid tracklist data is set", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     const tracklistTable = getHandsontableInstance(form, "tracklist");
@@ -277,6 +304,11 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).not.toContain(errorMessage3);
       expect(fatalErrors).not.toContain(errorMessage4);
       expect(fatalErrors).not.toContain(errorMessage5);
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-no-tracklist.png`,
+        fullPage: true,
+      });
     }
 
     /* Invalid disc numbering */
@@ -313,9 +345,14 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).not.toContain(errorMessage5);
 
       await expect(pageOutput).toHaveValue("");
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-disc-number.png`,
+        fullPage: true,
+      });
     }
 
-    /* Invalid disc numbering */
+    /* Invalid track numbering */
     {
       await fillTracklistTable(tracklistTable, [
         {
@@ -349,6 +386,11 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).not.toContain(errorMessage5);
 
       await expect(pageOutput).toHaveValue("");
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-track-number.png`,
+        fullPage: true,
+      });
     }
 
     /* No track name */
@@ -385,6 +427,11 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).not.toContain(errorMessage5);
 
       await expect(pageOutput).toHaveValue("");
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-track-name.png`,
+        fullPage: true,
+      });
     }
 
     /* No featured singer */
@@ -421,6 +468,11 @@ test.describe("Album page generator tests", async () => {
       expect(fatalErrors).toContain(errorMessage5);
 
       await expect(pageOutput).toHaveValue("");
+
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-no-featured-credits.png`,
+        fullPage: true,
+      });
     }
 
     /* Valid state */
@@ -460,7 +512,7 @@ test.describe("Album page generator tests", async () => {
 
   test("should output validation warnings when invalid album streaming links are set", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     const fatalErrorsAlert = page.locator("#validation-errors");
@@ -511,6 +563,12 @@ test.describe("Album page generator tests", async () => {
 
       // Clear for next input
       await form.getByRole("textbox", { name: label }).clear();
+
+      // Screenshot
+      await page.screenshot({
+        path: `${getSnapshotsDir(browser)}/albums/validation-invalid-embed-${label}.png`,
+        fullPage: true,
+      });
     }
 
     /* An error with multiple services */

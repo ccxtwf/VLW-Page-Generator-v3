@@ -9,6 +9,10 @@ import {
   IProducerDiscographySongItem,
 } from "../../src/lib/models/schema";
 
+export function getSnapshotsDir(browser: string) {
+  return `__tests__/browsertests/snapshots/${browser}`;
+}
+
 /**
  * Get the texts of each list item listed in the given validation alert element
  *

@@ -5,6 +5,7 @@ import {
   fillTracklistTable,
   getHandsontableInstance,
   removeHandsontableRows,
+  getSnapshotsDir,
 } from "./utils";
 
 test.describe("Album page generator tests", async () => {
@@ -36,7 +37,7 @@ test.describe("Album page generator tests", async () => {
     }
   });
 
-  test("should output when on empty state", async ({ page }) => {
+  test("should output when on empty state", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     await form.getByRole("checkbox", { name: "Ignore errors" }).click();
@@ -60,9 +61,14 @@ test.describe("Album page generator tests", async () => {
 |color = black; color:white
 
 }}`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/empty.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page - standard", async ({ page }) => {
+  test("should output a page - standard", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Titles */
@@ -234,9 +240,14 @@ test.describe("Album page generator tests", async () => {
 [[Category:Albums featuring Kagamine Rin (VOCALOID)]]
 [[Category:John Doe songs list/Albums]]
 [[Category:RMX songs list/Albums]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/standard.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page - English title", async ({ page }) => {
+  test("should output a page - English title", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Titles */
@@ -406,9 +417,16 @@ test.describe("Album page generator tests", async () => {
 [[Category:Albums featuring Kasane Teto (UTAU)]]
 [[Category:John Doe songs list/Albums]]
 [[Category:RMX songs list/Albums]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/standard-with-eng-title.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page - Compilation album", async ({ page }) => {
+  test("should output a page - Compilation album", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Titles */
@@ -576,6 +594,11 @@ test.describe("Album page generator tests", async () => {
 [[Category:Jack Doe songs list/Albums]]
 [[Category:Jane Doe songs list/Albums]]
 [[Category:Jill Doe songs list/Albums]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/albums/compilation-album.png`,
+      fullPage: true,
+    });
   });
 
   test("should support all broadcasting links", async ({ page }) => {

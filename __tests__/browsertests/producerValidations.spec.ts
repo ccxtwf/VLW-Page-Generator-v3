@@ -3,6 +3,7 @@ import {
   getValidationItems,
   fillExternalLinksTableForProducerPage,
   getHandsontableInstance,
+  getSnapshotsDir,
 } from "./utils";
 
 test.describe("Producer page generator tests", async () => {
@@ -48,7 +49,7 @@ test.describe("Producer page generator tests", async () => {
 
   test("should output validation warnings when no official external link is provided", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Fill ext links table */
@@ -87,6 +88,11 @@ test.describe("Producer page generator tests", async () => {
     expect(fatalErrors).toContain(errorMessage2);
 
     await expect(pageOutput).toHaveValue("");
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/producers/validation-no-official-link.png`,
+      fullPage: true,
+    });
 
     /* Add official external link */
     data.push({

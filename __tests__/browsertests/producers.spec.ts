@@ -4,6 +4,7 @@ import {
   fillDiscographyTable,
   fillExternalLinksTableForProducerPage,
   getHandsontableInstance,
+  getSnapshotsDir,
 } from "./utils";
 
 test.describe("Producer page generator tests", async () => {
@@ -36,7 +37,7 @@ test.describe("Producer page generator tests", async () => {
     }
   });
 
-  test("should output when on empty state", async ({ page }) => {
+  test("should output when on empty state", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     await form.getByRole("checkbox", { name: "ignore errors" }).click();
@@ -76,9 +77,14 @@ test.describe("Producer page generator tests", async () => {
 
 
 [[Category:Producers]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/producers/empty.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page", async ({ page }) => {
+  test("should output a page", async ({ page }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* General information */
@@ -300,9 +306,16 @@ test.describe("Producer page generator tests", async () => {
 [[Category:English original producers]]
 [[Category:Producers using VOCALOID]]
 [[Category:Producers using UTAU]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/producers/standard.png`,
+      fullPage: true,
+    });
   });
 
-  test("should output a page with split album discography sections", async ({ page }) => {
+  test("should output a page with split album discography sections", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* General information */
@@ -529,5 +542,10 @@ test.describe("Producer page generator tests", async () => {
 [[Category:English original producers]]
 [[Category:Producers using VOCALOID]]
 [[Category:Producers using UTAU]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/producers/split-discog.png`,
+      fullPage: true,
+    });
   });
 });

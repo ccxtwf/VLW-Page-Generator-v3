@@ -4,6 +4,7 @@ import {
   fillBroadcastLinksTable,
   fillLyricsTable,
   getHandsontableInstance,
+  getSnapshotsDir,
 } from "./utils";
 
 test.describe("Song page generator tests", async () => {
@@ -52,7 +53,7 @@ test.describe("Song page generator tests", async () => {
 
   test("should output validation warnings when a questionable CW is set without justification", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Content Warnings */
@@ -74,6 +75,11 @@ test.describe("Song page generator tests", async () => {
 
     await expect(pageOutput).toHaveValue("");
 
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-cw.png`,
+      fullPage: true,
+    });
+
     /* Add justification */
     await form.getByRole("textbox", { name: "violent/mature content" }).click();
     await form.getByRole("textbox", { name: "violent/mature content" }).fill("suicidal themes");
@@ -85,8 +91,65 @@ test.describe("Song page generator tests", async () => {
     expect(refreshedFatalErrors).not.toContain(errorMessage);
   });
 
-  test("should output validation warnings when invalid infobox colours are set", async ({
+  test("should output validation warnings when a GenAI usage warning is set without source attribution or justification", async ({
     page,
+  }, { project: { name: browser } }) => {
+    const form = getFormLocator(page);
+
+    /* GenAI CW */
+    await form.getByLabel("GenAI Warning").selectOption("1");
+
+    /* Click Generate Button */
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const pageOutput = page.locator("#page-output");
+
+    await expect(fatalErrorsAlert).toBeVisible();
+
+    let fatalErrors = await getValidationItems(fatalErrorsAlert);
+
+    const errorMessage1 =
+      "You must specify which part of the song/video uses Generative AI, e.g. illustration, lyrics.";
+    const errorMessage2 =
+      "You must add a source/explanation attributing to the verified/suspected usage of Generative AI.";
+    expect(fatalErrors).toContain(errorMessage1);
+    expect(fatalErrors).toContain(errorMessage2);
+
+    await expect(pageOutput).toHaveValue("");
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-genai.png`,
+      fullPage: true,
+    });
+
+    /* Add source attribution */
+    await form.getByRole("textbox", { name: "the part of the song/video" }).click();
+    await form.getByRole("textbox", { name: "the part of the song/video" }).fill("illustration");
+
+    /* Click Generate Button */
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    fatalErrors = await getValidationItems(fatalErrorsAlert);
+    expect(fatalErrors).not.toContain(errorMessage1);
+    expect(fatalErrors).toContain(errorMessage2);
+
+    /* Add justification */
+    await form.getByRole("textbox", { name: "source/explanation of the AI" }).click();
+    await form
+      .getByRole("textbox", { name: "source/explanation of the AI" })
+      .fill("producer's comments");
+
+    /* Click Generate Button */
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    fatalErrors = await getValidationItems(fatalErrorsAlert);
+    expect(fatalErrors).not.toContain(errorMessage1);
+    expect(fatalErrors).not.toContain(errorMessage2);
+  });
+
+  test("should output validation warnings when invalid infobox colours are set", async ({ page }, {
+    project: { name: browser },
   }) => {
     const form = getFormLocator(page);
 
@@ -113,6 +176,11 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage3);
     expect(fatalErrors).not.toContain(errorMessage4);
 
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-no-colour.png`,
+      fullPage: true,
+    });
+
     await expect(pageOutput).toHaveValue("");
 
     /* Set invalid colours */
@@ -127,6 +195,11 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage2);
     expect(fatalErrors).toContain(errorMessage3);
     expect(fatalErrors).toContain(errorMessage4);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-invalid-colour.png`,
+      fullPage: true,
+    });
 
     /* Set valid colours */
     await page.locator("#infobox-bg-color").fill("black");
@@ -144,7 +217,7 @@ test.describe("Song page generator tests", async () => {
 
   test("should output validation warnings when a link is added without view count", async ({
     page,
-  }) => {
+  }, { project: { name: browser } }) => {
     const form = getFormLocator(page);
 
     /* Broadcast links */
@@ -176,6 +249,11 @@ test.describe("Song page generator tests", async () => {
     const errorMessage = "Did you forget to add the view counts?";
     expect(warnings).toContain(errorMessage);
 
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-no-view-count.png`,
+      fullPage: true,
+    });
+
     /* Add view count */
     data[0].i.viewCount = "5,000+";
     await fillBroadcastLinksTable(broadcastLinksTable, data);
@@ -187,7 +265,9 @@ test.describe("Song page generator tests", async () => {
     expect(refreshedFatalErrors).not.toContain(errorMessage);
   });
 
-  test("should output validation warnings when lyrics are not set", async ({ page }) => {
+  test("should output validation warnings when lyrics are not set", async ({ page }, {
+    project: { name: browser },
+  }) => {
     const form = getFormLocator(page);
 
     /* Language & ISO Code */
@@ -222,6 +302,11 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).toContain(errorMessage2);
     expect(warnings).not.toContain(errorMessage3);
 
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-empty-lyrics.png`,
+      fullPage: true,
+    });
+
     await expect(pageOutput).toHaveValue("");
 
     /* Add original line */
@@ -239,6 +324,11 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage1);
     expect(fatalErrors).toContain(errorMessage2);
     expect(warnings).not.toContain(errorMessage3);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-no-romanization.png`,
+      fullPage: true,
+    });
 
     await expect(pageOutput).toHaveValue("");
 
@@ -274,6 +364,11 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage1);
     expect(fatalErrors).not.toContain(errorMessage2);
     expect(warnings).toContain(errorMessage3);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-no-credited-translator.png`,
+      fullPage: true,
+    });
 
     /* Add translator */
     await form.getByRole("textbox", { name: "Translator" }).click();
