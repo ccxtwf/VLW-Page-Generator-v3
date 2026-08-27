@@ -81,7 +81,7 @@
   contextMenu={sharedContextMenuOptions}
   settings={{
     beforeChange: onVlwPageInput,
-    colWidths: forAlbums ? [70, 40, 50] : [70, 60],
+    colWidths: forAlbums ? [70, 40, 20] : [70, 60],
     rowHeights: 30,
     minSpareRows: 0,
   }}

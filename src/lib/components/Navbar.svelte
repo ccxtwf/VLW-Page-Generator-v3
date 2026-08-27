@@ -47,7 +47,7 @@
         <div
           tabindex="0"
           role="button"
-          class="btn btn-ghost lg:hidden"
+          class="btn btn-ghost text-neutral-content lg:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -82,8 +82,10 @@
       </div>
       <a
         class="btn btn-ghost text-neutral-content text-xl"
-        href="/">{$_("sitename")}</a
+        href={import.meta.env.BASE_URL}
       >
+        {$_("sitename")}
+      </a>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul

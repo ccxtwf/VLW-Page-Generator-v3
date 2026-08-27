@@ -99,7 +99,7 @@
     },
     "categories": {
       "label": "Categories",
-      "tooltip": "Category names, one per line, e.g.:<br/>Songs<br/>VOCALOID original songs<br/><br/>Click the Autoload button to have the site generate commonly used tags."
+      "tooltip": "Category names, one per line, e.g.:<br/>wowaka songs list<br/>Demonstrations<br/><br/>Click the Autoload button to have the site generate commonly used tags."
     }
   }
 }

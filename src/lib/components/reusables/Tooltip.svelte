@@ -12,7 +12,7 @@
 
 <div
   role="tooltip"
-  class="dropdown-hover"
+  class="dropdown dropdown-hover"
 >
   {#if children}
     <div class="dropdown-content">

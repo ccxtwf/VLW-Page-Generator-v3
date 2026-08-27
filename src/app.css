@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 @plugin "daisyui/theme" {
   name: "corporate";
   default: true;

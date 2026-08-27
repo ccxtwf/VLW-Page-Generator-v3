@@ -26,7 +26,7 @@
   }
 </script>
 
-<label class="label flex cursor-pointer items-center gap-2 select-none">
+<label class="label cursor-pointer pe-2 select-none">
   <input
     {id}
     type="checkbox"

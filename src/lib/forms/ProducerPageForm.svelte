@@ -34,6 +34,8 @@
     VLWInvalidUrlError,
     GotZeroPagesInResponseError,
   } from "../logic/exceptions";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
+  import PreloadDiscographyFromVlwInput from "../components/reusables/PreloadDiscographyFromVlwInput.svelte";
 
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
@@ -161,29 +163,10 @@
     required={true}
   >
     <div class="flex w-full flex-col gap-2">
-      <div class="sm:join flex-item block w-full">
-        <SimpleTextInput
-          id="producer-category"
-          placeholder={$_("producerGenForm.mainProducerCategory.placeholder")}
-          bind:value={formData.prodCategory}
-          onkeydown={function (e) {
-            e.preventDefault();
-            if (e.key === "Enter") {
-              document.getElementById("fetch-vlw-button")?.click();
-            }
-          }}
-        />
-        <div class="sm:join-item block [&]:border-none">
-          <button
-            id="fetch-vlw-button"
-            type="button"
-            class="btn btn-neutral w-full text-xs sm:w-48"
-            onclick={handleDiscographyLoading}
-          >
-            {$_("producerGenForm.mainProducerCategory.fetchFromLiveWikiButtonText")}
-          </button>
-        </div>
-      </div>
+      <PreloadDiscographyFromVlwInput
+        bind:prodCategory={formData.prodCategory}
+        {handleDiscographyLoading}
+      />
       <div class="flex-item w-full">
         <SimpleCheckbox
           label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
@@ -319,7 +302,9 @@
       forAlbums={true}
     />
     <div class="w-full text-xs">
-      {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
+      {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote", {
+        values: { domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT },
+      })}
     </div>
   </div>
 

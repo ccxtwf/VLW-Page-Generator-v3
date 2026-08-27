@@ -48,16 +48,19 @@
     ["ō", "ó", "ǒ", "ò"],
     ["Ō", "Ó", "Ǒ", "Ò"],
   ]}
-  <div class="chars relative grid w-full grid-cols-2 gap-y-3 md:grid-cols-3 lg:grid-cols-4">
+  <div
+    class="chars xs:grid-cols-2 relative grid w-full gap-x-2 gap-y-3 md:grid-cols-3 lg:grid-cols-4"
+  >
     {#each chars as charGroup}
-      <div class="flex flex-row gap-x-2">
+      <div class="flex flex-row justify-center gap-x-2">
         {#each charGroup as char}
-          <div
+          <button
             class="bg-neutral text-neutral-content inline-block w-8 cursor-pointer rounded px-1 py-1.5 text-center"
+            type="button"
             onclick={copyDiacritic}
           >
             {char}
-          </div>
+          </button>
         {/each}
       </div>
     {/each}
