@@ -91,7 +91,7 @@ export async function addHandsontableRow(
   await tbodyRows[after - 1].click({ button: "right" });
   await page.getByText("Insert row below").click();
 
-  const newRow = await table.locator(HANDSONTABLE_ROW_SELECTOR).last();
+  const newRow = table.locator(HANDSONTABLE_ROW_SELECTOR).last();
   for (let i = 0; i < data.length; i++) {
     let cell = newRow.locator("td").nth(i);
     await cell.click({ clickCount: 2 });
