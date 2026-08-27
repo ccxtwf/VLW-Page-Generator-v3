@@ -209,11 +209,13 @@
         placeholder={$_("albumGenForm.description.placeholder")}
         bind:value={formData.description}
       />
-      <SimpleCheckbox
-        id="is-compilation-album"
-        label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
-        bind:checked={formData.isCompilationAlbum}
-      />
+      <div>
+        <SimpleCheckbox
+          id="is-compilation-album"
+          label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
+          bind:checked={formData.isCompilationAlbum}
+        />
+      </div>
     </div>
   </FlexRow>
 
