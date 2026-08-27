@@ -34,6 +34,7 @@
     VLWInvalidUrlError,
     GotZeroPagesInResponseError,
   } from "../logic/exceptions";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import PreloadDiscographyFromVlwInput from "../components/reusables/PreloadDiscographyFromVlwInput.svelte";
 
   let formData = new Producer();
@@ -301,7 +302,9 @@
       forAlbums={true}
     />
     <div class="w-full text-xs">
-      {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote")}
+      {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote", {
+        values: { domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT },
+      })}
     </div>
   </div>
 

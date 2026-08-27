@@ -64,7 +64,7 @@
     "discographyAlbums": {
       "label": "List of albums",
       "tooltip": "Add the list of album pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically.",
-      "fetchFromWikiNote": "<div>Use the \"Fetch discography from wiki\" button to get the song &amp; album pages that have been tagged in Vocaloid Lyrics wiki.<br>Alternatively, you can use <a class=\"link\" href=\"https://vocaloidlyrics.miraheze.org/wiki/Special:CategoryTree\" target=\"_blank\" rel=\"noopener noreferrer\">the Category Tree tool in Vocaloid Lyrics wiki</a> to manually get the list of song &amp; album pages. See this example for <a class=\"link\" href=\"https://vocaloidlyrics.miraheze.org/wiki/Special:CategoryTree?target=Category%3APinocchioP+songs+list&amp;mode=all&amp;namespaces=\" target=\"_blank\" rel=\"noopener noreferrer\">PinocchioP</a>.<br><br>Do note that the Category Tree tool can only query a maximum of 200 pages per category.</div>"
+      "fetchFromWikiNote": "<div>Use the \"Fetch discography from wiki\" button to get the song &amp; album pages that have been tagged in Vocaloid Lyrics wiki.<br>Alternatively, you can use <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree\" target=\"_blank\" rel=\"noopener noreferrer\">the Category Tree tool on the Vocaloid Lyrics wiki</a> to manually get the list of song &amp; album pages. See this example for <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree?target=Category%3APinocchioP+songs+list&amp;mode=all&amp;namespaces=\" target=\"_blank\" rel=\"noopener noreferrer\">PinocchioP</a>.<br><br>Do note that the Category Tree tool can only query a maximum of 200 pages per category.</div>"
     }
   }
 }
