@@ -1,7 +1,6 @@
 import { defineConfig, lazyPlugins, loadEnv } from "vite-plus";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
-import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vite.dev/config/
 export default defineConfig((env) => {
@@ -45,15 +44,7 @@ export default defineConfig((env) => {
       },
     },
 
-    plugins: lazyPlugins(() => [
-      tailwindcss(),
-      svelte(),
-      visualizer({
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-      }),
-    ]),
+    plugins: lazyPlugins(() => [tailwindcss(), svelte()]),
 
     define: {
       /**
