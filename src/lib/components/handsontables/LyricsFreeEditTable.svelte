@@ -28,6 +28,7 @@
   let headers = $derived(determineColumnHeaders(toggleText));
 
   let colHeaders: string[] = $derived(["Custom style", ...$state.snapshot(headers)]);
+  let colWidths: number[] = $derived([100, ...Array(headers.length).fill(250)]);
 
   $effect(() => {
     if (!hot) {
@@ -38,6 +39,7 @@
 
     hot.updateSettings({
       colHeaders,
+      colWidths,
     });
 
     if (colHeaders.length !== oldColCount) {
@@ -142,6 +144,7 @@
       minCols: 2,
       maxCols: 6,
       startCols: 4,
+      colWidths: [100, 250, 250, 250],
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
         toggleText = addColumnsAtIndexToTheLeftToToggle(toggleText, index, amount);
