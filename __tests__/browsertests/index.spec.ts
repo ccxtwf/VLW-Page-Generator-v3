@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
+import { getSnapshotsDir } from "./utils";
 
 test.describe("Webpage tests", async () => {
   test.beforeEach(async ({ page }) => {
     const response = await page.goto("/");
     expect(response?.ok()).toBe(true);
-    await page.waitForLoadState("load");
+    await page.waitForLoadState("networkidle");
   });
 
   test("Web page should load", async ({ page }) => {
@@ -18,6 +19,59 @@ test.describe("Webpage tests", async () => {
 
   test("Root should redirect to /#/songs", async ({ page }) => {
     await expect(page).toHaveURL(/^https?:\/\/.*?\/#\/songs/);
+  });
+
+  test("Page should be set to automatically dark mode", async ({ page }, {
+    project: { name: browser },
+  }) => {
+    // prefer dark mode
+    await page.emulateMedia({ colorScheme: "dark" });
+    let colorScheme = await page.evaluate(() => {
+      return window.getComputedStyle(document.documentElement).getPropertyValue("color-scheme");
+    });
+    expect(colorScheme).toEqual("dark");
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/doc/auto-dark-mode.png`,
+      fullPage: true,
+    });
+  });
+
+  test("Theme toggle should apply `color-scheme`", async ({ page }, {
+    project: { name: browser },
+  }) => {
+    await page.getByRole("button", { name: "Theme" }).click();
+    await page.getByRole("radio", { name: "Dark" }).click();
+    await page.waitForFunction(
+      async () => {
+        const colorScheme = window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue("color-scheme");
+        return colorScheme === "dark";
+      },
+      null,
+      { timeout: 1000 },
+    );
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/doc/dark-mode.png`,
+      fullPage: true,
+    });
+
+    await page.getByRole("radio", { name: "Light" }).click();
+    await page.waitForFunction(
+      async () => {
+        const colorScheme = window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue("color-scheme");
+        return colorScheme === "normal";
+      },
+      null,
+      { timeout: 1000 },
+    );
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/doc/light-mode.png`,
+      fullPage: true,
+    });
   });
 
   test("Navbar should navigate successfully", async ({ page }) => {
