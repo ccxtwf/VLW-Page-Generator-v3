@@ -37,6 +37,7 @@ export function getHandsontableInstance(form: Locator, id: string) {
 
 const HANDSONTABLE_ROW_LABEL_SELECTOR =
   ".ht-grid-content .ht_clone_inline_start.ht_clone_left .htCore tbody tr";
+const HANDSONTABLE_COLUMN_HEADER_SELECTOR = ".ht-grid-content .ht_clone_top .htCore thead th";
 const HANDSONTABLE_ROW_SELECTOR = ".ht-grid-content .ht_master .htCore tbody tr";
 const HANDSONTABLE_EDITOR_SELECTOR =
   '.handsontableInputHolder.ht_clone_master textarea.handsontableInput:not([role="combobox"])';
@@ -47,14 +48,86 @@ const HANDSONTABLE_EDITOR_SELECTOR =
  *
  * @param page
  * @param table
- * @param from
+ * @param after Remove rows after this row number (1-th index position)
  */
-export async function removeHandsontableRows(page: Page, table: Locator, offset: number) {
+export async function removeHandsontableRows(page: Page, table: Locator, after: number) {
   const tbodyRows = await table.locator(HANDSONTABLE_ROW_LABEL_SELECTOR).all();
-  await tbodyRows[offset].click({ delay: 50 });
+  await tbodyRows[after].click({ delay: 50 });
   await page.keyboard.press("Shift+Control+ArrowDown");
-  await tbodyRows[offset].click({ button: "right" });
+  await tbodyRows[after].click({ button: "right" });
   await page.getByText("Remove row").click();
+}
+
+/**
+ * On Playwright tests, remove a given column of a Handsontable instance.
+ *
+ * @param page
+ * @param table
+ * @param index Column position index (1-th index)
+ */
+export async function removeHandsontableColumn(page: Page, table: Locator, index: number) {
+  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
+  await theadCells[index].click({ delay: 50 });
+  await theadCells[index].click({ button: "right" });
+  await page.getByText("Remove column").click();
+}
+
+/**
+ * On Playwright tests, remove a given column of a Handsontable instance.
+ *
+ * @param page
+ * @param table
+ * @param after Column position index (1-th index)
+ * @param data
+ */
+export async function addHandsontableRow(
+  page: Page,
+  table: Locator,
+  after: number,
+  data: string[],
+) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_LABEL_SELECTOR).all();
+  await tbodyRows[after - 1].click({ delay: 50 });
+  await tbodyRows[after - 1].click({ button: "right" });
+  await page.getByText("Insert row below").click();
+
+  const newRow = await table.locator(HANDSONTABLE_ROW_SELECTOR).last();
+  for (let i = 0; i < data.length; i++) {
+    let cell = newRow.locator("td").nth(i);
+    await cell.click({ clickCount: 2 });
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    await inputTextArea.fill(data[i]);
+  }
+}
+
+/**
+ * On Playwright tests, add a column to the right of the given position on
+ * a Handsontable instance.
+ *
+ * @param page
+ * @param table
+ * @param index Column position index (1-th index)
+ */
+export async function addHandsontableColumnToRight(page: Page, table: Locator, index: number) {
+  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
+  await theadCells[index].click({ delay: 50 });
+  await theadCells[index].click({ button: "right" });
+  await page.getByText("Insert column right").click();
+}
+
+/**
+ * On Playwright tests, add a column to the left of the given position on
+ * a Handsontable instance.
+ *
+ * @param page
+ * @param table
+ * @param index Column position index (1-th index)
+ */
+export async function addHandsontableColumnToLeft(page: Page, table: Locator, index: number) {
+  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
+  await theadCells[index].click({ delay: 50 });
+  await theadCells[index].click({ button: "right" });
+  await page.getByText("Insert column left").click();
 }
 
 /**
@@ -78,6 +151,23 @@ export async function assertTableColumnNumber(table: Locator, ncolumns: number) 
 export async function assertTableRowNumber(table: Locator, nrows: number) {
   const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
   expect(tbodyRows.length).toBe(nrows);
+}
+
+/**
+ *
+ * @param table
+ * @param index
+ * @param data
+ */
+export async function fillTableAtColumn(table: Locator, index: number, data: string[]) {
+  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  for (let i = 0; i < data.length; i++) {
+    let rw = tbodyRows[i];
+    let cell = rw.locator("td").nth(index - 1);
+    await cell.click({ clickCount: 2 });
+    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    await inputTextArea.fill(data[i]);
+  }
 }
 
 /**
