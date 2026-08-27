@@ -46,8 +46,6 @@
       </li>
     </ol>
 
-    <hr />
-
     <div class="mt-2 mb-1">
       {$_("lyricsEditor.guide.wikiSourceHeader")}
     </div>
