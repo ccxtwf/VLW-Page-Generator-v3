@@ -435,7 +435,8 @@ export function determineColumnHeaders(toggleText: string): string[] {
   return res;
 }
 
-const rxLyricsToggleTemplateComponents = /((?<=\{\{)[Ll]yrics[_ ]toggle|(?<=\|)[^|]*?(?=\||\}\}))/g;
+const rxLyricsToggleTemplateComponents =
+  /((?<=^\{\{)[Ll]yrics[_ ]toggle|(?<=\|)[^|]*?(?=\||\}\}$))/g;
 
 /**
  * Inserts column(s) at the specified index in the {{lyrics toggle}} template
@@ -450,9 +451,13 @@ export function addColumnsAtIndexToTheLeftToToggle(
   index: number,
   amount: number,
 ): string {
+  DEBUG && console.log("addColumnsAtIndexToTheLeftToToggle", toggleText, index, amount);
   const oldComponents = Array.from(toggleText.matchAll(rxLyricsToggleTemplateComponents)).map(
     ([a, ..._b]) => a,
   );
+  if (oldComponents.length === 0) {
+    oldComponents.push("lyrics toggle");
+  }
   const newComponents = [
     ...oldComponents.slice(0, index),
     ...Array(amount)
@@ -476,6 +481,7 @@ export function addColumnsAtIndexToTheRightToToggle(
   index: number,
   amount: number,
 ): string {
+  DEBUG && console.log("addColumnsAtIndexToTheRightToToggle", toggleText, index, amount);
   return addColumnsAtIndexToTheLeftToToggle(toggleText, index + 1, amount);
 }
 
@@ -490,6 +496,7 @@ export function removeColumnsAtIndexFromToggle(
   toggleText: string,
   columnIndices: number[],
 ): string {
+  DEBUG && console.log("removeColumnsAtIndexFromToggle", toggleText, columnIndices);
   const oldComponents = Array.from(toggleText.matchAll(rxLyricsToggleTemplateComponents)).map(
     ([a, ..._b]) => a,
   );

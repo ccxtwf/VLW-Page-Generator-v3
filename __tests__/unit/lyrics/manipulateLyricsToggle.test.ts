@@ -70,6 +70,15 @@ describe("manipulateLyricsToggle", () => {
       },
       o: "{{lyrics toggle|jp:Japanese|col1:Column 1|col2:Column 2|col3:Column 3|col4:Column 4}}",
     },
+    {
+      d: "Pass empty string",
+      i: {
+        toggleText: "",
+        index: 1,
+        amount: 1,
+      },
+      o: "{{lyrics toggle|col1:Column 1}}",
+    },
   ])("addColumnsAtIndexToTheRightToToggle - $d", ({ i: { toggleText, index, amount }, o }) => {
     expect(addColumnsAtIndexToTheRightToToggle(toggleText, index, amount)).toBe(o);
   });
@@ -137,6 +146,15 @@ describe("manipulateLyricsToggle", () => {
         amount: 4,
       },
       o: "{{lyrics toggle|col1:Column 1|col2:Column 2|col3:Column 3|col4:Column 4|jp:Japanese}}",
+    },
+    {
+      d: "Pass empty string",
+      i: {
+        toggleText: "",
+        index: 1,
+        amount: 1,
+      },
+      o: "{{lyrics toggle|col1:Column 1}}",
     },
   ])("addColumnsAtIndexToTheLeftToToggle - $d", ({ i: { toggleText, index, amount }, o }) => {
     expect(addColumnsAtIndexToTheLeftToToggle(toggleText, index, amount)).toBe(o);
@@ -228,7 +246,7 @@ describe("manipulateLyricsToggle", () => {
       },
       o: "{{lyrics toggle|jp:Japanese}}",
     },
-  ])("addColumnsAtIndexToTheLeftToToggle - $d", ({ i: { toggleText, columnIndices }, o }) => {
+  ])("removeColumnsAtIndexFromToggle - $d", ({ i: { toggleText, columnIndices }, o }) => {
     expect(removeColumnsAtIndexFromToggle(toggleText, columnIndices)).toBe(o);
   });
 });
