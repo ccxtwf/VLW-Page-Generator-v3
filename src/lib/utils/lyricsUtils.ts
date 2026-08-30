@@ -1,6 +1,7 @@
 import { LANGUAGES, TRANSLATORS } from "../../constants";
 import type { ILyricsRow } from "../models/schema.d";
 import type { MultiSelectItem } from "../../schemas/form";
+import { LyricsTableHeader } from "../../constants/tableHeaders";
 
 export interface LanguageMetadata {
   headers: string[];
@@ -24,7 +25,7 @@ export function getLanguageMetadata(languages: MultiSelectItem[]): LanguageMetad
 
   if (languages.length === 0) {
     return {
-      headers: ["Original", "Romanized", "English"],
+      headers: [LyricsTableHeader.ORIGINAL, LyricsTableHeader.ROMANIZED, LyricsTableHeader.ENGLISH],
       needsRomanization: true,
       needsTranslation: true,
       isChinese: false,
@@ -34,10 +35,11 @@ export function getLanguageMetadata(languages: MultiSelectItem[]): LanguageMetad
 
   const ll = languages.map(({ value }) => LANGUAGES[value]);
 
-  const originalLanguages = ll.length < 4 ? ll.map(({ name }) => name) : ["Original"];
+  const originalLanguages =
+    ll.length < 4 ? ll.map(({ name }) => name) : [LyricsTableHeader.ORIGINAL];
   needsRomanization = ll.some(({ transliteration }) => !!transliteration);
   needsTranslation = ll.some(({ name }) => {
-    return name !== "English" && name !== "Non-lexical lyrics";
+    return name !== LyricsTableHeader.ENGLISH && name !== "Non-lexical lyrics";
   });
   isChinese = ll.some(({ isChinese }) => isChinese);
   isoLangCode = ll[0]?.iso || null;
@@ -49,15 +51,16 @@ export function getLanguageMetadata(languages: MultiSelectItem[]): LanguageMetad
       ll.map(({ transliteration }) => transliteration).filter((el) => !!el) as Iterable<string>,
     );
     headers.push(
-      (romanizationSystems.size < 4 ? Array.from(romanizationSystems.keys()) : ["Romanized"]).join(
-        "/",
-      ),
+      (romanizationSystems.size < 4
+        ? Array.from(romanizationSystems.keys())
+        : [LyricsTableHeader.ROMANIZED]
+      ).join("/"),
     );
   } else {
     headers.push("");
   }
 
-  headers.push(needsTranslation ? "English" : "");
+  headers.push(needsTranslation ? LyricsTableHeader.ENGLISH : "");
 
   return { headers, needsRomanization, needsTranslation, isChinese, isoLangCode };
 }
