@@ -95,6 +95,7 @@
   const handleFormReset = () => {
     resetWarnings();
     formData.updateState({
+      altChIsTraditional: true,
       images: [],
       languages: [],
     });
