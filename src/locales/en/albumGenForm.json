@@ -11,7 +11,7 @@
     },
     "romanizedTitle": {
       "label": "Transliterated Title",
-      "tooltip": "Transliterated album name (if non-English original)",
+      "tooltip": "Transliterated album name (if Original Title is not in the Roman alphabet)",
       "placeholder": "Romaji title"
     },
     "englishTitle": {

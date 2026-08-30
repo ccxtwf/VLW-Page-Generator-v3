@@ -4,9 +4,6 @@
       "label": "Preload Song",
       "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a class=\"link\" href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl"
     },
-    "pvStills": {
-      "tooltip": "Save PV stills as local file<br/><br/>May fail to get working HQ images for older songs.<br/>Finicky when trying to get images from Bilibili."
-    },
     "genAiWarning": {
       "label": "GenAI Warning",
       "tooltip": "Add a notice warning for usage of generative AI to the top of page.<br/><br/>Be sure to include the source attributing the usage of generative AI for verified cases (e.g. video description, producer comment, etc.), or an explanation detailing inconsistencies that raise credible suspicion of generative AI usage for non-verified cases.",
@@ -15,7 +12,7 @@
         "verified": "Verified",
         "suspected": "Suspected"
       },
-      "placeholder": "the part of the song/video featuring usage of Generative AI",
+      "placeholder": "e.g. character illustration, lyrics",
       "sourcePlaceholder": "source/explanation of the AI warning"
     },
     "contentWarning": {
@@ -25,7 +22,7 @@
         "none": "No warnings",
         "hasWarning": "Questionable"
       },
-      "placeholder": "violent/mature content",
+      "placeholder": "e.g. violence/gore/sexual content",
       "epilepticWarningCheckboxLabel": "Epileptic Warning"
     },
     "songLanguage": {
@@ -41,12 +38,12 @@
     "originalTitle": {
       "label": "Original Title",
       "tooltip": "Song title in original language.",
-      "placeholder": "Original Japanese title"
+      "placeholder": "Song title"
     },
     "romanizedTitle": {
       "label": "Transliterated Title",
-      "tooltip": "Transliterated song title (if non-English original)",
-      "placeholder": "Romaji title"
+      "tooltip": "Transliterated song title (if Original Title is not in the Roman alphabet)",
+      "placeholder": "Romanized title"
     },
     "englishTitle": {
       "label": "Translated Title",
@@ -79,7 +76,7 @@
     },
     "broadcastLinks": {
       "label": "Broadcast Links",
-      "tooltip": "Links to play song, one per line.<br/>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com<br/><br/>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).",
+      "tooltip": "Links to play song, one per line.<br/>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com<br /><br />The Vocaloid Lyrics Wiki supports a variety of services that may not be included in this table. Refer to the section <a class=\"link\" href=\"{domain}Template:Iconlinks#All_Recognized_Website_Domains\" target=\"_blank\" rel=\"noopener noreferrer\">§ All Recognized Website Domains</a> on our template documentation to find out more.<br/><br/>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).",
       "headers": {
         "site": "Site",
         "url": "URL",
@@ -93,7 +90,7 @@
     },
     "lyrics": {
       "label": "Lyrics",
-      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/>Add text color styling to the entire row by specifying the hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red"
+      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/><br/>Apply custom styles by adding in-line CSS rules to the first column of this table, e.g.<br /><code>color:red;</code><br /><code>font-weight:bold;</code><br /><code>font-size:1.2rem;</code>"
     },
     "translator": {
       "label": "Translator",
@@ -103,7 +100,7 @@
     },
     "categories": {
       "label": "Categories",
-      "tooltip": "Category names, one per line, e.g.:<br/>wowaka songs list<br/>Demonstrations<br/><br/>Click the Autoload button to have the site generate commonly used tags."
+      "tooltip": "Category names, one per line, e.g.:<br/>wowaka songs list<br/>Demonstrations<br/><br/>Click the Autoload button to generate categories automatically based on producer credits. Song series categories, if necessary, should be added manually."
     }
   }
 }

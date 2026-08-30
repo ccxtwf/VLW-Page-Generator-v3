@@ -49,7 +49,7 @@
   },
   "infoboxColors": {
     "label": "Infobox BG/FG colors",
-    "tooltip": "Infobox background (left) and foreground (right) color<br/>hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red",
+    "tooltip": "Infobox background (left) and foreground (right) color<br/>hexadecimal color, e.g., <code>#ff0000</code><br/><em>or</em><br/>color name, e.g., <code>red</code>",
     "preview": "Preview"
   },
   "externalLinks": {

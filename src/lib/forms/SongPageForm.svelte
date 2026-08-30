@@ -30,6 +30,7 @@
 
   import Song from "../models/Song.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   import { getLanguageMetadata } from "../utils/lyricsUtils";
@@ -414,6 +415,7 @@
     labelForHtmlId="broadcast-links"
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
+    tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
     required={true}
   />
 
