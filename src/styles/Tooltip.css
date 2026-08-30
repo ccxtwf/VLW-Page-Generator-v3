@@ -5,7 +5,13 @@
     @apply relative;
 
     .tooltip-content {
-      @apply bg-neutral text-neutral-content absolute bottom-0 w-60 translate-y-full rounded-sm p-2 text-xs max-sm:right-0 sm:left-1/2 sm:-translate-x-1/2;
+      @apply bg-neutral text-neutral-content absolute bottom-0 w-60 translate-y-full rounded-sm p-2 text-xs;
+      &:not(.tooltip-inline) {
+        @apply max-sm:right-0 sm:left-1/2 sm:-translate-x-1/2;
+      }
+      &.tooltip-inline {
+        @apply left-1/2 -translate-x-1/2;
+      }
     }
     .tooltip-logo {
       @apply flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border-1 border-gray-400 text-sm font-bold text-gray-500 transition-colors select-none hover:bg-gray-100;

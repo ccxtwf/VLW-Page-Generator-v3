@@ -5,9 +5,10 @@
   interface ToolTipProps {
     required?: boolean;
     children?: Snippet;
+    inline?: boolean;
   }
 
-  let { required = false, children }: ToolTipProps = $props();
+  let { required = false, children, inline }: ToolTipProps = $props();
 </script>
 
 <div
@@ -15,7 +16,10 @@
   class="dropdown dropdown-hover help"
 >
   {#if children}
-    <div class="dropdown-content tooltip-content">
+    <div
+      class="dropdown-content tooltip-content"
+      class:tooltip-inline={inline}
+    >
       {@render children()}
       {#if required}
         <div class="mt-2">*<em>{$_("required")}</em></div>

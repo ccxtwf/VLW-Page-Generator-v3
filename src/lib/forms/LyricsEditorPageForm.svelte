@@ -119,7 +119,7 @@
         label={$_("lyricsEditor.fields.translator.isOfficialCheckboxLabel")}
         bind:checked={isOfficialTranslation}
       />
-      <Tooltip>
+      <Tooltip inline>
         {@html $_("lyricsEditor.fields.translator.isOfficialTooltip")}
       </Tooltip>
     </div>

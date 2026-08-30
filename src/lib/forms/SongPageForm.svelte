@@ -487,7 +487,7 @@
         label={$_("songGenForm.translator.isOfficialCheckboxLabel")}
       />
       <div class="flex-item">
-        <Tooltip>
+        <Tooltip inline>
           {@html $_("songGenForm.translator.isOfficialTooltip")}
         </Tooltip>
       </div>
