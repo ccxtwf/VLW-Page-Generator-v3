@@ -14,6 +14,7 @@ import {
   ManualColumnResize,
   StretchColumns,
   HiddenColumns,
+  Autofill,
 } from "handsontable/plugins";
 import { registerRenderer } from "handsontable/renderers";
 import { registerTheme, mainTheme } from "handsontable/themes";
@@ -34,6 +35,7 @@ registerPlugin(UndoRedo);
 registerPlugin(ManualColumnResize);
 registerPlugin(StretchColumns);
 registerPlugin(HiddenColumns);
+registerPlugin(Autofill);
 
 registerTheme("auto", mainTheme).setColorScheme("auto").setDensityType("compact");
 registerTheme("light", mainTheme).setColorScheme("light").setDensityType("compact");

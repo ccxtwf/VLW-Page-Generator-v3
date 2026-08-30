@@ -147,6 +147,7 @@
       startCols: 4,
       colWidths: [100, 250, 250, 250],
       trimWhitespace: true,
+      fillHandle: true,
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
         toggleText = addColumnsAtIndexToTheLeftToToggle((toggleText || "").trim(), index, amount);
