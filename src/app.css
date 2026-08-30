@@ -1,5 +1,41 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: false;
+  include:
+    /* base */
+    properties,
+    reset,
+    rootcolor,
+    rootscrollgutter,
+    rootscrolllock,
+    scrollbar,
+    svg,
+    /* components */ button,
+    input,
+    textarea,
+    checkbox,
+    toggle,
+    select,
+    tooltip,
+    alert,
+    list,
+    swap,
+    divider,
+    loading,
+    navbar,
+    footer,
+    menu,
+    label,
+    card,
+    dropdown,
+    /* utilities */ join,
+    radius,
+    typography,
+    glass,
+    /* themes */ corporate,
+    dark;
+}
 
 @theme {
   --breakpoint-xs: 30rem;
@@ -20,6 +56,7 @@
 }
 @plugin "daisyui/theme" {
   name: "dark";
+  prefersdark: true;
 }
 
 @import "./styles/svelte-multiselect.css";
