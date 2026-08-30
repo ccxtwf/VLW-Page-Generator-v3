@@ -13,6 +13,7 @@
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
   import type { ThemeChangedEventPayload } from "../../../schemas/events";
+  import { LyricsTableHeader } from "../../../constants/tableHeaders";
 
   interface LyricsTableFreeEditProps {
     id: string;
@@ -27,7 +28,7 @@
 
   let headers = $derived(determineColumnHeaders(toggleText));
 
-  let colHeaders: string[] = $derived(["Custom style", ...$state.snapshot(headers)]);
+  let colHeaders: string[] = $derived([LyricsTableHeader.STYLE, ...$state.snapshot(headers)]);
   let colWidths: number[] = $derived([100, ...Array(headers.length).fill(250)]);
 
   $effect(() => {
@@ -58,7 +59,7 @@
   }
 
   export function getData() {
-    const i = headers.findIndex((h) => h.includes("English"));
+    const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
     return !hot || hot.isDestroyed
       ? []
       : hot.getData().map((row) => {
@@ -147,10 +148,10 @@
       colWidths: [100, 250, 250, 250],
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
-        toggleText = addColumnsAtIndexToTheLeftToToggle(toggleText, index, amount);
+        toggleText = addColumnsAtIndexToTheLeftToToggle((toggleText || "").trim(), index, amount);
       },
       afterRemoveCol(_index, _amount, physicalColumns, _source) {
-        toggleText = removeColumnsAtIndexFromToggle(toggleText, physicalColumns);
+        toggleText = removeColumnsAtIndexFromToggle((toggleText || "").trim(), physicalColumns);
       },
       licenseKey: HANDSONTABLE_LICENSE_KEY,
     });
