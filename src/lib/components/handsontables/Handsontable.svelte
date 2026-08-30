@@ -110,6 +110,8 @@
       selectionMode,
       stretchH,
       licenseKey,
+      trimWhitespace: true,
+      fillHandle: false,
       ...settings,
     });
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings } from "handsontable/base";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
@@ -22,10 +23,16 @@
 
   let { id, class: className, data, forAlbums }: ProducerDiscographyTableProps = $props();
 
-  const headerText: string[] = [
-    forAlbums ? "Album pages" : "Song pages",
-    "Additional template parameters",
-  ];
+  const headerText: string[] = forAlbums
+    ? [
+        $_("producerGenForm.discographyAlbums.headers.pages"),
+        $_("producerGenForm.discographyAlbums.headers.params"),
+        $_("producerGenForm.discographyAlbums.headers.isCompilation"),
+      ]
+    : [
+        $_("producerGenForm.discographySongs.headers.pages"),
+        $_("producerGenForm.discographySongs.headers.params"),
+      ];
 
   const columnDefinitions: ColumnSettings[] = [
     {
@@ -40,7 +47,6 @@
   ];
 
   if (forAlbums) {
-    headerText.push("Is Compilation?");
     columnDefinitions.push({
       data: "isCompilation",
       type: "checkbox",

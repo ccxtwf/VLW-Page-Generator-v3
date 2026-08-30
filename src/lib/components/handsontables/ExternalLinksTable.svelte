@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable/base";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
@@ -22,7 +23,11 @@
 
   let { id, class: className, data, forProducerPage }: ExternalLinksTableProps = $props();
 
-  const headerText: string[] = ["URL", "Description", "Official"];
+  const headerText: string[] = [
+    $_("externalLinks.headers.url"),
+    $_("externalLinks.headers.description"),
+    $_("externalLinks.headers.isOfficial"),
+  ];
   const columnDefinitions: ColumnSettings[] = [
     {
       data: "url",
@@ -40,7 +45,10 @@
     },
   ];
   if (forProducerPage) {
-    headerText.push("Media", "Inactive?");
+    headerText.push(
+      $_("producerGenForm.externalLinks.headers.media"),
+      $_("producerGenForm.externalLinks.headers.isInactive"),
+    );
     columnDefinitions.push(
       {
         data: "isMedia",

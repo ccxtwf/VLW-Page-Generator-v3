@@ -167,10 +167,6 @@ export function renderLyricsRowWikitext(
     english = "",
     additionalColumns = [],
   } = lyrics;
-  // customStyle = customStyle.trim();
-  // original = original.trim();
-  // romanized = romanized.trim();
-  // english = english.trim();
 
   let wikitext: string = `|-${customStyle ? ` style="${customStyle}"` : ""}\n`;
 
@@ -430,7 +426,7 @@ export function determineColumnHeaders(toggleText: string): string[] {
   const res: string[] = [];
   const components = toggleText
     .trim()
-    .matchAll(/(?<=\{\{[Ll]yrics[_ ]toggle\s*\||\|).*?(?=\||\}\})/g);
+    .matchAll(/(?<=^\{\{[Ll]yrics[_ ]toggle\s*\||\|).*?(?=\||\}\}$)/g);
   for (const component of components) {
     const [a, ...b] = component[0].split(":");
     res.push(b.length ? b.join(":") : a);

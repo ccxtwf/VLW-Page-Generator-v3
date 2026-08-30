@@ -89,11 +89,13 @@
       {/each}
     </nav>
   </div>
-  <div class="mt-6 border-t-1 border-gray-800 pt-2 text-right">
-    <p class="text-neutral-content text-xs opacity-30">
+  <div
+    class="text-neutral-content mt-6 border-t-1 border-gray-800 pt-2 text-right text-xs opacity-40"
+  >
+    <p>
       Build code: {import.meta.env.VITE_BUILD_CODE}
     </p>
-    <p class="text-neutral-content text-xs opacity-30">
+    <p>
       Build date: {import.meta.env.VITE_BUILD_DATE}
     </p>
   </div>

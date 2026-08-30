@@ -30,6 +30,7 @@
 
   import Song from "../models/Song.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
   import { getLanguageMetadata } from "../utils/lyricsUtils";
@@ -95,6 +96,7 @@
   const handleFormReset = () => {
     resetWarnings();
     formData.updateState({
+      altChIsTraditional: true,
       images: [],
       languages: [],
     });
@@ -413,6 +415,7 @@
     labelForHtmlId="broadcast-links"
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
+    tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
     required={true}
   />
 
@@ -487,7 +490,7 @@
         label={$_("songGenForm.translator.isOfficialCheckboxLabel")}
       />
       <div class="flex-item">
-        <Tooltip>
+        <Tooltip inline>
           {@html $_("songGenForm.translator.isOfficialTooltip")}
         </Tooltip>
       </div>
@@ -502,8 +505,8 @@
 
   <FlexRow
     labelForHtmlId="external-links"
-    labelI18nKey="songGenForm.externalLinks.label"
-    tooltipI18nKey="songGenForm.externalLinks.tooltip"
+    labelI18nKey="externalLinks.label"
+    tooltipI18nKey="externalLinks.tooltip"
   >
     <ExternalLinksTable
       id="external-links"

@@ -393,7 +393,7 @@ describe("parseLyrics", () => {
 | {{shared}} EFGH
 |Should not show
 |-
-| IJKL
+|IJKL
 | {{shared|2}} MNOPQ
 |Should not show
 |}

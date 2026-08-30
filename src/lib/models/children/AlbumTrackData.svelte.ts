@@ -30,8 +30,8 @@ export default class AlbumTrackData implements IAlbumTrack {
   }
 
   preprocess(): void {
-    this.discNo = ("" + this.discNo || "").trim();
-    this.trackNo = ("" + this.trackNo || "").trim();
+    this.discNo = "" + this.discNo || "";
+    this.trackNo = "" + this.trackNo || "";
     preprocessStringParams(this, ["pageTitle", "producerCredit", "singerCredit"]);
   }
 

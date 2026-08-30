@@ -63,7 +63,7 @@ test.describe("Webpage tests", async () => {
         const colorScheme = window
           .getComputedStyle(document.documentElement)
           .getPropertyValue("color-scheme");
-        return colorScheme === "normal";
+        return colorScheme === "light";
       },
       null,
       { timeout: 1000 },

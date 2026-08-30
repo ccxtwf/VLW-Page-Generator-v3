@@ -84,8 +84,10 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     /* Content Warnings */
     await form.getByLabel("Content Warnings").selectOption("1");
-    await form.getByRole("textbox", { name: "violent/mature content" }).click();
-    await form.getByRole("textbox", { name: "violent/mature content" }).fill("suicidal themes");
+    await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
+    await form
+      .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
+      .fill("suicidal themes");
     await form.getByText("Epileptic Warning").click();
 
     /* Language & ISO Code */
@@ -301,8 +303,10 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     /* Content Warnings */
     await form.getByLabel("Content Warnings").selectOption("1");
-    await form.getByRole("textbox", { name: "violent/mature content" }).click();
-    await form.getByRole("textbox", { name: "violent/mature content" }).fill("suicidal themes");
+    await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
+    await form
+      .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
+      .fill("suicidal themes");
     await form.getByText("Epileptic Warning").click();
 
     /* Language & ISO Code */
@@ -895,7 +899,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     /* Language & ISO Code */
     await form.getByRole("combobox", { name: "Song Language" }).click();
-    const romanizedTitle = form.getByPlaceholder("Romaji title");
+    const romanizedTitle = form.getByPlaceholder("Romanized title");
     await expect(romanizedTitle).toBeVisible();
     await form.getByRole("option", { name: "Indonesian" }).click();
     await page.keyboard.press("Escape");
@@ -1086,7 +1090,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     /* Language & ISO Code */
     await form.getByRole("combobox", { name: "Song Language" }).click();
-    const romanizedTitle = form.getByPlaceholder("Romaji title");
+    const romanizedTitle = form.getByPlaceholder("Romanized title");
     await expect(romanizedTitle).toBeVisible();
     await form.getByRole("option", { name: "Indonesian" }).click();
     await page.keyboard.press("Escape");
@@ -1246,7 +1250,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     /* Language & ISO Code */
     await form.getByRole("combobox", { name: "Song Language" }).click();
-    const romanizedTitle = form.getByPlaceholder("Romaji title");
+    const romanizedTitle = form.getByPlaceholder("Romanized title");
     const englishTitle = form.getByPlaceholder("English title");
     await expect(romanizedTitle).toBeVisible();
     await expect(englishTitle).toBeVisible();

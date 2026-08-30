@@ -121,7 +121,7 @@ export const renderMarkupContextMenuItem: ContextMenuFactory = (colId, name) => 
       const data = this.getData();
       for (let i = fromRow; i <= toRow; i++) {
         const row = data[i];
-        let o = ((row[colId!] as string) || "").trim();
+        let o = (row[colId!] as string) || "";
         o = renderListInWikiInternalLinkMarkup(o);
         row[colId!] = o;
       }
@@ -219,7 +219,7 @@ const addLyricsRowsStyling = (customStyle: string) => {
     }
     const data = this.getData();
     for (let i = fromRow; i <= toRow; i++) {
-      if (!((data[i][1] as string) || "").trim()) {
+      if (!(data[i][1] as string)) {
         continue;
       }
       if (!data[i][0]) {

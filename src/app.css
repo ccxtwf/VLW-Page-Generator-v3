@@ -19,6 +19,7 @@
     select,
     tooltip,
     alert,
+    link,
     list,
     swap,
     divider,
@@ -45,6 +46,8 @@
   name: "corporate";
   default: true;
 
+  color-scheme: light;
+
   --radius-selector: 0.5rem;
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
@@ -57,6 +60,8 @@
 @plugin "daisyui/theme" {
   name: "dark";
   prefersdark: true;
+
+  color-scheme: dark;
 }
 
 @import "./styles/svelte-multiselect.css";

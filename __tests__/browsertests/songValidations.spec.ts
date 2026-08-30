@@ -81,8 +81,10 @@ test.describe("Song page generator tests", async () => {
     });
 
     /* Add justification */
-    await form.getByRole("textbox", { name: "violent/mature content" }).click();
-    await form.getByRole("textbox", { name: "violent/mature content" }).fill("suicidal themes");
+    await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
+    await form
+      .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
+      .fill("suicidal themes");
 
     /* Click Generate Button */
     await form.getByRole("button", { name: "Generate" }).click();
@@ -124,8 +126,10 @@ test.describe("Song page generator tests", async () => {
     });
 
     /* Add source attribution */
-    await form.getByRole("textbox", { name: "the part of the song/video" }).click();
-    await form.getByRole("textbox", { name: "the part of the song/video" }).fill("illustration");
+    await form.getByRole("textbox", { name: "e.g. character illustration, lyrics" }).click();
+    await form
+      .getByRole("textbox", { name: "e.g. character illustration, lyrics" })
+      .fill("illustration");
 
     /* Click Generate Button */
     await form.getByRole("button", { name: "Generate" }).click();

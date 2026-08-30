@@ -1,3 +1,4 @@
+diff -Naru node_modules/handsontable/3rdparty/SheetClip/SheetClip.js node_modules/handsontable/3rdparty/SheetClip/SheetClip.js
 --- node_modules/handsontable/3rdparty/SheetClip/SheetClip.js	2026-08-25 10:43:45.078717400 +0700
 +++ node_modules/handsontable/3rdparty/SheetClip/SheetClip.js	2026-08-25 10:44:57.064925000 +0700
 @@ -83,46 +83,11 @@
