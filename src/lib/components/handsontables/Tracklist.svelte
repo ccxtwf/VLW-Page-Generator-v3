@@ -73,7 +73,7 @@
   contextMenu={tracklistContextMenu}
   settings={{
     beforeChange: onVlwPageInput,
-    colWidths: [50, 50, 200, 200, 200],
+    colWidths: [70, 70, 200, 180, 180],
     rowHeights: 30,
     minSpareRows: 0,
   }}

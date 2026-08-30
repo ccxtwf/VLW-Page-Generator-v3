@@ -43,9 +43,21 @@
       type: "text",
       renderer: "url",
     },
-    { data: "isReprint", type: "checkbox", className: "htCenter htMiddle" },
-    { data: "isAutogen", type: "checkbox", className: "htCenter htMiddle" },
-    { data: "isDeleted", type: "checkbox", className: "htCenter htMiddle" },
+    {
+      data: "isReprint",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    },
+    {
+      data: "isAutogen",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    },
+    {
+      data: "isDeleted",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    },
     { data: "viewCount", type: "text" },
   ];
 
@@ -91,7 +103,7 @@
   settings={{
     beforeChange: onUrlInput,
     contextMenu: sharedContextMenuOptions,
-    colWidths: [200, 300, 50, 50, 50, 80],
+    colWidths: [120, 280, 70, 70, 70, 80],
     rowHeights: 30,
     startRows: 5,
   }}
