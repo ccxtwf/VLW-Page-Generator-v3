@@ -182,8 +182,8 @@ export function autoloadCategories({ tracklist, description, engines }: Album): 
   let markedUpProducersInTracklist: Set<string> = new Set();
   let markedUpSingersInTracklist: Set<string> = new Set();
   for (const { producerCredit, singerCredit } of tracklist) {
-    const detectedProducers = detectProducerOrSingerInMarkup(producerCredit?.trim() || "");
-    const detectedSingers = detectProducerOrSingerInMarkup(singerCredit?.trim() || "");
+    const detectedProducers = detectProducerOrSingerInMarkup(producerCredit || "");
+    const detectedSingers = detectProducerOrSingerInMarkup(singerCredit || "");
     for (let prod of detectedProducers) {
       markedUpProducersInTracklist.add(prod);
     }

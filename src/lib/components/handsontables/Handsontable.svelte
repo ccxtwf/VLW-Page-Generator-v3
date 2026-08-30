@@ -110,6 +110,7 @@
       selectionMode,
       stretchH,
       licenseKey,
+      trimWhitespace: true,
       ...settings,
     });
 

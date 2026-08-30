@@ -44,7 +44,7 @@ export function parseLyrics(rxResults: RegExpMatchArray): [string, string[][], s
     const cells = Array.from(row.groups!.cells.matchAll(/(?<=\n\||^\|).*?(?=\n\||$)/g));
     const a: string[] = [];
     for (const cell of cells) {
-      let cellContents = (cell[0] || "").trim();
+      let cellContents = cell[0] || "";
       if (cells.length === 1 && cellContents.match(/<br\s*\/?>/)) {
         a.push(...Array(nColumns).fill(""));
         break;
@@ -84,7 +84,7 @@ export function consolidateCellInlineColourFormatting(lyrics: unknown[][]): stri
   return lyrics.map((lyric) => {
     let m = [];
     for (let i = 1; i < lyric.length; i++) {
-      const l = ((lyric[i] as string) || "").trim();
+      const l = (lyric[i] as string) || "";
       const rxResults = l.match(rxCellInlineColourFormatting);
       m.push({ rxResults, isEmpty: !l });
     }
@@ -111,7 +111,7 @@ export function consolidateCellInlineColourFormatting(lyrics: unknown[][]): stri
  */
 export function decapitalizeRomanization(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = ((lyric[2] as string) || "").trim().replace(/^(?:["'`]*)\w/, (match: string) => {
+    lyric[2] = ((lyric[2] as string) || "").replace(/^(?:["'`]*)\w/, (match: string) => {
       return match.toLowerCase();
     });
     lyric[2] = (lyric[2] as string).replace(
@@ -132,7 +132,7 @@ export function decapitalizeRomanization(lyrics: unknown[][]): string[][] {
  */
 export function detonePinyinLyrics(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = detonePinyin(((lyric[2] as string) || "").trim(), true);
+    lyric[2] = detonePinyin((lyric[2] as string) || "", true);
     return lyric as string[];
   });
 }
@@ -145,19 +145,17 @@ export function detonePinyinLyrics(lyrics: unknown[][]): string[][] {
  */
 export function standardizeHepburnRomanization(lyrics: unknown[][]): string[][] {
   return lyrics.map((lyric) => {
-    lyric[2] = ((lyric[2] as string) || "")
-      .trim()
-      .replace(/(?=\b)(wo|he)(?<=\b)/gi, (match: string) => {
-        switch (match) {
-          case "wo":
-            return "o";
-          case "he":
-            return "e";
-          default:
-            return "";
-        }
-      });
-    lyric[2] = ((lyric[2] as string) || "").trim().replace(/dzu/gi, "zu");
+    lyric[2] = ((lyric[2] as string) || "").replace(/(?=\b)(wo|he)(?<=\b)/gi, (match: string) => {
+      switch (match) {
+        case "wo":
+          return "o";
+        case "he":
+          return "e";
+        default:
+          return "";
+      }
+    });
+    lyric[2] = ((lyric[2] as string) || "").replace(/dzu/gi, "zu");
     return lyric as string[];
   });
 }

@@ -61,7 +61,7 @@ export default class PlayLink implements IPlayLink {
   }
 
   getFormattedViewCount(): string {
-    let viewCountStr = this.viewCount.trim();
+    let viewCountStr = this.viewCount || "";
     viewCountStr = viewCountStr.replace(/[,.]\s?(?=\d{3})/g, "");
     viewCountStr = viewCountStr.replace(/\+/g, "");
 
@@ -79,7 +79,7 @@ export default class PlayLink implements IPlayLink {
     }
 
     //Show view count number as text if non-numeric
-    return this.viewCount;
+    return this.viewCount || "";
   }
 
   toJSON(): IPlayLink {
