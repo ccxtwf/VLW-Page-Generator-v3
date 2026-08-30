@@ -12,10 +12,10 @@
 
 <div
   role="tooltip"
-  class="dropdown dropdown-hover"
+  class="dropdown dropdown-hover help"
 >
   {#if children}
-    <div class="dropdown-content">
+    <div class="dropdown-content tooltip-content">
       {@render children()}
       {#if required}
         <div class="mt-2">*<em>{$_("required")}</em></div>
