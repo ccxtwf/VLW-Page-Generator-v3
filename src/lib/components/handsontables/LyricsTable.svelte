@@ -5,6 +5,7 @@
 
   import { lyricsContextMenu } from "./contextMenus/lyrics";
   import type { LanguageMetadata } from "../../utils/lyricsUtils";
+  import { LyricsTableHeader } from "../../../constants/tableHeaders";
 
   interface LyricsTableProps {
     id: string;
@@ -61,7 +62,7 @@
       hiddenColumns.push(3);
     }
     hot?.updateSettings({
-      colHeaders: ["Custom style", ...headers],
+      colHeaders: [LyricsTableHeader.STYLE, ...headers],
       hiddenColumns: {
         columns: hiddenColumns,
         copyPasteEnabled: true,

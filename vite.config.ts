@@ -18,6 +18,7 @@ export default defineConfig((env) => {
       arrowParens: "always",
       embeddedLanguageFormatting: "auto",
       singleAttributePerLine: true,
+      insertFinalNewline: false,
       sortTailwindcss: true,
       svelte: {
         indentScriptAndStyle: true,

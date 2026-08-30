@@ -1,0 +1,7 @@
+`handsontable-sheetclip.patch` - 2026-08-25 10:43:45.078717400 +0700
+
+Edits the 3rd party Sheetclip utility library that is used in the Handsontable package. Before this edit is applied, text from the clipboard to the Handsontable component are parsed in such a way that text enclosed in double quotes (`"`) is treated as if the whole text is part of one cell, and this check is done greedily, i.e. the utility library finds the largest possible text that may be enclosed in double quotes. This behaviour causes lines with double quotes to be parsed unexpectedly when passing copied data from the clipboard to the Handsontable component. This is unwanted behaviour particularly for our lyrics tables. We therefore apply this patch to remove this behaviour.
+
+`daisyui-dropdown.patch` - 2026-08-29 20:22:43.074988200 +0700
+
+Removes a CSS rule that causes terrible performance overhead that is particularly noticeable on lyrics tables.

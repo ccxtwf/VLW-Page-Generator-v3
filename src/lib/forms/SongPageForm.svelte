@@ -224,7 +224,6 @@
     labelForHtmlId="language-iso-code"
     labelI18nKey="songGenForm.languageIsoCode.label"
     tooltipI18nKey="songGenForm.languageIsoCode.tooltip"
-    required={true}
   >
     <SimpleTextInput
       id="language-iso-code"
