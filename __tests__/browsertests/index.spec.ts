@@ -29,7 +29,7 @@ test.describe("Webpage tests", async () => {
     let colorScheme = await page.evaluate(() => {
       return window.getComputedStyle(document.documentElement).getPropertyValue("color-scheme");
     });
-    expect(colorScheme).toEqual("normal");
+    expect(colorScheme).toEqual("dark");
 
     await page.screenshot({
       path: `${getSnapshotsDir(browser)}/doc/auto-dark-mode.png`,
@@ -63,7 +63,7 @@ test.describe("Webpage tests", async () => {
         const colorScheme = window
           .getComputedStyle(document.documentElement)
           .getPropertyValue("color-scheme");
-        return colorScheme === "normal";
+        return colorScheme === "light";
       },
       null,
       { timeout: 1000 },
