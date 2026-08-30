@@ -55,16 +55,29 @@
     },
     "externalLinks": {
       "label": "External links",
-      "tooltip": "<div class=\"text-left text-xs mb-2\">Examples of media links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's official Niconico/YouTube/bilibili accounts.</li><li>The producer's NND MyList.</li><li>The producer's piapro.</li><li>The producer's account on SoundCloud/Netease Music.</li><li>The producer's Bandcamp/Spotify/TuneCore/other music streaming.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of official links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's official website.</li><li>The producer's social media/SNS accounts, e.g. Twitter, Instagram, Weibo.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of unofficial links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's page on VocaDB.</li><li>A page on the producer from any unofficial wiki, e.g. the <a class=\"link\" href=\"https://vocaloid.fandom.com/\" target=\"_blank\" rel=\"noopener noreferrer\">VOCALOID wiki</a>, the <a class=\"link\" href=\"https://w.atwiki.jp/hmiku/\" target=\"_blank\" rel=\"noopener noreferrer\">Hatsune Miku wiki</a>, <a class=\"link\" href=\"https://dic.nicovideo.jp/\" target=\"_blank\" rel=\"noopener noreferrer\">Nicopedia</a>, etc.</li></ul></div>"
+      "tooltip": "<div class=\"text-left text-xs mb-2\">Examples of media links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's official Niconico/YouTube/bilibili accounts.</li><li>The producer's NND MyList.</li><li>The producer's piapro.</li><li>The producer's account on SoundCloud/Netease Music.</li><li>The producer's Bandcamp/Spotify/TuneCore/other music streaming.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of official links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's official website.</li><li>The producer's social media/SNS accounts, e.g. Twitter, Instagram, Weibo.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of unofficial links:<br><ul class=\"list-outside list-disc pl-3\"><li>The producer's page on VocaDB.</li><li>A page on the producer from any unofficial wiki, e.g. the <a class=\"link\" href=\"https://vocaloid.fandom.com/\" target=\"_blank\" rel=\"noopener noreferrer\">VOCALOID wiki</a>, the <a class=\"link\" href=\"https://w.atwiki.jp/hmiku/\" target=\"_blank\" rel=\"noopener noreferrer\">Hatsune Miku wiki</a>, <a class=\"link\" href=\"https://dic.nicovideo.jp/\" target=\"_blank\" rel=\"noopener noreferrer\">Nicopedia</a>, etc.</li></ul></div>",
+      "headers": {
+        "media": "Media",
+        "isInactive": "Inactive"
+      }
     },
     "discographySongs": {
       "label": "List of songs",
-      "tooltip": "Add the list of song pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically."
+      "tooltip": "Add the list of song pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically.",
+      "headers": {
+        "pages": "Song pages",
+        "params": "Additional template parameters"
+      }
     },
     "discographyAlbums": {
       "label": "List of albums",
       "tooltip": "Add the list of album pages <b>(that exist on the VOCALOID Lyrics wiki)</b> here.<br /><br />You can copy and paste the page URL to add the pages automatically.",
-      "fetchFromWikiNote": "<div>Use the \"Fetch discography from wiki\" button to get the song &amp; album pages that have been tagged in Vocaloid Lyrics wiki.<br>Alternatively, you can use <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree\" target=\"_blank\" rel=\"noopener noreferrer\">the Category Tree tool on the Vocaloid Lyrics wiki</a> to manually get the list of song &amp; album pages. See this example for <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree?target=Category%3APinocchioP+songs+list&amp;mode=all&amp;namespaces=\" target=\"_blank\" rel=\"noopener noreferrer\">PinocchioP</a>.<br><br>Do note that the Category Tree tool can only query a maximum of 200 pages per category.</div>"
+      "fetchFromWikiNote": "<div>Use the \"Fetch discography from wiki\" button to get the song &amp; album pages that have been tagged in Vocaloid Lyrics wiki.<br>Alternatively, you can use <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree\" target=\"_blank\" rel=\"noopener noreferrer\">the Category Tree tool on the Vocaloid Lyrics wiki</a> to manually get the list of song &amp; album pages. See this example for <a class=\"link link-accent\" href=\"{domain}Special:CategoryTree?target=Category%3APinocchioP+songs+list&amp;mode=all&amp;namespaces=\" target=\"_blank\" rel=\"noopener noreferrer\">PinocchioP</a>.<br><br>Do note that the Category Tree tool can only query a maximum of 200 pages per category.</div>",
+      "headers": {
+        "pages": "Album pages",
+        "params": "Additional template parameters",
+        "isCompilation": "Is compilation"
+      }
     }
   }
 }

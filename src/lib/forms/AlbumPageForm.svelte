@@ -325,8 +325,8 @@
 
   <FlexRow
     labelForHtmlId="external-links"
-    labelI18nKey="albumGenForm.externalLinks.label"
-    tooltipI18nKey="albumGenForm.externalLinks.tooltip"
+    labelI18nKey="externalLinks.label"
+    tooltipI18nKey="externalLinks.tooltip"
   >
     <div class="block w-full">
       <ExternalLinksTable

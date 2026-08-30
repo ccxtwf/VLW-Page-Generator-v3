@@ -503,8 +503,8 @@
 
   <FlexRow
     labelForHtmlId="external-links"
-    labelI18nKey="songGenForm.externalLinks.label"
-    tooltipI18nKey="songGenForm.externalLinks.tooltip"
+    labelI18nKey="externalLinks.label"
+    tooltipI18nKey="externalLinks.tooltip"
   >
     <ExternalLinksTable
       id="external-links"

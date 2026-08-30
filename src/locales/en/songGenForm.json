@@ -80,6 +80,14 @@
     "broadcastLinks": {
       "label": "Broadcast Links",
       "tooltip": "Links to play song, one per line.<br/>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com<br/><br/>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).",
+      "headers": {
+        "site": "Site",
+        "url": "URL",
+        "isReprint": "Reprint",
+        "isAutogen": "YT Autogen",
+        "isDeleted": "Deleted",
+        "viewCount": "View Count"
+      },
       "isAlbumOnlyCheckboxLabel": "Song is an album-only release",
       "isUnavailable": "Song is publically unavailable"
     },
@@ -92,10 +100,6 @@
       "tooltip": "Translator's name",
       "isOfficialCheckboxLabel": "Is an official translation?",
       "isOfficialTooltip": "Is the translation approved by the producer?"
-    },
-    "externalLinks": {
-      "label": "External Links",
-      "tooltip": "Links to related web pages, one per line, with description, e.g.:<br/>https://piapro.jp/t/uvwx Off-vocal<br/><br/>Recognizes many commonly used sites such as Hatsune Miku Wiki and VocaDB."
     },
     "categories": {
       "label": "Categories",

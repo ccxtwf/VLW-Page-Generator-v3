@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   import Handsontable from "./Handsontable.svelte";
   import type { SvelteComponent } from "svelte";
 
@@ -21,11 +22,11 @@
   let { id, class: className, data }: TracklistTableProps = $props();
 
   const headerText = [
-    "Disk no",
-    "Track no",
-    "Track name/VLW Page Title",
-    "Feat. Producers",
-    "Feat. Singers",
+    $_("albumGenForm.tracklist.headers.discNo"),
+    $_("albumGenForm.tracklist.headers.trackNo"),
+    $_("albumGenForm.tracklist.headers.trackName"),
+    $_("albumGenForm.tracklist.headers.producerCredits"),
+    $_("albumGenForm.tracklist.headers.singerCredits"),
   ];
   const columnDefinitions = [
     { data: "discNo", type: "numeric" },

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from "svelte-i18n";
   import Handsontable from "./Handsontable.svelte";
   import { type ColumnSettings, type HotInstance } from "handsontable/base";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
@@ -20,7 +21,14 @@
 
   let { id, class: className, data }: BroadcastLinksTableProps = $props();
 
-  const headerText: string[] = ["Site", "URL", "Reprint?", "Auto-gen?", "Deleted?", "View Count"];
+  const headerText: string[] = [
+    $_("songGenForm.broadcastLinks.headers.site"),
+    $_("songGenForm.broadcastLinks.headers.url"),
+    $_("songGenForm.broadcastLinks.headers.isReprint"),
+    $_("songGenForm.broadcastLinks.headers.isAutogen"),
+    $_("songGenForm.broadcastLinks.headers.isDeleted"),
+    $_("songGenForm.broadcastLinks.headers.viewCount"),
+  ];
   const columnDefinitions: ColumnSettings[] = [
     {
       data: "site",

@@ -52,6 +52,15 @@
     "tooltip": "Infobox background (left) and foreground (right) color<br/>hexadecimal color, e.g., #ff0000<br/><em>or</em><br/>color name, e.g., red",
     "preview": "Preview"
   },
+  "externalLinks": {
+    "label": "External Links",
+    "tooltip": "Links to related web pages, one per line, with description, e.g.:<br/>https://piapro.jp/t/uvwx Off-vocal<br/><br/>Recognizes many commonly used sites such as Hatsune Miku Wiki and VocaDB.",
+    "headers": {
+      "url": "URL",
+      "description": "Description",
+      "isOfficial": "Official"
+    }
+  },
   "firstTimeGuide": {
     "header": "First Time Editing?",
     "paragraphOpener": "If this is your first time adding a page on the VOCALOID Lyrics Wiki, you should note the following:",
