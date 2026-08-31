@@ -72,7 +72,7 @@
     let [rowId, _colId, _oldValue, newValue] = change;
     // changed cell is URL
     const referUrl = PV_SERVICES.find(({ re }) => {
-      return (newValue as string).match(re) !== null;
+      return ((newValue as string) || "").match(re) !== null;
     });
 
     // no match is found
