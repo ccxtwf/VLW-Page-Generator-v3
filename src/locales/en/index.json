@@ -22,7 +22,7 @@
   },
   "loading": {
     "text": "Loading...",
-    "error": "Failed to load page. Please try again."
+    "error": "Failed to load page. Please refresh the page and try again."
   },
   "error": {
     "notFound": {

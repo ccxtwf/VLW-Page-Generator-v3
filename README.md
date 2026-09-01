@@ -89,7 +89,7 @@ Integration tests given in the directory `__tests__/browsertests/` may be conduc
 
 ### Maintenance scripts
 
-Several scripts (Python) are provided to maintain the datapoints used in this repository. To get started using these scripts, navigate to the `maintenance/` directory and run `uv install` (or its equivalent command in pip: `pip install .`). Next, create a `.env` file in the `maintenance/` directory with the following values:
+Several scripts (Python) are provided to maintain the datapoints used in this repository. To get started using these scripts, navigate to the `maintenance/` directory and run `uv sync` (or its equivalent command in pip: `pip install .`). Next, create a `.env` file in the `maintenance/` directory with the following values:
 
 ```sh
 VOCADB_ARTIST_API_ENTRYPOINT=https://vocadb.net/api/artists

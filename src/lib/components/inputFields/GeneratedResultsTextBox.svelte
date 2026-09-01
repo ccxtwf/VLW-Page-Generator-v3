@@ -28,7 +28,6 @@
   </div>
 {/if}
 <textarea
-  readonly
   id="page-output"
   class="textarea w-full"
   rows="30"
