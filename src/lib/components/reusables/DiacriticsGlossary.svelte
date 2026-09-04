@@ -24,10 +24,13 @@
     const top = child.top - parent.top;
     const left = child.left - parent.left + child.width / 2;
 
+    el.classList.add("bg-success", "text-success-content");
+
     tooltip.style.cssText = `top:${top}px; left:${left}px;`;
     tooltip.classList.remove("hidden");
 
     setTimeout(() => {
+      el.classList.remove("bg-success", "text-success-content");
       tooltip.classList.add("hidden");
     }, 1000);
   }
@@ -55,7 +58,7 @@
       <div class="flex flex-row justify-center gap-x-2">
         {#each charGroup as char}
           <button
-            class="bg-neutral text-neutral-content inline-block w-8 cursor-pointer rounded px-1 py-1.5 text-center"
+            class="bg-neutral [&:not(.bg-success)]:hover:bg-neutral/30 text-neutral-content inline-block w-8 cursor-pointer rounded px-1 py-1.5 text-center transition-colors duration-200"
             type="button"
             onclick={copyDiacritic}
           >
