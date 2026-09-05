@@ -32,7 +32,50 @@ describe("Generate song pages", () => {
 {| {{lyrics table class}}
 |- class="lyrics-table-header"
 ! {{lyrics header}}
-${"|-\n|<br />\n".repeat(20)}|}`;
+|}`;
+
+    expect(page).toEqual(expected);
+  });
+
+  test("Should truncate lyrics", () => {
+    const formData = new Song({
+      lyrics: [
+        { customStyle: "", original: "foo", romanized: "bar", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "bar", romanized: "baz", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+      ],
+    });
+
+    const page = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|foo
+|bar
+|-
+|<br />
+|-
+|bar
+|baz
+|}`;
 
     expect(page).toEqual(expected);
   });

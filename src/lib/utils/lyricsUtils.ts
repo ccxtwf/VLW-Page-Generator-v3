@@ -502,3 +502,18 @@ export function removeColumnsAtIndexFromToggle(
   const newComponents = oldComponents.filter((_, idx) => columnIndices.indexOf(idx) < 0);
   return "{{" + newComponents.join("|") + "}}";
 }
+
+/**
+ *
+ * @param lyrics
+ * @returns
+ */
+export function truncateLyrics(lyrics: ILyricsRow[]): ILyricsRow[] {
+  let truncateLyricsAtIndex = lyrics.length;
+  while (truncateLyricsAtIndex >= 0) {
+    if (lyrics[--truncateLyricsAtIndex]?.original) {
+      break;
+    }
+  }
+  return lyrics.slice(0, truncateLyricsAtIndex + 1);
+}

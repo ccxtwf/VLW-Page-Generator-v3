@@ -69,7 +69,7 @@ test.describe("Song page generator tests", async () => {
 {| {{lyrics table class}}
 |- class="lyrics-table-header"
 ! {{lyrics header}}
-${"|-\n|<br />\n".repeat(20)}|}`);
+|}`);
 
     await page.screenshot({
       path: `${getSnapshotsDir(browser)}/songs/empty.png`,

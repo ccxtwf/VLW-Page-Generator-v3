@@ -29,6 +29,7 @@ import {
 import {
   generateLyricsSegment,
   getLanguageMetadata,
+  truncateLyrics,
   type LanguageMetadata,
 } from "../utils/lyricsUtils";
 
@@ -75,7 +76,7 @@ export function generatePage(formData: Song): string {
     langMetadata,
   );
 
-  lyricsSegment = generateLyricsSegment(lyrics, {
+  lyricsSegment = generateLyricsSegment(truncateLyrics(lyrics), {
     headers: langMetadata.headers,
     needsRomanization: langMetadata.needsRomanization,
     needsTranslation: langMetadata.needsTranslation,
