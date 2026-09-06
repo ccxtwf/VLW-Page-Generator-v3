@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { ILyricsRow } from "../../../src/lib/models/schema.d";
-import LyricsRow from "../../../src/lib/models/children/LyricsRow.svelte";
+import type { ILyricsRow } from "#src/lib/models/schema.d.ts";
+import LyricsRow from "#src/lib/models/children/LyricsRow.svelte.ts";
 
 describe("test state management logic for LyricsRow", () => {
   test("toJSON", () => {

@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vite-plus/test";
 import { mapEngines, mapAlbumBroadcastLink } from "../../mapper";
 
-import Album from "../../../src/lib/models/Album.svelte";
-import { generatePage } from "../../../src/lib/logic/albums.svelte";
+import Album from "#src/lib/models/Album.svelte.ts";
+import { generatePage } from "#src/lib/logic/albums.svelte.ts";
 
-import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
-import AlbumTrackData from "../../../src/lib/models/children/AlbumTrackData.svelte";
+import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
+import AlbumTrackData from "#src/lib/models/children/AlbumTrackData.svelte.ts";
 
 describe("Generate album pages", () => {
   test("Empty form state", () => {

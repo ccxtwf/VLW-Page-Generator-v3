@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vite-plus/test";
 import { mapLanguages } from "../../mapper";
 
-import Song from "../../../src/lib/models/Song.svelte";
-import { generatePage } from "../../../src/lib/logic/songs.svelte";
+import Song from "#src/lib/models/Song.svelte.ts";
+import { generatePage } from "#src/lib/logic/songs.svelte.ts";
 
-import LyricRow from "../../../src/lib/models/children/LyricsRow.svelte";
-import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
-import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
+import LyricRow from "#src/lib/models/children/LyricsRow.svelte.ts";
+import PlayLink from "#src/lib/models/children/PlayLink.svelte.ts";
+import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
 
-import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../../src/lib/models/enums";
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "#src/lib/models/enums.ts";
 
 describe("Generate song pages", () => {
   test("Empty form state", () => {

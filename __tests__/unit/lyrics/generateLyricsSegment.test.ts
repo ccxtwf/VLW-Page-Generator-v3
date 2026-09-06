@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import { generateLyricsSegment } from "../../../src/lib/utils/lyricsUtils";
-import type { ILyricsRow } from "../../../src/lib/models/schema.d";
+import { generateLyricsSegment } from "#src/lib/utils/lyricsUtils.ts";
+import type { ILyricsRow } from "#src/lib/models/schema.d.ts";
 
 describe("generateLyricsSegment - non-English songs with translation", () => {
   test("Japanese song with fanmade translation", () => {

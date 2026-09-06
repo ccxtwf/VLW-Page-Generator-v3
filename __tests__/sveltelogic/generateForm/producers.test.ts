@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vite-plus/test";
 import { mapEngines, mapLanguages } from "../../mapper";
 
-import Producer from "../../../src/lib/models/Producer.svelte";
-import { generatePage } from "../../../src/lib/logic/producers.svelte";
-import ProducerDiscographySongItem from "../../../src/lib/models/children/ProducerDiscographySongItem.svelte";
-import ProducerDiscographyAlbumItem from "../../../src/lib/models/children/ProducerDiscographyAlbumItem.svelte";
-import ExternalLinkForProducerPage from "../../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
+import Producer from "#src/lib/models/Producer.svelte.ts";
+import { generatePage } from "#src/lib/logic/producers.svelte.ts";
+import ProducerDiscographySongItem from "#src/lib/models/children/ProducerDiscographySongItem.svelte.ts";
+import ProducerDiscographyAlbumItem from "#src/lib/models/children/ProducerDiscographyAlbumItem.svelte.ts";
+import ExternalLinkForProducerPage from "#src/lib/models/children/ExternalLinkForProducerPage.svelte.ts";
 
 describe("Generate producer pages", () => {
   test("Empty form state", () => {

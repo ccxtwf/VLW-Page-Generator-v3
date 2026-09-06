@@ -1,16 +1,12 @@
 import { describe, expect, test } from "vite-plus/test";
 
-import Song from "../../../src/lib/models/Song.svelte";
-import { buildSongPageComponents } from "../../../src/lib/logic/songs.svelte";
+import Song from "#src/lib/models/Song.svelte.ts";
+import { buildSongPageComponents } from "#src/lib/logic/songs.svelte.ts";
 
-import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
+import PlayLink from "#src/lib/models/children/PlayLink.svelte.ts";
 
-import {
-  ENUM_AI_WARNING_TYPE,
-  ENUM_CW_STATES,
-  ENUM_SONG_TYPE,
-} from "../../../src/lib/models/enums";
-import { getLanguageMetadata } from "../../../src/lib/utils/lyricsUtils";
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "#src/lib/models/enums.ts";
+import { getLanguageMetadata } from "#src/lib/utils/lyricsUtils.ts";
 import { mapLanguages } from "../../mapper";
 
 describe("Generate song page components", () => {

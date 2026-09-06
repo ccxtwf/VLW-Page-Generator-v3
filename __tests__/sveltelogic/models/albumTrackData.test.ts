@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { IAlbumTrack } from "../../../src/lib/models/schema.d";
-import AlbumTrackData from "../../../src/lib/models/children/AlbumTrackData.svelte";
+import type { IAlbumTrack } from "#src/lib/models/schema.d.ts";
+import AlbumTrackData from "#src/lib/models/children/AlbumTrackData.svelte.ts";
 
 describe("test state management logic for AlbumTrackData", () => {
   test.each([

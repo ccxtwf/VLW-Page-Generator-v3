@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { truncateLyrics } from "../../../src/lib/utils/lyricsUtils";
+import { truncateLyrics } from "#src/lib/utils/lyricsUtils.ts";
 
 describe("truncateLyrics", () => {
   test.each([

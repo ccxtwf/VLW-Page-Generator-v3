@@ -9,7 +9,7 @@ import {
   removeHandsontableRows,
   getSnapshotsDir,
 } from "./utils";
-import { ENUM_CW_STATES } from "../../src/lib/models/enums";
+import { ENUM_CW_STATES } from "#src/lib/models/enums.ts";
 
 test.describe("Song page generator tests", async () => {
   test.beforeEach(async ({ page }) => {

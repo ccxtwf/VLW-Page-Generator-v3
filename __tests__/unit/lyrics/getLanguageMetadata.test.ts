@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vite-plus/test";
-import { getLanguageMetadata } from "../../../src/lib/utils/lyricsUtils";
-import { LANGUAGES } from "../../../src/constants";
-import { MultiSelectItem } from "../../../src/schemas/form";
+import { getLanguageMetadata } from "#src/lib/utils/lyricsUtils.ts";
+import { LANGUAGES } from "#src/constants/index.ts";
+import type { MultiSelectItem } from "#src/schemas/form.d.ts";
 
 describe("getLanguageMetadata", () => {
   const mlangs = LANGUAGES.map((lang, idx) => ({ ...lang, idx }));

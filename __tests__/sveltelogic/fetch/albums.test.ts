@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { fetchDataFromVocaDb } from "../../../src/lib/logic/albums.svelte";
+import { fetchDataFromVocaDb } from "#src/lib/logic/albums.svelte.ts";
 import { mapEngines, mapAlbumBroadcastLink } from "../../mapper";
-import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
-import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../../src/lib/models/enums";
-import AlbumTrackData from "../../../src/lib/models/children/AlbumTrackData.svelte";
+import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
+import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "#src/lib/models/enums.ts";
+import AlbumTrackData from "#src/lib/models/children/AlbumTrackData.svelte.ts";
 
 // Mock import
-vi.mock("../../../src/lib/utils/dbBufferUtils", async () => {
+vi.mock("#src/lib/utils/dbBufferUtils.ts", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
       const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
