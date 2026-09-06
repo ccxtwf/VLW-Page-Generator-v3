@@ -5,12 +5,15 @@
     @apply relative;
 
     .tooltip-content {
-      @apply bg-neutral text-neutral-content absolute bottom-0 w-60 translate-y-full rounded-sm p-2 text-xs;
+      @apply bg-neutral text-neutral-content absolute -bottom-0 w-60 translate-y-full rounded-sm p-2 text-xs;
       &:not(.tooltip-inline) {
         @apply max-sm:right-0 sm:left-1/2 sm:-translate-x-1/2;
       }
       &.tooltip-inline {
         @apply left-1/2 -translate-x-1/2;
+      }
+      & p:not(:last-child) {
+        @apply mb-2;
       }
     }
     .tooltip-logo {

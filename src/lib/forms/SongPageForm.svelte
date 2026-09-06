@@ -38,7 +38,6 @@
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
-  let form: HTMLFormElement; //oxlint-disable-line no-unassigned-vars
   let warningsElement: SvelteComponent | null = null;
   let broadcastLinksHotTable: SvelteComponent | null = null;
   let extLinksHotTable: SvelteComponent | null = null;
@@ -49,7 +48,7 @@
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const resetWarnings = () => {
-    resetFormWarnings(form);
+    resetFormWarnings(document.querySelector('form[name="song-generator"]')!);
     warningsElement!.resetState();
   };
 
@@ -113,12 +112,16 @@
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleFormSubmit}
   onreset={handleFormReset}
-  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
-    labelI18nKey="songGenForm.preloadVocaDb.label"
-    tooltipI18nKey="songGenForm.preloadVocaDb.tooltip"
+    labelI18nKey="preloadVocaDb.label"
+    tooltipI18nKey="preloadVocaDb.tooltip"
+    tooltipI18nParams={{
+      type: "song page",
+      slug: "S/1501",
+      caption: $_("songGenForm.vdbPlaceholder"),
+    }}
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}

@@ -31,17 +31,14 @@
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
-  /* oxlint-disable no-unassigned-vars */
-  let form: HTMLFormElement;
-  let warningsElement: SvelteComponent;
-  let tracklistHotTable: SvelteComponent;
-  let extLinksHotTable: SvelteComponent;
-  /* oxlint-enable no-unassigned-vars */
+  let warningsElement: SvelteComponent | null = null;
+  let tracklistHotTable: SvelteComponent | null = null;
+  let extLinksHotTable: SvelteComponent | null = null;
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const resetWarnings = () => {
-    resetFormWarnings(form);
+    resetFormWarnings(document.querySelector('form[name="album-generator"]')!);
     warningsElement!.resetState();
   };
 
@@ -107,12 +104,16 @@
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleFormSubmit}
   onreset={handleFormReset}
-  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
-    labelI18nKey="albumGenForm.preloadVocaDb.label"
-    tooltipI18nKey="albumGenForm.preloadVocaDb.tooltip"
+    labelI18nKey="preloadVocaDb.label"
+    tooltipI18nKey="preloadVocaDb.tooltip"
+    tooltipI18nParams={{
+      type: "album page",
+      slug: "Al/21149",
+      caption: $_("albumGenForm.vdbPlaceholder"),
+    }}
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}

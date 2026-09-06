@@ -40,18 +40,15 @@
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
 
-  /* oxlint-disable no-unassigned-vars */
-  let form: HTMLFormElement;
-  let warningsElement: SvelteComponent;
-  let extLintsHotTable: SvelteComponent;
-  let songListHotTable: SvelteComponent;
-  let albumListHotTable: SvelteComponent;
-  /* oxlint-enable no-unassigned-vars */
+  let warningsElement: SvelteComponent | null = null;
+  let extLintsHotTable: SvelteComponent | null = null;
+  let songListHotTable: SvelteComponent | null = null;
+  let albumListHotTable: SvelteComponent | null = null;
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const resetWarnings = () => {
-    resetFormWarnings(form);
+    resetFormWarnings(document.querySelector('form[name="producer-generator"]')!);
     warningsElement!.resetState();
   };
 
@@ -133,12 +130,16 @@
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleFormSubmit}
   onreset={handleFormReset}
-  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
-    labelI18nKey="producerGenForm.preloadVocaDb.label"
-    tooltipI18nKey="producerGenForm.preloadVocaDb.tooltip"
+    labelI18nKey="preloadVocaDb.label"
+    tooltipI18nKey="preloadVocaDb.tooltip"
+    tooltipI18nParams={{
+      type: "artist/producer page",
+      slug: "Ar/28",
+      caption: $_("producerGenForm.vdbPlaceholder"),
+    }}
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}
@@ -301,7 +302,7 @@
       bind:this={albumListHotTable}
       forAlbums={true}
     />
-    <div class="w-full text-xs">
+    <div class="mt-1 w-full text-xs leading-relaxed">
       {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote", {
         values: { domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT },
       })}
