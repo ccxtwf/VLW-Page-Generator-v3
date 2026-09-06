@@ -60,6 +60,7 @@ export function generatePage(formData: Song): string {
     translator,
     isOfficialTranslation,
     categories,
+    cwState,
   } = formData;
 
   const lyrics = formData.lyrics;
@@ -86,6 +87,7 @@ export function generatePage(formData: Song): string {
     isOfficialTranslation,
     bgColour,
     fgColour,
+    isNsfw: cwState === ENUM_CW_STATES.isNsfw,
   });
 
   unofficialLinksWikitext = extLinks
@@ -505,10 +507,10 @@ export function buildSongPageComponents(
   }
 
   cw = hasEpilepsyWarning ? "{{Epilepsy}}" : "";
-  cw +=
-    cwState === ENUM_CW_STATES.noWarnings
-      ? ""
-      : `{{${cwState === ENUM_CW_STATES.questionable ? "Questionable" : "Explicit"}${cwText ? `|${cwText}` : ""}}}`;
+  if (cwState !== ENUM_CW_STATES.noWarnings) {
+    const tname = cwState === ENUM_CW_STATES.explicit ? "Explicit" : "Questionable";
+    cw += `{{${tname}${cwText ? `|${cwText}` : ""}}}`;
+  }
   if (aiCwState !== ENUM_AI_WARNING_TYPE.none) {
     cw += `{{AIusage|${aiWarningText1}|${aiWarningText2}${aiCwState === ENUM_AI_WARNING_TYPE.suspected ? "|unverified=1" : ""}}}`;
   }

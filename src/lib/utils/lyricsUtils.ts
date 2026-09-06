@@ -315,6 +315,7 @@ export function generateLyricsSegment(
     bgColour = "black",
     fgColour = "white",
     toggleElement,
+    isNsfw,
   }: {
     headers?: string[];
     needsRomanization: boolean;
@@ -326,6 +327,7 @@ export function generateLyricsSegment(
     bgColour?: string;
     fgColour?: string;
     toggleElement?: string;
+    isNsfw?: boolean;
   },
 ): string {
   const outputAsWikiTable = needsRomanization || needsTranslation;
@@ -411,6 +413,16 @@ export function generateLyricsSegment(
   if (showNotes) {
     res += `\n\n==${isTranslationNote ? "Translation " : ""}Notes==\n{{Reflist}}`;
   }
+
+  // Wrap in togglable NSFW content div
+  if (isNsfw) {
+    res = `<div class = "mw-collapsible mw-collapsed">
+{{NSFWContent}} 
+<div class="mw-collapsible-content">
+${res}
+</div></div>`;
+  }
+
   return res;
 }
 

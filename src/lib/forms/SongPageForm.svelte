@@ -216,6 +216,7 @@
           {const genAiDropdownOptions = [
             { value: ENUM_CW_STATES.noWarnings, i18nKey: "none" },
             { value: ENUM_CW_STATES.questionable, i18nKey: "hasWarning" },
+            { value: ENUM_CW_STATES.isNsfw, i18nKey: "nsfw" },
           ]}
           {#each genAiDropdownOptions as { value, i18nKey }}
             <option {value}>

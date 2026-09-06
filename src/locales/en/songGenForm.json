@@ -14,10 +14,11 @@
     },
     "contentWarning": {
       "label": "Content Warnings",
-      "tooltip": "<p>Add content warnings to the top of page.</p><p>You are required to add the justification for adding a content warning, e.g. if it contains violent/sexual content.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Warning_Templates_Guideline#Content_Warnings\" target=\"_blank\" rel=\"noopener noreferrer\">§ Content Warnings</a> on our Warning Templates Guideline for more information.</p>",
+      "tooltip": "<p>Add content warnings to the top of page.</p><p>Setting a song as NSFW will automatically place the song page behind an NSFW content warning popup and hide the lyrics behind a toggle.</p><p>You are required to add the justification for adding a content warning, e.g. if it contains violent/sexual content.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Warning_Templates_Guideline#Content_Warnings\" target=\"_blank\" rel=\"noopener noreferrer\">§ Content Warnings</a> on our Warning Templates Guideline for more information.</p>",
       "dropdownOptions": {
         "none": "No warnings",
-        "hasWarning": "Questionable"
+        "hasWarning": "Questionable",
+        "nsfw": "NSFW Warning"
       },
       "placeholder": "e.g. violence/gore/sexual content",
       "epilepticWarningCheckboxLabel": "Epileptic Warning"
