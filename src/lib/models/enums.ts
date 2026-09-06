@@ -10,6 +10,12 @@ export enum ENUM_AI_WARNING_TYPE {
   suspected,
 }
 
+export enum ENUM_SONG_TYPE {
+  original = 1,
+  cover,
+  spinOff,
+}
+
 export enum ENUM_IMAGE_EMBED_SOURCE_TYPE {
   yt,
   nn,

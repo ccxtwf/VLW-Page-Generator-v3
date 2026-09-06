@@ -24,7 +24,7 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../models/enums";
+  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
 
   import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs.svelte";
 
@@ -33,7 +33,9 @@
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
+  import { resetRadioInputGroup } from "../utils/utils";
   import { getLanguageMetadata } from "../utils/lyricsUtils";
+  import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
@@ -96,9 +98,13 @@
     resetWarnings();
     formData.updateState({
       altChIsTraditional: true,
+      songType: ENUM_SONG_TYPE.original,
       images: [],
       languages: [],
     });
+    setTimeout(() => {
+      resetRadioInputGroup("song-page-type", ENUM_SONG_TYPE.original);
+    }, 0);
     formData.resetHotTables();
   };
   const handleAutoloadCategories = () => {
@@ -126,6 +132,28 @@
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}
       placeholder="https://vocadb.net/S/..."
+    />
+  </FlexRow>
+
+  <Divider />
+
+  <FlexRow
+    labelForHtmlId="song-page-type"
+    labelI18nKey="songGenForm.songTypes.label"
+    tooltipI18nKey="songGenForm.songTypes.tooltip"
+    tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
+  >
+    <SimpleRadioGroup
+      class="col-span-full px-2 py-3 text-xs sm:text-base"
+      labelClass="w-full sm:basis-1/3"
+      id="song-page-type"
+      name="song-page-type"
+      options={[
+        { label: $_("songGenForm.songTypes.original"), value: ENUM_SONG_TYPE.original },
+        { label: $_("songGenForm.songTypes.cover"), value: ENUM_SONG_TYPE.cover },
+        { label: $_("songGenForm.songTypes.spinoff"), value: ENUM_SONG_TYPE.spinOff },
+      ]}
+      bind:selected={formData.songType}
     />
   </FlexRow>
 
@@ -444,6 +472,13 @@
         id="is-unavailable"
         bind:checked={formData.isUnavailable}
         label={$_("songGenForm.broadcastLinks.isUnavailable")}
+      />
+    </div>
+    <div class="basis-1/2">
+      <SimpleCheckbox
+        id="is-demonstration"
+        bind:checked={formData.isDemonstration}
+        label={$_("songGenForm.broadcastLinks.isDemonstration")}
       />
     </div>
   </div>

@@ -15,7 +15,7 @@ import { preprocessStringParams, validateColour } from "../utils/utils";
 import { getLanguageMetadata } from "../utils/lyricsUtils";
 import type { MultiSelectItem } from "../../schemas/form";
 import { PV_SERVICE_ABBREVIATIONS, PV_SERVICE_PROVIDER } from "../../constants";
-import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "./enums";
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "./enums";
 
 export default class Song implements BaseModel<ISong> {
   aiCwState: ENUM_AI_WARNING_TYPE = $state(ENUM_AI_WARNING_TYPE.none);
@@ -37,6 +37,8 @@ export default class Song implements BaseModel<ISong> {
   uploadDateRaw: string = $state("");
   isAlbumOnly: boolean = $state(false);
   isUnavailable: boolean = $state(false);
+  isDemonstration: boolean = $state(false);
+  songType: ENUM_SONG_TYPE = $state(ENUM_SONG_TYPE.original);
   singers: string = $state("");
   producers: string = $state("");
   description: string = $state("");
@@ -112,6 +114,7 @@ export default class Song implements BaseModel<ISong> {
       aiWarningText2,
       cwState,
       cwText,
+      songType,
       origTitle,
       languages = [],
       bgColour,
@@ -139,6 +142,10 @@ export default class Song implements BaseModel<ISong> {
     }
     if (aiCwState !== ENUM_AI_WARNING_TYPE.none && !aiWarningText2) {
       errors.push(getValidationError(SongPageValidationErrorType.GEN_AI_HAS_NO_SOURCE));
+    }
+
+    if (!songType) {
+      errors.push(getValidationError(SongPageValidationErrorType.NO_SONG_TYPE_OPT_IS_SET));
     }
 
     if (languages.length === 0) {

@@ -42,6 +42,7 @@ import {
   ENUM_CW_STATES,
   ENUM_AI_WARNING_TYPE,
   ENUM_IMAGE_EMBED_SOURCE_TYPE,
+  ENUM_SONG_TYPE,
 } from "../models/enums";
 import type { IImageEmbed } from "../models/schema";
 
@@ -454,6 +455,7 @@ export async function fetchDataFromVocaDb(
 
 export function buildSongPageComponents(
   {
+    songType,
     aiCwState,
     aiWarningText1,
     aiWarningText2,
@@ -476,6 +478,7 @@ export function buildSongPageComponents(
     languages,
     isUnavailable,
     isAlbumOnly,
+    isDemonstration,
   }: Song,
   langMetadata: LanguageMetadata,
 ): { displayTitle: string; sort: string; unavailable: string; cw: string; infobox: string } {
@@ -560,6 +563,14 @@ export function buildSongPageComponents(
     viewCountsSegment = "N/A";
   }
 
+  const additionalInfo = `${
+    songType === ENUM_SONG_TYPE.cover
+      ? "\n|cover = 1"
+      : songType === ENUM_SONG_TYPE.spinOff
+        ? "\n|spinoff = 1"
+        : ""
+  }${isAlbumOnly ? "\n|album-only = 1" : ""}${isDemonstration ? "\n|demo = 1" : ""}`;
+
   const infobox = `{{Infobox Song
 |songtitle = ${titlesSegment}
 |color = ${bgColour}; color:${fgColour}
@@ -567,7 +578,7 @@ export function buildSongPageComponents(
 |singer = ${renderTextAsHtmlTextContent(singers)}
 |producer = ${renderTextAsHtmlTextContent(producers)}
 |#views = ${viewCountsSegment}
-|link = ${songLinksSegment}${isAlbumOnly ? "\n|album-only = 1" : ""}${description ? `\n|description = ${renderTextAsHtmlTextContent(description)}` : ""}
+|link = ${songLinksSegment}${description ? `\n|description = ${renderTextAsHtmlTextContent(description)}` : ""}${additionalInfo}
 |language = ${languageSegment}
 }}`;
 

@@ -20,7 +20,8 @@
       "bilibiliUsesAvid": "The Vocaloid Lyrics Wiki recommends attaching Bilibili links in the new BVid format rather than the old avid format.",
       "noOriginalLyrics": "Original lyrics column is empty.",
       "noRomanizedLyrics": "Romanized/transliterated lyrics column is empty.",
-      "uncreditedTranslation": "A translation exists, but the translator is uncredited. Is it made by an anonymous contributor?"
+      "uncreditedTranslation": "A translation exists, but the translator is uncredited. Is it made by an anonymous contributor?",
+      "noSongTypeOptSet": "You must set a song type."
     },
     "album": {
       "albumTitleNotSet": "You haven't entered an album name.",

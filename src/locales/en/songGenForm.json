@@ -83,7 +83,15 @@
         "viewCount": "View Count"
       },
       "isAlbumOnlyCheckboxLabel": "Song is an album-only release",
-      "isUnavailable": "Song is publically unavailable"
+      "isUnavailable": "Song is publically unavailable",
+      "isDemonstration": "Song is a vocal synth demo"
+    },
+    "songTypes": {
+      "label": "Song Type",
+      "tooltip": "<p>Cover songs are only allowed on the wiki if they feature a singing vocal synth and have at least 1,000,000+ views.</p><p>A spin-off is a vocal synth song that uses the same composition as another vocal synth song but has significantly different lyrics. Spin-offs do not need 1,000,000 views to be added, but the vast majority of the lyrics have to be different in order to warrant a new page. Unofficial remixes, rearranges, and mashups do not qualify.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Song_Article_Guideline#Covers\" target=\"_blank\" rel=\"noopener noreferrer\">§ Covers</a> on our Song Article Guideline for more information.</p>",
+      "original": "Original song",
+      "cover": "Cover song",
+      "spinoff": "Spin-off"
     },
     "lyrics": {
       "label": "Lyrics",
