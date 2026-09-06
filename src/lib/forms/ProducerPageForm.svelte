@@ -24,6 +24,7 @@
     generatePage,
     fetchDataFromVocaDb,
     fetchDiscographyFromVlw,
+    validate,
   } from "../logic/producers.svelte";
 
   import Producer from "../models/Producer.svelte";
@@ -36,6 +37,7 @@
   } from "../logic/exceptions";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import PreloadDiscographyFromVlwInput from "../components/reusables/PreloadDiscographyFromVlwInput.svelte";
+  import type { ProducerPageValidationErrorType } from "../validationErrors/types";
 
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
@@ -97,7 +99,7 @@
       }
     }
   };
-  const handleFormSubmit = formSubmitHandler<Producer>({
+  const handleFormSubmit = formSubmitHandler<Producer, ProducerPageValidationErrorType>({
     resetWarnings,
     fetchLatestSnapshot() {
       formData.extLinks = extLintsHotTable!.getLatestData();
@@ -105,6 +107,7 @@
       formData.albums = albumListHotTable!.getLatestData();
       return [$state.snapshot(ignoreErrors), formData];
     },
+    validate,
     generate(formData) {
       const output = generatePage(formData);
       const title = formData.prodCategory;

@@ -26,7 +26,12 @@
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
 
-  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs.svelte";
+  import {
+    generatePage,
+    autoloadCategories,
+    fetchDataFromVocaDb,
+    validate,
+  } from "../logic/songs.svelte";
 
   import Song from "../models/Song.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
@@ -36,6 +41,7 @@
   import { resetRadioInputGroup } from "../utils/utils";
   import { getLanguageMetadata } from "../utils/lyricsUtils";
   import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
+  import type { SongPageValidationErrorType } from "../validationErrors/types";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
@@ -74,8 +80,9 @@
       }
     }
   };
-  const handleFormSubmit = formSubmitHandler<Song>({
+  const handleFormSubmit = formSubmitHandler<Song, SongPageValidationErrorType>({
     resetWarnings,
+    validate,
     fetchLatestSnapshot() {
       formData.playLinks = broadcastLinksHotTable!.getLatestData();
       formData.lyrics = lyricsHotTable!.getLatestData();

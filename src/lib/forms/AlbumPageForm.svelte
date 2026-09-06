@@ -21,12 +21,18 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums.svelte";
+  import {
+    generatePage,
+    autoloadCategories,
+    fetchDataFromVocaDb,
+    validate,
+  } from "../logic/albums.svelte";
 
   import Album from "../models/Album.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
   import { MONTHS } from "../../constants";
+  import type { AlbumPageValidationErrorType } from "../validationErrors/types";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
@@ -62,13 +68,14 @@
       }
     }
   };
-  const handleFormSubmit = formSubmitHandler<Album>({
+  const handleFormSubmit = formSubmitHandler<Album, AlbumPageValidationErrorType>({
     resetWarnings,
     fetchLatestSnapshot() {
       formData.tracklist = tracklistHotTable!.getLatestData();
       formData.extLinks = extLinksHotTable!.getLatestData();
       return [$state.snapshot(ignoreErrors), formData];
     },
+    validate,
     generate(formData) {
       const output = generatePage(formData);
       let title = formData.origTitle;

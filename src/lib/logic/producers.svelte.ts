@@ -24,6 +24,58 @@ import {
 } from "./exceptions";
 import type { IImageEmbed } from "../models/schema";
 import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../models/enums";
+import {
+  ProducerPageValidationErrorType,
+  type ValidationBundledErrors,
+  type ValidationError,
+} from "../validationErrors/types";
+import { getValidationError } from "../validationErrors/producers";
+
+/**
+ *
+ * @param formData
+ * @returns
+ */
+export function validate(
+  formData: Producer,
+): ValidationBundledErrors<ProducerPageValidationErrorType> {
+  let { prodCategory, roles, languages, description, extLinks, songs } = formData;
+
+  const errors: ValidationError<ProducerPageValidationErrorType>[] = [];
+
+  if (!prodCategory) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.NO_PRODUCER_CATEGORY));
+  }
+
+  if (languages.length === 0) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.LANGUAGE_IS_NOT_SELECTED));
+  }
+
+  if (Object.values(roles).every((el) => !el)) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.PRODUCER_ROLE_IS_NOT_SELECTED));
+  }
+
+  if (!description) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.DESCRIPTION_IS_NOT_SET));
+  }
+
+  if (extLinks.filter((l) => l.url).length === 0) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_LISTED));
+  } else {
+    if (extLinks.filter((l) => l.url).every((link) => !link.isOfficial)) {
+      errors.push(
+        getValidationError(ProducerPageValidationErrorType.EXTERNAL_LINK_IS_NOT_OFFICIAL),
+      );
+    }
+  }
+
+  if (songs.filter((song) => song.page).length === 0) {
+    errors.push(getValidationError(ProducerPageValidationErrorType.NO_SONG_PAGE));
+  }
+
+  const fatal = errors.some(({ fatal }) => fatal);
+  return { errors, autoloadCategories: false, fatal };
+}
 
 /**
  * Generate {{links}} template.

@@ -18,6 +18,7 @@ import {
   parseDateAsUtc,
   renderAsCommaSeparatedList,
   renderTextAsHtmlTextContent,
+  validateColour,
 } from "../utils/utils";
 import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
 import {
@@ -45,6 +46,142 @@ import {
   ENUM_SONG_TYPE,
 } from "../models/enums";
 import type { IImageEmbed } from "../models/schema";
+
+import {
+  SongPageValidationErrorType,
+  type ValidationBundledErrors,
+  type ValidationError,
+} from "../validationErrors/types";
+import { getValidationError } from "../validationErrors/songs";
+
+/**
+ *
+ * @param formData
+ * @returns
+ */
+export function validate(formData: Song): ValidationBundledErrors<SongPageValidationErrorType> {
+  const {
+    aiCwState,
+    aiWarningText1,
+    aiWarningText2,
+    cwState,
+    cwText,
+    songType,
+    origTitle,
+    languages = [],
+    bgColour,
+    fgColour,
+    uploadDate,
+    singers,
+    producers,
+    isAlbumOnly = false,
+    isUnavailable = false,
+    translator,
+    isOfficialTranslation = false,
+    lyrics,
+    playLinks,
+  } = formData;
+
+  const errors: ValidationError<SongPageValidationErrorType>[] = [];
+
+  if (cwState !== ENUM_CW_STATES.noWarnings && !cwText) {
+    errors.push(
+      getValidationError(SongPageValidationErrorType.CONTENT_WARNING_HAS_NO_JUSTIFICATION),
+    );
+  }
+  if (aiCwState !== ENUM_AI_WARNING_TYPE.none && !aiWarningText1) {
+    errors.push(getValidationError(SongPageValidationErrorType.GEN_AI_HAS_NO_USAGE_ATTRIBUTION));
+  }
+  if (aiCwState !== ENUM_AI_WARNING_TYPE.none && !aiWarningText2) {
+    errors.push(getValidationError(SongPageValidationErrorType.GEN_AI_HAS_NO_SOURCE));
+  }
+
+  if (!songType) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_SONG_TYPE_OPT_IS_SET));
+  }
+
+  if (languages.length === 0) {
+    errors.push(getValidationError(SongPageValidationErrorType.LANGUAGE_IS_NOT_SELECTED));
+  }
+
+  if (!origTitle) {
+    errors.push(getValidationError(SongPageValidationErrorType.SONG_TITLE_IS_NOT_SET));
+  }
+
+  if (!uploadDate || isNaN(uploadDate as unknown as number)) {
+    errors.push(getValidationError(SongPageValidationErrorType.PUBLICATION_IS_NOT_SET));
+  }
+
+  if (!bgColour) {
+    errors.push(getValidationError(SongPageValidationErrorType.BG_COLOR_IS_EMPTY));
+  }
+  if (!fgColour) {
+    errors.push(getValidationError(SongPageValidationErrorType.FG_COLOR_IS_EMPTY));
+  }
+  if (!validateColour(bgColour)) {
+    errors.push(getValidationError(SongPageValidationErrorType.BG_COLOR_IS_INVALID));
+  }
+  if (!validateColour(fgColour)) {
+    errors.push(getValidationError(SongPageValidationErrorType.FG_COLOR_IS_INVALID));
+  }
+
+  if (!singers) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_SINGER_IS_LISTED));
+  }
+  if (!singers.match(/\[\[[^\]]*\]\]/gm) && !singers.match(/\{\{[Ss]inger\|[^}]*\}\}/gm)) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_SINGER_IN_MARKUP));
+  }
+  if (!producers) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_PRODUCER_IS_LISTED));
+  } else {
+    if (!producers.match(/\[\[[^\]]*\]\]/gm)) {
+      errors.push(getValidationError(SongPageValidationErrorType.NO_PRODUCER_IN_MARKUP));
+    }
+  }
+
+  if (!isUnavailable && !isAlbumOnly && playLinks.filter((l) => l.url).length === 0) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_PLAY_LINK));
+  }
+
+  const forgotViewCounts = playLinks
+    .filter(
+      (link) =>
+        link.url && !link.isReprint && !link.isDeleted && PV_SERVICE_ABBREVIATIONS.has(link.site),
+    )
+    .some((link) => !link.viewCount);
+  if (forgotViewCounts) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_VIEW_COUNT));
+  }
+
+  const hasAvid = playLinks.some(
+    (link) => link.url.match(/^https?:\/\/www\.bilibili\.com\/video\/(av\d+)/) !== null,
+  );
+  if (hasAvid) {
+    errors.push(getValidationError(SongPageValidationErrorType.BILIBILI_HAS_AVID));
+  }
+
+  const langMetadata = getLanguageMetadata(languages);
+
+  const hasNoOriginalLyrics = lyrics.every((lyric) => !lyric.original);
+  if (hasNoOriginalLyrics) {
+    errors.push(getValidationError(SongPageValidationErrorType.ORIGINAL_LYRICS_ARE_EMPTY));
+  }
+
+  const hasRomanization = lyrics.some((lyric) => lyric.romanized);
+  if (langMetadata.needsRomanization && !hasRomanization) {
+    errors.push(getValidationError(SongPageValidationErrorType.ROMANIZED_LYRICS_ARE_EMPTY));
+  }
+
+  const hasEnglishTranslation =
+    langMetadata.needsTranslation && lyrics.some((lyric) => lyric.english);
+  if (hasEnglishTranslation && !translator && !isOfficialTranslation) {
+    errors.push(getValidationError(SongPageValidationErrorType.UNCREDITED_TRANSLATION));
+  }
+
+  const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
+  const fatal = errors.some(({ fatal }) => fatal);
+  return { errors, autoloadCategories, fatal };
+}
 
 /**
  *

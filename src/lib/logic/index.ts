@@ -1,30 +1,39 @@
 import type { BaseModel } from "../models/base";
+import { type ValidationBundledErrors } from "../validationErrors/types";
 
 /**
  * Prepares an event handler to be passed onto the "Generate" button that
  * is fired on a submit-form event.
  *
+ * @param resetWarnings
  * @param fetchLastSnapshot
  * @param validate
  * @param generate
  * @param displayWarningsAndErrors
  * @returns
  */
-export function formSubmitHandler<T extends BaseModel<any>>({
+export function formSubmitHandler<T extends BaseModel<any>, E>({
   resetWarnings,
   fetchLatestSnapshot,
+  validate,
   generate,
   displayWarningsAndErrors,
 }: {
   /**
-   * A callback function that will be called to reset the last form warnings
+   * A callback function that will be called to reset the last form warnings.
    */
   resetWarnings: () => void;
   /**
    * A callback function that will be called to get the last snapshot of
-   * `ignoreErrors` and `formData`
+   * `ignoreErrors` and `formData`.
    */
   fetchLatestSnapshot: () => [boolean, T];
+
+  /**
+   * A callback function that will be called to validate the given data,
+   * and possibly block page generation if relevant options are set.
+   */
+  validate: (formData: T) => ValidationBundledErrors<E>;
   /**
    * Callback function that will be called to generate the page output.
    * The component manages how this output will be handled.
@@ -59,7 +68,7 @@ export function formSubmitHandler<T extends BaseModel<any>>({
     }
 
     formData.preprocess();
-    const { errors, autoloadCategories, fatal } = formData.validate();
+    const { errors, autoloadCategories, fatal } = validate(formData);
 
     if (DEBUG) {
       console.log("ON PREPROCESSING", formData);
