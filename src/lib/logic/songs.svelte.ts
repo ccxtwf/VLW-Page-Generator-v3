@@ -188,8 +188,10 @@ export function validate(formData: Song): ValidationBundledErrors<SongPageValida
  * @param formData
  * @returns
  */
-export function generatePage(formData: Song): string {
+export function generatePage(formData: Song): [string, string] {
   const {
+    origTitle,
+    romTitle,
     bgColour,
     fgColour,
     languages,
@@ -244,13 +246,20 @@ export function generatePage(formData: Song): string {
       : "";
   }
 
-  return `${displayTitle}${sort}${unavailable}${cw}
+  const output = `${displayTitle}${sort}${unavailable}${cw}
 ${infobox}
 
 ==Lyrics==
 ${lyricsSegment}
 
 ${extLinksSegment}${categories!.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
+
+  let title = origTitle;
+  if (title && romTitle) {
+    title += ` (${romTitle})`;
+  }
+
+  return [output, title];
 }
 
 /**

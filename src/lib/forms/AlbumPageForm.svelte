@@ -77,14 +77,7 @@
     },
     validate,
     generate(formData) {
-      const output = generatePage(formData);
-      let title = formData.origTitle;
-      if (title && formData.romTitle) {
-        title += ` (${formData.romTitle})`;
-      }
-      if (title) {
-        title += " (album)";
-      }
+      const [output, title] = generatePage(formData);
       ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {

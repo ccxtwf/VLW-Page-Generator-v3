@@ -143,7 +143,7 @@ export function getUnofficialProdLinks(links: ExternalLinkForProducerPage[]): st
  * @param formData
  * @returns
  */
-export function generatePage(formData: Producer): string {
+export function generatePage(formData: Producer): [string, string] {
   const {
     prodCategory,
     splitAlbum,
@@ -227,7 +227,7 @@ export function generatePage(formData: Producer): string {
     }
   }
 
-  return `
+  const output = `
 <div class="producer-links">
 [[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
 ==Producer categories==
@@ -260,6 +260,7 @@ ${songs.map((song) => `|-\n| ${song.getWikitext()}\n`).join("")}|}
 
 ${albumListSegment}
 ${categories.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
+  return [output, prodCategory];
 }
 
 /**

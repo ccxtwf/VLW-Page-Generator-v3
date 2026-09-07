@@ -109,8 +109,7 @@
     },
     validate,
     generate(formData) {
-      const output = generatePage(formData);
-      const title = formData.prodCategory;
+      const [output, title] = generatePage(formData);
       ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {

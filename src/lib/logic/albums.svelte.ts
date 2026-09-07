@@ -143,7 +143,7 @@ export function validate(formData: Album): ValidationBundledErrors<AlbumPageVali
  * @param formData
  * @returns
  */
-export function generatePage(formData: Album): string {
+export function generatePage(formData: Album): [string, string] {
   const {
     origTitle,
     romTitle,
@@ -236,7 +236,7 @@ export function generatePage(formData: Album): string {
     }
   }
 
-  return `
+  const output = `
 ${displayTitleTemplate}{{Album Infobox
 |title = ${romTitle || origTitle}${romTitle ? `\n|orgtitle = ${origTitle}` : ""}${engTitle ? `\n|english = ${engTitle}` : ""}
 |label = ${renderTextAsHtmlTextContent(label)}
@@ -252,6 +252,16 @@ ${trackListSegment}
 ${extLinksSegment}${sortTemplateSegment}${categories!
     .map((cat) => `[[Category:${cat}]]`)
     .join("\n")}`.trim();
+
+  let title = origTitle;
+  if (title && romTitle) {
+    title += ` (${romTitle})`;
+  }
+  if (title) {
+    title += " (album)";
+  }
+
+  return [output, title];
 }
 
 /**
