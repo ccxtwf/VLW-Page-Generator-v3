@@ -1,4 +1,5 @@
 import { defineConfig } from "vite-plus";
+import tailwindcss from "@tailwindcss/vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { playwright } from "vite-plus/test/browser-playwright";
 
@@ -30,9 +31,10 @@ export default defineConfig({
         define: {
           DEBUG: false,
         },
-        plugins: [svelte()],
+        plugins: [tailwindcss(), svelte()],
         test: {
           name: "browser",
+          setupFiles: ["__tests__/matchers.ts", "__tests__/components/browsersetup.ts"],
           include: ["__tests__/components/**/*.test.{js,ts}"],
           browser: {
             enabled: true,
