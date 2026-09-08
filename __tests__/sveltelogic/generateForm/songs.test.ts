@@ -688,3 +688,165 @@ IJKL</poem>
     expect(outputTitle).toEqual("ECHO the World");
   });
 });
+
+describe("Generate song pages - Edge cases", () => {
+  test("The romanized title should not be considered if the song is set to a language that does not need romanization", () => {
+    const formData = new Song({
+      languages: mapLanguages("Indonesian"),
+      origTitle: "ECHO the World",
+      romTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = Indonesian
+}}
+
+==Lyrics==
+{{lyrics toggle|id:Indonesian}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test("The English title should not be considered if the song is set to a language that does not need translation", () => {
+    const formData = new Song({
+      languages: mapLanguages("English"),
+      origTitle: "ECHO the World",
+      engTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = English
+}}
+
+==Lyrics==
+<poem></poem>`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test("The alt Chinese title should not be considered if the song is set to a language that is not one of the Chinese languages", () => {
+    const formData = new Song({
+      languages: mapLanguages("Japanese"),
+      origTitle: "ECHO the World",
+      altChTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = Japanese
+}}
+
+==Lyrics==
+{{lyrics toggle|jp:Japanese|rom:Romaji}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test('The questionable CW text should not be considered if the dropdown option is set to "No warnings"', () => {
+    const formData = new Song({
+      cwState: ENUM_CW_STATES.noWarnings,
+      cwText: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
+  });
+
+  test.each([
+    { aiWarningText1: "this should not appear" },
+    { aiWarningText2: "this should not appear" },
+  ])(
+    'The AI usage CW text should not be considered if the dropdown option is set to "No warnings"',
+    (args) => {
+      const formData = new Song({
+        aiCwState: ENUM_AI_WARNING_TYPE.none,
+        ...args,
+      });
+      formData.preprocess();
+
+      const [page, outputTitle] = generatePage(formData);
+
+      const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+      expect(page).toEqual(expected);
+      expect(outputTitle).toEqual("");
+    },
+  );
+});
