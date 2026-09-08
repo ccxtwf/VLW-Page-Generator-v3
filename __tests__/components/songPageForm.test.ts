@@ -263,6 +263,17 @@ describe("songPageForm - state should be bounded correctly", () => {
         songType: ENUM_SONG_TYPE.spinOff,
       }),
     );
+
+    vi.clearAllMocks();
+
+    await page.getByRole("radio", { name: "Mashup/Medley" }).click();
+
+    await submitFormAndComparePassedArgs(
+      page,
+      new Song({
+        songType: ENUM_SONG_TYPE.mashup,
+      }),
+    );
   });
 
   test("Song language", async () => {

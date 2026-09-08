@@ -975,6 +975,31 @@ describe("Generate song page components", () => {
       },
     },
     {
+      d: "mashup song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.mashup,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|mashup = 1
+|language = 
+}}`,
+      },
+    },
+    {
       d: "album-only song without description",
       i: {
         singers: "[[Hatsune Miku (VOCALOID)]]",
@@ -1132,6 +1157,33 @@ describe("Generate song page components", () => {
 |description = Lorem ipsum dolor sit amet
 |cover = 1
 |demo = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "mashup song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.mashup,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|mashup = 1
 |language = 
 }}`,
       },

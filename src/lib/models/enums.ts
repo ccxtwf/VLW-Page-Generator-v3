@@ -15,6 +15,7 @@ export enum ENUM_SONG_TYPE {
   original = 1,
   cover,
   spinOff,
+  mashup,
 }
 
 export enum ENUM_IMAGE_EMBED_SOURCE_TYPE {

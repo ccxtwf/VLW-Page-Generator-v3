@@ -711,13 +711,18 @@ export function buildSongPageComponents(
     viewCountsSegment = "N/A";
   }
 
-  const additionalInfo = `${
-    songType === ENUM_SONG_TYPE.cover
-      ? "\n|cover = 1"
-      : songType === ENUM_SONG_TYPE.spinOff
-        ? "\n|spinoff = 1"
-        : ""
-  }${isAlbumOnly ? "\n|album-only = 1" : ""}${isDemonstration ? "\n|demo = 1" : ""}`;
+  const additionalInfo = `${(() => {
+    switch (songType) {
+      case ENUM_SONG_TYPE.original:
+        return "";
+      case ENUM_SONG_TYPE.cover:
+        return "\n|cover = 1";
+      case ENUM_SONG_TYPE.spinOff:
+        return "\n|spinoff = 1";
+      case ENUM_SONG_TYPE.mashup:
+        return "\n|mashup = 1";
+    }
+  })()}${isAlbumOnly ? "\n|album-only = 1" : ""}${isDemonstration ? "\n|demo = 1" : ""}`;
 
   const infobox = `{{Infobox Song
 |songtitle = ${titlesSegment}

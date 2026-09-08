@@ -148,13 +148,14 @@
   >
     <SimpleRadioGroup
       class="col-span-full px-2 py-3 text-xs sm:text-base"
-      labelClass="w-full sm:basis-1/3"
+      labelClass="w-full sm:basis-1/4"
       id="song-page-type"
       name="song-page-type"
       options={[
         { label: $_("songGenForm.songTypes.original"), value: ENUM_SONG_TYPE.original },
         { label: $_("songGenForm.songTypes.cover"), value: ENUM_SONG_TYPE.cover },
         { label: $_("songGenForm.songTypes.spinoff"), value: ENUM_SONG_TYPE.spinOff },
+        { label: $_("songGenForm.songTypes.mashup"), value: ENUM_SONG_TYPE.mashup },
       ]}
       bind:selected={formData.songType}
     />

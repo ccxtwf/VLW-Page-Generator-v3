@@ -89,10 +89,11 @@
     },
     "songTypes": {
       "label": "Song Type",
-      "tooltip": "<p>Cover songs are only allowed on the wiki if they feature a singing vocal synth and have at least 1,000,000+ views.</p><p>A spin-off is a vocal synth song that uses the same composition as another vocal synth song but has significantly different lyrics. Spin-offs do not need 1,000,000 views to be added, but the vast majority of the lyrics have to be different in order to warrant a new page. Unofficial remixes, rearranges, and mashups do not qualify.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Song_Article_Guideline#Covers\" target=\"_blank\" rel=\"noopener noreferrer\">§ Covers</a> on our Song Article Guideline for more information.</p>",
+      "tooltip": "<p>Cover songs are only allowed on the wiki if they feature a singing vocal synth and have at least 1,000,000+ views.</p><p>A spin-off is a vocal synth song that uses the same composition as another vocal synth song but has significantly different lyrics.</p><p>A mashup/medley is a song that blends two or more existing songs together. Only official mashups or medleys should be added.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Song_Article_Guideline#Covers\" target=\"_blank\" rel=\"noopener noreferrer\">§ Covers</a> on our Song Article Guideline for more information.</p>",
       "original": "Original song",
       "cover": "Cover song",
-      "spinoff": "Spin-off"
+      "spinoff": "Spin-off",
+      "mashup": "Mashup/Medley"
     },
     "lyrics": {
       "label": "Lyrics",
