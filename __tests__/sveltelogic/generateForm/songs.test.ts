@@ -14,7 +14,7 @@ describe("Generate song pages", () => {
   test("Empty form state", () => {
     const formData = new Song();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "''''''"
@@ -35,6 +35,7 @@ describe("Generate song pages", () => {
 |}`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
   });
 
   test("Should truncate lyrics", () => {
@@ -49,7 +50,7 @@ describe("Generate song pages", () => {
       ],
     });
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "''''''"
@@ -78,6 +79,7 @@ describe("Generate song pages", () => {
 |}`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
   });
 
   test("Japanese song", () => {
@@ -128,7 +130,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -175,6 +177,7 @@ describe("Generate song pages", () => {
 [[Category:wowaka songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ローリングガール (Rooringu Gaaru)");
   });
 
   test.each([
@@ -245,7 +248,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, _] = generatePage(formData);
 
     const expected = `{{sort}}${o}
 {{Infobox Song
@@ -349,7 +352,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -397,6 +400,7 @@ describe("Generate song pages", () => {
 [[Category:苏 songs list/Lyrics]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("过得好 (Guò dé Hǎo)");
   });
 
   test("Chinese song with alt Simplified title", () => {
@@ -469,7 +473,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -517,6 +521,7 @@ describe("Generate song pages", () => {
 [[Category:苏 songs list/Lyrics]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("過得好 (Guò dé Hǎo)");
   });
 
   test("Indonesian song", () => {
@@ -566,7 +571,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "'''Bengawan Solo'''"<br />Official English: Solo River
@@ -609,6 +614,7 @@ describe("Generate song pages", () => {
 [[Category:Budi Promono songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("Bengawan Solo");
   });
 
   test("English song", () => {
@@ -652,7 +658,7 @@ describe("Generate song pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "'''ECHO the World'''"
@@ -679,5 +685,6 @@ IJKL</poem>
 [[Category:Jane Doe songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
   });
 });

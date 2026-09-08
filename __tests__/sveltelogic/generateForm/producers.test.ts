@@ -11,7 +11,7 @@ describe("Generate producer pages", () => {
   test("Empty form state", () => {
     const formData = new Producer();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `<div class="producer-links">
 [[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
@@ -42,6 +42,7 @@ describe("Generate producer pages", () => {
 [[Category:Producers]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
   });
 
   test("Simple", () => {
@@ -97,7 +98,7 @@ describe("Generate producer pages", () => {
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `<div class="producer-links">
 [[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
@@ -162,6 +163,7 @@ PinocchioP is a prolific VOCALOID producer.
 [[Category:Producers using UTAU]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("PinocchioP");
   });
 
   test("Split discography", () => {
@@ -222,7 +224,7 @@ PinocchioP is a prolific VOCALOID producer.
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `<div class="producer-links">
 [[File:<PRODUCER PROFILE PICTURE IMAGE FILE>|250px|center]]
@@ -291,5 +293,6 @@ PinocchioP is a prolific VOCALOID producer.
 [[Category:Producers using UTAU]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("PinocchioP");
   });
 });
