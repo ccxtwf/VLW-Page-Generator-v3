@@ -255,7 +255,7 @@ ${lyricsSegment}
 ${extLinksSegment}${categories!.map((cat) => `[[Category:${cat}]]`).join("\n")}`.trim();
 
   let title = origTitle;
-  if (title && romTitle) {
+  if (title && langMetadata.needsRomanization && romTitle) {
     title += ` (${romTitle})`;
   }
 
