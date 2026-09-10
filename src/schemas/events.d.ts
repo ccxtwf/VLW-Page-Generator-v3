@@ -1,5 +1,9 @@
+import type { DaisyUiTheme, HandsontableTheme } from "../lib/utils/themeUtils";
+
 export interface ThemeChangedEventPayload {
-  theme: "auto" | "light" | "dark";
+  theme: DaisyUiTheme;
+  htTheme: HandsontableTheme;
+  isDarkMode: boolean;
 }
 
 export interface LyricsParsePayload {

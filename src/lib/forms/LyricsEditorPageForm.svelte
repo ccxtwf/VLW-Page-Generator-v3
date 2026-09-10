@@ -7,6 +7,7 @@
   import Divider from "../components/reusables/Divider.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import Glossary from "../components/reusables/Glossary.svelte";
+  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
   import LyricsFreeEditTable from "../components/handsontables/LyricsFreeEditTable.svelte";
 
   import {
@@ -78,7 +79,7 @@
       {$_("lyricsEditor.fields.lyricsToggleWikitext.label")}
     </label>
   </div>
-  <div class="flex w-full flex-col gap-2 sm:flex-row">
+  <div class="flex w-full flex-col items-center gap-x-2 gap-y-4 sm:flex-row">
     <SimpleTextInput
       id="lyrics-toggle-wikitext"
       placeholder={$_("lyricsEditor.fields.lyricsToggleWikitext.placeholder")}
@@ -88,6 +89,9 @@
         toggleText = e.currentTarget?.value || "";
       }}
     />
+    <div class="ml-auto">
+      <ThemeToggle />
+    </div>
   </div>
 
   <LyricsFreeEditTable

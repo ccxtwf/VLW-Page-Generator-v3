@@ -8,6 +8,10 @@
     "lyricsEditor": "Lyrics Editor"
   },
   "themeSelector": "Theme",
+  "themes": {
+    "light": "Light",
+    "dark": "Dark"
+  },
   "formActions": {
     "preload": "Preload",
     "autoloadCategories": "Autoload",

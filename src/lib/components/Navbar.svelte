@@ -1,6 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import { currentRoute, ROUTES } from "../router";
+  import ThemeNavbarDropdown from "./reusables/ThemeNavbarDropdown.svelte";
 
   let show = $state(false);
 
@@ -14,26 +15,6 @@
     }
     prevScrollPos = currentScrollPos;
   };
-
-  async function setTheme(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-    // console.log(e.currentTarget.value, e.currentTarget.checked);
-    const theme = (() => {
-      switch (e.currentTarget.value) {
-        case "dark":
-          return "dark";
-        case "corporate":
-          return "light";
-        default:
-          return "auto";
-      }
-    })();
-    window._theme = theme;
-    window.dispatchEvent(
-      new CustomEvent("themeChanged", {
-        detail: { theme },
-      }),
-    );
-  }
 </script>
 
 <header
@@ -105,45 +86,7 @@
       </ul>
     </div>
     <div class="navbar-end">
-      <div class="dropdown dropdown-bottom dropdown-end">
-        <div
-          tabindex="0"
-          role="button"
-          class="btn btn-ghost text-neutral-content hover:text-base-content m-1"
-        >
-          {$_("themeSelector")}
-          <svg
-            width="12px"
-            height="12px"
-            class="inline-block h-2 w-2 fill-current opacity-60"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 2048 2048"
-          >
-            <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
-          </svg>
-        </div>
-        <ul
-          tabindex="-1"
-          class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
-        >
-          {let themes = [
-            { theme: "corporate", label: "Light" },
-            { theme: "dark", label: "Dark" },
-          ]}
-          {#each themes as { theme, label }}
-            <li>
-              <input
-                type="radio"
-                name="theme-dropdown"
-                class="theme-controller btn btn-sm btn-block btn-ghost w-full justify-start"
-                aria-label={label}
-                value={theme}
-                onchange={setTheme}
-              />
-            </li>
-          {/each}
-        </ul>
-      </div>
+      <ThemeNavbarDropdown />
     </div>
   </div>
 </header>

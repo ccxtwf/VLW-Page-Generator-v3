@@ -117,7 +117,7 @@
   }
 
   const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
-    hot?.updateSettings({ theme: getTheme(event.detail.theme) });
+    hot?.updateSettings({ theme: getTheme(event.detail.htTheme) });
   };
 
   onMount(() => {

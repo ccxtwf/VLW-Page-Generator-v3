@@ -42,6 +42,7 @@
   import { getLanguageMetadata } from "../utils/lyricsUtils";
   import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
   import type { SongPageValidationErrorType } from "../validationErrors/types";
+  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
@@ -494,7 +495,11 @@
     labelI18nKey="songGenForm.lyrics.label"
     tooltipI18nKey="songGenForm.lyrics.tooltip"
     required={true}
-  />
+  >
+    <div class="ml-auto">
+      <ThemeToggle />
+    </div>
+  </FlexRow>
   {let lyricsDataNorm = $derived(
     formData.lyrics.map(({ customStyle, original, romanized, english }) => [
       customStyle,
