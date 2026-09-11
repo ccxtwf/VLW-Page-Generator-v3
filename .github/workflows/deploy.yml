@@ -85,7 +85,7 @@ jobs:
           # major (breaking) change, supports regular expressions wrapped with '/'
           major_pattern: "/!:|BREAKING CHANGE:/"
           # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
-          minor_pattern: "/FEAT:(\\(.+\\))?:/"
+          minor_pattern: "/feat:(\\(.+\\))?:/"
 
           # bump semver only on changes to src/
           change_path: "src"
