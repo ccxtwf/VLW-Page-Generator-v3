@@ -9,7 +9,7 @@ Forms:
 - [Song page generator](https://ccxtwf.github.io/VLW-Page-Generator-v3/#/songs)
 - [Album page generator](https://ccxtwf.github.io/VLW-Page-Generator-v3/#/albums)
 - [Producer page generator](https://ccxtwf.github.io/VLW-Page-Generator-v3/#/producers)
-- [Lyrics editor](<>)
+- [Lyrics editor](https://ccxtwf.github.io/VLW-Page-Generator-v3/#/lyrics-editor)
 
 ## Getting Started for Development
 
