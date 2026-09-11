@@ -148,6 +148,18 @@ export function renderListInWikiInternalLinkMarkup(s: string) {
 }
 
 /**
+ * Reset the value of a group of &lt;input type="radio"> elements by native DOM
+ * manipulation when Svelte's data-binding fails.
+ *
+ * @param containerId
+ * @param defaultValue
+ */
+export function resetRadioInputGroup(containerId: string, defaultValue: string | number) {
+  const selector = `#${containerId} input[value="${defaultValue}"]`;
+  (document.querySelector(selector)! as HTMLInputElement).checked = true;
+}
+
+/**
  *
  * @param s
  * @returns

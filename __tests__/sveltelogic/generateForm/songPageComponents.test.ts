@@ -1,12 +1,12 @@
 import { describe, expect, test } from "vite-plus/test";
 
-import Song from "../../../src/lib/models/Song.svelte";
-import { buildSongPageComponents } from "../../../src/lib/logic/songs.svelte";
+import Song from "#src/lib/models/Song.svelte.ts";
+import { buildSongPageComponents } from "#src/lib/logic/songs.svelte.ts";
 
-import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
+import PlayLink from "#src/lib/models/children/PlayLink.svelte.ts";
 
-import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../../src/lib/models/enums";
-import { getLanguageMetadata } from "../../../src/lib/utils/lyricsUtils";
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "#src/lib/models/enums.ts";
+import { getLanguageMetadata } from "#src/lib/utils/lyricsUtils.ts";
 import { mapLanguages } from "../../mapper";
 
 describe("Generate song page components", () => {
@@ -775,26 +775,91 @@ describe("Generate song page components", () => {
     });
   });
 
-  test("general information", () => {
-    const song = new Song({
-      singers: "[[Hatsune Miku (VOCALOID)]]\n<small>[[Kagamine Rin (VOCALOID)]]</small>",
-      producers: "[[John Doe]] (music)\n[[Jack Doe]] (lyrics)\n[[Jane Doe]] (video)",
-      description: "Line 1\nLine 2\n\nLine 3",
-    });
-    const langMetadata = {
-      headers: ["Original", "Romanized", "English"],
-      needsRomanization: true,
-      needsTranslation: true,
-      isChinese: false,
-      isoLangCode: null,
-    };
-    const res = buildSongPageComponents(song, langMetadata);
-    expect(res).toEqual({
-      displayTitle: "",
-      sort: "",
-      unavailable: "",
-      cw: "",
-      infobox: `{{Infobox Song
+  test.each([
+    {
+      d: "single-line credits without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "single-line credits with single-line description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        description: "Line 1",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Line 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "multiple-line credits without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]\n<small>[[Kagamine Rin (VOCALOID)]]</small>",
+        producers: "[[John Doe]] (music)\n[[Jack Doe]] (lyrics)\n[[Jane Doe]] (video)",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]<br /><small>[[Kagamine Rin (VOCALOID)]]</small>
+|producer = [[John Doe]] (music)<br />[[Jack Doe]] (lyrics)<br />[[Jane Doe]] (video)
+|#views = N/A
+|link = N/A
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "multiple-line credits with multi-line description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]\n<small>[[Kagamine Rin (VOCALOID)]]</small>",
+        producers: "[[John Doe]] (music)\n[[Jack Doe]] (lyrics)\n[[Jane Doe]] (video)",
+        description: "Line 1\nLine 2\n\nLine 3",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
 |songtitle = "''''''"
 |color = black; color:white
 |original upload date = {{DateUnknown}}
@@ -805,6 +870,390 @@ describe("Generate song page components", () => {
 |description = Line 1<br />Line 2<br /><br />Line 3
 |language = 
 }}`,
-    });
+      },
+    },
+    {
+      d: "demo song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isDemonstration: true,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|demo = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "cover song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.cover,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|cover = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "spinoff song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.spinOff,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|spinoff = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "demo cover song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.cover,
+        isDemonstration: true,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|cover = 1
+|demo = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "mashup song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.mashup,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|mashup = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "album-only song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isAlbumOnly: true,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|album-only = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "spinoff album-only song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isAlbumOnly: true,
+        songType: ENUM_SONG_TYPE.spinOff,
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|spinoff = 1
+|album-only = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "demo song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isDemonstration: true,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|demo = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "cover song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.cover,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|cover = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "spinoff song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.spinOff,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|spinoff = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "demo cover song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.cover,
+        isDemonstration: true,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|cover = 1
+|demo = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "mashup song without description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        songType: ENUM_SONG_TYPE.mashup,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|mashup = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "album-only song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isAlbumOnly: true,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|album-only = 1
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "spinoff album-only song with description",
+      i: {
+        singers: "[[Hatsune Miku (VOCALOID)]]",
+        producers: "[[John Doe]] (music)",
+        isAlbumOnly: true,
+        songType: ENUM_SONG_TYPE.spinOff,
+        description: "Lorem ipsum dolor sit amet",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[John Doe]] (music)
+|#views = N/A
+|link = N/A
+|description = Lorem ipsum dolor sit amet
+|spinoff = 1
+|album-only = 1
+|language = 
+}}`,
+      },
+    },
+  ])("general information - $d", ({ i, o }) => {
+    const song = new Song(i);
+    const langMetadata = {
+      headers: ["Original", "Romanized", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isChinese: false,
+      isoLangCode: null,
+    };
+    const res = buildSongPageComponents(song, langMetadata);
+    expect(res).toEqual(o);
   });
 });

@@ -22,3 +22,13 @@ body {
   vertical-align: super;
   color: var(--color-info);
 }
+
+/* theme toggle */
+.lyrics-theme-toggle.theme-toggled .sun-icon,
+.lyrics-theme-toggle .moon-icon {
+  @apply opacity-30;
+}
+.lyrics-theme-toggle .sun-icon,
+.lyrics-theme-toggle.theme-toggled .moon-icon {
+  @apply opacity-100;
+}

@@ -4,7 +4,7 @@ import {
   decapitalizeRomanization,
   detonePinyinLyrics,
   standardizeHepburnRomanization,
-} from "../../../src/lib/utils/lyricsEditFormActions";
+} from "#src/lib/utils/lyricsEditFormActions.ts";
 
 describe("lyricsEditActions", () => {
   test("consolidateCellInlineColourFormatting", () => {

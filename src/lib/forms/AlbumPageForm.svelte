@@ -21,27 +21,30 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/albums.svelte";
+  import {
+    generatePage,
+    autoloadCategories,
+    fetchDataFromVocaDb,
+    validate,
+  } from "../logic/albums.svelte";
 
   import Album from "../models/Album.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
   import { MONTHS } from "../../constants";
+  import type { AlbumPageValidationErrorType } from "../validationErrors/types";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);
 
-  /* oxlint-disable no-unassigned-vars */
-  let form: HTMLFormElement;
-  let warningsElement: SvelteComponent;
-  let tracklistHotTable: SvelteComponent;
-  let extLinksHotTable: SvelteComponent;
-  /* oxlint-enable no-unassigned-vars */
+  let warningsElement: SvelteComponent | null = null;
+  let tracklistHotTable: SvelteComponent | null = null;
+  let extLinksHotTable: SvelteComponent | null = null;
 
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const resetWarnings = () => {
-    resetFormWarnings(form);
+    resetFormWarnings(document.querySelector('form[name="album-generator"]')!);
     warningsElement!.resetState();
   };
 
@@ -65,22 +68,16 @@
       }
     }
   };
-  const handleFormSubmit = formSubmitHandler<Album>({
+  const handleFormSubmit = formSubmitHandler<Album, AlbumPageValidationErrorType>({
     resetWarnings,
     fetchLatestSnapshot() {
       formData.tracklist = tracklistHotTable!.getLatestData();
       formData.extLinks = extLinksHotTable!.getLatestData();
       return [$state.snapshot(ignoreErrors), formData];
     },
+    validate,
     generate(formData) {
-      const output = generatePage(formData);
-      let title = formData.origTitle;
-      if (title && formData.romTitle) {
-        title += ` (${formData.romTitle})`;
-      }
-      if (title) {
-        title += " (album)";
-      }
+      const [output, title] = generatePage(formData);
       ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
@@ -107,12 +104,16 @@
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleFormSubmit}
   onreset={handleFormReset}
-  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
-    labelI18nKey="albumGenForm.preloadVocaDb.label"
-    tooltipI18nKey="albumGenForm.preloadVocaDb.tooltip"
+    labelI18nKey="preloadVocaDb.label"
+    tooltipI18nKey="preloadVocaDb.tooltip"
+    tooltipI18nParams={{
+      type: "album page",
+      slug: "Al/21149",
+      caption: $_("albumGenForm.vdbPlaceholder"),
+    }}
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}

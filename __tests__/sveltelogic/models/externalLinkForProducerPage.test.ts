@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { IExternalLinkForProducerPage } from "../../../src/lib/models/schema.d";
-import ExternalLink from "../../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
+import type { IExternalLinkForProducerPage } from "#src/lib/models/schema.d.ts";
+import ExternalLink from "#src/lib/models/children/ExternalLinkForProducerPage.svelte.ts";
 
 describe("test state management logic for ExternalLink", () => {
   test.each([

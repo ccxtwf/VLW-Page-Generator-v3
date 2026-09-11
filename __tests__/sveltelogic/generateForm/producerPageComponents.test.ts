@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vite-plus/test";
 
-import { getUnofficialProdLinks } from "../../../src/lib/logic/producers.svelte";
-import ExternalLinkForProducerPage from "../../../src/lib/models/children/ExternalLinkForProducerPage.svelte";
+import { getUnofficialProdLinks } from "#src/lib/logic/producers.svelte.ts";
+import ExternalLinkForProducerPage from "#src/lib/models/children/ExternalLinkForProducerPage.svelte.ts";
 
 describe("Generate producer page components", () => {
   test("Empty state", () => {

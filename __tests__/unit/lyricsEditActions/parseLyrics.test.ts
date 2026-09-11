@@ -2,7 +2,7 @@ import { describe, expect, test } from "vite-plus/test";
 import {
   extractLyricsTablesFromWikipageSrc,
   parseLyrics,
-} from "../../../src/lib/utils/lyricsEditFormActions";
+} from "#src/lib/utils/lyricsEditFormActions.ts";
 
 describe("parseLyrics", () => {
   test.each([

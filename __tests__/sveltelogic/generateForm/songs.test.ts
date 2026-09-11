@@ -1,20 +1,20 @@
 import { describe, expect, test } from "vite-plus/test";
 import { mapLanguages } from "../../mapper";
 
-import Song from "../../../src/lib/models/Song.svelte";
-import { generatePage } from "../../../src/lib/logic/songs.svelte";
+import Song from "#src/lib/models/Song.svelte.ts";
+import { generatePage } from "#src/lib/logic/songs.svelte.ts";
 
-import LyricRow from "../../../src/lib/models/children/LyricsRow.svelte";
-import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
-import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
+import LyricRow from "#src/lib/models/children/LyricsRow.svelte.ts";
+import PlayLink from "#src/lib/models/children/PlayLink.svelte.ts";
+import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
 
-import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../../../src/lib/models/enums";
+import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "#src/lib/models/enums.ts";
 
 describe("Generate song pages", () => {
   test("Empty form state", () => {
     const formData = new Song();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "''''''"
@@ -32,9 +32,54 @@ describe("Generate song pages", () => {
 {| {{lyrics table class}}
 |- class="lyrics-table-header"
 ! {{lyrics header}}
-${"|-\n|<br />\n".repeat(20)}|}`;
+|}`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
+  });
+
+  test("Should truncate lyrics", () => {
+    const formData = new Song({
+      lyrics: [
+        { customStyle: "", original: "foo", romanized: "bar", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "bar", romanized: "baz", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+        { customStyle: "", original: "", romanized: "", english: "" },
+      ],
+    });
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|-
+|foo
+|bar
+|-
+|<br />
+|-
+|bar
+|baz
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
   });
 
   test("Japanese song", () => {
@@ -85,7 +130,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -132,6 +177,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
 [[Category:wowaka songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ローリングガール (Rooringu Gaaru)");
   });
 
   test.each([
@@ -202,7 +248,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, _] = generatePage(formData);
 
     const expected = `{{sort}}${o}
 {{Infobox Song
@@ -306,7 +352,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -354,6 +400,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
 [[Category:苏 songs list/Lyrics]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("过得好 (Guò dé Hǎo)");
   });
 
   test("Chinese song with alt Simplified title", () => {
@@ -426,7 +473,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{sort}}
 {{Infobox Song
@@ -474,6 +521,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
 [[Category:苏 songs list/Lyrics]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("過得好 (Guò dé Hǎo)");
   });
 
   test("Indonesian song", () => {
@@ -523,7 +571,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "'''Bengawan Solo'''"<br />Official English: Solo River
@@ -566,6 +614,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
 [[Category:Budi Promono songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("Bengawan Solo");
   });
 
   test("English song", () => {
@@ -609,7 +658,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`;
     });
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Infobox Song
 |songtitle = "'''ECHO the World'''"
@@ -636,5 +685,168 @@ IJKL</poem>
 [[Category:Jane Doe songs list]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
   });
+});
+
+describe("Generate song pages - Edge cases", () => {
+  test("The romanized title should not be considered if the song is set to a language that does not need romanization", () => {
+    const formData = new Song({
+      languages: mapLanguages("Indonesian"),
+      origTitle: "ECHO the World",
+      romTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = Indonesian
+}}
+
+==Lyrics==
+{{lyrics toggle|id:Indonesian}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test("The English title should not be considered if the song is set to a language that does not need translation", () => {
+    const formData = new Song({
+      languages: mapLanguages("English"),
+      origTitle: "ECHO the World",
+      engTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = English
+}}
+
+==Lyrics==
+<poem></poem>`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test("The alt Chinese title should not be considered if the song is set to a language that is not one of the Chinese languages", () => {
+    const formData = new Song({
+      languages: mapLanguages("Japanese"),
+      origTitle: "ECHO the World",
+      altChTitle: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = Japanese
+}}
+
+==Lyrics==
+{{lyrics toggle|jp:Japanese|rom:Romaji}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
+
+  test('The questionable CW text should not be considered if the dropdown option is set to "No warnings"', () => {
+    const formData = new Song({
+      cwState: ENUM_CW_STATES.noWarnings,
+      cwText: "This should not appear",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
+  });
+
+  test.each([
+    { aiWarningText1: "this should not appear" },
+    { aiWarningText2: "this should not appear" },
+  ])(
+    'The AI usage CW text should not be considered if the dropdown option is set to "No warnings"',
+    (args) => {
+      const formData = new Song({
+        aiCwState: ENUM_AI_WARNING_TYPE.none,
+        ...args,
+      });
+      formData.preprocess();
+
+      const [page, outputTitle] = generatePage(formData);
+
+      const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+      expect(page).toEqual(expected);
+      expect(outputTitle).toEqual("");
+    },
+  );
 });

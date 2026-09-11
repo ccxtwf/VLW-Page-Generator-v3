@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { IAlbumBroadcastLink } from "../../../src/lib/models/schema.d";
-import AlbumBroadcastLink from "../../../src/lib/models/children/AlbumBroadcastLink.svelte";
+import type { IAlbumBroadcastLink } from "#src/lib/models/schema.d.ts";
+import AlbumBroadcastLink from "#src/lib/models/children/AlbumBroadcastLink.svelte.ts";
 
 describe("test state management logic for AlbumBroadcastLink", () => {
   test.each([

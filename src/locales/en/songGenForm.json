@@ -1,12 +1,9 @@
 {
   "songGenForm": {
-    "preloadVocaDb": {
-      "label": "Preload Song",
-      "tooltip": "Input the URL to the VocaDB song page here.\n\n<br/><br/>e.g. <a class=\"link\" href=\"https://vocadb.net/S/1501\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/S/1501</a> Rolling Girl"
-    },
+    "vdbPlaceholder": "Rolling Girl",
     "genAiWarning": {
       "label": "GenAI Warning",
-      "tooltip": "Add a notice warning for usage of generative AI to the top of page.<br/><br/>Be sure to include the source attributing the usage of generative AI for verified cases (e.g. video description, producer comment, etc.), or an explanation detailing inconsistencies that raise credible suspicion of generative AI usage for non-verified cases.",
+      "tooltip": "<p>Add a notice warning for usage of generative AI to the top of page.</p><p>Be sure to include the source attributing the usage of generative AI for verified cases (e.g. video description, producer comment, etc.), or an explanation detailing inconsistencies that raise credible suspicion of generative AI usage for non-verified cases.</p>",
       "dropdownOptions": {
         "none": "N/A",
         "verified": "Verified",
@@ -17,10 +14,11 @@
     },
     "contentWarning": {
       "label": "Content Warnings",
-      "tooltip": "Add content warnings to the top of page.<br/><br/>You are required to add the justification for adding a content warning, e.g. if it contains violent/sexual content, or if it deals with mature themes.",
+      "tooltip": "<p>Add content warnings to the top of page.</p><p>Setting a song as NSFW will automatically place the song page behind an NSFW content warning popup and hide the lyrics behind a toggle.</p><p>You are required to add the justification for adding a content warning, e.g. if it contains violent/sexual content.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Warning_Templates_Guideline#Content_Warnings\" target=\"_blank\" rel=\"noopener noreferrer\">§ Content Warnings</a> on our Warning Templates Guideline for more information.</p>",
       "dropdownOptions": {
         "none": "No warnings",
-        "hasWarning": "Questionable"
+        "hasWarning": "Questionable",
+        "nsfw": "NSFW Warning"
       },
       "placeholder": "e.g. violence/gore/sexual content",
       "epilepticWarningCheckboxLabel": "Epileptic Warning"
@@ -32,7 +30,7 @@
     },
     "languageIsoCode": {
       "label": "Language ISO Code",
-      "tooltip": "The ISO Language of the original lyrics, used to ensure proper rendering of the lyrics column (refer to this <a class=\"link\" href='https://meta.miraheze.org/wiki/User:PetraMagna/Why_you_should_use_language_attributes' target='_blank' rel='noopener noreferrer'>blogpost</a> for more details on how this works).<br /><br />List of ISO Language Codes: <a class=\"link\" href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank' rel='noopener noreferrer'>[W3Schools]</a> <a class=\"link\" href='https://www.loc.gov/standards/iso639-2/php/code_list.php' target='_blank' rel='noopener noreferrer'>[Library of Congress]</a>",
+      "tooltip": "<p>The ISO Language of the original lyrics, used to ensure proper rendering of the lyrics column (refer to this <a class=\"link link-accent\" href='https://meta.miraheze.org/wiki/User:PetraMagna/Why_you_should_use_language_attributes' target='_blank' rel='noopener noreferrer'>blogpost</a> for more details on how this works).</p><p>List of ISO Language Codes: <a class=\"link link-accent\" href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank' rel='noopener noreferrer'>[W3Schools]</a> <a class=\"link link-accent\" href='https://www.loc.gov/standards/iso639-2/php/code_list.php' target='_blank' rel='noopener noreferrer'>[Library of Congress]</a></p>",
       "placeholder": "ja"
     },
     "originalTitle": {
@@ -64,11 +62,11 @@
     },
     "singers": {
       "label": "Singer(s)",
-      "tooltip": "Markup for singer(s), e.g.:<br/>[[Kagamine Rin (VOCALOID)]] and [[Kagamine Len (VOCALOID)]]<br/><br/>Be sure to check whether the correct singer category has been put in."
+      "tooltip": "<p>Markup for singer(s), e.g.:</p><p>[[Kagamine Rin (VOCALOID)]] and [[Kagamine Len (VOCALOID)]]</p><p>Be sure to check whether the correct singer category has been put in.</p>"
     },
     "producers": {
       "label": "Producer(s)",
-      "tooltip": "Markup for producer(s), one per line, e.g.:<br/>[[Tanaka Kazuto]] (music, lyrics)<br/>Pikucha (illustration)<br/><br/>Categories will be loaded automatically based on the markup."
+      "tooltip": "<p>Markup for producer(s), one per line, e.g.:</p><p>[[Tanaka Kazuto]] (music, lyrics)<br/>Pikucha (illustration)</p><p>Categories will be loaded automatically based on the markup.</p>"
     },
     "description": {
       "label": "Description",
@@ -76,7 +74,7 @@
     },
     "broadcastLinks": {
       "label": "Broadcast Links",
-      "tooltip": "Links to play song, one per line.<br/>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com<br /><br />The Vocaloid Lyrics Wiki supports a variety of services that may not be included in this table. Refer to the section <a class=\"link\" href=\"{domain}Template:Iconlinks#All_Recognized_Website_Domains\" target=\"_blank\" rel=\"noopener noreferrer\">§ All Recognized Website Domains</a> on our template documentation to find out more.<br/><br/>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).",
+      "tooltip": "<p>Links to play song, one per line.</p><p>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com</p><p>The Vocaloid Lyrics Wiki supports a variety of services that may not be included in this table. Refer to the section <a class=\"link link-accent\" href=\"{domain}Template:Iconlinks#All_Recognized_Website_Domains\" target=\"_blank\" rel=\"noopener noreferrer\">§ All Recognized Website Domains</a> on our template documentation to find out more.</p><p>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).</p>",
       "headers": {
         "site": "Site",
         "url": "URL",
@@ -86,11 +84,20 @@
         "viewCount": "View Count"
       },
       "isAlbumOnlyCheckboxLabel": "Song is an album-only release",
-      "isUnavailable": "Song is publically unavailable"
+      "isUnavailable": "Song is publically unavailable",
+      "isDemonstration": "Song is a vocal synth demo"
+    },
+    "songTypes": {
+      "label": "Song Type",
+      "tooltip": "<p>Cover songs are only allowed on the wiki if they feature a singing vocal synth and have at least 1,000,000+ views.</p><p>A spin-off is a vocal synth song that uses the same composition as another vocal synth song but has significantly different lyrics.</p><p>A mashup/medley is a song that blends two or more existing songs together. Only official mashups or medleys should be added.</p><p>Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Song_Article_Guideline#Covers\" target=\"_blank\" rel=\"noopener noreferrer\">§ Covers</a> on our Song Article Guideline for more information.</p>",
+      "original": "Original song",
+      "cover": "Cover song",
+      "spinoff": "Spin-off",
+      "mashup": "Mashup/Medley"
     },
     "lyrics": {
       "label": "Lyrics",
-      "tooltip": "Copy & paste original, transliterated and translated lyrics here.<br/><br/>Apply custom styles by adding in-line CSS rules to the first column of this table, e.g.<br /><code>color:red;</code><br /><code>font-weight:bold;</code><br /><code>font-size:1.2rem;</code>"
+      "tooltip": "<p>Copy & paste original, transliterated and translated lyrics here.</p><p>Apply custom styles by adding in-line CSS rules to the first column of this table, e.g.</p><p><code>color:red;</code></p><p><code>font-weight:bold;</code></p><p><code>font-size:1.2rem;</code></p>"
     },
     "translator": {
       "label": "Translator",
@@ -100,7 +107,7 @@
     },
     "categories": {
       "label": "Categories",
-      "tooltip": "Category names, one per line, e.g.:<br/>wowaka songs list<br/>Demonstrations<br/><br/>Click the Autoload button to generate categories automatically based on producer credits. Song series categories, if necessary, should be added manually."
+      "tooltip": "<p>Category names, one per line, e.g.:</p><p>wowaka songs list</p><p>Click the Autoload button to generate categories automatically based on producer credits. Song series categories, if necessary, should be added manually.</p>"
     }
   }
 }

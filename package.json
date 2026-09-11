@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "imports": {
+    "#src/*": "./src/*",
+    "#components/*": "./src/lib/components/*.ts",
+    "#forms/*": "./src/lib/forms/*.ts",
+    "#pages/*": "./src/lib/pages/*.ts",
+    "#i18n/*": "./src/locales/*.ts"
+  },
   "scripts": {
     "dev": "vp dev",
     "build": "vp build",

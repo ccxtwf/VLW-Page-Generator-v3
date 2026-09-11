@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { IProducerDiscographySongItem } from "../../../src/lib/models/schema.d";
-import ProducerDiscographySongItem from "../../../src/lib/models/children/ProducerDiscographySongItem.svelte";
+import type { IProducerDiscographySongItem } from "#src/lib/models/schema.d.ts";
+import ProducerDiscographySongItem from "#src/lib/models/children/ProducerDiscographySongItem.svelte.ts";
 
 describe("test state management logic for ProducerDiscographySongItem", () => {
   test.each([

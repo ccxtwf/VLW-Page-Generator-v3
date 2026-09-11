@@ -24,21 +24,29 @@
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES } from "../models/enums";
+  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
 
-  import { generatePage, autoloadCategories, fetchDataFromVocaDb } from "../logic/songs.svelte";
+  import {
+    generatePage,
+    autoloadCategories,
+    fetchDataFromVocaDb,
+    validate,
+  } from "../logic/songs.svelte";
 
   import Song from "../models/Song.svelte";
   import { formSubmitHandler, resetFormWarnings } from "../logic";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
 
+  import { resetRadioInputGroup } from "../utils/utils";
   import { getLanguageMetadata } from "../utils/lyricsUtils";
+  import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
+  import type { SongPageValidationErrorType } from "../validationErrors/types";
+  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
 
-  let form: HTMLFormElement; //oxlint-disable-line no-unassigned-vars
   let warningsElement: SvelteComponent | null = null;
   let broadcastLinksHotTable: SvelteComponent | null = null;
   let extLinksHotTable: SvelteComponent | null = null;
@@ -49,7 +57,7 @@
   let { ongenerate }: { ongenerate: (output: string, title: string) => void } = $props();
 
   const resetWarnings = () => {
-    resetFormWarnings(form);
+    resetFormWarnings(document.querySelector('form[name="song-generator"]')!);
     warningsElement!.resetState();
   };
 
@@ -73,8 +81,9 @@
       }
     }
   };
-  const handleFormSubmit = formSubmitHandler<Song>({
+  const handleFormSubmit = formSubmitHandler<Song, SongPageValidationErrorType>({
     resetWarnings,
+    validate,
     fetchLatestSnapshot() {
       formData.playLinks = broadcastLinksHotTable!.getLatestData();
       formData.lyrics = lyricsHotTable!.getLatestData();
@@ -82,11 +91,7 @@
       return [$state.snapshot(ignoreErrors), formData];
     },
     generate(formData) {
-      const output = generatePage(formData);
-      let title = formData.origTitle;
-      if (title && formData.romTitle) {
-        title += ` (${formData.romTitle})`;
-      }
+      const [output, title] = generatePage(formData);
       ongenerate(output, title);
     },
     displayWarningsAndErrors(errors, warnings, autoloadCategories) {
@@ -97,9 +102,13 @@
     resetWarnings();
     formData.updateState({
       altChIsTraditional: true,
+      songType: ENUM_SONG_TYPE.original,
       images: [],
       languages: [],
     });
+    setTimeout(() => {
+      resetRadioInputGroup("song-page-type", ENUM_SONG_TYPE.original);
+    }, 0);
     formData.resetHotTables();
   };
   const handleAutoloadCategories = () => {
@@ -113,16 +122,43 @@
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleFormSubmit}
   onreset={handleFormReset}
-  bind:this={form}
 >
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
-    labelI18nKey="songGenForm.preloadVocaDb.label"
-    tooltipI18nKey="songGenForm.preloadVocaDb.tooltip"
+    labelI18nKey="preloadVocaDb.label"
+    tooltipI18nKey="preloadVocaDb.tooltip"
+    tooltipI18nParams={{
+      type: "song page",
+      slug: "S/1501",
+      caption: $_("songGenForm.vdbPlaceholder"),
+    }}
   >
     <PreloadFromVocaDBInput
       onfetch={handleFetchVocaDb}
       placeholder="https://vocadb.net/S/..."
+    />
+  </FlexRow>
+
+  <Divider />
+
+  <FlexRow
+    labelForHtmlId="song-page-type"
+    labelI18nKey="songGenForm.songTypes.label"
+    tooltipI18nKey="songGenForm.songTypes.tooltip"
+    tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
+  >
+    <SimpleRadioGroup
+      class="col-span-full px-2 py-3 text-xs sm:text-base"
+      labelClass="w-full sm:basis-1/4"
+      id="song-page-type"
+      name="song-page-type"
+      options={[
+        { label: $_("songGenForm.songTypes.original"), value: ENUM_SONG_TYPE.original },
+        { label: $_("songGenForm.songTypes.cover"), value: ENUM_SONG_TYPE.cover },
+        { label: $_("songGenForm.songTypes.spinoff"), value: ENUM_SONG_TYPE.spinOff },
+        { label: $_("songGenForm.songTypes.mashup"), value: ENUM_SONG_TYPE.mashup },
+      ]}
+      bind:selected={formData.songType}
     />
   </FlexRow>
 
@@ -185,6 +221,7 @@
           {const genAiDropdownOptions = [
             { value: ENUM_CW_STATES.noWarnings, i18nKey: "none" },
             { value: ENUM_CW_STATES.questionable, i18nKey: "hasWarning" },
+            { value: ENUM_CW_STATES.isNsfw, i18nKey: "nsfw" },
           ]}
           {#each genAiDropdownOptions as { value, i18nKey }}
             <option {value}>
@@ -443,6 +480,13 @@
         label={$_("songGenForm.broadcastLinks.isUnavailable")}
       />
     </div>
+    <div class="basis-1/2">
+      <SimpleCheckbox
+        id="is-demonstration"
+        bind:checked={formData.isDemonstration}
+        label={$_("songGenForm.broadcastLinks.isDemonstration")}
+      />
+    </div>
   </div>
 
   <Divider />
@@ -451,7 +495,11 @@
     labelI18nKey="songGenForm.lyrics.label"
     tooltipI18nKey="songGenForm.lyrics.tooltip"
     required={true}
-  />
+  >
+    <div class="ml-auto">
+      <ThemeToggle />
+    </div>
+  </FlexRow>
   {let lyricsDataNorm = $derived(
     formData.lyrics.map(({ customStyle, original, romanized, english }) => [
       customStyle,

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import type { IPlayLink } from "../../../src/lib/models/schema.d";
-import PlayLink from "../../../src/lib/models/children/PlayLink.svelte";
+import type { IPlayLink } from "#src/lib/models/schema.d.ts";
+import PlayLink from "#src/lib/models/children/PlayLink.svelte.ts";
 
 describe("test state management logic for PlayLink", () => {
   test.each([

@@ -1,17 +1,17 @@
 import { describe, expect, test } from "vite-plus/test";
 import { mapEngines, mapAlbumBroadcastLink } from "../../mapper";
 
-import Album from "../../../src/lib/models/Album.svelte";
-import { generatePage } from "../../../src/lib/logic/albums.svelte";
+import Album from "#src/lib/models/Album.svelte.ts";
+import { generatePage } from "#src/lib/logic/albums.svelte.ts";
 
-import ExternalLink from "../../../src/lib/models/children/ExternalLink.svelte";
-import AlbumTrackData from "../../../src/lib/models/children/AlbumTrackData.svelte";
+import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
+import AlbumTrackData from "#src/lib/models/children/AlbumTrackData.svelte.ts";
 
 describe("Generate album pages", () => {
   test("Empty form state", () => {
     const formData = new Album();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Album Infobox
 |title = 
@@ -26,6 +26,7 @@ describe("Generate album pages", () => {
 }}`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
   });
 
   test("Simple", () => {
@@ -88,7 +89,7 @@ describe("Generate album pages", () => {
 
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Album Infobox
 |title = Sakura no Bingo
@@ -122,6 +123,7 @@ describe("Generate album pages", () => {
 [[Category:Sakura songs list/Albums]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("桜のビンゴ (Sakura no Bingo) (album)");
   });
 
   test("Simple - compilation album", () => {
@@ -182,7 +184,7 @@ describe("Generate album pages", () => {
 
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Album Infobox
 |title = Sakura no Bingo
@@ -217,6 +219,7 @@ describe("Generate album pages", () => {
 [[Category:Sakura songs list/Albums]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("Sakura no Bingo (album)");
   });
 
   test("Simple - with optional English", () => {
@@ -279,7 +282,7 @@ describe("Generate album pages", () => {
 
     formData.preprocess();
 
-    const page = generatePage(formData);
+    const [page, outputTitle] = generatePage(formData);
 
     const expected = `{{Album Infobox
 |title = Sakura no Bingo
@@ -314,5 +317,6 @@ describe("Generate album pages", () => {
 [[Category:Sakura songs list/Albums]]`;
 
     expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("桜のビンゴ (Sakura no Bingo) (album)");
   });
 });

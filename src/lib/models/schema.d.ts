@@ -1,4 +1,9 @@
-import type { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_IMAGE_EMBED_SOURCE_TYPE } from "./enums";
+import type {
+  ENUM_AI_WARNING_TYPE,
+  ENUM_CW_STATES,
+  ENUM_SONG_TYPE,
+  ENUM_IMAGE_EMBED_SOURCE_TYPE,
+} from "./enums";
 
 export interface ISong {
   aiCwState: ENUM_AI_WARNING_TYPE;
@@ -21,6 +26,8 @@ export interface ISong {
   // uploadDate?: Date | null;
   isAlbumOnly: boolean;
   isUnavailable: boolean;
+  isDemonstration: boolean;
+  songType: ENUM_SONG_TYPE;
   singers: string;
   producers: string;
   description: string;

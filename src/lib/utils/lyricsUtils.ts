@@ -315,6 +315,7 @@ export function generateLyricsSegment(
     bgColour = "black",
     fgColour = "white",
     toggleElement,
+    isNsfw,
   }: {
     headers?: string[];
     needsRomanization: boolean;
@@ -326,6 +327,7 @@ export function generateLyricsSegment(
     bgColour?: string;
     fgColour?: string;
     toggleElement?: string;
+    isNsfw?: boolean;
   },
 ): string {
   const outputAsWikiTable = needsRomanization || needsTranslation;
@@ -411,6 +413,16 @@ export function generateLyricsSegment(
   if (showNotes) {
     res += `\n\n==${isTranslationNote ? "Translation " : ""}Notes==\n{{Reflist}}`;
   }
+
+  // Wrap in togglable NSFW content div
+  if (isNsfw) {
+    res = `<div class = "mw-collapsible mw-collapsed">
+{{NSFWContent}} 
+<div class="mw-collapsible-content">
+${res}
+</div></div>`;
+  }
+
   return res;
 }
 
@@ -501,4 +513,19 @@ export function removeColumnsAtIndexFromToggle(
   );
   const newComponents = oldComponents.filter((_, idx) => columnIndices.indexOf(idx) < 0);
   return "{{" + newComponents.join("|") + "}}";
+}
+
+/**
+ *
+ * @param lyrics
+ * @returns
+ */
+export function truncateLyrics(lyrics: ILyricsRow[]): ILyricsRow[] {
+  let truncateLyricsAtIndex = lyrics.length;
+  while (truncateLyricsAtIndex >= 0) {
+    if (lyrics[--truncateLyricsAtIndex]?.original) {
+      break;
+    }
+  }
+  return lyrics.slice(0, truncateLyricsAtIndex + 1);
 }

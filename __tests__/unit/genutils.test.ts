@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { detonePinyin, renderListInWikiInternalLinkMarkup } from "../../src/lib/utils/utils";
+import { detonePinyin, renderListInWikiInternalLinkMarkup } from "#src/lib/utils/utils.ts";
 import {
   isValidUrl,
   convertAvidToBvId,
@@ -7,9 +7,9 @@ import {
   upgradeInsecureHttpLink,
   convertTwitterLink,
   getOtherMediaWikiPageName,
-} from "../../src/lib/utils/urlUtils";
-import { getVdbPageId } from "../../src/lib/utils/vdbUtils";
-import { VdbPageType } from "../../src/schemas/vocadb";
+} from "#src/lib/utils/urlUtils.ts";
+import { getVdbPageId } from "#src/lib/utils/vdbUtils.ts";
+import type { VdbPageType } from "#src/schemas/vocadb.d.ts";
 
 describe("test URL functions", () => {
   test.each([

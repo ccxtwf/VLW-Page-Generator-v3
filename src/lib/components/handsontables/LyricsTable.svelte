@@ -101,5 +101,6 @@
     rowHeights: 30,
     startRows: 5,
     fillHandle: true,
+    imeFastEdit: true,
   }}
 />

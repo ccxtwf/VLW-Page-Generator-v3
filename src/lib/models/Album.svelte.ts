@@ -4,14 +4,7 @@ import AlbumBroadcastLink from "./children/AlbumBroadcastLink.svelte";
 import AlbumTrackData from "./children/AlbumTrackData.svelte";
 import ExternalLink from "./children/ExternalLink.svelte";
 
-import { getValidationError } from "../validationErrors/albums";
-import {
-  AlbumPageValidationErrorType,
-  type ValidationBundledErrors,
-  type ValidationError,
-} from "../validationErrors/types";
-
-import { preprocessStringParams, validateColour } from "../utils/utils";
+import { preprocessStringParams } from "../utils/utils";
 import type { MultiSelectItem } from "../../schemas/form";
 import { ALBUM_STREAMING_LINKS } from "../../constants";
 
@@ -87,102 +80,5 @@ export default class Album implements BaseModel<IAlbum> {
     for (const a of [this.tracklist, this.broadcastLinks, this.extLinks] as PreprocessorMixin[][]) {
       a.forEach((e) => e.preprocess());
     }
-  }
-
-  validate(): ValidationBundledErrors<AlbumPageValidationErrorType> {
-    const {
-      origTitle,
-      bgColour,
-      fgColour,
-      description,
-      publishedYear,
-      publishedMonth,
-      publishedDay,
-      engines,
-      vdbAlbumId,
-      categories,
-      tracklist,
-      broadcastLinks,
-    } = this;
-
-    const errors: ValidationError<AlbumPageValidationErrorType>[] = [];
-
-    if (!origTitle) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.ALBUM_TITLE_IS_NOT_SET));
-    }
-
-    if (!bgColour) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.BG_COLOR_IS_EMPTY));
-    }
-    if (!fgColour) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.FG_COLOR_IS_EMPTY));
-    }
-    if (!validateColour(bgColour)) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.BG_COLOR_IS_INVALID));
-    }
-    if (!validateColour(fgColour)) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.FG_COLOR_IS_INVALID));
-    }
-
-    if (!description) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.DESCRIPTION_IS_NOT_SET));
-    }
-
-    if (!publishedYear && !publishedMonth && !publishedDay) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.PUB_DATE_IS_NOT_SET));
-    } else if (!publishedYear) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.PUB_YEAR_IS_NOT_SET));
-    } else if (!publishedMonth && publishedDay) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.PUB_MONTH_IS_NOT_SET));
-    }
-    if (publishedYear && publishedYear.length !== 4) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.PUB_YEAR_IS_INVALID));
-    }
-
-    if (!vdbAlbumId) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.NO_VOCADB_LINK));
-    }
-
-    if (tracklist.every((track) => !track.pageTitle)) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.NO_TRACK_IS_LISTED));
-    } else {
-      const tracklistValidationErrors = Array.from(
-        new Set(
-          tracklist
-            .filter((l) => l.pageTitle || l.discNo || l.trackNo)
-            .flatMap((t) => t.validate()),
-        ).keys(),
-      ).sort((a, b) => a - b);
-      for (const c of tracklistValidationErrors) {
-        errors.push(getValidationError(c));
-      }
-    }
-
-    if (broadcastLinks.filter((l) => l.url).length === 0) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.OFFICIAL_LINK_IS_NOT_LISTED));
-    } else {
-      const invalidIds = broadcastLinks.filter(({ __computed: { isValid } }) => !isValid);
-      if (invalidIds.length > 0) {
-        errors.push({
-          fatal: true,
-          fields: invalidIds.map(({ __computed: { paramKey } }) => paramKey!),
-          i18nKey: `validation.album.invalidEmbedCode`,
-          i18nParams: [invalidIds.map(({ site }) => site).join(", ")],
-          type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
-        });
-      }
-    }
-
-    if (engines.length === 0) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.SYNTH_ENGINE_IS_NOT_LISTED));
-    }
-
-    if (categories?.length === 0) {
-      errors.push(getValidationError(AlbumPageValidationErrorType.NO_CATEGORIES));
-    }
-
-    const autoloadCategories = errors.some(({ autoloadCategories }) => autoloadCategories);
-    const fatal = errors.some(({ fatal }) => fatal);
-    return { errors, autoloadCategories, fatal };
   }
 }

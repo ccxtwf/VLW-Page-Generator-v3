@@ -9,6 +9,7 @@ import {
   removeHandsontableRows,
   getSnapshotsDir,
 } from "./utils";
+import { ENUM_CW_STATES } from "#src/lib/models/enums.ts";
 
 test.describe("Song page generator tests", async () => {
   test.beforeEach(async ({ page }) => {
@@ -69,7 +70,7 @@ test.describe("Song page generator tests", async () => {
 {| {{lyrics table class}}
 |- class="lyrics-table-header"
 ! {{lyrics header}}
-${"|-\n|<br />\n".repeat(20)}|}`);
+|}`);
 
     await page.screenshot({
       path: `${getSnapshotsDir(browser)}/songs/empty.png`,
@@ -83,7 +84,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     const form = getFormLocator(page);
 
     /* Content Warnings */
-    await form.getByLabel("Content Warnings").selectOption("1");
+    await form.getByLabel("Content Warnings").selectOption("" + ENUM_CW_STATES.questionable);
     await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
     await form
       .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
@@ -302,7 +303,7 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
     const form = getFormLocator(page);
 
     /* Content Warnings */
-    await form.getByLabel("Content Warnings").selectOption("1");
+    await form.getByLabel("Content Warnings").selectOption("" + ENUM_CW_STATES.questionable);
     await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
     await form
       .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
@@ -497,6 +498,204 @@ ${"|-\n|<br />\n".repeat(20)}|}`);
 
     await page.screenshot({
       path: `${getSnapshotsDir(browser)}/songs/japanese-no-tl.png`,
+      fullPage: true,
+    });
+  });
+
+  test("should output a page for an NSFW songs", async ({ page }, {
+    project: { name: browser },
+  }) => {
+    const form = getFormLocator(page);
+
+    /* Content Warnings */
+    await form.getByLabel("Content Warnings").selectOption("" + ENUM_CW_STATES.isNsfw);
+    await form.getByRole("textbox", { name: "e.g. violence/gore/sexual content" }).click();
+    await form
+      .getByRole("textbox", { name: "e.g. violence/gore/sexual content" })
+      .fill("sexual content/nudity");
+
+    /* Language & ISO Code */
+    await form.getByRole("combobox", { name: "Song Language" }).click();
+    await form.getByRole("option", { name: "Japanese" }).click();
+    await page.keyboard.press("Escape");
+    await form.getByRole("textbox", { name: "Language ISO Code" }).click();
+    await form.getByRole("textbox", { name: "Language ISO Code" }).fill("ja");
+
+    /* Titles */
+    await form.getByRole("textbox", { name: "Original Title" }).click();
+    await form.getByRole("textbox", { name: "Original Title" }).fill("犯しの家");
+    await form.getByRole("textbox", { name: "Transliterated Title" }).click();
+    await form.getByRole("textbox", { name: "Transliterated Title" }).fill("Okashi no Ie");
+    await form.getByRole("textbox", { name: "Translated Title" }).click();
+    await form.getByRole("textbox", { name: "Translated Title" }).fill("Candy House");
+    await form.getByRole("checkbox", { name: "Is an official title?" }).click();
+
+    /* Colours */
+    await form.locator('#infobox-bg-color-picker input[type="color"]').fill("#474747");
+    await form.locator('#infobox-fg-color-picker input[type="color"]').fill("#cccccc");
+
+    /* General information */
+    await form.getByRole("textbox", { name: "Upload Date" }).fill("2016-04-25");
+    await form.getByRole("textbox", { name: "Singer(s)" }).click();
+    await form.getByRole("textbox", { name: "Singer(s)" }).fill("[[Kasane Teto (UTAU)]]");
+    await form.getByRole("textbox", { name: "Producer(s)" }).click();
+    await form.getByRole("textbox", { name: "Producer(s)" }).fill("[[muship]] (music, lyrics)");
+    await form.getByRole("textbox", { name: "Description" }).click();
+    await form.getByRole("textbox", { name: "Description" }).fill("This is a song by muship.");
+
+    /* Broadcast links */
+    {
+      const broadcastLinksTable = getHandsontableInstance(form, "broadcast-links");
+      const data = [
+        {
+          i: {
+            url: "https://www.youtube.com/watch?v=cmfp4cYCeqs",
+            viewCount: "111000",
+          },
+          o: {
+            site: /YouTube/,
+            url: /^https:\/\/www\.youtube\.com\/watch\?v=cmfp4cYCeqs$/,
+          },
+        },
+      ];
+      await fillBroadcastLinksTable(broadcastLinksTable, data);
+      await removeHandsontableRows(page, broadcastLinksTable, data.length);
+    }
+
+    /* Lyrics */
+    {
+      const lyricsTable = getHandsontableInstance(form, "lyrics");
+      const data = [
+        {
+          customStyle: "color:red;",
+          original: "あいうえお",
+          romanized: "aiueo",
+          english: "ABCD",
+        },
+        {
+          customStyle: "",
+          original: "かきくけこ",
+          romanized: "kakikukeko",
+          english: "EFGH",
+        },
+        {
+          customStyle: "",
+          original: "さしすせそ",
+          romanized: "sasisuseso",
+          english: "IJKL",
+        },
+        {
+          customStyle: "",
+          original: "",
+          romanized: "",
+          english: "",
+        },
+        {
+          customStyle: "",
+          original: "SHOUT!",
+          romanized: "SHOUT!",
+          english: "SHOUT!",
+        },
+      ];
+      await fillLyricsTable(lyricsTable, data);
+      await removeHandsontableRows(page, lyricsTable, data.length);
+    }
+    /* Translator */
+    await form.getByRole("checkbox", { name: "Is an official translation?" }).click();
+
+    /* External links */
+    {
+      const externalLinksTable = getHandsontableInstance(form, "external-links");
+      const data = [
+        {
+          i: {
+            url: "https://vocadb.net/S/124108",
+            isOfficial: false,
+          },
+          o: {
+            desc: "VocaDB",
+            url: /^https:\/\/vocadb\.net\/S\/124108$/,
+          },
+        },
+      ];
+      await fillExternalLinksTable(externalLinksTable, data);
+      await removeHandsontableRows(page, externalLinksTable, data.length);
+    }
+
+    await form.getByRole("button", { name: "Autoload" }).click();
+    await expect(form.getByRole("textbox", { name: "Categories" })).toHaveValue(
+      "muship songs list",
+    );
+
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const warningsAlert = page.locator("#validation-warnings");
+    await expect(fatalErrorsAlert).not.toBeVisible();
+    await expect(warningsAlert).not.toBeVisible();
+
+    const copyTitleButton = page.getByRole("button", { name: "Copy Title" });
+    const pageOutput = page.locator("#page-output");
+
+    await expect(copyTitleButton).toBeVisible();
+    await expect(pageOutput).toBeVisible();
+    await pageOutput.scrollIntoViewIfNeeded();
+
+    await expect(copyTitleButton).toHaveText("犯しの家 (Okashi no Ie)");
+    await expect(pageOutput).toHaveValue(`{{sort}}{{Questionable|sexual content/nudity}}
+{{Infobox Song
+|songtitle = "'''犯しの家'''"<br />Romaji: Okashi no Ie<br />Official English: Candy House
+|color = #474747; color:#cccccc
+|original upload date = {{Date|2016|April|25}}
+|singer = [[Kasane Teto (UTAU)]]
+|producer = [[muship]] (music, lyrics)
+|#views = 110,000+
+|link = {{#|https://www.youtube.com/watch?v=cmfp4cYCeqs}}
+|description = This is a song by muship.
+|language = Japanese
+}}
+
+==Lyrics==
+<div class = "mw-collapsible mw-collapsed">
+{{NSFWContent}} 
+<div class="mw-collapsible-content">
+{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}
+{{OfficialEnglishNotify}}
+{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"
+!style="background-color:#474747; color:#cccccc;"|Singer
+|<span style="color:red;">Singer</span>
+|All
+|}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|- style="color:red;"
+|あいうえお
+|aiueo
+|ABCD
+|-
+|かきくけこ
+|kakikukeko
+|EFGH
+|-
+|さしすせそ
+|sasisuseso
+|IJKL
+|-
+|<br />
+|-
+| {{shared}} SHOUT!
+|}
+</div></div>
+
+==External Links==
+===Unofficial===
+* {{VDB|S/124108}}
+
+[[Category:muship songs list]]`);
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/nsfw.png`,
       fullPage: true,
     });
   });

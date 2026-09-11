@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vite-plus/test";
-import { generateLyricsPoemElement } from "../../../src/lib/utils/lyricsUtils";
-import { ILyricsRow } from "../../../src/lib/models/schema.d";
+import { generateLyricsPoemElement } from "#src/lib/utils/lyricsUtils.ts";
+import type { ILyricsRow } from "#src/lib/models/schema.d.ts";
 
 describe("generateLyricsPoemElement", () => {
   test("simple", () => {
@@ -48,6 +48,7 @@ describe("generateLyricsPoemElement", () => {
   });
 
   test("should group paragraphs with line breaks in between", () => {
+    // Lucy's Song by Charles Dickens
     const data: ILyricsRow[] = [
       { customStyle: "color: red;", original: "How beautiful at eventide" },
       { customStyle: "color: red;", original: "To see the twilight shadows pale," },

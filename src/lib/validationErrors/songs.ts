@@ -105,6 +105,11 @@ const validationErrors: Record<
     fields: ["lyrics"],
     i18nKey: "validation.song.uncreditedTranslation",
   },
+  [SongPageValidationErrorType.NO_SONG_TYPE_OPT_IS_SET]: {
+    fatal: true,
+    fields: ["song-page-type"],
+    i18nKey: "validation.song.noSongTypeOptSet",
+  },
 };
 
 export function getValidationError(

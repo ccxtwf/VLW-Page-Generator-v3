@@ -42,5 +42,7 @@ jobs:
           vp install
           git apply --ignore-space-change --ignore-whitespace --directory=node_modules/ patches/*.patch
 
+      - run: npx playwright install --with-deps
+
       - run: vp check --no-fmt
       - run: vp test

@@ -117,7 +117,7 @@
   }
 
   const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
-    hot?.updateSettings({ theme: getTheme(event.detail.theme) });
+    hot?.updateSettings({ theme: getTheme(event.detail.htTheme) });
   };
 
   onMount(() => {
@@ -148,6 +148,7 @@
       colWidths: [100, 250, 250, 250],
       trimWhitespace: true,
       fillHandle: true,
+      imeFastEdit: true,
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
         toggleText = addColumnsAtIndexToTheLeftToToggle((toggleText || "").trim(), index, amount);

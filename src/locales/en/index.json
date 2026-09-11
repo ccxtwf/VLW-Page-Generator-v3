@@ -8,6 +8,10 @@
     "lyricsEditor": "Lyrics Editor"
   },
   "themeSelector": "Theme",
+  "themes": {
+    "light": "Light",
+    "dark": "Dark"
+  },
   "formActions": {
     "preload": "Preload",
     "autoloadCategories": "Autoload",
@@ -47,14 +51,18 @@
     "errorUnhandled": "Failed to fetch data from {1}. An unexpected error has occurred.",
     "success": "Successfully fetched data from {1}!"
   },
+  "preloadVocaDb": {
+    "label": "Preload Song",
+    "tooltip": "<p>Input the URL to the VocaDB {type} here.</p><p>e.g. <a class=\"link link-accent\" href=\"https://vocadb.net/{slug}\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/{slug}</a> {caption}</p>"
+  },
   "infoboxColors": {
     "label": "Infobox BG/FG colors",
-    "tooltip": "Infobox background (left) and foreground (right) color<br/>hexadecimal color, e.g., <code>#ff0000</code><br/><em>or</em><br/>color name, e.g., <code>red</code>",
+    "tooltip": "<p>Infobox background (left) and foreground (right) color in the format of either:</p><p>hexadecimal color, e.g., <code>#ff0000</code><br/><em>or</em><br/>color name, e.g., <code>red</code><br /><a class=\"link link-accent\" href=\"https://www.w3schools.com/Tags/ref_colornames.asp\" target=\"_blank\" rel=\"noopener noreferrer\">[List of common color names]</a></p>",
     "preview": "Preview"
   },
   "externalLinks": {
     "label": "External Links",
-    "tooltip": "Links to related web pages, one per line, with description, e.g.:<br/>https://piapro.jp/t/uvwx Off-vocal<br/><br/>Recognizes many commonly used sites such as Hatsune Miku Wiki and VocaDB.",
+    "tooltip": "<p>Links to related web pages, one per line, with description, e.g.:<br/>https://piapro.jp/t/uvwx Off-vocal</p><p>Recognizes many commonly used sites such as Hatsune Miku Wiki and VocaDB.</p>",
     "headers": {
       "url": "URL",
       "description": "Description",
