@@ -1,12 +1,15 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
+  import { onMount, onDestroy } from "svelte";
+  import debounce from "debounce";
   import { currentRoute, ROUTES } from "../router";
   import ThemeNavbarDropdown from "./reusables/ThemeNavbarDropdown.svelte";
 
   let show = $state(false);
 
   let prevScrollPos = window.pageYOffset;
-  window.onscroll = function () {
+
+  const cbWatchScroll = debounce(function () {
     let currentScrollPos = window.pageYOffset;
     if (prevScrollPos > currentScrollPos) {
       show = false;
@@ -14,7 +17,14 @@
       show = true;
     }
     prevScrollPos = currentScrollPos;
-  };
+  }, 200);
+
+  onMount(() => {
+    window.addEventListener("scroll", cbWatchScroll);
+  });
+  onDestroy(() => {
+    window.removeEventListener("scroll", cbWatchScroll);
+  });
 </script>
 
 <header
