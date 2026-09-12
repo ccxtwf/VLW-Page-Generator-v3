@@ -28,6 +28,7 @@
 <label
   class="lyrics-theme-toggle flex cursor-pointer gap-2"
   class:theme-toggled={isDarkModeToggled}
+  title="[Q]"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -57,6 +58,7 @@
     checked={isDarkModeToggled}
     defaultChecked={isDarkModeToggled}
     value={getActiveDarkTheme()}
+    accesskey="q"
     onchange={function (e) {
       isDarkModeToggled = (e.target as HTMLInputElement).checked;
       setTheme(isDarkModeToggled ? getActiveDarkTheme() : getActiveLightTheme());

@@ -21,6 +21,8 @@
     class="btn btn-info w-32 transition-all duration-200"
     class:btn-outline={!isCopied}
     type="button"
+    accesskey="c"
+    title={$_("formActions.copyOutput") + " [C]"}
     onclick={copyToClipboard}
   >
     {$_("formActions.copyOutput")}
