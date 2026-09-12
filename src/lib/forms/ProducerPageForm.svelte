@@ -18,6 +18,7 @@
   import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
   import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
   import GenerateButton from "../components/buttons/GenerateButton.svelte";
+  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
   import type { SvelteComponent } from "svelte";
 
   import {
@@ -327,6 +328,8 @@
     <ResetFormButton />
   </div>
 </form>
+
+<ThemeToggle hidden />
 
 <Divider />
 

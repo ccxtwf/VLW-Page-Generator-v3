@@ -9,6 +9,7 @@
   import Glossary from "../components/reusables/Glossary.svelte";
   import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
   import LyricsFreeEditTable from "../components/handsontables/LyricsFreeEditTable.svelte";
+  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
 
   import {
     consolidateCellInlineColourFormatting,
@@ -21,7 +22,8 @@
 
   let { ongenerate }: { ongenerate: (results: string) => void } = $props();
 
-  let toggleText: string = $state("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
+  const defaultToggleText = "{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}";
+  let toggleText: string = $state(defaultToggleText);
   let translator: string = $state("");
   let isOfficialTranslation: boolean = $state(false);
 
@@ -39,6 +41,11 @@
       isOfficialTranslation,
     });
     ongenerate(results);
+  }
+
+  function handleReset() {
+    toggleText = defaultToggleText;
+    hot!.resetState();
   }
 
   function handleFormAction(fn: (data: unknown[][]) => unknown[][]) {
@@ -70,6 +77,7 @@
   name="lyrics-generator"
   class="mt-8 mb-4 grid grid-cols-1 items-center gap-x-6 gap-y-4 md:grid-cols-[200px_1fr]"
   onsubmit={handleSubmit}
+  onreset={handleReset}
 >
   <div class="w-full font-medium">
     <label
@@ -84,6 +92,7 @@
       id="lyrics-toggle-wikitext"
       placeholder={$_("lyricsEditor.fields.lyricsToggleWikitext.placeholder")}
       value={toggleText}
+      defaultValue={defaultToggleText}
       onblur={(e: Event) => {
         //@ts-ignore
         toggleText = e.currentTarget?.value || "";
@@ -127,6 +136,9 @@
         {@html $_("lyricsEditor.fields.translator.isOfficialTooltip")}
       </Tooltip>
     </div>
+  </div>
+  <div class="flex-reverse col-span-full flex flex-row">
+    <ResetFormButton />
   </div>
 
   <Divider />
