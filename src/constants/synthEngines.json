@@ -24,6 +24,10 @@
     "name": "ACE Studio"
   },
   {
+    "id": 32,
+    "name": "AINOW"
+  },
+  {
     "id": 7,
     "name": "AISingers"
   },
@@ -32,8 +36,20 @@
     "name": "Alter/Ego"
   },
   {
+    "id": 33,
+    "name": "AmadeuSY"
+  },
+  {
     "id": 9,
     "name": "AquesTone/AquesTalk"
+  },
+  {
+    "id": 35,
+    "name": "COEIROINK"
+  },
+  {
+    "id": 34,
+    "name": "Cantor"
   },
   {
     "id": 10,
@@ -48,12 +64,56 @@
     "name": "DeepVocal"
   },
   {
+    "id": 36,
+    "name": "Diff-SVC"
+  },
+  {
+    "id": 30,
+    "name": "DiffSinger"
+  },
+  {
+    "id": 37,
+    "name": "ELMIRAIVE VOX/Singer"
+  },
+  {
     "id": 13,
     "name": "EmVoice"
   },
   {
+    "id": 38,
+    "name": "GarageBand"
+  },
+  {
+    "id": 39,
+    "name": "Geji Geji"
+  },
+  {
+    "id": 40,
+    "name": "Gynoid TALK"
+  },
+  {
+    "id": 41,
+    "name": "Ivona"
+  },
+  {
+    "id": 42,
+    "name": "LaLaVoice"
+  },
+  {
     "id": 14,
     "name": "MUTA"
+  },
+  {
+    "id": 43,
+    "name": "Melisma"
+  },
+  {
+    "id": 44,
+    "name": "Mikoto Studio"
+  },
+  {
+    "id": 45,
+    "name": "Myriad Virtual Singer"
   },
   {
     "id": 15,
@@ -68,16 +128,52 @@
     "name": "NNSVS"
   },
   {
-    "id": 18,
-    "name": "Other Voice Synthesizer"
+    "id": 46,
+    "name": "OddVoices"
+  },
+  {
+    "id": 47,
+    "name": "Ondoku"
+  },
+  {
+    "id": 48,
+    "name": "Open JTalk"
+  },
+  {
+    "id": 49,
+    "name": "PaintVoice"
   },
   {
     "id": 19,
     "name": "Piapro Studio"
   },
   {
+    "id": 50,
+    "name": "PlainTalk"
+  },
+  {
+    "id": 51,
+    "name": "Pocket Singer"
+  },
+  {
+    "id": 52,
+    "name": "RVC"
+  },
+  {
     "id": 20,
     "name": "Renoid"
+  },
+  {
+    "id": 31,
+    "name": "SAPI"
+  },
+  {
+    "id": 54,
+    "name": "SHAREVOX"
+  },
+  {
+    "id": 53,
+    "name": "Seiren Voice"
   },
   {
     "id": 21,
@@ -88,8 +184,36 @@
     "name": "Sinsy"
   },
   {
+    "id": 55,
+    "name": "SofTalk"
+  },
+  {
+    "id": 56,
+    "name": "SoftVoice"
+  },
+  {
+    "id": 57,
+    "name": "Soundiron"
+  },
+  {
+    "id": 58,
+    "name": "SugarCape"
+  },
+  {
+    "id": 60,
+    "name": "TALQu"
+  },
+  {
+    "id": 59,
+    "name": "Talk It!"
+  },
+  {
     "id": 23,
     "name": "VOCALINA"
+  },
+  {
+    "id": 28,
+    "name": "VOICEPEAK"
   },
   {
     "id": 24,
@@ -100,27 +224,31 @@
     "name": "VOICEVOX"
   },
   {
-    "id": 26,
-    "name": "VoiSona"
-  },
-  {
-    "id": 27,
-    "name": "X Studio"
-  },
-  {
-    "id": 28,
-    "name": "VOICEPEAK"
+    "id": 63,
+    "name": "VOX Factory"
   },
   {
     "id": 29,
     "name": "VocalSharp"
   },
   {
-    "id": 30,
-    "name": "DiffSinger"
+    "id": 61,
+    "name": "VocalWriter"
   },
   {
-    "id": 31,
-    "name": "SAPI"
+    "id": 26,
+    "name": "VoiSona"
+  },
+  {
+    "id": 62,
+    "name": "Voidol"
+  },
+  {
+    "id": 27,
+    "name": "X Studio"
+  },
+  {
+    "id": 18,
+    "name": "Other Voice Synthesizer"
   }
 ]
