@@ -55,6 +55,7 @@
     name="theme-toggle"
     class="toggle theme-controller"
     checked={isDarkModeToggled}
+    defaultChecked={isDarkModeToggled}
     value={getActiveDarkTheme()}
     onchange={function (e) {
       isDarkModeToggled = (e.target as HTMLInputElement).checked;
