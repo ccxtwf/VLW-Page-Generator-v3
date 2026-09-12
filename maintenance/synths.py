@@ -20,7 +20,22 @@ def recreate_synth_engines_json():
 
   records = db.execute(
     """
-      SELECT id, name FROM engines e ;
+      WITH 
+        prio AS (
+          SELECT id, name FROM engines e WHERE id IN (1, 2, 3, 4)
+        ), 
+        rest AS (
+          SELECT id, name FROM engines e WHERE id NOT IN (1, 2, 3, 4, 18) ORDER BY name
+        ), 
+        misc AS (
+          SELECT id, name FROM engines e WHERE id = 18
+        )
+      SELECT * FROM prio 
+      UNION ALL 
+      SELECT * FROM rest 
+      UNION ALL 
+      SELECT * FROM misc
+      ;
     """
   ).fetchall()
   db.close()
