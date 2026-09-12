@@ -58,6 +58,14 @@
     hot!.loadData(data);
   }
 
+  export function resetState() {
+    hot!.loadData(
+      Array(20)
+        .fill(null)
+        .map(() => Array(4).fill("")),
+    );
+  }
+
   export function getData() {
     const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
     return !hot || hot.isDestroyed
