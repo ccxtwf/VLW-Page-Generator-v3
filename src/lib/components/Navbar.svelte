@@ -17,7 +17,7 @@
       show = true;
     }
     prevScrollPos = currentScrollPos;
-  }, 200);
+  }, 100);
 
   onMount(() => {
     window.addEventListener("scroll", cbWatchScroll);
