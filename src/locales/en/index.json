@@ -15,9 +15,9 @@
   "formActions": {
     "preload": "Preload",
     "autoloadCategories": "Autoload",
-    "reset": "Reset Warnings",
-    "clear": "Clear Form",
-    "generate": "Generate",
+    "reset": "Reset Form",
+    "clear": "Clear Warnings",
+    "generate": "Generate Page",
     "ignoreErrors": "Ignore Errors",
     "copyOutput": "Copy Output",
     "copiedOutput": "Copied!",

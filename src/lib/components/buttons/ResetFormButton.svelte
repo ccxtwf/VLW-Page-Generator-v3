@@ -14,5 +14,5 @@
   type="reset"
   onclick={handleClick}
 >
-  {$_("formActions.clear")}
+  {$_("formActions.reset")}
 </button>

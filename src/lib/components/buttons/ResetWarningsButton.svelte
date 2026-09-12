@@ -9,5 +9,5 @@
   type="button"
   {onclick}
 >
-  {$_("formActions.reset")}
+  {$_("formActions.clear")}
 </button>
