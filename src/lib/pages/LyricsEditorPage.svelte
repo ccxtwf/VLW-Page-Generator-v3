@@ -7,6 +7,7 @@
   import GeneratedResultsTextBox from "../components/inputFields/GeneratedResultsTextBox.svelte";
   import LyricsParserPageForm from "../forms/LyricsParserPageForm.svelte";
   import LyricsEditorPageForm from "../forms/LyricsEditorPageForm.svelte";
+  import AccessKeyShortcutsCard from "../components/reusables/AccessKeyShortcutsCard.svelte";
 
   let resultsBox: SvelteComponent;
 </script>
@@ -35,6 +36,10 @@
       resultsBox.updateState(wikipage);
     }}
   />
+
+  <Divider />
+
+  <AccessKeyShortcutsCard />
 
   <Divider />
 

@@ -7,6 +7,7 @@
   import Divider from "../components/reusables/Divider.svelte";
   import FirstTimeEditingNotice from "../components/reusables/FirstTimeEditingNotice.svelte";
   import GeneratedResultsTextBox from "../components/inputFields/GeneratedResultsTextBox.svelte";
+  import AccessKeyShortcutsCard from "../components/reusables/AccessKeyShortcutsCard.svelte";
 
   let resultsBox: SvelteComponent;
 </script>
@@ -27,6 +28,7 @@
   <Divider />
 
   <FirstTimeEditingNotice forProducerGen={true} />
+  <AccessKeyShortcutsCard />
 
   <Divider />
 
