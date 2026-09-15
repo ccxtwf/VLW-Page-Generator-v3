@@ -20,7 +20,7 @@ import {
   renderTextAsHtmlTextContent,
   validateColour,
 } from "../utils/utils";
-import { processExternalLinkFromVocaDb } from "../utils/urlUtils";
+import { processExternalLinkFromVocaDb, upgradeInsecureHttpLink } from "../utils/urlUtils";
 import {
   convertArtistRole,
   convertPvService,
@@ -531,23 +531,33 @@ export async function fetchDataFromVocaDb(
             src: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
             alt: "YouTube thumbnail",
             "data-ytid": pv.pvId,
-            "data-thumburl": pv.thumbUrl,
+            "data-thumburl": pv.thumbUrl ? upgradeInsecureHttpLink(pv.thumbUrl) : null,
           });
           break;
         case VdbPvService.bb:
-          // skip fetching thumbnail images for bilibili
+          if (pv.thumbUrl) {
+            const pvUrl = upgradeInsecureHttpLink(pv.thumbUrl);
+            images.push({
+              type: ENUM_IMAGE_EMBED_SOURCE_TYPE.bb,
+              src: pvUrl,
+              alt: "bilibili thumbnail",
+              "data-thumburl": pvUrl,
+            });
+          }
           break;
         case VdbPvService.nnd:
-          if (pv.thumbUrl && pv.thumbUrl !== "")
+          if (pv.thumbUrl) {
+            const pvUrl = upgradeInsecureHttpLink(pv.thumbUrl);
             images.push({
               type: ENUM_IMAGE_EMBED_SOURCE_TYPE.nn,
-              src: pv.thumbUrl + ".L",
+              src: pvUrl + ".L",
               alt: "Niconico thumbnail",
-              "data-thumburl": pv.thumbUrl,
+              "data-thumburl": pvUrl,
             });
+          }
           break;
         default:
-          if (pv.thumbUrl && pv.thumbUrl !== "")
+          if (pv.thumbUrl)
             images.push({
               type: null,
               src: pv.thumbUrl,

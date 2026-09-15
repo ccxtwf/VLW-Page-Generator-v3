@@ -267,7 +267,15 @@ describe("fetchDataFromVocaDb - songs", () => {
           isOfficial: true,
         }),
       ],
-      images: [],
+      images: [
+        {
+          src: "https://i0.hdslb.com/bfs/archive/d5c0189aaa72c7a043b24f4e651222227e273dd6.jpg",
+          type: ENUM_IMAGE_EMBED_SOURCE_TYPE.bb,
+          alt: "bilibili thumbnail",
+          "data-thumburl":
+            "https://i0.hdslb.com/bfs/archive/d5c0189aaa72c7a043b24f4e651222227e273dd6.jpg",
+        },
+      ],
     };
 
     expect(entity).toMatchObject(expected);

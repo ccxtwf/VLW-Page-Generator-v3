@@ -2,6 +2,8 @@
   import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../models/enums";
   import type { IImageEmbed } from "../../models/schema";
 
+  import { getImageAsDataBlob } from "#src/lib/utils/fetchImageUtils.js";
+
   let { type, src, alt = "", ...rest }: IImageEmbed = $props();
 
   function onLoadYT(
@@ -23,6 +25,22 @@
     }
   }
 
+  function onErrorBB(
+    e: Event & {
+      target: EventTarget & HTMLImageElement;
+      currentTarget: EventTarget & HTMLImageElement;
+    },
+  ) {
+    getImageAsDataBlob(e.target.src || "", { method: "GET" })
+      .then((blob) => {
+        e.target.src = blob ? blob.toString() : "";
+      })
+      .catch(console.error)
+      .finally(() => {
+        e.target.onerror = null;
+      });
+  }
+
   function onErrorNN(
     e: Event & {
       target: EventTarget & HTMLImageElement;
@@ -40,6 +58,10 @@
   class="w-full md:w-sm"
   //@ts-ignore
   onload={type === ENUM_IMAGE_EMBED_SOURCE_TYPE.yt ? onLoadYT : null}
-  onerror={type === ENUM_IMAGE_EMBED_SOURCE_TYPE.nn ? onErrorNN : null}
+  onerror={type === ENUM_IMAGE_EMBED_SOURCE_TYPE.nn
+    ? onErrorNN
+    : type === ENUM_IMAGE_EMBED_SOURCE_TYPE.bb
+      ? onErrorBB
+      : null}
   {...rest}
 />
