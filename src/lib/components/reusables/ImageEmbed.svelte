@@ -4,51 +4,42 @@
 
   import { getImageAsDataBlob } from "#src/lib/utils/fetchImageUtils.js";
 
-  let { type, src, alt = "", ...rest }: IImageEmbed = $props();
+  type ImgEvent = Event & { currentTarget: EventTarget & HTMLImageElement };
 
-  function onLoadYT(
-    e: Event & {
-      target: EventTarget & HTMLImageElement;
-      currentTarget: EventTarget & HTMLImageElement;
-    },
-  ) {
-    if (e.target.naturalHeight >= 200) {
-      e.target.onload = null;
+  let { type, src, alt = "", ...rest }: IImageEmbed = $props();
+  let isDone: boolean = false;
+
+  function onLoadYT(e: ImgEvent) {
+    if (isDone) return;
+    if (e.currentTarget.naturalHeight >= 200) {
+      isDone = true;
       return;
     }
-    const curSrc = e.target.src || "";
+    const curSrc = e.currentTarget.src || "";
     if (curSrc.endsWith("maxresdefault.jpg")) {
-      e.target.src = `https://i.ytimg.com/vi/${e.target.getAttribute("data-ytid")}/hqdefault.jpg`;
+      e.currentTarget.src = `https://i.ytimg.com/vi/${e.currentTarget.getAttribute("data-ytid")}/hqdefault.jpg`;
     } else if (curSrc.endsWith("hqdefault.jpg")) {
-      e.target.src = `https://i.ytimg.com/vi/${e.target.getAttribute("data-ytid")}/default.jpg`;
-      e.target.onload = null;
+      e.currentTarget.src = `https://i.ytimg.com/vi/${e.currentTarget.getAttribute("data-ytid")}/default.jpg`;
+      isDone = true;
     }
   }
 
-  function onErrorBB(
-    e: Event & {
-      target: EventTarget & HTMLImageElement;
-      currentTarget: EventTarget & HTMLImageElement;
-    },
-  ) {
-    getImageAsDataBlob(e.target.src || "", { method: "GET" })
+  function onErrorBB(e: ImgEvent) {
+    if (isDone) return;
+    getImageAsDataBlob(e.currentTarget.src || "", { method: "GET" })
       .then((blob) => {
-        e.target.src = blob ? blob.toString() : "";
+        e.currentTarget.src = blob ? blob.toString() : "";
       })
       .catch(console.error)
       .finally(() => {
-        e.target.onerror = null;
+        isDone = true;
       });
   }
 
-  function onErrorNN(
-    e: Event & {
-      target: EventTarget & HTMLImageElement;
-      currentTarget: EventTarget & HTMLImageElement;
-    },
-  ) {
-    e.target.src = e.target.getAttribute("data-thumburl") || "";
-    e.target.onerror = null;
+  function onErrorNN(e: ImgEvent) {
+    if (isDone) return;
+    e.currentTarget.src = e.currentTarget.getAttribute("data-thumburl") || "";
+    isDone = true;
   }
 </script>
 

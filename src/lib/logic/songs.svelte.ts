@@ -523,16 +523,18 @@ export async function fetchDataFromVocaDb(
         }),
       );
     }
-    if (!isReprint) {
+    if (!isReprint && !isDeleted) {
       switch (pv.service) {
         case VdbPvService.yt:
-          images.push({
-            type: ENUM_IMAGE_EMBED_SOURCE_TYPE.yt,
-            src: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
-            alt: "YouTube thumbnail",
-            "data-ytid": pv.pvId,
-            "data-thumburl": pv.thumbUrl ? upgradeInsecureHttpLink(pv.thumbUrl) : null,
-          });
+          if (pv.pvId && pv.thumbUrl) {
+            images.push({
+              type: ENUM_IMAGE_EMBED_SOURCE_TYPE.yt,
+              src: `https://i.ytimg.com/vi/${pv.pvId}/maxresdefault.jpg`,
+              alt: "YouTube thumbnail",
+              "data-ytid": pv.pvId,
+              "data-thumburl": pv.thumbUrl ? upgradeInsecureHttpLink(pv.thumbUrl) : null,
+            });
+          }
           break;
         case VdbPvService.bb:
           if (pv.thumbUrl) {
