@@ -32,3 +32,8 @@ body {
 .lyrics-theme-toggle.theme-toggled .moon-icon {
   @apply opacity-100;
 }
+
+/* Links */
+.ht-grid-content .ht_master .htCore a {
+  @apply text-cyan-500 underline opacity-80 hover:opacity-100;
+}
