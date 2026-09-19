@@ -6,6 +6,7 @@
   import { getLyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
+  import type { ILyricsRow } from "../../models/schema.js";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
   import {
     addColumnsAtIndexToTheLeftToToggle,
@@ -60,11 +61,11 @@
     }
   });
 
-  export function loadData(data: string[][]) {
+  export function loadData(data: string[][]): void {
     hot!.loadData(data);
   }
 
-  export function resetState() {
+  export function resetState(): void {
     hot!.loadData(
       Array(20)
         .fill(null)
@@ -72,7 +73,7 @@
     );
   }
 
-  export function getData() {
+  export function getData(): ILyricsRow[] {
     const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
     return !hot || hot.isDestroyed
       ? []
@@ -113,7 +114,7 @@
         });
   }
 
-  export function editAction(fn: (data: unknown[][]) => string[][]) {
+  export function editAction(fn: (data: unknown[][]) => string[][]): void {
     const data = hot!.getData();
     const transformed = fn(data);
     hot!.loadData(transformed);

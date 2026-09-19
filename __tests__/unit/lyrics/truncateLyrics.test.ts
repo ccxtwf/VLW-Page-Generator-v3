@@ -4,6 +4,11 @@ import { truncateLyrics } from "#src/lib/utils/lyricsUtils.ts";
 describe("truncateLyrics", () => {
   test.each([
     {
+      d: "Empty array",
+      i: [],
+      o: [],
+    },
+    {
       d: "Empty state",
       i: [
         { customStyle: "", original: "", romanized: "", english: "" },

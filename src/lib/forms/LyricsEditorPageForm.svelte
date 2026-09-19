@@ -17,7 +17,7 @@
     detonePinyinLyrics,
     standardizeHepburnRomanization,
   } from "../utils/lyricsEditFormActions";
-  import { generateLyricsSegment } from "../utils/lyricsUtils";
+  import { generateLyricsSegment, truncateLyrics } from "../utils/lyricsUtils";
   import type { LyricsParsePayload } from "../../schemas/events.d";
 
   let { ongenerate }: { ongenerate: (results: string) => void } = $props();
@@ -31,7 +31,7 @@
 
   function handleSubmit(e: Event) {
     e.preventDefault();
-    const data = hot!.getData();
+    const data = truncateLyrics(hot!.getData());
     const results = generateLyricsSegment(data, {
       needsRomanization: true,
       needsTranslation: true,
