@@ -105,6 +105,10 @@
     contextMenu: sharedContextMenuOptions,
     colWidths: [120, 280, 70, 70, 70, 80],
     rowHeights: 30,
-    startRows: 5,
+    isEmptyRow(this: HotInstance, rowIdx: number) {
+      const row = this.getSourceDataAtRow(rowIdx) as PlayLink;
+      //@ts-ignore
+      return Boolean(!row || !row.url || !row.viewCount);
+    },
   }}
 />

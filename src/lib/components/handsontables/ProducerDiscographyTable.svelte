@@ -1,12 +1,13 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import Handsontable from "./Handsontable.svelte";
-  import type { ColumnSettings } from "handsontable/base";
+  import type { ColumnSettings, HotInstance } from "handsontable/base";
   import { sharedContextMenuOptions } from "./contextMenus/shared";
   import type { SvelteComponent } from "svelte";
 
   import ProducerDiscographySongItem from "../../models/children/ProducerDiscographySongItem.svelte";
   import ProducerDiscographyAlbumItem from "../../models/children/ProducerDiscographyAlbumItem.svelte";
+  import type { IProducerDiscographySongItem } from "../../models/schema.d";
 
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
   import { handleInputEvent } from "./utils";
@@ -89,6 +90,10 @@
     beforeChange: onVlwPageInput,
     colWidths: forAlbums ? [70, 40, 20] : [70, 60],
     rowHeights: 30,
-    minSpareRows: 0,
+    isEmptyRow(this: HotInstance, rowIdx: number) {
+      const row = this.getSourceDataAtRow(rowIdx) as IProducerDiscographySongItem;
+      //@ts-ignore
+      return Boolean(!row || !row.page || !row.additionalParameters);
+    },
   }}
 />
