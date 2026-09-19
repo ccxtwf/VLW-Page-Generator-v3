@@ -59,7 +59,7 @@
   <input
     type="checkbox"
     name="theme-toggle"
-    class="toggle theme-controller"
+    class="toggle"
     checked={isDarkModeToggled}
     defaultChecked={isDarkModeToggled}
     value={getActiveDarkTheme()}

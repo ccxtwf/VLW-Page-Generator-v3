@@ -1,12 +1,13 @@
 import type { ThemeChangedEventPayload } from "../../../src/schemas/events.d";
 
-export type DaisyUiTheme = "corporate" | "dark";
+export type DaisyUiTheme = "corporate" | "dark" | "gato";
 export type HandsontableTheme = "auto" | "light" | "dark";
 export type ThemeChangedEvent = CustomEvent<ThemeChangedEventPayload>;
 
 export const THEMES: { theme: DaisyUiTheme; labelKey: string }[] = [
   { theme: "corporate", labelKey: "themes.light" },
   { theme: "dark", labelKey: "themes.dark" },
+  { theme: "gato", labelKey: "themes.dark-lc" },
 ];
 
 /**
@@ -18,29 +19,31 @@ export function isAutoDarkMode(): boolean {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
-/**
- * TODO: Possibly extend this function to choose between multiple light mode themes.
- */
 export function getActiveLightTheme(): DaisyUiTheme {
-  return "corporate";
+  return (localStorage.getItem(getLcKey(false)) as DaisyUiTheme) ?? "corporate";
 }
 
-/**
- * TODO: Possibly extend this function to choose between multiple dark mode themes, e.g. the
- * "default" dark mode theme (`dark`) and a darker, low contrast theme.
- */
 export function getActiveDarkTheme(): DaisyUiTheme {
-  return "dark";
+  return (localStorage.getItem(getLcKey(true)) as DaisyUiTheme) ?? "dark";
+}
+
+export function getActiveTheme(): DaisyUiTheme {
+  return isAutoDarkMode() ? getActiveDarkTheme() : getActiveLightTheme();
 }
 
 export function isThemeDarkMode(theme: DaisyUiTheme): boolean {
   switch (theme) {
     case "dark":
+    case "gato":
       return true;
     case "corporate":
       return false;
   }
   throw new Error("Unexpected argument passed to isThemeDarkMode: ", theme);
+}
+
+function getLcKey(isDarkMode: boolean): string {
+  return `preferred-${isDarkMode ? "dark" : "light"}-theme`;
 }
 
 export async function setTheme(theme: DaisyUiTheme): Promise<void> {
@@ -54,4 +57,6 @@ export async function setTheme(theme: DaisyUiTheme): Promise<void> {
       detail: payload,
     }),
   );
+  document.body.setAttribute("data-theme", theme);
+  localStorage.setItem(getLcKey(isDarkMode), theme);
 }

@@ -10,7 +10,8 @@
   "themeSelector": "Theme",
   "themes": {
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "dark-lc": "Dark (pure black)"
   },
   "formActions": {
     "preload": "Preload",
