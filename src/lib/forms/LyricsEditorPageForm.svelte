@@ -106,6 +106,9 @@
   <LyricsFreeEditTable
     id="lyrics"
     class="col-span-full"
+    resetTable={() => {
+      (document.querySelector('button[type="reset"]')! as HTMLButtonElement).click();
+    }}
     bind:this={hot}
     bind:toggleText
   />

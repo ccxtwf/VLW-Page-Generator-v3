@@ -3,7 +3,7 @@
   import Handsontable, { type HotInstance } from "handsontable/base";
   import { getRenderer } from "handsontable/renderers";
   import { getTheme } from "handsontable/themes";
-  import { lyricsEditContextMenu } from "./contextMenus/lyricsEdit";
+  import { getLyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
@@ -19,12 +19,18 @@
     id: string;
     class: string;
     toggleText: string;
+    resetTable: () => void;
   }
 
   let hot: HotInstance | undefined = $state();
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
 
-  let { id, class: cssClass, toggleText = $bindable("") }: LyricsTableFreeEditProps = $props();
+  let {
+    id,
+    class: cssClass,
+    toggleText = $bindable(""),
+    resetTable,
+  }: LyricsTableFreeEditProps = $props();
 
   let headers = $derived(determineColumnHeaders(toggleText));
 
@@ -143,7 +149,7 @@
       rowHeaders: true,
       height: "auto",
       width: "100%",
-      contextMenu: lyricsEditContextMenu,
+      contextMenu: getLyricsEditContextMenu({ resetTable }),
       autoWrapRow: true,
       autoWrapCol: true,
       manualColumnResize: true,

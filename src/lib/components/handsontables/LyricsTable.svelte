@@ -3,7 +3,7 @@
   import type { ColumnSettings, HotInstance } from "handsontable/base";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
-  import { lyricsContextMenu } from "./contextMenus/lyrics";
+  import { getLyricsContextMenu } from "./contextMenus/lyrics";
   import type { LanguageMetadata } from "../../utils/lyricsUtils";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
 
@@ -12,6 +12,7 @@
     class: string;
     languageMetadata: LanguageMetadata;
     data: (string | null | undefined)[][];
+    resetTable: () => void;
   }
 
   let hot: HotInstance | undefined = $state();
@@ -27,6 +28,7 @@
       isoLangCode: null,
     }),
     data,
+    resetTable,
   }: LyricsTableProps = $props();
 
   const columnDefinitions: ColumnSettings[] = [
@@ -95,11 +97,10 @@
   dataSchema={LyricRow}
   rowHeaders={true}
   columns={columnDefinitions}
-  contextMenu={lyricsContextMenu}
+  contextMenu={getLyricsContextMenu({ resetTable })}
   settings={{
     colWidths: [100, 250, 250, 250],
     rowHeights: 30,
-    startRows: 5,
     fillHandle: true,
     imeFastEdit: true,
   }}

@@ -6,7 +6,11 @@ import {
   unitalicizeContextMenuItem,
 } from "./factory";
 
-export const lyricsContextMenu = {
+export interface CustomContextMenuCallbacks {
+  resetTable: () => void;
+}
+
+export const getLyricsContextMenu = ({ resetTable }: CustomContextMenuCallbacks) => ({
   items: {
     copy: { disabled: false },
     cut: { disabled: false },
@@ -24,5 +28,10 @@ export const lyricsContextMenu = {
     row_below: { disabled: false },
     remove_row: { disabled: false },
     clear_column: { disabled: false },
+    reset_table: {
+      name: "Reset Table",
+      hidden: false,
+      callback: resetTable,
+    },
   },
-};
+});

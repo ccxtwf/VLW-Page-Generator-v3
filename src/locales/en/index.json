@@ -39,7 +39,7 @@
     "autoloadCategories": "It is recommended to click the 'Autoload Categories' button before generating the page again."
   },
   "results": "Results",
-  "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
+  "confirmClear": "This will clear the data you've filled in on the form. Are you sure that you want to continue?",
   "confirmClearDiscog": "This will clear the existing songs and albums listed on the form. Are you sure that you want to continue?",
   "confirmNav": "You have unsaved changes. Are you sure that you want to leave this page?",
   "previewTitlePlaceholder": "[PAGE TITLE]",

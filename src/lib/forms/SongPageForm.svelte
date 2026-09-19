@@ -115,6 +115,11 @@
     const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
   };
+  const handleResetLyricsTable = () => {
+    if (window.confirm($_("confirmClear"))) {
+      formData.resetLyrics();
+    }
+  };
 </script>
 
 <form
@@ -512,6 +517,7 @@
     id="lyrics"
     class="col-span-full"
     data={lyricsDataNorm}
+    resetTable={handleResetLyricsTable}
     bind:languageMetadata
     bind:this={lyricsHotTable}
   />
