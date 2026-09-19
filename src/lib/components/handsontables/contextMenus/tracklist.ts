@@ -1,16 +1,17 @@
+import { translate } from "../../../../i18n";
 import { pasteContextMenuItem, renderMarkupContextMenuItem } from "./factory";
 
 export const tracklistContextMenu = {
   items: {
     copy: { disabled: false },
     cut: { disabled: false },
-    paste: pasteContextMenuItem(null, "Paste"),
+    paste: pasteContextMenuItem(null, translate("handsontable.paste")),
     sp1: "---------",
     undo: { disabled: false },
     redo: { disabled: false },
     sp2: "---------",
-    producerMarkup: renderMarkupContextMenuItem(3, "Add producer markup"),
-    singerMarkup: renderMarkupContextMenuItem(4, "Add singer markup"),
+    producerMarkup: renderMarkupContextMenuItem(3, translate("handsontable.addProducerMarkup")),
+    singerMarkup: renderMarkupContextMenuItem(4, translate("handsontable.addSingerMarkup")),
     sp3: "---------",
     row_above: { disabled: false },
     row_below: { disabled: false },

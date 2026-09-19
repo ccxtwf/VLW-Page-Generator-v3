@@ -79,6 +79,16 @@
     "tip4": "Remember to add redirects to pages to make them more easily searchable on the wiki. For example, when adding a page titled \"ハロー・ワールド (Hello World)\", you should add a redirect titled \"Hello World\" to make the song page searchable. Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Basics_of_Editing#Redirects\" target=\"_blank\" rel=\"noopener noreferrer\">§ Redirects</a> on our \"Basics of Editing\" Help page for more information."
   },
   "accessKey": "Access Key Shortcuts",
+  "handsontable": {
+    "paste": "Paste",
+    "bold": "Bold row",
+    "italic": "Italicize row",
+    "unbold": "Unbold row",
+    "unitalic": "Unitalicize row",
+    "reset": "Reset Table",
+    "addProducerMarkup": "Add producer markup",
+    "addSingerMarkup": "Add singer markup"
+  },
   "glossary": {
     "diacritics": "Open mini-library of special characters",
     "mediawiki": "Show glossary of wikitext formatting"
