@@ -62,7 +62,6 @@
 }
 @plugin "daisyui/theme" {
   name: "nord";
-  default: true;
 
   color-scheme: light;
 
