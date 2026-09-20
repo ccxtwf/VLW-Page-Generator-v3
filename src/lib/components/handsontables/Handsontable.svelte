@@ -110,7 +110,6 @@
       licenseKey,
       trimWhitespace: true,
       fillHandle: false,
-      minSpareRows: 1,
       ...settings,
     });
 

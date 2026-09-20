@@ -167,7 +167,6 @@
       trimWhitespace: true,
       fillHandle: true,
       imeFastEdit: true,
-      minSpareRows: 1,
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
         toggleText = addColumnsAtIndexToTheLeftToToggle((toggleText || "").trim(), index, amount);
