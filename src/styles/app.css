@@ -35,5 +35,6 @@ body {
 
 /* Links */
 .ht-grid-content .ht_master .htCore a {
-  @apply text-cyan-500 underline opacity-80 hover:opacity-100;
+  @apply underline;
+  color: var(--ht-accent-color);
 }

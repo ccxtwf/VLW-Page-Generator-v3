@@ -1,17 +1,29 @@
 /* Handsontable */
 /* CSS Variables */
 
+@vlw-lyrics-row-odd-color-light-mode: #fff;
+@vlw-lyrics-row-even-color-light-mode: #f6f6f6;
+@vlw-lyrics-text-color-light-mode: #212529;
+@vlw-lyrics-row-odd-color-dark-mode: #101010;
+@vlw-lyrics-row-even-color-dark-mode: #2b2b2b;
+@vlw-lyrics-text-color-dark-mode: #cecece;
+
+/* For non-lyrics tables, follow DaisyUI theming */
 .ht-light-mode() {
   color-scheme: light;
   --ht-background-color: var(--color-base-100);
+  --ht-foreground-color: var(--color-base-content);
   --ht-header-background-color: var(--color-base-200);
   --ht-row-header-odd-background-color: var(--color-base-200);
   --ht-row-header-even-background-color: var(--color-base-200);
+  --ht-cell-horizontal-border-color: var(--color-base-300);
+  --ht-cell-vertical-border-color: var(--color-base-300);
   --ht-border-color: var(--color-base-300);
 }
 .ht-dark-mode() {
   color-scheme: dark;
   --ht-background-color: var(--color-base-100);
+  --ht-foreground-color: var(--color-base-content);
   --ht-header-background-color: #000;
   --ht-row-header-odd-background-color: #000;
   --ht-row-header-even-background-color: #000;
@@ -19,21 +31,37 @@
   --ht-cell-vertical-border-color: #454647;
   --ht-border-color: #6e6f72;
 }
+
+/* For lyrics tables, set theming independent off what is set on the page */
+#lyrics .ht-root-wrapper {
+  --ht-header-background-color: var(--lyrics-table-header-color);
+  --ht-row-header-odd-background-color: var(--lyrics-table-header-color);
+  --ht-row-header-even-background-color: var(--lyrics-table-header-color);
+}
 .ht-lyrics-light-mode() {
-  --ht-background-color: #fff;
-  --ht-row-cell-odd-background-color: #f6f6f6;
-  --ht-cell-horizontal-border-color: #e7e7e9;
-  --ht-cell-vertical-border-color: #e7e7e9;
-  --ht-border-color: #878686;
+  color-scheme: light;
+  --ht-background-color: @vlw-lyrics-row-even-color-light-mode;
+  --ht-foreground-color: @vlw-lyrics-text-color-light-mode;
+  --ht-row-cell-odd-background-color: @vlw-lyrics-row-odd-color-light-mode;
+  --ht-cell-horizontal-border-color: darken(@vlw-lyrics-row-odd-color-light-mode, 20%);
+  --ht-cell-vertical-border-color: darken(@vlw-lyrics-row-odd-color-light-mode, 10%);
+  --ht-header-foreground-color: @vlw-lyrics-text-color-light-mode;
+  --ht-header-row-foreground-color: @vlw-lyrics-text-color-light-mode;
+  // --ht-border-color: darken(@vlw-lyrics-row-odd-color-light-mode, 20%);
 }
 .ht-lyrics-dark-mode() {
-  --ht-background-color: #101010;
-  --ht-row-cell-odd-background-color: #2b2b2b;
-  --ht-cell-horizontal-border-color: #6e6f72;
-  --ht-cell-vertical-border-color: #454647;
-  --ht-border-color: #282829;
+  color-scheme: dark;
+  --ht-background-color: @vlw-lyrics-row-even-color-dark-mode;
+  --ht-foreground-color: @vlw-lyrics-text-color-dark-mode;
+  --ht-row-cell-odd-background-color: @vlw-lyrics-row-odd-color-dark-mode;
+  --ht-cell-horizontal-border-color: lighten(@vlw-lyrics-row-odd-color-dark-mode, 20%);
+  --ht-cell-vertical-border-color: lighten(@vlw-lyrics-row-odd-color-dark-mode, 10%);
+  --ht-header-foreground-color: @vlw-lyrics-text-color-dark-mode;
+  --ht-header-row-foreground-color: @vlw-lyrics-text-color-dark-mode;
+  // --ht-border-color: lighten(@vlw-lyrics-row-odd-color-dark-mode, 20%);
 }
 
+/* Apply mix-ins */
 .ht-root-wrapper {
   .ht-light-mode();
 }
@@ -56,6 +84,12 @@
   #lyrics .ht-root-wrapper {
     .ht-lyrics-light-mode();
   }
+  #lyrics .ht-theme-light {
+    --lyrics-table-header-color: var(--color-base-200);
+  }
+  #lyrics .ht-theme-dark {
+    --lyrics-table-header-color: #000;
+  }
 }
 [data-theme="dark"],
 [data-theme="gato"] {
@@ -65,6 +99,12 @@
   #lyrics .ht-root-wrapper {
     .ht-lyrics-dark-mode();
   }
+  #lyrics .ht-theme-light {
+    --lyrics-table-header-color: #e8e8e8;
+  }
+  #lyrics .ht-theme-dark {
+    --lyrics-table-header-color: #000;
+  }
 }
 #lyrics {
   .ht-theme-light.ht-theme-light {
@@ -73,6 +113,11 @@
   .ht-theme-dark.ht-theme-dark {
     .ht-lyrics-dark-mode();
   }
+}
+
+/* Theme-specific settings */
+[data-theme="dark"] .ht-root-wrapper {
+  --ht-accent-color: var(--ht-colors-primary-100);
 }
 
 /* Stacking priority of table headers */
