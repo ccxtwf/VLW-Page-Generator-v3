@@ -1,11 +1,12 @@
 import type { ThemeChangedEventPayload } from "../../../src/schemas/events.d";
 
-export type DaisyUiTheme = "corporate" | "dark" | "gato";
-export type HandsontableTheme = "auto" | "light" | "dark";
+const daisyUiThemes = ["corporate", "dark", "gato", "nord"] as const;
+export type DaisyUiTheme = (typeof daisyUiThemes)[number];
 export type ThemeChangedEvent = CustomEvent<ThemeChangedEventPayload>;
 
 export const THEMES: { theme: DaisyUiTheme; labelKey: string }[] = [
   { theme: "corporate", labelKey: "themes.light" },
+  { theme: "nord", labelKey: "themes.nord" },
   { theme: "dark", labelKey: "themes.dark" },
   { theme: "gato", labelKey: "themes.gato" },
 ];
@@ -27,8 +28,20 @@ export function getActiveDarkTheme(): DaisyUiTheme {
   return (localStorage.getItem(getLcKey(true)) as DaisyUiTheme) ?? "dark";
 }
 
-export function getActiveTheme(): DaisyUiTheme {
-  return isAutoDarkMode() ? getActiveDarkTheme() : getActiveLightTheme();
+export function getActiveTheme(): DaisyUiTheme | null {
+  return localStorage.getItem(getLcKey()) as DaisyUiTheme;
+}
+
+export function isValidTheme(theme: string): boolean {
+  return (daisyUiThemes as readonly string[]).indexOf(theme) > -1;
+}
+
+export function isDarkModeActive(): boolean {
+  const activeTheme = getActiveTheme();
+  if (!activeTheme || !isValidTheme(activeTheme)) {
+    return isAutoDarkMode();
+  }
+  return isThemeDarkMode(activeTheme);
 }
 
 export function isThemeDarkMode(theme: DaisyUiTheme): boolean {
@@ -37,16 +50,17 @@ export function isThemeDarkMode(theme: DaisyUiTheme): boolean {
     case "gato":
       return true;
     case "corporate":
+    case "nord":
       return false;
   }
   throw new Error("Unexpected argument passed to isThemeDarkMode: ", theme);
 }
 
-function getLcKey(isDarkMode: boolean): string {
-  return `preferred-${isDarkMode ? "dark" : "light"}-theme`;
+function getLcKey(isDarkMode?: boolean): string {
+  return `preferred-${isDarkMode === undefined ? "" : isDarkMode ? "dark-" : "light-"}theme`;
 }
 
-export async function setTheme(theme: DaisyUiTheme): Promise<void> {
+export function setTheme(theme: DaisyUiTheme): void {
   // console.log(e.currentTarget.value, e.currentTarget.checked);
   const isDarkMode = isThemeDarkMode(theme);
   const htTheme = (isThemeDarkMode(theme) ? "dark" : "light") as HandsontableTheme;
@@ -59,4 +73,5 @@ export async function setTheme(theme: DaisyUiTheme): Promise<void> {
   );
   document.body.setAttribute("data-theme", theme);
   localStorage.setItem(getLcKey(isDarkMode), theme);
+  localStorage.setItem(getLcKey(), theme);
 }

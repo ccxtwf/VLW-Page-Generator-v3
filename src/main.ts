@@ -8,7 +8,10 @@ import "./app.css";
 import "./styles/handsontable.less";
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.body.setAttribute("data-theme", getActiveTheme());
+  const theme = getActiveTheme();
+  if (theme) {
+    document.body.setAttribute("data-theme", theme);
+  }
 });
 
 const app = mount(App, {

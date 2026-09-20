@@ -10,8 +10,9 @@
   "themeSelector": "Theme",
   "themes": {
     "light": "Light",
+    "nord": "Nord",
     "dark": "Dark",
-    "gato": "Dark (pure black)"
+    "gato": "Gato"
   },
   "formActions": {
     "preload": "Preload",
