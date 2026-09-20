@@ -75,5 +75,6 @@
     beforeChange: onVlwPageInput,
     colWidths: [70, 70, 200, 180, 180],
     rowHeights: 30,
+    minSpareRows: 1,
   }}
 />

@@ -113,6 +113,7 @@
     fillHandle: true,
     imeFastEdit: true,
     theme: getTheme(isDarkModeActive() ? "dark" : "light"),
+    minSpareRows: 1,
   }}
   onReady={function () {
     /**
