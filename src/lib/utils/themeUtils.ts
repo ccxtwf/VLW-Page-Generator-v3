@@ -7,7 +7,7 @@ export type ThemeChangedEvent = CustomEvent<ThemeChangedEventPayload>;
 export const THEMES: { theme: DaisyUiTheme; labelKey: string }[] = [
   { theme: "corporate", labelKey: "themes.light" },
   { theme: "dark", labelKey: "themes.dark" },
-  { theme: "gato", labelKey: "themes.dark-lc" },
+  { theme: "gato", labelKey: "themes.gato" },
 ];
 
 /**

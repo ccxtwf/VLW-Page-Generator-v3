@@ -2,7 +2,7 @@
   import { _ } from "svelte-i18n";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
   import { extractLyricsTablesFromWikipageSrc, parseLyrics } from "../utils/lyricsEditFormActions";
-  import type { LyricsParsePayload } from "../../schemas/events";
+  import type { ParsedLyricsPayload } from "../../schemas/events";
 
   let selectedTable: number = $state(0);
   let nTables: number = $state(0);
@@ -18,7 +18,7 @@
     }
     const [toggleText, lyrics, translator, isOfficialTranslation] = parseLyrics(rx);
     window.dispatchEvent(
-      new CustomEvent<LyricsParsePayload>("parsedLyrics", {
+      new CustomEvent<ParsedLyricsPayload>("parsedLyrics", {
         detail: { toggleText, lyrics, translator, isOfficialTranslation },
       }),
     );

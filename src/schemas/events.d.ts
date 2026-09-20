@@ -6,7 +6,7 @@ export interface ThemeChangedEventPayload {
   isDarkMode: boolean;
 }
 
-export interface LyricsParsePayload {
+export interface ParsedLyricsPayload {
   toggleText: string;
   lyrics: string[][];
   translator: string;
@@ -16,6 +16,6 @@ export interface LyricsParsePayload {
 declare global {
   interface WindowEventMap {
     themeChanged: CustomEvent<ThemeChangedEventPayload>;
-    parsedLyrics: CustomEvent<LyricsParsePayload>;
+    parsedLyrics: CustomEvent<ParsedLyricsPayload>;
   }
 }

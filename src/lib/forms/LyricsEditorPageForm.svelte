@@ -18,7 +18,7 @@
     standardizeHepburnRomanization,
   } from "../utils/lyricsEditFormActions";
   import { generateLyricsSegment, truncateLyrics } from "../utils/lyricsUtils";
-  import type { LyricsParsePayload } from "../../schemas/events.d";
+  import type { ParsedLyricsPayload } from "../../schemas/events.d";
 
   let { ongenerate }: { ongenerate: (results: string) => void } = $props();
 
@@ -54,7 +54,7 @@
     };
   }
 
-  const cbEventListener = (e: CustomEvent<LyricsParsePayload>) => {
+  const cbEventListener = (e: CustomEvent<ParsedLyricsPayload>) => {
     const { toggleText: a, lyrics: b, translator: c, isOfficialTranslation: d } = e.detail;
     toggleText = a;
     hot!.loadData(b);
