@@ -79,8 +79,6 @@ test.describe("Theming - Initial Load State", () => {
     let colorScheme = await page.evaluate(computeColorScheme);
     expect(colorScheme).toEqual("light");
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBeNull();
 
     const themeToggleDropdown = getThemeNavbarDropdown(page);
@@ -99,8 +97,6 @@ test.describe("Theming - Initial Load State", () => {
       { timeout: 1000 },
     );
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBe("dark");
     expect(await page.localStorage.getItem("preferred-theme")).toBe("dark");
 
     await page.reload();
@@ -122,8 +118,6 @@ test.describe("Theming - Initial Load State", () => {
     let colorScheme = await page.evaluate(computeColorScheme);
     expect(colorScheme).toEqual("light");
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBeNull();
 
     const themeToggleDropdown = getThemeNavbarDropdown(page);
@@ -142,8 +136,6 @@ test.describe("Theming - Initial Load State", () => {
       { timeout: 1000 },
     );
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBe("nord");
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBe("nord");
 
     await page.reload();
@@ -165,8 +157,6 @@ test.describe("Theming - Initial Load State", () => {
     let colorScheme = await page.evaluate(computeColorScheme);
     expect(colorScheme).toEqual("dark");
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBeNull();
 
     const themeToggleDropdown = getThemeNavbarDropdown(page);
@@ -185,8 +175,6 @@ test.describe("Theming - Initial Load State", () => {
       { timeout: 1000 },
     );
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBe("corporate");
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBe("corporate");
 
     await page.reload();
@@ -208,8 +196,6 @@ test.describe("Theming - Initial Load State", () => {
     let colorScheme = await page.evaluate(computeColorScheme);
     expect(colorScheme).toEqual("dark");
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBeNull();
     expect(await page.localStorage.getItem("preferred-theme")).toBeNull();
 
     const themeToggleDropdown = getThemeNavbarDropdown(page);
@@ -228,8 +214,6 @@ test.describe("Theming - Initial Load State", () => {
       { timeout: 1000 },
     );
 
-    expect(await page.localStorage.getItem("preferred-light-theme")).toBeNull();
-    expect(await page.localStorage.getItem("preferred-dark-theme")).toBe("gato");
     expect(await page.localStorage.getItem("preferred-theme")).toBe("gato");
 
     await page.reload();

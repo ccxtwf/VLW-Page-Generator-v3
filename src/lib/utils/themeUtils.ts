@@ -23,14 +23,6 @@ export function isAutoDarkMode(): boolean {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
-export function getActiveLightTheme(): DaisyUiTheme {
-  return (localStorage.getItem(getLcKey(false)) as DaisyUiTheme) ?? "corporate";
-}
-
-export function getActiveDarkTheme(): DaisyUiTheme {
-  return (localStorage.getItem(getLcKey(true)) as DaisyUiTheme) ?? "dark";
-}
-
 export function getActiveTheme(): DaisyUiTheme | null {
   return localStorage.getItem(getLcKey()) as DaisyUiTheme;
 }
@@ -75,7 +67,6 @@ export function setTheme(theme: DaisyUiTheme): void {
   );
   setLyricsTheme(isDarkMode);
   document.body.setAttribute("data-theme", theme);
-  localStorage.setItem(getLcKey(isDarkMode), theme);
   localStorage.setItem(getLcKey(), theme);
 }
 
