@@ -1,5 +1,9 @@
 import { translate } from "../../../../i18n";
-import { pasteContextMenuItem, renderMarkupContextMenuItem } from "./factory";
+import {
+  insertMultipleRowsMenuItem,
+  pasteContextMenuItem,
+  renderMarkupContextMenuItem,
+} from "./factory";
 
 export const tracklistContextMenu = {
   items: {
@@ -21,6 +25,7 @@ export const tracklistContextMenu = {
     sp3: "---------",
     row_above: { disabled: false },
     row_below: { disabled: false },
+    insert_n_rows: insertMultipleRowsMenuItem(),
     remove_row: { disabled: false },
     clear_column: { disabled: false },
   },
