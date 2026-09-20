@@ -24,7 +24,7 @@
   import Handsontable, { type HotInstance, type GridSettings } from "handsontable/base";
   import { getTheme } from "handsontable/themes";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
-  import type { ThemeChangedEventPayload } from "../../../schemas/events";
+  import { isAutoDarkMode } from "../../utils/themeUtils";
 
   type Constructor<T = any> = new (...args: any[]) => T;
 
@@ -50,6 +50,7 @@
     dataSchema: Constructor;
     settings?: GridSettings;
     onReady?: (hot: Handsontable) => void;
+    onUnmount?: (hot: Handsontable | undefined) => void;
   }
 
   let {
@@ -73,6 +74,7 @@
     licenseKey = HANDSONTABLE_LICENSE_KEY,
     settings = {}, // any extra Handsontable settings you want to pass through
     onReady = undefined, // optional callback: (hotInstance) => void
+    onUnmount = undefined, // optional callback: (hotInstance) => void
   }: HandsontableProps = $props();
 
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
@@ -90,14 +92,10 @@
     });
   }
 
-  const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
-    hot?.updateSettings({ theme: getTheme(event.detail.htTheme) });
-  };
-
   onMount(() => {
     hot = new Handsontable(container, {
       data, // pass initial state only
-      theme: getTheme(window._theme || "auto"),
+      theme: getTheme(isAutoDarkMode() ? "dark" : "light"),
       colHeaders,
       columns,
       rowHeaders,
@@ -114,11 +112,6 @@
       fillHandle: false,
       ...settings,
     });
-
-    /**
-     * Listen to changes set upon the page's theme
-     */
-    window.addEventListener("themeChanged", cbWatchTheme);
 
     onReady?.(hot);
   });
@@ -142,8 +135,8 @@
    */
 
   onDestroy(() => {
+    onUnmount?.(hot);
     hot?.destroy();
-    window.removeEventListener("themeChanged", cbWatchTheme);
   });
 </script>
 

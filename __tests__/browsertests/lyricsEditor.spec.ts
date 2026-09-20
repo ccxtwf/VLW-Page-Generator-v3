@@ -105,7 +105,7 @@ test.describe("Lyrics editor tests", async () => {
     const isOfficialTranslation = getComponent(page, "is-official-translation-input");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await expect(translator).toHaveValue("John Doe");
     await expect(isOfficialTranslation).not.toBeChecked();
 
@@ -149,7 +149,7 @@ test.describe("Lyrics editor tests", async () => {
     const isOfficialTranslation = getComponent(page, "is-official-translation-input");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await expect(translator).toHaveValue("John Doe");
     await expect(isOfficialTranslation).toBeChecked();
 
@@ -222,7 +222,7 @@ Remix =
 
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await expect(translator).toHaveValue("John Doe");
     await expect(isOfficialTranslation).not.toBeChecked();
 
@@ -258,7 +258,7 @@ Remix =
       "{{lyrics toggle|org:Conlang|rom:Romanized|eng:English}}",
     );
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await expect(translator).toHaveValue("Jane Doe");
     await expect(isOfficialTranslation).toBeChecked();
 
@@ -311,13 +311,13 @@ Remix =
 
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await removeHandsontableColumn(page, lyricsTable, 4);
 
     const lyricsToggle = getComponent(page, "lyrics-toggle-input");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji}}");
     await assertTableColumnNumber(lyricsTable, 3);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
 
     await getComponent(page, "generate-button").click();
 
@@ -362,7 +362,7 @@ Remix =
 
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await assertTableColumnNumber(lyricsTable, 3);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
     await addHandsontableColumnToRight(page, lyricsTable, 3);
 
     await fillTableAtColumn(lyricsTable, 4, ["ABCD", "EFGH"]);
@@ -378,11 +378,11 @@ Remix =
       "{{lyrics toggle|jp:Japanese|rom:Romaji|col1:Column 1}}",
     );
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
 
     await lyricsToggle.fill("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
+    await assertTableRowNumber(lyricsTable, 3);
 
     await getComponent(page, "generate-button").click();
 
@@ -431,10 +431,10 @@ Remix =
 
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 2);
-    await addHandsontableRow(page, lyricsTable, 2, ["", "らりるれろ", "rarirurero", "IJKL"]);
-    await assertTableColumnNumber(lyricsTable, 4);
     await assertTableRowNumber(lyricsTable, 3);
+    await addHandsontableRow(lyricsTable, 3, ["", "らりるれろ", "rarirurero", "IJKL"]);
+    await assertTableColumnNumber(lyricsTable, 4);
+    await assertTableRowNumber(lyricsTable, 4);
 
     const lyricsToggle = getComponent(page, "lyrics-toggle-input");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
@@ -502,7 +502,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 3);
+    await assertTableRowNumber(lyricsTable, 4);
 
     await page.getByRole("button", { name: "Decapitalize romanized lyrics" }).click();
 
@@ -574,7 +574,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 4);
+    await assertTableRowNumber(lyricsTable, 5);
 
     await page.getByRole("button", { name: "Consolidate per-cell span" }).click();
 
@@ -648,7 +648,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 3);
+    await assertTableRowNumber(lyricsTable, 4);
 
     await page.getByRole("button", { name: "Romaji: Change 'wo' to 'o'" }).click();
 
@@ -720,7 +720,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await expect(lyricsToggle).toHaveValue("{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}");
     await assertTableColumnNumber(lyricsTable, 4);
-    await assertTableRowNumber(lyricsTable, 4);
+    await assertTableRowNumber(lyricsTable, 5);
 
     await page.getByRole("button", { name: "Pinyin: Remove Tones" }).click();
 

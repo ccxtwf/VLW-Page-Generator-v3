@@ -57,9 +57,7 @@ export default class Song implements BaseModel<ISong> {
   }
 
   resetHotTables(): void {
-    this.lyrics = Array(20)
-      .fill(null)
-      .map(() => new LyricRow());
+    this.resetLyrics();
     this.playLinks = [
       PV_SERVICE_PROVIDER.niconico,
       PV_SERVICE_PROVIDER.youtube,
@@ -70,6 +68,12 @@ export default class Song implements BaseModel<ISong> {
     this.extLinks = Array(5)
       .fill(null)
       .map(() => new ExternalLink());
+  }
+
+  resetLyrics(): void {
+    this.lyrics = Array(20)
+      .fill(null)
+      .map(() => new LyricRow());
   }
 
   preprocess(): void {

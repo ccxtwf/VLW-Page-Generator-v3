@@ -7,6 +7,7 @@
 
   import ExternalLink from "../../models/children/ExternalLink.svelte";
   import ExternalLinkForProducerPage from "../../models/children/ExternalLinkForProducerPage.svelte";
+  import type { IExternalLink } from "../../models/schema.d";
 
   import { RECOGNIZED_LINKS } from "../../../constants";
   import { processInsertedLink, handleInputEvent } from "./utils";
@@ -110,6 +111,10 @@
     beforeChange: onLinkInput,
     colWidths: [250, 150, 50, 50, 50],
     rowHeights: 30,
-    minSpareRows: 0,
+    isEmptyRow(this: HotInstance, rowIdx: number) {
+      const row = this.getSourceDataAtRow(rowIdx) as IExternalLink;
+      //@ts-ignore
+      return Boolean(!row || !row.url || !row.description);
+    },
   }}
 />

@@ -1,10 +1,10 @@
 import type { HotInstance } from "handsontable/base";
-import { lyricsContextMenu } from "./lyrics";
+import { getLyricsContextMenu, type InitCustomContextMenu } from "./lyrics";
 
-export const lyricsEditContextMenu = {
+export const getLyricsEditContextMenu = (args: InitCustomContextMenu) => ({
   items: {
-    ...lyricsContextMenu.items,
-    sp4: "---------",
+    ...getLyricsContextMenu(args).items,
+    sp5: "---------",
     ["col_left"]: {
       disabled(this: HotInstance) {
         const rng = this.getSelectedRange()!;
@@ -76,4 +76,4 @@ export const lyricsEditContextMenu = {
       },
     },
   },
-};
+});

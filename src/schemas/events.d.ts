@@ -2,11 +2,14 @@ import type { DaisyUiTheme, HandsontableTheme } from "../lib/utils/themeUtils";
 
 export interface ThemeChangedEventPayload {
   theme: DaisyUiTheme;
-  htTheme: HandsontableTheme;
   isDarkMode: boolean;
 }
 
-export interface LyricsParsePayload {
+export interface LyricsThemeToggledEventPayload {
+  isDarkMode: boolean;
+}
+
+export interface ParsedLyricsPayload {
   toggleText: string;
   lyrics: string[][];
   translator: string;
@@ -16,6 +19,7 @@ export interface LyricsParsePayload {
 declare global {
   interface WindowEventMap {
     themeChanged: CustomEvent<ThemeChangedEventPayload>;
-    parsedLyrics: CustomEvent<LyricsParsePayload>;
+    lyricsThemeToggled: CustomEvent<LyricsThemeToggledEventPayload>;
+    parsedLyrics: CustomEvent<ParsedLyricsPayload>;
   }
 }

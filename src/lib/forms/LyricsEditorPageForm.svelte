@@ -17,8 +17,8 @@
     detonePinyinLyrics,
     standardizeHepburnRomanization,
   } from "../utils/lyricsEditFormActions";
-  import { generateLyricsSegment } from "../utils/lyricsUtils";
-  import type { LyricsParsePayload } from "../../schemas/events.d";
+  import { generateLyricsSegment, truncateLyrics } from "../utils/lyricsUtils";
+  import type { ParsedLyricsPayload } from "../../schemas/events.d";
 
   let { ongenerate }: { ongenerate: (results: string) => void } = $props();
 
@@ -31,7 +31,7 @@
 
   function handleSubmit(e: Event) {
     e.preventDefault();
-    const data = hot!.getData();
+    const data = truncateLyrics(hot!.getData());
     const results = generateLyricsSegment(data, {
       needsRomanization: true,
       needsTranslation: true,
@@ -54,7 +54,7 @@
     };
   }
 
-  const cbEventListener = (e: CustomEvent<LyricsParsePayload>) => {
+  const cbEventListener = (e: CustomEvent<ParsedLyricsPayload>) => {
     const { toggleText: a, lyrics: b, translator: c, isOfficialTranslation: d } = e.detail;
     toggleText = a;
     hot!.loadData(b);
@@ -106,6 +106,9 @@
   <LyricsFreeEditTable
     id="lyrics"
     class="col-span-full"
+    resetTable={() => {
+      (document.querySelector('button[type="reset"]')! as HTMLButtonElement).click();
+    }}
     bind:this={hot}
     bind:toggleText
   />

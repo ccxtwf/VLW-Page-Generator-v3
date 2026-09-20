@@ -3,28 +3,36 @@
   import Handsontable, { type HotInstance } from "handsontable/base";
   import { getRenderer } from "handsontable/renderers";
   import { getTheme } from "handsontable/themes";
-  import { lyricsEditContextMenu } from "./contextMenus/lyricsEdit";
+  import { getLyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
   import LyricRow from "../../models/children/LyricsRow.svelte";
+  import type { ILyricsRow } from "../../models/schema.js";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
   import {
     addColumnsAtIndexToTheLeftToToggle,
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
-  import type { ThemeChangedEventPayload } from "../../../schemas/events";
+  import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
+  import { isDarkModeActive } from "#src/lib/utils/themeUtils.js";
 
   interface LyricsTableFreeEditProps {
     id: string;
     class: string;
     toggleText: string;
+    resetTable: () => void;
   }
 
   let hot: HotInstance | undefined = $state();
   let container: HTMLDivElement; // oxlint-disable-line no-unassigned-vars
 
-  let { id, class: cssClass, toggleText = $bindable("") }: LyricsTableFreeEditProps = $props();
+  let {
+    id,
+    class: cssClass,
+    toggleText = $bindable(""),
+    resetTable,
+  }: LyricsTableFreeEditProps = $props();
 
   let headers = $derived(determineColumnHeaders(toggleText));
 
@@ -54,11 +62,11 @@
     }
   });
 
-  export function loadData(data: string[][]) {
+  export function loadData(data: string[][]): void {
     hot!.loadData(data);
   }
 
-  export function resetState() {
+  export function resetState(): void {
     hot!.loadData(
       Array(20)
         .fill(null)
@@ -66,7 +74,7 @@
     );
   }
 
-  export function getData() {
+  export function getData(): ILyricsRow[] {
     const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
     return !hot || hot.isDestroyed
       ? []
@@ -107,7 +115,7 @@
         });
   }
 
-  export function editAction(fn: (data: unknown[][]) => string[][]) {
+  export function editAction(fn: (data: unknown[][]) => string[][]): void {
     const data = hot!.getData();
     const transformed = fn(data);
     hot!.loadData(transformed);
@@ -124,8 +132,10 @@
     // }));
   }
 
-  const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
-    hot?.updateSettings({ theme: getTheme(event.detail.htTheme) });
+  const cbWatchTheme = (event: CustomEvent<LyricsThemeToggledEventPayload>) => {
+    hot?.updateSettings({
+      theme: getTheme(event.detail.isDarkMode ? "dark" : "light"),
+    });
   };
 
   onMount(() => {
@@ -139,11 +149,11 @@
         const renderer = getRenderer(rendererKey);
         return renderer(hotInstance, _td, _row, col, _prop, _value, _cellProperties);
       },
-      theme: getTheme(window._theme || "auto"),
+      theme: getTheme(isDarkModeActive() ? "dark" : "light"),
       rowHeaders: true,
       height: "auto",
       width: "100%",
-      contextMenu: lyricsEditContextMenu,
+      contextMenu: getLyricsEditContextMenu({ resetTable }),
       autoWrapRow: true,
       autoWrapCol: true,
       manualColumnResize: true,
@@ -157,6 +167,7 @@
       trimWhitespace: true,
       fillHandle: true,
       imeFastEdit: true,
+      minSpareRows: 1,
       afterCreateCol(index, amount, source) {
         DEBUG && console.log("CREATED COL", index, amount, source);
         toggleText = addColumnsAtIndexToTheLeftToToggle((toggleText || "").trim(), index, amount);
@@ -168,14 +179,14 @@
     });
 
     /**
-     * Listen to changes set upon the page's theme
+     * Listen to changes set upon the theme toggle
      */
-    window.addEventListener("themeChanged", cbWatchTheme);
+    window.addEventListener("lyricsThemeToggled", cbWatchTheme);
   });
 
   onDestroy(() => {
     hot?.destroy();
-    window.removeEventListener("themeChanged", cbWatchTheme);
+    window.removeEventListener("lyricsThemeToggled", cbWatchTheme);
   });
 </script>
 

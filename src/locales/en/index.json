@@ -10,7 +10,9 @@
   "themeSelector": "Theme",
   "themes": {
     "light": "Light",
-    "dark": "Dark"
+    "nord": "Nord",
+    "dark": "Dark",
+    "gato": "Gato"
   },
   "formActions": {
     "preload": "Preload",
@@ -39,7 +41,7 @@
     "autoloadCategories": "It is recommended to click the 'Autoload Categories' button before generating the page again."
   },
   "results": "Results",
-  "confirmClear": "This will clear all existing data on the form. Are you sure that you want to continue?",
+  "confirmClear": "This will clear the data you've filled in on the form. Are you sure that you want to continue?",
   "confirmClearDiscog": "This will clear the existing songs and albums listed on the form. Are you sure that you want to continue?",
   "confirmNav": "You have unsaved changes. Are you sure that you want to leave this page?",
   "previewTitlePlaceholder": "[PAGE TITLE]",
@@ -79,6 +81,17 @@
     "tip4": "Remember to add redirects to pages to make them more easily searchable on the wiki. For example, when adding a page titled \"ハロー・ワールド (Hello World)\", you should add a redirect titled \"Hello World\" to make the song page searchable. Refer to the section <a class=\"link link-accent italic\" href=\"{domain}Help:Basics_of_Editing#Redirects\" target=\"_blank\" rel=\"noopener noreferrer\">§ Redirects</a> on our \"Basics of Editing\" Help page for more information."
   },
   "accessKey": "Access Key Shortcuts",
+  "handsontable": {
+    "paste": "Paste",
+    "insertNRows": "Insert {1} rows below",
+    "bold": "Bold row",
+    "italic": "Italicize row",
+    "unbold": "Unbold row",
+    "unitalic": "Unitalicize row",
+    "reset": "Reset Table",
+    "addProducerMarkup": "Add producer markup",
+    "addSingerMarkup": "Add singer markup"
+  },
   "glossary": {
     "diacritics": "Open mini-library of special characters",
     "mediawiki": "Show glossary of wikitext formatting"

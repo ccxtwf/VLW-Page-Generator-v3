@@ -42,7 +42,7 @@
   <BaseLayout>
     {#await pageLoader}
       <div
-        class="bg-opacity-50 text-neutral-content fixed inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center gap-2 bg-gray-900"
+        class="text-base-content bg-base-200 fixed inset-0 z-50 flex h-screen w-screen flex-col items-center justify-center gap-2"
       >
         <div class="flex-item loading loading-spinner loading-xl"></div>
         <div class="flex-item text-xl">

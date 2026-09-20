@@ -1,4 +1,5 @@
-import { init, addMessages } from "svelte-i18n";
+import { init, addMessages, _ } from "svelte-i18n";
+import { get } from "svelte/store";
 
 interface LocaleDictionary {
   [key: string]: LocaleDictionary | string | Array<string | LocaleDictionary> | null;
@@ -24,3 +25,5 @@ init({
   fallbackLocale: "en",
   initialLocale: "en",
 });
+
+export const translate = get(_);

@@ -75,23 +75,12 @@ export async function removeHandsontableColumn(page: Page, table: Locator, index
 /**
  * On Playwright tests, remove a given column of a Handsontable instance.
  *
- * @param page
  * @param table
- * @param after Column position index (1-th index)
+ * @param index Column position index (1-th index)
  * @param data
  */
-export async function addHandsontableRow(
-  page: Page,
-  table: Locator,
-  after: number,
-  data: string[],
-) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_LABEL_SELECTOR).all();
-  await tbodyRows[after - 1].click({ delay: 50 });
-  await tbodyRows[after - 1].click({ button: "right" });
-  await page.getByText("Insert row below").click();
-
-  const newRow = table.locator(HANDSONTABLE_ROW_SELECTOR).last();
+export async function addHandsontableRow(table: Locator, index: number, data: string[]) {
+  const newRow = table.locator(HANDSONTABLE_ROW_SELECTOR).nth(index - 1);
   for (let i = 0; i < data.length; i++) {
     let cell = newRow.locator("td").nth(i);
     await cell.click({ clickCount: 2 });

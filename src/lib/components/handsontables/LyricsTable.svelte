@@ -1,17 +1,21 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable/base";
+  import { getTheme } from "handsontable/themes";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
-  import { lyricsContextMenu } from "./contextMenus/lyrics";
+  import { getLyricsContextMenu } from "./contextMenus/lyrics";
   import type { LanguageMetadata } from "../../utils/lyricsUtils";
+  import { isDarkModeActive } from "../../utils/themeUtils";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
+  import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
 
   interface LyricsTableProps {
     id: string;
     class: string;
     languageMetadata: LanguageMetadata;
     data: (string | null | undefined)[][];
+    resetTable: () => void;
   }
 
   let hot: HotInstance | undefined = $state();
@@ -27,6 +31,7 @@
       isoLangCode: null,
     }),
     data,
+    resetTable,
   }: LyricsTableProps = $props();
 
   const columnDefinitions: ColumnSettings[] = [
@@ -71,6 +76,12 @@
     });
   });
 
+  const cbWatchTheme = (event: CustomEvent<LyricsThemeToggledEventPayload>) => {
+    hot?.updateSettings({
+      theme: getTheme(event.detail.isDarkMode ? "dark" : "light"),
+    });
+  };
+
   export function getLatestData() {
     if (!hot) {
       return [];
@@ -95,12 +106,22 @@
   dataSchema={LyricRow}
   rowHeaders={true}
   columns={columnDefinitions}
-  contextMenu={lyricsContextMenu}
+  contextMenu={getLyricsContextMenu({ resetTable })}
   settings={{
     colWidths: [100, 250, 250, 250],
     rowHeights: 30,
-    startRows: 5,
     fillHandle: true,
     imeFastEdit: true,
+    theme: getTheme(isDarkModeActive() ? "dark" : "light"),
+    minSpareRows: 1,
+  }}
+  onReady={function () {
+    /**
+     * Listen to changes set upon the theme toggle
+     */
+    window.addEventListener("lyricsThemeToggled", cbWatchTheme);
+  }}
+  onUnmount={function () {
+    window.removeEventListener("lyricsThemeToggled", cbWatchTheme);
   }}
 />

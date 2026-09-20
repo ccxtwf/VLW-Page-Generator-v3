@@ -72,7 +72,7 @@
       {#each ROUTES as route}
         <a
           href={`#${route.path}`}
-          class="opacity-50 hover:opacity-70 sm:w-full">{$_(`pages.${route.labelKey}`)}</a
+          class="opacity-50 hover:opacity-70 sm:pr-6">{$_(`pages.${route.labelKey}`)}</a
         >
       {/each}
     </nav>
@@ -84,7 +84,7 @@
         <a
           href={url}
           target="_blank"
-          class="opacity-50 hover:opacity-70 sm:w-full">{displayedPageName}</a
+          class="opacity-50 hover:opacity-70 sm:pr-6">{displayedPageName}</a
         >
       {/each}
     </nav>

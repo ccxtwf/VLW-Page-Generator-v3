@@ -329,8 +329,6 @@
   </div>
 </form>
 
-<ThemeToggle hidden />
-
 <Divider />
 
 <ValidationResultsAlert bind:this={warningsElement} />
