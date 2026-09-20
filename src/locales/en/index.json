@@ -83,6 +83,7 @@
   "accessKey": "Access Key Shortcuts",
   "handsontable": {
     "paste": "Paste",
+    "insertNRows": "Insert {1} rows below",
     "bold": "Bold row",
     "italic": "Italicize row",
     "unbold": "Unbold row",

@@ -5,13 +5,19 @@ export const tracklistContextMenu = {
   items: {
     copy: { disabled: false },
     cut: { disabled: false },
-    paste: pasteContextMenuItem(null, translate("handsontable.paste")),
+    paste: pasteContextMenuItem({ name: translate("handsontable.paste") }),
     sp1: "---------",
     undo: { disabled: false },
     redo: { disabled: false },
     sp2: "---------",
-    producerMarkup: renderMarkupContextMenuItem(3, translate("handsontable.addProducerMarkup")),
-    singerMarkup: renderMarkupContextMenuItem(4, translate("handsontable.addSingerMarkup")),
+    producerMarkup: renderMarkupContextMenuItem({
+      colId: 3,
+      name: translate("handsontable.addProducerMarkup"),
+    }),
+    singerMarkup: renderMarkupContextMenuItem({
+      colId: 4,
+      name: translate("handsontable.addSingerMarkup"),
+    }),
     sp3: "---------",
     row_above: { disabled: false },
     row_below: { disabled: false },

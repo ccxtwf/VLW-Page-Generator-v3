@@ -1,18 +1,25 @@
 import type { CellCoords, HotInstance } from "handsontable/base";
 import type { MenuItemConfig } from "handsontable/plugins/contextMenu";
 import { renderListInWikiInternalLinkMarkup } from "../../../utils/utils";
+import { translate } from "../../../../i18n";
 
 interface ContextMenuSelection {
   start?: CellCoords;
   end?: CellCoords;
 }
 
-type ContextMenuFactory = (colId: number | null, name: string | (() => string)) => MenuItemConfig;
+type ContextMenuFactory = ({
+  colId,
+  name,
+}?: {
+  colId?: number | null;
+  name?: string | (() => string);
+}) => MenuItemConfig;
 
 /**
  * Definitions for the menu config item to paste data
  */
-export const pasteContextMenuItem: ContextMenuFactory = (_colId, name) => {
+export const pasteContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     callback(this: HotInstance, _key: string, selection: unknown[], _clickEvent: MouseEvent) {
@@ -96,7 +103,10 @@ export const pasteContextMenuItem: ContextMenuFactory = (_colId, name) => {
  *
  * e.g. Apple, Bananas, and Coconut -> [[Apple]], [[Bananas]], and [[Coconut]]
  */
-export const renderMarkupContextMenuItem: ContextMenuFactory = (colId, name) => {
+export const renderMarkupContextMenuItem: ContextMenuFactory = ({
+  colId = null,
+  name = "",
+} = {}) => {
   return {
     name,
     hidden(this: HotInstance) {
@@ -237,7 +247,8 @@ const addLyricsRowsStyling = (customStyle: string) => {
  * Prepares the callback to execute to remove the given style from the `customStyle`
  * cell or the individual lyrics cells.
  *
- * @param customStyle
+ * @param rowInlineCss
+ * @param cellWikitextMarkup
  * @returns
  */
 const removeLyricsRowStyling = (rowInlineCss: RegExp, cellWikitextMarkup: RegExp) => {
@@ -261,12 +272,8 @@ const removeLyricsRowStyling = (rowInlineCss: RegExp, cellWikitextMarkup: RegExp
 
 /**
  * Bold selected rows (except for the first column, "customStyle")
- *
- * @param _colId
- * @param name
- * @returns
  */
-export const boldContextMenuItem: ContextMenuFactory = (_colId, name) => {
+export const boldContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchBoldedCss, rxMatchBolded, false),
@@ -276,12 +283,8 @@ export const boldContextMenuItem: ContextMenuFactory = (_colId, name) => {
 
 /**
  * Italicize selected rows (except for the first column, "customStyle")
- *
- * @param _colId
- * @param name
- * @returns
  */
-export const italicizeContextMenuItem: ContextMenuFactory = (_colId, name) => {
+export const italicizeContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchItalicisedCss, rxMatchItalicised, false),
@@ -291,12 +294,8 @@ export const italicizeContextMenuItem: ContextMenuFactory = (_colId, name) => {
 
 /**
  * Unbold selected rows (except for the first column, "customStyle")
- *
- * @param _colId
- * @param name
- * @returns
  */
-export const unboldContextMenuItem: ContextMenuFactory = (_colId, name) => {
+export const unboldContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchBoldedCss, rxMatchBolded, true),
@@ -306,15 +305,44 @@ export const unboldContextMenuItem: ContextMenuFactory = (_colId, name) => {
 
 /**
  * Unitalicize selected rows (except for the first column, "customStyle")
- *
- * @param _colId
- * @param name
- * @returns
  */
-export const unitalicizeContextMenuItem: ContextMenuFactory = (_colId, name) => {
+export const unitalicizeContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchItalicisedCss, rxMatchItalicised, true),
     callback: removeLyricsRowStyling(rxMatchItalicisedCss, rxMatchItalicised),
+  };
+};
+
+function getNumberOfSelectedRows([startRow, startCol, endRow, endCol]: number[]) {
+  DEBUG && console.log(startRow, startCol, endRow, endCol);
+  const nRows = endRow - Math.max(startRow, 0) + 1;
+  return nRows;
+}
+
+/**
+ * Handler to insert multiple rows at once
+ */
+export const insertMultipleRowsMenuItem: ContextMenuFactory = () => {
+  return {
+    name(this: HotInstance) {
+      const selected = this.getSelectedLast();
+      if (!selected) return "-";
+      return translate("handsontable.insertNRows", {
+        values: { 1: getNumberOfSelectedRows(selected) },
+      });
+    },
+    hidden(this: HotInstance) {
+      const selected = this.getSelectedLast();
+      if (!selected) return true;
+      const nRows = getNumberOfSelectedRows(selected);
+      return nRows < 2;
+    },
+    callback(this: HotInstance) {
+      const selected = this.getSelectedLast();
+      if (!selected) return;
+      const lastRow = selected[2];
+      this.alter("insert_row_below", lastRow, getNumberOfSelectedRows(selected));
+    },
   };
 };
