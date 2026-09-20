@@ -62,6 +62,7 @@ test.describe("Theming - Initial Load State", () => {
   }) => {
     // prefer dark mode
     await page.emulateMedia({ colorScheme: "dark" });
+    await page.reload();
     let colorScheme = await page.evaluate(computeColorScheme);
     expect(colorScheme).toEqual("dark");
 
