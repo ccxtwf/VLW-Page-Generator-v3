@@ -1,4 +1,7 @@
-import type { ThemeChangedEventPayload } from "../../../src/schemas/events.d";
+import type {
+  LyricsThemeToggledEventPayload,
+  ThemeChangedEventPayload,
+} from "../../../src/schemas/events.d";
 
 const daisyUiThemes = ["corporate", "dark", "gato", "nord"] as const;
 export type DaisyUiTheme = (typeof daisyUiThemes)[number];
@@ -63,15 +66,25 @@ function getLcKey(isDarkMode?: boolean): string {
 export function setTheme(theme: DaisyUiTheme): void {
   // console.log(e.currentTarget.value, e.currentTarget.checked);
   const isDarkMode = isThemeDarkMode(theme);
-  const htTheme = (isThemeDarkMode(theme) ? "dark" : "light") as HandsontableTheme;
-  const payload = { theme, htTheme, isDarkMode };
+  const payload = { theme, isDarkMode };
   DEBUG && console.log("Dispatching ThemeChangedEvent", payload);
   window.dispatchEvent(
     new CustomEvent<ThemeChangedEventPayload>("themeChanged", {
       detail: payload,
     }),
   );
+  setLyricsTheme(isDarkMode);
   document.body.setAttribute("data-theme", theme);
   localStorage.setItem(getLcKey(isDarkMode), theme);
   localStorage.setItem(getLcKey(), theme);
+}
+
+export function setLyricsTheme(isDarkMode: boolean): void {
+  const payload = { isDarkMode };
+  DEBUG && console.log("Dispatching LyricsThemeToggledEvent", payload);
+  window.dispatchEvent(
+    new CustomEvent<LyricsThemeToggledEventPayload>("lyricsThemeToggled", {
+      detail: payload,
+    }),
+  );
 }

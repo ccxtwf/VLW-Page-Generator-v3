@@ -13,8 +13,9 @@
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
-  import type { ThemeChangedEventPayload } from "../../../schemas/events";
+  import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
+  import { isDarkModeActive } from "#src/lib/utils/themeUtils.js";
 
   interface LyricsTableFreeEditProps {
     id: string;
@@ -131,8 +132,10 @@
     // }));
   }
 
-  const cbWatchTheme = (event: CustomEvent<ThemeChangedEventPayload>) => {
-    hot?.updateSettings({ theme: getTheme(event.detail.htTheme) });
+  const cbWatchTheme = (event: CustomEvent<LyricsThemeToggledEventPayload>) => {
+    hot?.updateSettings({
+      theme: getTheme(event.detail.isDarkMode ? "dark" : "light"),
+    });
   };
 
   onMount(() => {
@@ -146,7 +149,7 @@
         const renderer = getRenderer(rendererKey);
         return renderer(hotInstance, _td, _row, col, _prop, _value, _cellProperties);
       },
-      theme: getTheme(window._theme || "auto"),
+      theme: getTheme(isDarkModeActive() ? "dark" : "light"),
       rowHeaders: true,
       height: "auto",
       width: "100%",
@@ -176,14 +179,14 @@
     });
 
     /**
-     * Listen to changes set upon the page's theme
+     * Listen to changes set upon the theme toggle
      */
-    window.addEventListener("themeChanged", cbWatchTheme);
+    window.addEventListener("lyricsThemeToggled", cbWatchTheme);
   });
 
   onDestroy(() => {
     hot?.destroy();
-    window.removeEventListener("themeChanged", cbWatchTheme);
+    window.removeEventListener("lyricsThemeToggled", cbWatchTheme);
   });
 </script>
 

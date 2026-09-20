@@ -1,11 +1,14 @@
 <script lang="ts">
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable/base";
+  import { getTheme } from "handsontable/themes";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
   import { getLyricsContextMenu } from "./contextMenus/lyrics";
   import type { LanguageMetadata } from "../../utils/lyricsUtils";
+  import { isDarkModeActive } from "../../utils/themeUtils";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
+  import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
 
   interface LyricsTableProps {
     id: string;
@@ -73,6 +76,12 @@
     });
   });
 
+  const cbWatchTheme = (event: CustomEvent<LyricsThemeToggledEventPayload>) => {
+    hot?.updateSettings({
+      theme: getTheme(event.detail.isDarkMode ? "dark" : "light"),
+    });
+  };
+
   export function getLatestData() {
     if (!hot) {
       return [];
@@ -103,5 +112,15 @@
     rowHeights: 30,
     fillHandle: true,
     imeFastEdit: true,
+    theme: getTheme(isDarkModeActive() ? "dark" : "light"),
+  }}
+  onReady={function () {
+    /**
+     * Listen to changes set upon the theme toggle
+     */
+    window.addEventListener("lyricsThemeToggled", cbWatchTheme);
+  }}
+  onUnmount={function () {
+    window.removeEventListener("lyricsThemeToggled", cbWatchTheme);
   }}
 />

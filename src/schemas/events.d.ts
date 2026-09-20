@@ -2,7 +2,10 @@ import type { DaisyUiTheme, HandsontableTheme } from "../lib/utils/themeUtils";
 
 export interface ThemeChangedEventPayload {
   theme: DaisyUiTheme;
-  htTheme: HandsontableTheme;
+  isDarkMode: boolean;
+}
+
+export interface LyricsThemeToggledEventPayload {
   isDarkMode: boolean;
 }
 
@@ -16,6 +19,7 @@ export interface ParsedLyricsPayload {
 declare global {
   interface WindowEventMap {
     themeChanged: CustomEvent<ThemeChangedEventPayload>;
+    lyricsThemeToggled: CustomEvent<LyricsThemeToggledEventPayload>;
     parsedLyrics: CustomEvent<ParsedLyricsPayload>;
   }
 }

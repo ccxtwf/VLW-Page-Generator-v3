@@ -2,8 +2,15 @@
 /* CSS Variables */
 
 .ht-light-mode() {
+  color-scheme: light;
+  --ht-background-color: var(--color-base-100);
+  --ht-header-background-color: var(--color-base-200);
+  --ht-row-header-odd-background-color: var(--color-base-200);
+  --ht-row-header-even-background-color: var(--color-base-200);
+  --ht-border-color: var(--color-base-300);
 }
 .ht-dark-mode() {
+  color-scheme: dark;
   --ht-background-color: var(--color-base-100);
   --ht-header-background-color: #000;
   --ht-row-header-odd-background-color: #000;
@@ -15,33 +22,55 @@
 .ht-lyrics-light-mode() {
   --ht-background-color: #fff;
   --ht-row-cell-odd-background-color: #f6f6f6;
+  --ht-cell-horizontal-border-color: #e7e7e9;
+  --ht-cell-vertical-border-color: #e7e7e9;
+  --ht-border-color: #878686;
 }
 .ht-lyrics-dark-mode() {
   --ht-background-color: #101010;
   --ht-row-cell-odd-background-color: #2b2b2b;
+  --ht-cell-horizontal-border-color: #6e6f72;
+  --ht-cell-vertical-border-color: #454647;
+  --ht-border-color: #282829;
 }
 
-.ht-theme-light,
-.ht-theme-auto {
+.ht-root-wrapper {
   .ht-light-mode();
 }
-#lyrics {
-  .ht-theme-light,
-  .ht-theme-auto {
+#lyrics .ht-root-wrapper {
+  .ht-lyrics-light-mode();
+}
+@media (prefers-color-scheme: dark) {
+  .ht-root-wrapper {
+    .ht-dark-mode();
+  }
+  #lyrics .ht-root-wrapper {
+    .ht-lyrics-dark-mode();
+  }
+}
+[data-theme="corporate"],
+[data-theme="nord"] {
+  .ht-root-wrapper {
+    .ht-light-mode();
+  }
+  #lyrics .ht-root-wrapper {
     .ht-lyrics-light-mode();
   }
 }
-.ht-theme-dark {
-  .ht-dark-mode();
-}
-#lyrics .ht-theme-dark {
-  .ht-lyrics-dark-mode();
-}
-@media (prefers-color-scheme: dark) {
-  .ht-theme-auto {
+[data-theme="dark"],
+[data-theme="gato"] {
+  .ht-root-wrapper {
     .ht-dark-mode();
   }
-  #lyrics .ht-theme-auto {
+  #lyrics .ht-root-wrapper {
+    .ht-lyrics-dark-mode();
+  }
+}
+#lyrics {
+  .ht-theme-light.ht-theme-light {
+    .ht-lyrics-light-mode();
+  }
+  .ht-theme-dark.ht-theme-dark {
     .ht-lyrics-dark-mode();
   }
 }
@@ -55,6 +84,14 @@
 }
 .ht_clone_top_inline_start_corner {
   z-index: 1 !important;
+}
+
+/* Mobile screens */
+@media screen and (max-width: 500px) {
+  .handsontable span.colHeader,
+  .handsontable span.rowHeader {
+    --ht-font-size: 10px;
+  }
 }
 
 /* Medium size screens */

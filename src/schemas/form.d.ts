@@ -8,9 +8,3 @@ export interface DisplayErrorContents {
   warnings: string[];
   recommendToAutoloadCategories: boolean;
 }
-
-declare global {
-  interface Window {
-    _theme?: string;
-  }
-}
