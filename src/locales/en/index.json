@@ -55,8 +55,8 @@
     "success": "Successfully fetched data from {1}!"
   },
   "preloadVocaDb": {
-    "label": "Preload Song",
-    "tooltip": "<p>Input the URL to the VocaDB {type} here.</p><p>e.g. <a class=\"link link-accent\" href=\"https://vocadb.net/{slug}\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/{slug}</a> {caption}</p>"
+    "label": "Preload {type}",
+    "tooltip": "<p>Input the URL to the VocaDB {type} page here.</p><p>e.g. <a class=\"link link-accent\" href=\"https://vocadb.net/{slug}\" target=\"_blank\" rel=\"noopener noreferrer\">https://vocadb.net/{slug}</a> {caption}</p>"
   },
   "infoboxColors": {
     "label": "Infobox BG/FG colors",

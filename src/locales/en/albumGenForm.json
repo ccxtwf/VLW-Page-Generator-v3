@@ -1,6 +1,7 @@
 {
   "albumGenForm": {
     "vdbPlaceholder": "Comic and Cosmic",
+    "vdbPageType": "album",
     "originalTitle": {
       "label": "Original Title",
       "tooltip": "Album name in original language.",

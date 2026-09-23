@@ -1,6 +1,7 @@
 {
   "songGenForm": {
     "vdbPlaceholder": "Rolling Girl",
+    "vdbPageType": "song",
     "genAiWarning": {
       "label": "GenAI Warning",
       "tooltip": "<p>Add a notice warning for usage of generative AI to the top of page.</p><p>Be sure to include the source attributing the usage of generative AI for verified cases (e.g. video description, producer comment, etc.), or an explanation detailing inconsistencies that raise credible suspicion of generative AI usage for non-verified cases.</p>",
