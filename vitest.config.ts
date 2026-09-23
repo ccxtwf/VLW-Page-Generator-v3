@@ -40,6 +40,14 @@ export default defineConfig({
             enabled: true,
             provider: playwright(),
             instances: [{ browser: "chromium" }],
+            locators: {
+              exact: false,
+            },
+            detailsPanelPosition: "bottom",
+            viewport: {
+              width: 800,
+              height: 900,
+            },
           },
         },
       },
