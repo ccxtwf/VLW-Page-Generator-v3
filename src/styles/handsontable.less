@@ -115,6 +115,14 @@
   }
 }
 
+/* For tables with minSpareRows = 1, indicate that the last row will spill over */
+#lyrics,
+#tracklist {
+  .ht_master .htCore > tbody > tr:last-of-type td::before {
+    content: "...";
+  }
+}
+
 /* Theme-specific settings */
 [data-theme="dark"] .ht-root-wrapper {
   --ht-accent-color: var(--ht-colors-primary-100);
