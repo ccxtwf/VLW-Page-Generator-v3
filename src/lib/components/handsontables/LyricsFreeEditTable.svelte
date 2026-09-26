@@ -5,6 +5,7 @@
   import { getTheme } from "handsontable/themes";
   import { getLyricsEditContextMenu } from "./contextMenus/lyricsEdit";
 
+  import Song from "../../models/Song.svelte.js";
   import LyricRow from "../../models/children/LyricsRow.svelte";
   import type { ILyricsRow } from "../../models/schema.js";
   import { HANDSONTABLE_LICENSE_KEY } from "../../../config";
@@ -13,10 +14,10 @@
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
+  import { isDarkModeActive } from "../../utils/themeUtils.js";
   import { registerUndoRedoActionOnDataLoad } from "./utils";
   import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
-  import { isDarkModeActive } from "#src/lib/utils/themeUtils.js";
 
   interface LyricsTableFreeEditProps {
     id: string;
@@ -69,7 +70,7 @@
 
   export function resetState(): void {
     hot!.loadData(
-      Array(20)
+      Array(Song.defaultStartingRows)
         .fill(null)
         .map(() => Array(4).fill("")),
     );
