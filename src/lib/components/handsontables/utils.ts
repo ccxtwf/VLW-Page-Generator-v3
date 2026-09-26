@@ -1,4 +1,4 @@
-import { type CellChange, type ChangeSource } from "handsontable/base";
+import { type CellChange, type ChangeSource, type HotInstance } from "handsontable/base";
 import {
   convertAvidToBvId,
   convertTwitterLink,
@@ -65,4 +65,27 @@ export function processInsertedLink(
     s = upgradeInsecureHttpLink(s);
   }
   return s;
+}
+
+export function registerUndoRedoActionOnDataLoad(
+  hot: HotInstance,
+  oldData: unknown[][],
+  newData: unknown[][],
+  actionType: string,
+) {
+  const plugin = hot!.getPlugin("undoRedo");
+  plugin.done(
+    () => ({
+      actionType,
+      undo: (hot: HotInstance, callback: Function) => {
+        hot.updateData(oldData);
+        callback();
+      },
+      redo: (hot: HotInstance, callback: Function) => {
+        hot.updateData(newData);
+        callback();
+      },
+    }),
+    actionType,
+  );
 }

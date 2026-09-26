@@ -109,9 +109,12 @@
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
     labelI18nKey="preloadVocaDb.label"
+    labelI18nParams={{
+      type: $_("albumGenForm.vdbPageType"),
+    }}
     tooltipI18nKey="preloadVocaDb.tooltip"
     tooltipI18nParams={{
-      type: "album page",
+      type: $_("albumGenForm.vdbPageType"),
       slug: "Al/21149",
       caption: $_("albumGenForm.vdbPlaceholder"),
     }}

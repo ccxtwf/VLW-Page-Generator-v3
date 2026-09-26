@@ -14,7 +14,7 @@ import { render, RenderResult } from "vitest-browser-svelte";
 import ProducerPageForm from "#src/lib/forms/ProducerPageForm.svelte";
 import Producer from "#src/lib/models/Producer.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/producers.svelte.ts";
-import { mapEngines, mapLanguages } from "../mapper";
+import { mapEngines, mapLanguages } from "../../mapper";
 
 // Mock import
 vi.mock("#src/lib/logic/producers.svelte.ts", async () => {

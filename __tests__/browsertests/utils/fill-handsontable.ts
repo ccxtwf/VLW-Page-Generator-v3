@@ -1,4 +1,5 @@
-import { type Locator, type Page, expect } from "@playwright/test";
+import { type Locator, expect } from "@playwright/test";
+import { getTableRows, getTableInput } from "./handsontable";
 import {
   IAlbumTrack,
   IExternalLink,
@@ -7,157 +8,7 @@ import {
   IPlayLink,
   IProducerDiscographyAlbumItem,
   IProducerDiscographySongItem,
-} from "../../src/lib/models/schema";
-
-export function getSnapshotsDir(browser: string) {
-  return `__tests__/browsertests/snapshots/${browser}`;
-}
-
-/**
- * Get the texts of each list item listed in the given validation alert element
- *
- * @param locator
- * @returns
- */
-export async function getValidationItems(locator: Locator) {
-  const elements = await locator.locator("ul > li").all();
-  const texts = await Promise.all(elements.map((el) => el.innerText()));
-  return texts;
-}
-
-/**
- *
- * @param id
- * @param form
- * @returns
- */
-export function getHandsontableInstance(form: Locator, id: string) {
-  return form.locator(`#${id} .ht-root-wrapper`);
-}
-
-const HANDSONTABLE_ROW_LABEL_SELECTOR =
-  ".ht-grid-content .ht_clone_inline_start.ht_clone_left .htCore tbody tr";
-const HANDSONTABLE_COLUMN_HEADER_SELECTOR = ".ht-grid-content .ht_clone_top .htCore thead th";
-const HANDSONTABLE_ROW_SELECTOR = ".ht-grid-content .ht_master .htCore tbody tr";
-const HANDSONTABLE_EDITOR_SELECTOR =
-  '.handsontableInputHolder.ht_clone_master textarea.handsontableInput:not([role="combobox"])';
-
-/**
- * On Playwright tests, remove all rows of a Handsontable instance starting from and
- * including the given row number.
- *
- * @param page
- * @param table
- * @param after Remove rows after this row number (1-th index position)
- */
-export async function removeHandsontableRows(page: Page, table: Locator, after: number) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_LABEL_SELECTOR).all();
-  await tbodyRows[after].click({ delay: 50 });
-  await page.keyboard.press("Shift+Control+ArrowDown");
-  await tbodyRows[after].click({ button: "right" });
-  await page.getByText("Remove row").click();
-}
-
-/**
- * On Playwright tests, remove a given column of a Handsontable instance.
- *
- * @param page
- * @param table
- * @param index Column position index (1-th index)
- */
-export async function removeHandsontableColumn(page: Page, table: Locator, index: number) {
-  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
-  await theadCells[index].click({ delay: 50 });
-  await theadCells[index].click({ button: "right" });
-  await page.getByText("Remove column").click();
-}
-
-/**
- * On Playwright tests, remove a given column of a Handsontable instance.
- *
- * @param table
- * @param index Column position index (1-th index)
- * @param data
- */
-export async function addHandsontableRow(table: Locator, index: number, data: string[]) {
-  const newRow = table.locator(HANDSONTABLE_ROW_SELECTOR).nth(index - 1);
-  for (let i = 0; i < data.length; i++) {
-    let cell = newRow.locator("td").nth(i);
-    await cell.click({ clickCount: 2 });
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
-    await inputTextArea.fill(data[i]);
-  }
-}
-
-/**
- * On Playwright tests, add a column to the right of the given position on
- * a Handsontable instance.
- *
- * @param page
- * @param table
- * @param index Column position index (1-th index)
- */
-export async function addHandsontableColumnToRight(page: Page, table: Locator, index: number) {
-  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
-  await theadCells[index].click({ delay: 50 });
-  await theadCells[index].click({ button: "right" });
-  await page.getByText("Insert column right").click();
-}
-
-/**
- * On Playwright tests, add a column to the left of the given position on
- * a Handsontable instance.
- *
- * @param page
- * @param table
- * @param index Column position index (1-th index)
- */
-export async function addHandsontableColumnToLeft(page: Page, table: Locator, index: number) {
-  const theadCells = await table.locator(HANDSONTABLE_COLUMN_HEADER_SELECTOR).all();
-  await theadCells[index].click({ delay: 50 });
-  await theadCells[index].click({ button: "right" });
-  await page.getByText("Insert column left").click();
-}
-
-/**
- * Assert that the Handontable instance has the given number of columns
- *
- * @param table
- * @param ncolumns
- */
-export async function assertTableColumnNumber(table: Locator, ncolumns: number) {
-  const tbodyRow = table.locator(HANDSONTABLE_ROW_SELECTOR).first();
-  const cells = await tbodyRow.locator('td[role="gridcell"]').all();
-  expect(cells.length).toBe(ncolumns);
-}
-
-/**
- * Assert that the Handontable instance has the given number of rows
- *
- * @param table
- * @param ncolumns
- */
-export async function assertTableRowNumber(table: Locator, nrows: number) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
-  expect(tbodyRows.length).toBe(nrows);
-}
-
-/**
- *
- * @param table
- * @param index
- * @param data
- */
-export async function fillTableAtColumn(table: Locator, index: number, data: string[]) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
-  for (let i = 0; i < data.length; i++) {
-    let rw = tbodyRows[i];
-    let cell = rw.locator("td").nth(index - 1);
-    await cell.click({ clickCount: 2 });
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
-    await inputTextArea.fill(data[i]);
-  }
-}
+} from "../../../src/lib/models/schema";
 
 /**
  *
@@ -171,7 +22,7 @@ export async function fillBroadcastLinksTable(
     o: { site: RegExp | string; url: RegExp | string };
   }[],
 ) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
   for (let i = 0; i < data.length; i++) {
     let rw = tbodyRows[i];
     let siteCell = rw.locator("td").nth(0);
@@ -184,7 +35,7 @@ export async function fillBroadcastLinksTable(
     const { url, viewCount, isReprint = false, isAutogen = false, isDeleted = false } = data[i].i;
 
     await urlCell.click({ clickCount: 2 });
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    const inputTextArea = getTableInput(table);
     await inputTextArea.fill(url);
     await inputTextArea.press("Tab");
     await expect(urlCell).toHaveText(data[i].o.url);
@@ -226,7 +77,7 @@ export async function fillExternalLinksTable(
     o: { desc: RegExp | string; url: RegExp | string };
   }[],
 ) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
   for (let i = 0; i < data.length; i++) {
     let rw = tbodyRows[i];
     let urlCell = rw.locator("td").nth(0);
@@ -234,7 +85,7 @@ export async function fillExternalLinksTable(
     let isOfficialCell = rw.locator("td").nth(2);
 
     await urlCell.dblclick();
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    const inputTextArea = getTableInput(table);
     await inputTextArea.fill(data[i].i.url);
     await inputTextArea.press("Tab");
     await expect(descCell).toHaveText(data[i].o.desc);
@@ -259,7 +110,7 @@ export async function fillExternalLinksTableForProducerPage(
     o: { desc: RegExp | string; url: RegExp | string };
   }[],
 ) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
   for (let i = 0; i < data.length; i++) {
     let rw = tbodyRows[i];
     let urlCell = rw.locator("td").nth(0);
@@ -271,7 +122,7 @@ export async function fillExternalLinksTableForProducerPage(
     const { url, description, isOfficial, isMedia, isInactive } = data[i].i;
 
     await urlCell.dblclick();
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    const inputTextArea = getTableInput(table);
     await inputTextArea.fill(url);
     await inputTextArea.press("Tab");
     await expect(urlCell).toHaveText(data[i].o.url);
@@ -312,12 +163,12 @@ export async function fillLyricsTable(
     needsTranslation = true,
   }: { needsRomanization?: boolean; needsTranslation?: boolean } = {},
 ) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
 
   // Summon Handsontable textarea editor to DOM
   await tbodyRows[0].locator('[role="gridcell"]').first().dblclick();
-  await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-  const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+  const inputTextArea = getTableInput(table);
+  await inputTextArea.waitFor({ state: "attached" });
   await inputTextArea.press("Escape");
 
   for (let i = 0; i < data.length; i++) {
@@ -356,7 +207,7 @@ export async function fillLyricsTable(
 }
 
 export async function fillTracklistTable(table: Locator, data: IAlbumTrack[]) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
 
   for (let i = 0; i < data.length; i++) {
     let rw = tbodyRows[i];
@@ -369,36 +220,36 @@ export async function fillTracklistTable(table: Locator, data: IAlbumTrack[]) {
 
     if (discNo) {
       await dnCell.dblclick();
-      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      const inputTextArea = getTableInput(table);
+      await inputTextArea.waitFor({ state: "attached" });
       await inputTextArea.fill("" + discNo);
       await inputTextArea.press("Tab");
     }
     if (trackNo) {
       await tnCell.dblclick();
-      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      const inputTextArea = getTableInput(table);
+      await inputTextArea.waitFor({ state: "attached" });
       await inputTextArea.fill("" + trackNo);
       await inputTextArea.press("Tab");
     }
     if (pageTitle) {
       await pageTitleCell.dblclick();
-      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      const inputTextArea = getTableInput(table);
+      await inputTextArea.waitFor({ state: "attached" });
       await inputTextArea.fill(pageTitle);
       await inputTextArea.press("Tab");
     }
     if (producerCredit) {
       await prodCreditsCell.dblclick();
-      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      const inputTextArea = getTableInput(table);
+      await inputTextArea.waitFor({ state: "attached" });
       await inputTextArea.fill(producerCredit);
       await inputTextArea.press("Tab");
     }
     if (singerCredit) {
       await singerCreditsCell.dblclick();
-      await table.locator(HANDSONTABLE_EDITOR_SELECTOR).waitFor({ state: "attached" });
-      const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+      const inputTextArea = getTableInput(table);
+      await inputTextArea.waitFor({ state: "attached" });
       await inputTextArea.fill(singerCredit);
       await inputTextArea.press("Tab");
     }
@@ -415,7 +266,7 @@ export async function fillDiscographyTable(
   data: (IProducerDiscographySongItem | IProducerDiscographyAlbumItem)[],
   forAlbumsList: boolean = false,
 ) {
-  const tbodyRows = await table.locator(HANDSONTABLE_ROW_SELECTOR).all();
+  const tbodyRows = await getTableRows(table);
   for (let i = 0; i < data.length; i++) {
     let rw = tbodyRows[i];
     let pageTitleCell = rw.locator("td").nth(0);
@@ -423,7 +274,7 @@ export async function fillDiscographyTable(
     let isCompilationAlbumCell = forAlbumsList ? rw.locator("td").nth(2) : null;
 
     await pageTitleCell.dblclick();
-    const inputTextArea = table.locator(HANDSONTABLE_EDITOR_SELECTOR);
+    const inputTextArea = getTableInput(table);
     await inputTextArea.fill(data[i].page);
     await inputTextArea.press("Tab");
 

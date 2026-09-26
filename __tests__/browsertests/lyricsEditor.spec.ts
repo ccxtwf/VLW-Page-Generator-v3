@@ -4,9 +4,9 @@ import {
   assertTableColumnNumber,
   getHandsontableInstance,
   removeHandsontableColumn,
-  addHandsontableColumnToRight,
+  insertHandsontableColumnToRight,
   fillTableAtColumn,
-  addHandsontableRow,
+  fillTableAtRow,
   getSnapshotsDir,
 } from "./utils";
 
@@ -363,7 +363,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await assertTableColumnNumber(lyricsTable, 3);
     await assertTableRowNumber(lyricsTable, 3);
-    await addHandsontableColumnToRight(page, lyricsTable, 3);
+    await insertHandsontableColumnToRight(page, lyricsTable, 3);
 
     await fillTableAtColumn(lyricsTable, 4, ["ABCD", "EFGH"]);
 
@@ -432,7 +432,7 @@ Remix =
     const lyricsTable = getComponent(page, "lyrics-editor-table");
     await assertTableColumnNumber(lyricsTable, 4);
     await assertTableRowNumber(lyricsTable, 3);
-    await addHandsontableRow(lyricsTable, 3, ["", "らりるれろ", "rarirurero", "IJKL"]);
+    await fillTableAtRow(lyricsTable, 3, ["", "らりるれろ", "rarirurero", "IJKL"]);
     await assertTableColumnNumber(lyricsTable, 4);
     await assertTableRowNumber(lyricsTable, 4);
 

@@ -10,6 +10,7 @@ import { PV_SERVICE_PROVIDER } from "../../constants";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "./enums";
 
 export default class Song implements BaseModel<ISong> {
+  static defaultStartingRows: number = 20;
   aiCwState: ENUM_AI_WARNING_TYPE = $state(ENUM_AI_WARNING_TYPE.none);
   aiWarningText1: string = $state("");
   aiWarningText2: string = $state("");
@@ -57,7 +58,9 @@ export default class Song implements BaseModel<ISong> {
   }
 
   resetHotTables(): void {
-    this.resetLyrics();
+    this.lyrics = Array(Song.defaultStartingRows)
+      .fill(null)
+      .map(() => new LyricRow());
     this.playLinks = [
       PV_SERVICE_PROVIDER.niconico,
       PV_SERVICE_PROVIDER.youtube,
@@ -68,12 +71,6 @@ export default class Song implements BaseModel<ISong> {
     this.extLinks = Array(5)
       .fill(null)
       .map(() => new ExternalLink());
-  }
-
-  resetLyrics(): void {
-    this.lyrics = Array(20)
-      .fill(null)
-      .map(() => new LyricRow());
   }
 
   preprocess(): void {

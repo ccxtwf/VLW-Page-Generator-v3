@@ -137,9 +137,12 @@
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
     labelI18nKey="preloadVocaDb.label"
+    labelI18nParams={{
+      type: $_("producerGenForm.vdbPageType"),
+    }}
     tooltipI18nKey="preloadVocaDb.tooltip"
     tooltipI18nParams={{
-      type: "artist/producer page",
+      type: $_("producerGenForm.vdbPageType"),
       slug: "Ar/28",
       caption: $_("producerGenForm.vdbPlaceholder"),
     }}

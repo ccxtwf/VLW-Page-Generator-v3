@@ -115,11 +115,6 @@
     const categories = autoloadCategories(formData);
     formData.categoriesRaw = categories.join("\n");
   };
-  const handleResetLyricsTable = () => {
-    if (window.confirm($_("confirmClear"))) {
-      formData.resetLyrics();
-    }
-  };
 </script>
 
 <form
@@ -131,9 +126,12 @@
   <FlexRow
     labelForHtmlId="vocadb-preload-url"
     labelI18nKey="preloadVocaDb.label"
+    labelI18nParams={{
+      type: $_("songGenForm.vdbPageType"),
+    }}
     tooltipI18nKey="preloadVocaDb.tooltip"
     tooltipI18nParams={{
-      type: "song page",
+      type: $_("songGenForm.vdbPageType"),
       slug: "S/1501",
       caption: $_("songGenForm.vdbPlaceholder"),
     }}
@@ -517,7 +515,6 @@
     id="lyrics"
     class="col-span-full"
     data={lyricsDataNorm}
-    resetTable={handleResetLyricsTable}
     bind:languageMetadata
     bind:this={lyricsHotTable}
   />

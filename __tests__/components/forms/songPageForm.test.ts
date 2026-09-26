@@ -13,7 +13,7 @@ import SongPageForm from "#src/lib/forms/SongPageForm.svelte";
 import Song from "#src/lib/models/Song.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/songs.svelte.ts";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "#src/lib/models/enums.ts";
-import { mapLanguages } from "../mapper";
+import { mapLanguages } from "../../mapper";
 
 // Mock import
 vi.mock("#src/lib/logic/songs.svelte.ts", async () => {

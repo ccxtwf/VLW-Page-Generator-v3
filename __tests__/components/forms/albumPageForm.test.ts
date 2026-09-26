@@ -14,7 +14,7 @@ import { render, RenderResult } from "vitest-browser-svelte";
 import AlbumPageForm from "#src/lib/forms/AlbumPageForm.svelte";
 import Album from "#src/lib/models/Album.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/albums.svelte.ts";
-import { mapAlbumBroadcastLink, mapEngines } from "../mapper";
+import { mapAlbumBroadcastLink, mapEngines } from "../../mapper";
 
 // Mock import
 vi.mock("#src/lib/logic/albums.svelte.ts", async () => {
