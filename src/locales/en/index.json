@@ -84,11 +84,11 @@
   "handsontable": {
     "paste": "Paste",
     "insertNRows": "Insert {1} rows below",
-    "bold": "Bold row",
-    "italic": "Italicize row",
-    "unbold": "Unbold row",
-    "unitalic": "Unitalicize row",
-    "reset": "Reset Table",
+    "bold": "Bold row(s)",
+    "italic": "Italicize row(s)",
+    "unbold": "Unbold row(s)",
+    "unitalic": "Unitalicize row(s)",
+    "reset": "Reset table",
     "addProducerMarkup": "Add producer markup",
     "addSingerMarkup": "Add singer markup"
   },
