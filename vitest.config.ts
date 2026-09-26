@@ -3,13 +3,15 @@ import tailwindcss from "@tailwindcss/vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { playwright } from "vite-plus/test/browser-playwright";
 
+const INJECTED_VARS = {
+  DEBUG: false,
+};
+
 export default defineConfig({
   test: {
     projects: [
       {
-        define: {
-          DEBUG: false,
-        },
+        define: { ...INJECTED_VARS },
         test: {
           environment: "node",
           name: "unit",
@@ -17,9 +19,7 @@ export default defineConfig({
         },
       },
       {
-        define: {
-          DEBUG: false,
-        },
+        define: { ...INJECTED_VARS },
         plugins: [svelte()],
         test: {
           environment: "jsdom",
@@ -28,9 +28,7 @@ export default defineConfig({
         },
       },
       {
-        define: {
-          DEBUG: false,
-        },
+        define: { ...INJECTED_VARS },
         plugins: [tailwindcss(), svelte()],
         test: {
           name: "browser",
