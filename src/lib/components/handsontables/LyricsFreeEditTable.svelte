@@ -13,6 +13,7 @@
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
   } from "../../utils/lyricsUtils";
+  import { registerUndoRedoActionOnDataLoad } from "./utils";
   import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
   import { isDarkModeActive } from "#src/lib/utils/themeUtils.js";
@@ -117,19 +118,9 @@
 
   export function editAction(fn: (data: unknown[][]) => string[][]): void {
     const data = hot!.getData();
-    const transformed = fn(data);
-    hot!.loadData(transformed);
-
-    // Doesn't work as well as I would like?
-    // hot!.getPlugin("undoRedo").done(() => ({
-    //   actionType: "load_data",
-    //   undo: (hot: HotInstance) => {
-    //     hot.loadData(data);
-    //   },
-    //   redo: (hot: HotInstance) => {
-    //     hot.loadData(transformed);
-    //   },
-    // }));
+    const transformed = fn(structuredClone(data));
+    registerUndoRedoActionOnDataLoad(hot!, data, transformed, "customLyricsEditAction");
+    hot!.updateData(transformed);
   }
 
   const cbWatchTheme = (event: CustomEvent<LyricsThemeToggledEventPayload>) => {

@@ -2,11 +2,13 @@
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable/base";
   import { getTheme } from "handsontable/themes";
+  import Song from "#src/lib/models/Song.svelte.js";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
   import { getLyricsContextMenu } from "./contextMenus/lyrics";
   import type { LanguageMetadata } from "../../utils/lyricsUtils";
   import { isDarkModeActive } from "../../utils/themeUtils";
+  import { registerUndoRedoActionOnDataLoad } from "./utils";
   import { LyricsTableHeader } from "../../../constants/tableHeaders";
   import type { LyricsThemeToggledEventPayload } from "../../../schemas/events";
 
@@ -15,7 +17,6 @@
     class: string;
     languageMetadata: LanguageMetadata;
     data: (string | null | undefined)[][];
-    resetTable: () => void;
   }
 
   let hot: HotInstance | undefined = $state();
@@ -31,7 +32,6 @@
       isoLangCode: null,
     }),
     data,
-    resetTable,
   }: LyricsTableProps = $props();
 
   const columnDefinitions: ColumnSettings[] = [
@@ -95,6 +95,15 @@
         english: (english as string) || "",
       });
     });
+  }
+
+  function resetTable() {
+    const oldData = hot!.getData();
+    const newData = Array(Song.defaultStartingRows)
+      .fill(null)
+      .map(() => Array(4).fill(""));
+    registerUndoRedoActionOnDataLoad(hot!, oldData, newData, "resetLyricsAction");
+    hot!.updateData(newData);
   }
 </script>
 

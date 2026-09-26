@@ -128,14 +128,14 @@ export const renderMarkupContextMenuItem: ContextMenuFactory = ({
       if (fromCol !== colId || toCol !== colId) {
         return;
       }
-      const data = this.getData();
+
+      const changes: unknown[][] = [];
       for (let i = fromRow; i <= toRow; i++) {
-        const row = data[i];
-        let o = (row[colId!] as string) || "";
+        let o = (this.getDataAtCell(i, colId!) as string) || "";
         o = renderListInWikiInternalLinkMarkup(o);
-        row[colId!] = o;
+        changes.push([i, colId!, o]);
       }
-      this.updateData(data);
+      this.setDataAtCell(changes);
     },
   };
 };
@@ -227,17 +227,14 @@ const addLyricsRowsStyling = (customStyle: string) => {
     if (fromRow === null || toRow === null) {
       return;
     }
-    const data = this.getData();
+    const changes: unknown[][] = [];
     for (let i = fromRow; i <= toRow; i++) {
-      if (!(data[i][1] as string)) {
+      if (!this.getDataAtCell(i, 1)) {
         continue;
       }
-      if (!data[i][0]) {
-        data[i][0] = "";
-      }
-      data[i][0] += customStyle;
+      changes.push([i, 0, customStyle]);
     }
-    this.updateData(data);
+    this.setDataAtCell(changes);
   };
 };
 
@@ -259,14 +256,19 @@ const removeLyricsRowStyling = (rowInlineCss: RegExp, cellWikitextMarkup: RegExp
     if (fromRow === null || toRow === null) {
       return;
     }
-    const data = this.getData();
+    const changes: unknown[][] = [];
+    const n = this.countCols();
     for (let i = fromRow; i <= toRow; i++) {
-      data[i][0] = ((data[i][0] as string) || "").replace(rowInlineCss, "");
-      for (let j = 1; j < data[i].length; j++) {
-        data[i][j] = ((data[i][j] as string) || "").replace(cellWikitextMarkup, "$2");
+      changes.push([i, 0, ((this.getDataAtCell(i, 0) as string) || "").replace(rowInlineCss, "")]);
+      for (let j = 1; j < n; j++) {
+        changes.push([
+          i,
+          j,
+          ((this.getDataAtCell(i, j) as string) || "").replace(cellWikitextMarkup, "$2"),
+        ]);
       }
     }
-    this.updateData(data);
+    this.setDataAtCell(changes);
   };
 };
 
@@ -315,7 +317,7 @@ export const unitalicizeContextMenuItem: ContextMenuFactory = ({ name = "" } = {
 };
 
 function getNumberOfSelectedRows([startRow, startCol, endRow, endCol]: number[]) {
-  DEBUG && console.log(startRow, startCol, endRow, endCol);
+  DEBUG && console.log("[getNumberOfSelectedRows]", startRow, startCol, endRow, endCol);
   const nRows = endRow - Math.max(startRow, 0) + 1;
   return nRows;
 }
