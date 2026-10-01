@@ -232,7 +232,7 @@ const addLyricsRowsStyling = (customStyle: string) => {
       if (!this.getDataAtCell(i, 1)) {
         continue;
       }
-      changes.push([i, 0, customStyle]);
+      changes.push([i, 0, ((this.getDataAtCell(i, 0) as string) || "") + customStyle]);
     }
     this.setDataAtCell(changes);
   };
