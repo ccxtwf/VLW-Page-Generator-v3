@@ -232,7 +232,11 @@ const addLyricsRowsStyling = (customStyle: string) => {
       if (!this.getDataAtCell(i, 1)) {
         continue;
       }
-      changes.push([i, 0, ((this.getDataAtCell(i, 0) as string) || "") + customStyle]);
+      let existingStyle = String(this.getDataAtCell(i, 0)).trimEnd() || "";
+      if (existingStyle && !existingStyle.endsWith(";")) {
+        existingStyle += ";";
+      }
+      changes.push([i, 0, existingStyle + " " + customStyle]);
     }
     this.setDataAtCell(changes);
   };
@@ -279,7 +283,7 @@ export const boldContextMenuItem: ContextMenuFactory = ({ name = "" } = {}) => {
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchBoldedCss, rxMatchBolded, false),
-    callback: addLyricsRowsStyling("font-weight: bold"),
+    callback: addLyricsRowsStyling("font-weight: bold;"),
   };
 };
 
@@ -290,7 +294,7 @@ export const italicizeContextMenuItem: ContextMenuFactory = ({ name = "" } = {})
   return {
     name,
     hidden: shouldHideLyricsFormattingOption(rxMatchItalicisedCss, rxMatchItalicised, false),
-    callback: addLyricsRowsStyling("font-style: italic"),
+    callback: addLyricsRowsStyling("font-style: italic;"),
   };
 };
 
