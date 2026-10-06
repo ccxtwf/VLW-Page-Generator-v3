@@ -1,15 +1,17 @@
 <script lang="ts">
   import { onDestroy, onMount, type SvelteComponent } from "svelte";
   import { _ } from "svelte-i18n";
-  import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
-  import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import Divider from "../components/reusables/Divider.svelte";
-  import GenerateButton from "../components/buttons/GenerateButton.svelte";
-  import Glossary from "../components/reusables/Glossary.svelte";
-  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
-  import LyricsFreeEditTable from "../components/handsontables/LyricsFreeEditTable.svelte";
-  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
+  import {
+    SimpleTextInput,
+    SimpleCheckbox,
+    Tooltip,
+    Divider,
+    GenerateButton,
+    Glossary,
+    ThemeToggle,
+    ResetFormButton,
+  } from "../components/reusables";
+  import { LyricsFreeEditTable } from "../components/handsontables";
 
   import {
     consolidateCellInlineColourFormatting,

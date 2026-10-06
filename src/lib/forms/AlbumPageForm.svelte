@@ -1,25 +1,25 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  import FlexRow from "../components/reusables/FlexRow.svelte";
-  import Divider from "../components/reusables/Divider.svelte";
+  import {
+    FlexRow,
+    Divider,
+    SimpleTextInput,
+    SimpleTextFieldBox,
+    SimpleCheckbox,
+    ImageEmbed,
+    InfoboxColorInputField,
+    SynthsMultiSelect,
+    AlbumOfficialLinksFieldCollection,
+    ResetFormButton,
+    ResetWarningsButton,
+    GenerateButton,
+    AutoloadCategoriesButton,
+    ValidationResultsAlert,
+    PreloadFromVocaDBInput,
+  } from "../components/reusables";
+  import { Tracklist, ExternalLinksTable } from "../components/handsontables";
 
-  import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
-  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
-  import Tracklist from "../components/handsontables/Tracklist.svelte";
-  import AlbumOfficialLinksFieldCollection from "../components/inputFields/AlbumOfficialLinksFieldCollection.svelte";
-  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
-  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
-  import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
-  import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
-  import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
-  import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
-  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
-  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
-  import GenerateButton from "../components/buttons/GenerateButton.svelte";
-  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
   import type { SvelteComponent } from "svelte";
 
   import {

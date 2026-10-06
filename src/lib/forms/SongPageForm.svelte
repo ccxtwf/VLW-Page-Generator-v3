@@ -1,27 +1,33 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  import FlexRow from "../components/reusables/FlexRow.svelte";
-  import Divider from "../components/reusables/Divider.svelte";
+  import {
+    FlexRow,
+    Divider,
+    SimpleTextInput,
+    SimpleTextFieldBox,
+    SimpleCheckbox,
+    SimpleDateInput,
+    SimpleRadioGroup,
+    ImageEmbed,
+    InfoboxColorInputField,
+    LanguageMultiSelect,
+    ResetFormButton,
+    ResetWarningsButton,
+    GenerateButton,
+    AutoloadCategoriesButton,
+    Glossary,
+    Tooltip,
+    ValidationResultsAlert,
+    PreloadFromVocaDBInput,
+    ThemeToggle,
+  } from "../components/reusables";
+  import {
+    LyricsTable,
+    ExternalLinksTable,
+    BroadcastLinksTable,
+  } from "../components/handsontables";
 
-  import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
-  import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
-  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
-  import Glossary from "../components/reusables/Glossary.svelte";
-  import LyricsTable from "../components/handsontables/LyricsTable.svelte";
-  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
-  import BroadcastLinksTable from "../components/handsontables/BroadcastLinksTable.svelte";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
-  import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
-  import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
-  import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
-  import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
-  import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
-  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
-  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
-  import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
   import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
@@ -40,9 +46,7 @@
 
   import { resetRadioInputGroup } from "../utils/utils";
   import { getLanguageMetadata } from "../utils/lyricsUtils";
-  import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
   import type { SongPageValidationErrorType } from "../validationErrors/types";
-  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);

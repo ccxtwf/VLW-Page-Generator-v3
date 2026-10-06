@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../models/enums";
-  import type { IImageEmbed } from "../../models/schema";
+  import { ENUM_IMAGE_EMBED_SOURCE_TYPE } from "../../../models/enums";
+  import type { IImageEmbed } from "../../../models/schema";
 
-  import { getImageAsDataBlob } from "#src/lib/utils/fetchImageUtils.js";
+  import { getImageAsDataBlob } from "../../../utils/fetchImageUtils.js";
 
   type ImgEvent = Event & {
     target: EventTarget & HTMLImageElement;
