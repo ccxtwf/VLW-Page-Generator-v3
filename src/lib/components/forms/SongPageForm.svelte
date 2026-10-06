@@ -9,6 +9,7 @@
     SimpleCheckbox,
     SimpleDateInput,
     SimpleRadioGroup,
+    SimpleSelect,
     ImageEmbed,
     InfoboxColorInputField,
     LanguageMultiSelect,
@@ -178,22 +179,25 @@
   >
     <div class="flex w-full flex-col gap-y-2">
       <div class="sm:join block w-full">
-        <select
+        <SimpleSelect
           id="gen-ai-warning"
-          class="select select-bordered sm:join-item w-full sm:w-48"
+          class="sm:join-item w-full sm:w-48"
           bind:value={formData.aiCwState}
-        >
-          {const genAiDropdownOptions = [
-            { value: ENUM_AI_WARNING_TYPE.none, i18nKey: "none" },
-            { value: ENUM_AI_WARNING_TYPE.verified, i18nKey: "verified" },
-            { value: ENUM_AI_WARNING_TYPE.suspected, i18nKey: "suspected" },
+          options={[
+            {
+              value: ENUM_AI_WARNING_TYPE.none,
+              contents: $_("songGenForm.genAiWarning.dropdownOptions.none"),
+            },
+            {
+              value: ENUM_AI_WARNING_TYPE.verified,
+              contents: $_("songGenForm.genAiWarning.dropdownOptions.verified"),
+            },
+            {
+              value: ENUM_AI_WARNING_TYPE.suspected,
+              contents: $_("songGenForm.genAiWarning.dropdownOptions.suspected"),
+            },
           ]}
-          {#each genAiDropdownOptions as { value, i18nKey }}
-            <option {value}>
-              {$_(`songGenForm.genAiWarning.dropdownOptions.${i18nKey}`)}
-            </option>
-          {/each}
-        </select>
+        ></SimpleSelect>
         <SimpleTextInput
           id="gen-ai-usage"
           class="input input-bordered sm:join-item w-full flex-1"
@@ -220,22 +224,25 @@
   >
     <div class="flex w-full flex-col gap-3">
       <div class="sm:join flex-item block w-full">
-        <select
+        <SimpleSelect
           id="content-warning"
-          class="select select-bordered sm:join-item w-full sm:w-48"
+          class="sm:join-item w-full sm:w-48"
           bind:value={formData.cwState}
-        >
-          {const genAiDropdownOptions = [
-            { value: ENUM_CW_STATES.noWarnings, i18nKey: "none" },
-            { value: ENUM_CW_STATES.questionable, i18nKey: "hasWarning" },
-            { value: ENUM_CW_STATES.isNsfw, i18nKey: "nsfw" },
+          options={[
+            {
+              value: ENUM_CW_STATES.noWarnings,
+              contents: $_("songGenForm.contentWarning.dropdownOptions.none"),
+            },
+            {
+              value: ENUM_CW_STATES.questionable,
+              contents: $_("songGenForm.contentWarning.dropdownOptions.hasWarning"),
+            },
+            {
+              value: ENUM_CW_STATES.isNsfw,
+              contents: $_("songGenForm.contentWarning.dropdownOptions.nsfw"),
+            },
           ]}
-          {#each genAiDropdownOptions as { value, i18nKey }}
-            <option {value}>
-              {$_(`songGenForm.contentWarning.dropdownOptions.${i18nKey}`)}
-            </option>
-          {/each}
-        </select>
+        ></SimpleSelect>
         <SimpleTextInput
           id="cw-text"
           class="input input-bordered sm:join-item w-full flex-1"

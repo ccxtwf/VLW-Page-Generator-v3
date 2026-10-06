@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
+  import { SimpleSelect } from "../reusables";
   import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
   import {
     extractLyricsTablesFromWikipageSrc,
@@ -89,22 +90,21 @@
       {$_("lyricsEditor.lyricsExtractorState.noData")}
     </div>
   {:else}
-    <select
-      class="select text-xs"
+    <SimpleSelect
+      class="text-xs"
       bind:value={selectedTable}
-    >
-      <option
-        disabled
-        selected
-      >
-        {$_("lyricsEditor.lyricsExtractorState.found", {
-          values: { index: selectedTable + 1, total: nTables },
-        })}
-      </option>
-      {#each { length: nTables } as _, i}
-        <option value={i}>Table #{i + 1}</option>
-      {/each}
-    </select>
+      placeholder={$_("lyricsEditor.lyricsExtractorState.found", {
+        values: { index: selectedTable + 1, total: nTables },
+      })}
+      options={Array(nTables)
+        .fill(null)
+        .map((_v, i) => ({
+          value: i,
+          contents: $_("lyricsEditor.lyricsExtractorState.nThTable", {
+            values: { index: i + 1 },
+          }),
+        }))}
+    />
   {/if}
 
   <textarea

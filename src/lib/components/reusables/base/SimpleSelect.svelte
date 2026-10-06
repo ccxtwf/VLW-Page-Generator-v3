@@ -1,19 +1,29 @@
 <script lang="ts">
   import type { HTMLSelectAttributes, HTMLOptionAttributes } from "svelte/elements";
 
+  interface CustomOption extends HTMLOptionAttributes {
+    contents?: string | HTMLElement;
+  }
   interface Props extends HTMLSelectAttributes {
     placeholder?: string;
-    options?: (HTMLOptionAttributes & { contents?: string | HTMLElement })[];
+    options?: (string | CustomOption)[];
   }
 
   let {
     placeholder,
     options = [],
-    id,
     value = $bindable(""),
     class: cssClass,
     ...rest
   }: Props = $props();
+
+  function mapOption(opt: string | CustomOption): CustomOption {
+    if (typeof opt === "string") {
+      return { value: opt, contents: opt };
+    } else {
+      return opt;
+    }
+  }
 </script>
 
 <select
@@ -27,7 +37,8 @@
       selected={!value}>{placeholder}</option
     >
   {/if}
-  {#each options as { contents = '', ...option }}
+  {#each options as o}
+    {const { contents, ...option } = mapOption(o)}
     <option {...option}>{contents}</option>
   {/each}
 </select>
