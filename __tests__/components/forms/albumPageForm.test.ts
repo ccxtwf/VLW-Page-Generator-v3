@@ -11,7 +11,7 @@ import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { page as screen, userEvent } from "vite-plus/test/browser";
 import { render, RenderResult } from "vitest-browser-svelte";
 
-import AlbumPageForm from "#src/lib/forms/AlbumPageForm.svelte";
+import AlbumPageForm from "#src/lib/components/forms/AlbumPageForm.svelte";
 import Album from "#src/lib/models/Album.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/albums.svelte.ts";
 import { mapAlbumBroadcastLink, mapEngines } from "../../mapper";

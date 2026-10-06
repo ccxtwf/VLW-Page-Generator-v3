@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import { keydownPreventDefault } from "../../utils/utils";
+  import { keydownPreventDefault } from "../../../utils/utils";
 
   interface InfoboxColorInputFieldProps {
     backgroundColor: string;

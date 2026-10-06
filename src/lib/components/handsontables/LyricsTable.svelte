@@ -2,7 +2,7 @@
   import Handsontable from "./Handsontable.svelte";
   import type { ColumnSettings, HotInstance } from "handsontable/base";
   import { getTheme } from "handsontable/themes";
-  import Song from "#src/lib/models/Song.svelte.js";
+  import Song from "../../models/Song.svelte.js";
   import LyricRow from "../../models/children/LyricsRow.svelte";
 
   import { getLyricsContextMenu } from "./contextMenus/lyrics";

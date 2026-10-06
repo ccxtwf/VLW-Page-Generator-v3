@@ -9,7 +9,7 @@ import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { page as screen, userEvent } from "vite-plus/test/browser";
 import { render, RenderResult } from "vitest-browser-svelte";
 
-import SongPageForm from "#src/lib/forms/SongPageForm.svelte";
+import SongPageForm from "#src/lib/components/forms/SongPageForm.svelte";
 import Song from "#src/lib/models/Song.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/songs.svelte.ts";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "#src/lib/models/enums.ts";
