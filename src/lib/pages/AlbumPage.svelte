@@ -2,7 +2,7 @@
   import { _ } from "svelte-i18n";
   import type { SvelteComponent } from "svelte";
 
-  import AlbumPageForm from "../forms/AlbumPageForm.svelte";
+  import AlbumPageForm from "../components/forms/AlbumPageForm.svelte";
   import {
     Divider,
     FirstTimeEditingNotice,

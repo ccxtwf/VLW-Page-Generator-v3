@@ -17,8 +17,8 @@
     AutoloadCategoriesButton,
     ValidationResultsAlert,
     PreloadFromVocaDBInput,
-  } from "../components/reusables";
-  import { Tracklist, ExternalLinksTable } from "../components/handsontables";
+  } from "../../components/reusables";
+  import { Tracklist, ExternalLinksTable } from "../../components/handsontables";
 
   import type { SvelteComponent } from "svelte";
 
@@ -27,13 +27,13 @@
     autoloadCategories,
     fetchDataFromVocaDb,
     validate,
-  } from "../logic/albums.svelte";
+  } from "../../logic/albums.svelte";
 
-  import Album from "../models/Album.svelte";
-  import { formSubmitHandler, resetFormWarnings } from "../logic";
-  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
-  import { MONTHS } from "../../constants";
-  import type { AlbumPageValidationErrorType } from "../validationErrors/types";
+  import Album from "../../models/Album.svelte";
+  import { formSubmitHandler, resetFormWarnings } from "../../logic";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../../logic/exceptions";
+  import { MONTHS } from "../../../constants";
+  import type { AlbumPageValidationErrorType } from "../../validationErrors/types";
 
   let formData: Album = new Album();
   let ignoreErrors: boolean = $state(false);

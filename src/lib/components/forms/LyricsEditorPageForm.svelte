@@ -10,17 +10,17 @@
     Glossary,
     ThemeToggle,
     ResetFormButton,
-  } from "../components/reusables";
-  import { LyricsFreeEditTable } from "../components/handsontables";
+  } from "../../components/reusables";
+  import { LyricsFreeEditTable } from "../../components/handsontables";
 
   import {
     consolidateCellInlineColourFormatting,
     decapitalizeRomanization,
     detonePinyinLyrics,
     standardizeHepburnRomanization,
-  } from "../utils/lyricsEditFormActions";
-  import { generateLyricsSegment, truncateLyrics } from "../utils/lyricsUtils";
-  import type { ParsedLyricsPayload } from "../../schemas/events.d";
+  } from "../../utils/lyricsEditFormActions";
+  import { generateLyricsSegment, truncateLyrics } from "../../utils/lyricsUtils";
+  import type { ParsedLyricsPayload } from "../../../schemas/events.d";
 
   let { ongenerate }: { ongenerate: (results: string) => void } = $props();
 

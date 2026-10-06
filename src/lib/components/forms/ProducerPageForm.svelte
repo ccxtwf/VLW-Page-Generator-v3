@@ -17,8 +17,8 @@
     ValidationResultsAlert,
     PreloadFromVocaDBInput,
     PreloadDiscographyFromVlwInput,
-  } from "../components/reusables";
-  import { ProducerDiscographyTable, ExternalLinksTable } from "../components/handsontables";
+  } from "../../components/reusables";
+  import { ProducerDiscographyTable, ExternalLinksTable } from "../../components/handsontables";
 
   import type { SvelteComponent } from "svelte";
 
@@ -27,18 +27,18 @@
     fetchDataFromVocaDb,
     fetchDiscographyFromVlw,
     validate,
-  } from "../logic/producers.svelte";
+  } from "../../logic/producers.svelte";
 
-  import Producer from "../models/Producer.svelte";
-  import { formSubmitHandler, resetFormWarnings } from "../logic";
+  import Producer from "../../models/Producer.svelte";
+  import { formSubmitHandler, resetFormWarnings } from "../../logic";
   import {
     ExternalWebServiceError,
     VocaDBInvalidUrlError,
     VLWInvalidUrlError,
     GotZeroPagesInResponseError,
-  } from "../logic/exceptions";
-  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import type { ProducerPageValidationErrorType } from "../validationErrors/types";
+  } from "../../logic/exceptions";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
+  import type { ProducerPageValidationErrorType } from "../../validationErrors/types";
 
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);

@@ -1,8 +1,11 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import { extractLyricsTablesFromWikipageSrc, parseLyrics } from "../utils/lyricsEditFormActions";
-  import type { ParsedLyricsPayload } from "../../schemas/events";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
+  import {
+    extractLyricsTablesFromWikipageSrc,
+    parseLyrics,
+  } from "../../utils/lyricsEditFormActions";
+  import type { ParsedLyricsPayload } from "../../../schemas/events";
 
   let selectedTable: number = $state(0);
   let nTables: number = $state(0);

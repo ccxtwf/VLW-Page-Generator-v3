@@ -21,32 +21,32 @@
     ValidationResultsAlert,
     PreloadFromVocaDBInput,
     ThemeToggle,
-  } from "../components/reusables";
+  } from "../../components/reusables";
   import {
     LyricsTable,
     ExternalLinksTable,
     BroadcastLinksTable,
-  } from "../components/handsontables";
+  } from "../../components/handsontables";
 
   import type { SvelteComponent } from "svelte";
 
-  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
+  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../../models/enums";
 
   import {
     generatePage,
     autoloadCategories,
     fetchDataFromVocaDb,
     validate,
-  } from "../logic/songs.svelte";
+  } from "../../logic/songs.svelte";
 
-  import Song from "../models/Song.svelte";
-  import { formSubmitHandler, resetFormWarnings } from "../logic";
-  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
+  import Song from "../../models/Song.svelte";
+  import { formSubmitHandler, resetFormWarnings } from "../../logic";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../../logic/exceptions";
 
-  import { resetRadioInputGroup } from "../utils/utils";
-  import { getLanguageMetadata } from "../utils/lyricsUtils";
-  import type { SongPageValidationErrorType } from "../validationErrors/types";
+  import { resetRadioInputGroup } from "../../utils/utils";
+  import { getLanguageMetadata } from "../../utils/lyricsUtils";
+  import type { SongPageValidationErrorType } from "../../validationErrors/types";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
