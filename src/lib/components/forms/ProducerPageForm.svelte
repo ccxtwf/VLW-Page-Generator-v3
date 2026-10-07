@@ -167,21 +167,20 @@
     labelForHtmlId="producer-category"
     labelI18nKey="producerGenForm.mainProducerCategory.label"
     tooltipI18nKey="producerGenForm.mainProducerCategory.tooltip"
-    required={true}
+    required
+    column
   >
-    <div class="flex w-full flex-col gap-2">
-      <PreloadDiscographyFromVlwInput
-        bind:prodCategory={formData.prodCategory}
-        {handleDiscographyLoading}
+    <PreloadDiscographyFromVlwInput
+      bind:prodCategory={formData.prodCategory}
+      {handleDiscographyLoading}
+    />
+    <div class="flex-item w-full">
+      <SimpleCheckbox
+        label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
+        textClass="text-sm"
+        toggle
+        bind:checked={formData.splitAlbum}
       />
-      <div class="flex-item w-full">
-        <SimpleCheckbox
-          label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
-          textClass="text-sm"
-          isToggle={true}
-          bind:checked={formData.splitAlbum}
-        />
-      </div>
     </div>
   </FlexRow>
 
@@ -269,7 +268,7 @@
     labelForHtmlId="external-links"
     labelI18nKey="producerGenForm.externalLinks.label"
     tooltipI18nKey="producerGenForm.externalLinks.tooltip"
-    required={true}
+    required
   />
 
   <ExternalLinksTable
@@ -277,7 +276,7 @@
     class="col-span-full w-full"
     data={formData.extLinks}
     bind:this={extLintsHotTable}
-    forProducerPage={true}
+    forProducerPage
   />
 
   <Divider />
@@ -286,7 +285,7 @@
     labelForHtmlId="discography-songs"
     labelI18nKey="producerGenForm.discographySongs.label"
     tooltipI18nKey="producerGenForm.discographySongs.tooltip"
-    required={true}
+    required
   />
   <ProducerDiscographyTable
     id="discography-songs"
@@ -306,7 +305,7 @@
       class="w-full"
       data={formData.albums}
       bind:this={albumListHotTable}
-      forAlbums={true}
+      forAlbums
     />
     <div class="mt-1 w-full text-xs leading-relaxed">
       {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote", {

@@ -131,7 +131,7 @@
     labelForHtmlId="original-title"
     labelI18nKey="albumGenForm.originalTitle.label"
     tooltipI18nKey="albumGenForm.originalTitle.tooltip"
-    required={true}
+    required
   >
     <SimpleTextInput
       id="original-title"
@@ -157,13 +157,11 @@
     labelI18nKey="albumGenForm.englishTitle.label"
     tooltipI18nKey="albumGenForm.englishTitle.tooltip"
   >
-    <div class="join w-full">
-      <SimpleTextInput
-        id="english-title"
-        placeholder={$_("albumGenForm.englishTitle.placeholder")}
-        bind:value={formData.engTitle}
-      />
-    </div>
+    <SimpleTextInput
+      id="english-title"
+      placeholder={$_("albumGenForm.englishTitle.placeholder")}
+      bind:value={formData.engTitle}
+    />
   </FlexRow>
 
   <Divider />
@@ -180,7 +178,7 @@
     labelForHtmlId="infobox-colors"
     labelI18nKey="infoboxColors.label"
     tooltipI18nKey="infoboxColors.tooltip"
-    required={true}
+    required
   >
     <InfoboxColorInputField
       bind:backgroundColor={formData.bgColour}
@@ -193,34 +191,31 @@
     labelI18nKey="albumGenForm.label.label"
     tooltipI18nKey="albumGenForm.label.tooltip"
   >
-    <div class="join w-full">
-      <SimpleTextInput
-        id="album-label"
-        placeholder={$_("albumGenForm.label.placeholder")}
-        bind:value={formData.label}
-      />
-    </div>
+    <SimpleTextInput
+      id="album-label"
+      placeholder={$_("albumGenForm.label.placeholder")}
+      bind:value={formData.label}
+    />
   </FlexRow>
 
   <FlexRow
     labelForHtmlId="description"
     labelI18nKey="albumGenForm.description.label"
     tooltipI18nKey="albumGenForm.description.tooltip"
-    required={true}
+    required
+    column
   >
-    <div class="flex w-full flex-col gap-2">
-      <SimpleTextInput
-        id="description"
-        placeholder={$_("albumGenForm.description.placeholder")}
-        bind:value={formData.description}
+    <SimpleTextInput
+      id="description"
+      placeholder={$_("albumGenForm.description.placeholder")}
+      bind:value={formData.description}
+    />
+    <div>
+      <SimpleCheckbox
+        id="is-compilation-album"
+        label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
+        bind:checked={formData.isCompilationAlbum}
       />
-      <div>
-        <SimpleCheckbox
-          id="is-compilation-album"
-          label={$_("albumGenForm.description.isCompilationCheckboxLabel")}
-          bind:checked={formData.isCompilationAlbum}
-        />
-      </div>
     </div>
   </FlexRow>
 
@@ -228,7 +223,7 @@
     labelForHtmlId="published-year"
     labelI18nKey="albumGenForm.albumPublicationDate.label"
     tooltipI18nKey="albumGenForm.albumPublicationDate.tooltip"
-    required={true}
+    required
   >
     <div class="flex w-full gap-x-8 gap-y-2 max-sm:flex-col md:flex-row">
       <SimpleTextInput
@@ -260,14 +255,12 @@
     labelForHtmlId="synths"
     labelI18nKey="albumGenForm.synths.label"
     tooltipI18nKey="albumGenForm.synths.tooltip"
-    required={true}
+    required
   >
-    <div class="join w-full">
-      <SynthsMultiSelect
-        placeholder={$_("albumGenForm.synths.placeholder")}
-        bind:selected={formData.engines}
-      />
-    </div>
+    <SynthsMultiSelect
+      placeholder={$_("albumGenForm.synths.placeholder")}
+      bind:selected={formData.engines}
+    />
   </FlexRow>
 
   <Divider />
@@ -276,7 +269,7 @@
     labelForHtmlId="tracklist"
     labelI18nKey="albumGenForm.tracklist.label"
     tooltipI18nKey="albumGenForm.tracklist.tooltip"
-    required={true}
+    required
   />
 
   <Tracklist
@@ -293,13 +286,11 @@
     labelI18nKey="albumGenForm.vdbAlbumPageId.label"
     tooltipI18nKey="albumGenForm.vdbAlbumPageId.tooltip"
   >
-    <div class="join w-full">
-      <SimpleTextInput
-        id="vocadb-album-id"
-        placeholder={$_("albumGenForm.vdbAlbumPageId.placeholder")}
-        bind:value={formData.vdbAlbumId}
-      />
-    </div>
+    <SimpleTextInput
+      id="vocadb-album-id"
+      placeholder={$_("albumGenForm.vdbAlbumPageId.placeholder")}
+      bind:value={formData.vdbAlbumId}
+    />
   </FlexRow>
 
   <FlexRow
@@ -307,13 +298,11 @@
     labelI18nKey="albumGenForm.vocaloidWikiPage.label"
     tooltipI18nKey="albumGenForm.vocaloidWikiPage.tooltip"
   >
-    <div class="join w-full">
-      <SimpleTextInput
-        id="vocaloid-wiki-page"
-        placeholder={$_("albumGenForm.vocaloidWikiPage.placeholder")}
-        bind:value={formData.vocaWikiPage}
-      />
-    </div>
+    <SimpleTextInput
+      id="vocaloid-wiki-page"
+      placeholder={$_("albumGenForm.vocaloidWikiPage.placeholder")}
+      bind:value={formData.vocaWikiPage}
+    />
   </FlexRow>
 
   <Divider />
@@ -333,14 +322,12 @@
     labelI18nKey="externalLinks.label"
     tooltipI18nKey="externalLinks.tooltip"
   >
-    <div class="block w-full">
-      <ExternalLinksTable
-        id="external-links"
-        class="w-full"
-        data={formData.extLinks}
-        bind:this={extLinksHotTable}
-      />
-    </div>
+    <ExternalLinksTable
+      id="external-links"
+      class="w-full"
+      data={formData.extLinks}
+      bind:this={extLinksHotTable}
+    />
   </FlexRow>
 
   <Divider />

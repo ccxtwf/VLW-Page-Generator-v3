@@ -176,8 +176,8 @@
     labelForHtmlId="gen-ai-warning"
     labelI18nKey="songGenForm.genAiWarning.label"
     tooltipI18nKey="songGenForm.genAiWarning.tooltip"
+    column
   >
-    <div class="flex w-full flex-col gap-y-2">
       <div class="sm:join block w-full">
         <SimpleSelect
           id="gen-ai-warning"
@@ -206,23 +206,21 @@
           bind:value={formData.aiWarningText1}
         />
       </div>
-      <div class="w-full">
+
         <SimpleTextInput
           id="gen-ai-source"
           disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
           placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
           bind:value={formData.aiWarningText2}
         />
-      </div>
-    </div>
   </FlexRow>
 
   <FlexRow
     labelForHtmlId="content-warning"
     labelI18nKey="songGenForm.contentWarning.label"
     tooltipI18nKey="songGenForm.contentWarning.tooltip"
+    column
   >
-    <div class="flex w-full flex-col gap-3">
       <div class="sm:join flex-item block w-full">
         <SimpleSelect
           id="content-warning"
@@ -251,13 +249,12 @@
           bind:value={formData.cwText}
         />
       </div>
-      <div class="flex-item">
+    <div>
         <SimpleCheckbox
           id="has-epileptic-content"
           label={$_("songGenForm.contentWarning.epilepticWarningCheckboxLabel")}
           bind:checked={formData.hasEpilepsyWarning}
         />
-      </div>
     </div>
   </FlexRow>
 
@@ -265,7 +262,7 @@
     labelForHtmlId="languages"
     labelI18nKey="songGenForm.songLanguage.label"
     tooltipI18nKey="songGenForm.songLanguage.tooltip"
-    required={true}
+    required
   >
     <LanguageMultiSelect
       placeholder={$_("songGenForm.songLanguage.placeholder")}
@@ -291,7 +288,7 @@
     labelForHtmlId="original-title"
     labelI18nKey="songGenForm.originalTitle.label"
     tooltipI18nKey="songGenForm.originalTitle.tooltip"
-    required={true}
+    required
   >
     <SimpleTextInput
       id="original-title"
@@ -405,7 +402,7 @@
     labelForHtmlId="infobox-colors"
     labelI18nKey="infoboxColors.label"
     tooltipI18nKey="infoboxColors.tooltip"
-    required={true}
+    required
   >
     <InfoboxColorInputField
       bind:backgroundColor={formData.bgColour}
@@ -417,7 +414,7 @@
     labelForHtmlId="upload-date"
     labelI18nKey="songGenForm.uploadDate.label"
     tooltipI18nKey="songGenForm.uploadDate.tooltip"
-    required={true}
+    required
   >
     <SimpleDateInput
       id="upload-date"
@@ -429,7 +426,7 @@
     labelForHtmlId="singers"
     labelI18nKey="songGenForm.singers.label"
     tooltipI18nKey="songGenForm.singers.tooltip"
-    required={true}
+    required
   >
     <SimpleTextFieldBox
       id="singers"
@@ -441,7 +438,7 @@
     labelForHtmlId="producers"
     labelI18nKey="songGenForm.producers.label"
     tooltipI18nKey="songGenForm.producers.tooltip"
-    required={true}
+    required
   >
     <SimpleTextFieldBox
       id="producers"
@@ -467,7 +464,7 @@
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
     tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
-    required={true}
+    required
   />
 
   <div class="col-span-full block">
@@ -508,7 +505,8 @@
   <FlexRow
     labelI18nKey="songGenForm.lyrics.label"
     tooltipI18nKey="songGenForm.lyrics.tooltip"
-    required={true}
+    required
+    grouped
   >
     <div class="ml-auto">
       <ThemeToggle />
@@ -534,6 +532,7 @@
     labelForHtmlId="translator"
     labelI18nKey="songGenForm.translator.label"
     tooltipI18nKey="songGenForm.translator.tooltip"
+    grouped
   >
     <div class="flex-item flex-grow">
       <SimpleTextInput

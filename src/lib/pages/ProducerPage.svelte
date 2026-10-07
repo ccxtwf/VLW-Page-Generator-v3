@@ -28,7 +28,7 @@
 
   <Divider />
 
-  <FirstTimeEditingNotice forProducerGen={true} />
+  <FirstTimeEditingNotice forProducerGen />
   <AccessKeyShortcutsCard />
 
   <Divider />

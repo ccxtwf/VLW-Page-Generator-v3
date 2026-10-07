@@ -5,7 +5,7 @@
     label: string;
     checked?: boolean;
     textClass?: string;
-    isToggle?: boolean;
+    toggle?: boolean;
   }
 
   let {
@@ -13,7 +13,7 @@
     label,
     checked = $bindable(false),
     textClass = "text-xs sm:text-sm",
-    isToggle = false,
+    toggle = false,
     ...rest
   }: SimpleCheckboxProps = $props();
 
@@ -30,7 +30,7 @@
   <input
     {id}
     type="checkbox"
-    class={isToggle ? "toggle" : "checkbox"}
+    class={toggle ? "toggle" : "checkbox"}
     bind:checked
     {onkeypress}
     {...rest}

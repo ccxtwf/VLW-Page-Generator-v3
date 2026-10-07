@@ -14,6 +14,8 @@
     required?: boolean;
     showUnderLabel?: Snippet;
     children?: Snippet;
+    grouped?: boolean;
+    column?: boolean;
   }
 
   let {
@@ -27,6 +29,8 @@
     required = false,
     children,
     showUnderLabel,
+    grouped = false,
+    column = false,
   }: FlexRowProps = $props();
 </script>
 
@@ -56,6 +60,8 @@
 </div>
 <div
   class="vlw-flex-row-right"
+  class:grouped
+  class:column
   class:hidden
 >
   {#if children}
