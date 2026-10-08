@@ -13,6 +13,7 @@
     ImageEmbed,
     InfoboxColorInputField,
     LanguageMultiSelect,
+    LyricsLicenseSelect,
     ResetFormButton,
     ResetWarningsButton,
     GenerateButton,
@@ -178,41 +179,41 @@
     tooltipI18nKey="songGenForm.genAiWarning.tooltip"
     column
   >
-      <div class="sm:join block w-full">
-        <SimpleSelect
-          id="gen-ai-warning"
-          class="sm:join-item w-full sm:w-48"
-          bind:value={formData.aiCwState}
-          options={[
-            {
-              value: ENUM_AI_WARNING_TYPE.none,
-              contents: $_("songGenForm.genAiWarning.dropdownOptions.none"),
-            },
-            {
-              value: ENUM_AI_WARNING_TYPE.verified,
-              contents: $_("songGenForm.genAiWarning.dropdownOptions.verified"),
-            },
-            {
-              value: ENUM_AI_WARNING_TYPE.suspected,
-              contents: $_("songGenForm.genAiWarning.dropdownOptions.suspected"),
-            },
-          ]}
-        ></SimpleSelect>
-        <SimpleTextInput
-          id="gen-ai-usage"
-          class="input input-bordered sm:join-item w-full flex-1"
-          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
-          placeholder={$_("songGenForm.genAiWarning.placeholder")}
-          bind:value={formData.aiWarningText1}
-        />
-      </div>
+    <div class="sm:join block w-full">
+      <SimpleSelect
+        id="gen-ai-warning"
+        class="sm:join-item w-full sm:w-48"
+        bind:value={formData.aiCwState}
+        options={[
+          {
+            value: ENUM_AI_WARNING_TYPE.none,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.none"),
+          },
+          {
+            value: ENUM_AI_WARNING_TYPE.verified,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.verified"),
+          },
+          {
+            value: ENUM_AI_WARNING_TYPE.suspected,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.suspected"),
+          },
+        ]}
+      ></SimpleSelect>
+      <SimpleTextInput
+        id="gen-ai-usage"
+        class="input input-bordered sm:join-item w-full flex-1"
+        disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
+        placeholder={$_("songGenForm.genAiWarning.placeholder")}
+        bind:value={formData.aiWarningText1}
+      />
+    </div>
 
-        <SimpleTextInput
-          id="gen-ai-source"
-          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
-          placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
-          bind:value={formData.aiWarningText2}
-        />
+    <SimpleTextInput
+      id="gen-ai-source"
+      disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
+      placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
+      bind:value={formData.aiWarningText2}
+    />
   </FlexRow>
 
   <FlexRow
@@ -221,40 +222,40 @@
     tooltipI18nKey="songGenForm.contentWarning.tooltip"
     column
   >
-      <div class="sm:join flex-item block w-full">
-        <SimpleSelect
-          id="content-warning"
-          class="sm:join-item w-full sm:w-48"
-          bind:value={formData.cwState}
-          options={[
-            {
-              value: ENUM_CW_STATES.noWarnings,
-              contents: $_("songGenForm.contentWarning.dropdownOptions.none"),
-            },
-            {
-              value: ENUM_CW_STATES.questionable,
-              contents: $_("songGenForm.contentWarning.dropdownOptions.hasWarning"),
-            },
-            {
-              value: ENUM_CW_STATES.isNsfw,
-              contents: $_("songGenForm.contentWarning.dropdownOptions.nsfw"),
-            },
-          ]}
-        ></SimpleSelect>
-        <SimpleTextInput
-          id="cw-text"
-          class="input input-bordered sm:join-item w-full flex-1"
-          disabled={formData.cwState === ENUM_CW_STATES.noWarnings}
-          placeholder={$_("songGenForm.contentWarning.placeholder")}
-          bind:value={formData.cwText}
-        />
-      </div>
+    <div class="sm:join flex-item block w-full">
+      <SimpleSelect
+        id="content-warning"
+        class="sm:join-item w-full sm:w-48"
+        bind:value={formData.cwState}
+        options={[
+          {
+            value: ENUM_CW_STATES.noWarnings,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.none"),
+          },
+          {
+            value: ENUM_CW_STATES.questionable,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.hasWarning"),
+          },
+          {
+            value: ENUM_CW_STATES.isNsfw,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.nsfw"),
+          },
+        ]}
+      ></SimpleSelect>
+      <SimpleTextInput
+        id="cw-text"
+        class="input input-bordered sm:join-item w-full flex-1"
+        disabled={formData.cwState === ENUM_CW_STATES.noWarnings}
+        placeholder={$_("songGenForm.contentWarning.placeholder")}
+        bind:value={formData.cwText}
+      />
+    </div>
     <div>
-        <SimpleCheckbox
-          id="has-epileptic-content"
-          label={$_("songGenForm.contentWarning.epilepticWarningCheckboxLabel")}
-          bind:checked={formData.hasEpilepsyWarning}
-        />
+      <SimpleCheckbox
+        id="has-epileptic-content"
+        label={$_("songGenForm.contentWarning.epilepticWarningCheckboxLabel")}
+        bind:checked={formData.hasEpilepsyWarning}
+      />
     </div>
   </FlexRow>
 
@@ -454,6 +455,19 @@
     <SimpleTextFieldBox
       id="description"
       bind:value={formData.description}
+    />
+  </FlexRow>
+
+  <FlexRow
+    labelForHtmlId="lyrics-license"
+    labelI18nKey="songGenForm.license.label"
+    tooltipI18nKey="songGenForm.license.tooltip"
+    required
+    column
+  >
+    <LyricsLicenseSelect
+      bind:value={formData.license}
+      bind:customLicense={formData.customLicenseText}
     />
   </FlexRow>
 

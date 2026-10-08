@@ -110,6 +110,16 @@ const validationErrors: Record<
     fields: ["song-page-type"],
     i18nKey: "validation.song.noSongTypeOptSet",
   },
+  [SongPageValidationErrorType.NO_LICENSE_IS_SET]: {
+    fatal: true,
+    fields: ["lyrics-license"],
+    i18nKey: "validation.song.noLicense",
+  },
+  [SongPageValidationErrorType.NO_CUSTOM_LICENSE_IS_SET]: {
+    fatal: true,
+    fields: ["lyrics-custom-license"],
+    i18nKey: "validation.song.noCustomLicense",
+  },
 };
 
 export function getValidationError(

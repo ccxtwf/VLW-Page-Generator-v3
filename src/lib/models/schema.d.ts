@@ -1,3 +1,4 @@
+import type { LyricsLicenseKey } from "../../constants/lyrics-licenses";
 import type {
   ENUM_AI_WARNING_TYPE,
   ENUM_CW_STATES,
@@ -31,6 +32,8 @@ export interface ISong {
   singers: string;
   producers: string;
   description: string;
+  license: LyricsLicenseKey;
+  customLicenseText: string;
   translator: string;
   isOfficialTranslation: boolean;
   categoriesRaw: string;
