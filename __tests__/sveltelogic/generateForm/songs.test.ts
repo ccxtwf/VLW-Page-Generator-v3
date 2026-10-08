@@ -687,6 +687,79 @@ IJKL</poem>
     expect(page).toEqual(expected);
     expect(outputTitle).toEqual("ECHO the World");
   });
+
+  test("Song with non-default license", () => {
+    const formData = new Song({
+      languages: mapLanguages("English"),
+      isoLangCode: "eng",
+      origTitle: "ECHO the World",
+      bgColour: "black",
+      fgColour: "white",
+      uploadDateRaw: "2000-01-01",
+      isAlbumOnly: false,
+      isUnavailable: false,
+      singers: "[[Hatsune Miku (VOCALOID)]]",
+      producers: "[[Jane Doe]] (music, lyrics)",
+      description: "A song by J.Doe",
+      license: "self",
+      categoriesRaw: "Jane Doe songs list",
+      lyrics: [
+        new LyricRow({ original: "ABCD" }),
+        new LyricRow({ original: "EFGH" }),
+        new LyricRow({ original: "IJKL" }),
+      ],
+      playLinks: [
+        new PlayLink({
+          site: "YouTube",
+          url: "https://www.youtube.com/watch?v=vnw8zURAxkU",
+          viewCount: "1,000,000+",
+        }),
+      ],
+      extLinks: [
+        new ExternalLink({
+          description: "Pixiv",
+          url: "https://www.pixiv.net/artworks/10324371",
+          isOfficial: true,
+        }),
+        new ExternalLink({
+          description: "VocaDB",
+          url: "https://vocadb.net/S/1501",
+          isOfficial: false,
+        }),
+      ],
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "'''ECHO the World'''"
+|color = black; color:white
+|original upload date = {{Date|2000|January|1}}
+|singer = [[Hatsune Miku (VOCALOID)]]
+|producer = [[Jane Doe]] (music, lyrics)
+|#views = 1,000,000+
+|link = {{#|https://www.youtube.com/watch?v=vnw8zURAxkU}}
+|description = A song by J.Doe
+|language = English
+|license = self
+}}
+
+==Lyrics==
+<poem>ABCD
+EFGH
+IJKL</poem>
+
+==External Links==
+* [https://www.pixiv.net/artworks/10324371 Pixiv]
+===Unofficial===
+* {{VDB|S/1501}}
+
+[[Category:Jane Doe songs list]]`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("ECHO the World");
+  });
 });
 
 describe("Generate song pages - Edge cases", () => {
@@ -849,4 +922,36 @@ describe("Generate song pages - Edge cases", () => {
       expect(outputTitle).toEqual("");
     },
   );
+
+  test("The custom license text should not be appear if a non-custom license is selected", () => {
+    const formData = new Song({
+      license: "pd",
+      customLicenseText: "This should not appear.",
+    });
+    formData.preprocess();
+
+    const [page, outputTitle] = generatePage(formData);
+
+    const expected = `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|license = pd
+}}
+
+==Lyrics==
+{{lyrics toggle|org:Original|rom:Romanized|iso-lang=}}
+{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|}`;
+
+    expect(page).toEqual(expected);
+    expect(outputTitle).toEqual("");
+  });
 });

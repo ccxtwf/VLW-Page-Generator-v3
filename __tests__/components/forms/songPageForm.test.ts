@@ -393,7 +393,7 @@ describe("songPageForm - state should be bounded correctly", () => {
   test("Description", async () => {
     const page = await render(SongPageForm, { ongenerate: () => {} });
 
-    await page.getByRole("textbox", { name: "Description" }).fill("This is a song by wowaka.");
+    await page.getByRole("textbox", { name: /Description/ }).fill("This is a song by wowaka.");
 
     await submitFormAndComparePassedArgs(
       page,
