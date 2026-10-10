@@ -229,7 +229,7 @@ export function generatePage(formData: Song): [string, string] {
     headers: langMetadata.headers,
     needsRomanization: langMetadata.needsRomanization,
     needsTranslation: langMetadata.needsTranslation,
-    isoLangCode,
+    isoLangCode: isoLangCode || langMetadata.isoLangCode,
     translator,
     isOfficialTranslation,
     bgColour,
