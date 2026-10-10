@@ -16,3 +16,10 @@ export { type AlbumStreamingLink, ALBUM_STREAMING_LINKS } from "./albumLinkDomai
 export { default as SYNTH_ENGINES } from "./synthEngines.json";
 export { default as SYNTHS } from "./synths.json";
 export { default as TRANSLATORS } from "./translators.json";
+
+export {
+  lyricsLicenses,
+  lyricsLicenseMenuGroups,
+  defaultLyricsLicense,
+  type LyricsLicenseKey,
+} from "./lyrics-licenses";

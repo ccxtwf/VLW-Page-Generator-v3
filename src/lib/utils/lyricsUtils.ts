@@ -77,7 +77,7 @@ export function generateLyricsToggle(
   headers: string[],
   needsRomanization: boolean,
   showEnglishColumn: boolean,
-  isoLangCode?: string,
+  isoLangCode?: string | null,
 ) {
   const lookupOriginalColumnSemanticId: Record<string, string> = {
     Japanese: "jp",
@@ -123,7 +123,7 @@ export function generateLyricsToggle(
     !(headers[0] in skipCustomLangIsoCode) ||
     (isoLangCode && skipCustomLangIsoCode[headers[0]] !== isoLangCode)
   ) {
-    res += `|iso-lang=${isoLangCode}`;
+    res += `|iso-lang=${isoLangCode ?? ""}`;
   }
   res += "}}";
   return res;
@@ -321,7 +321,7 @@ export function generateLyricsSegment(
     needsRomanization: boolean;
     needsTranslation: boolean;
     showEnglishColumn?: boolean;
-    isoLangCode?: string;
+    isoLangCode?: string | null;
     translator?: string;
     isOfficialTranslation?: boolean;
     bgColour?: string;

@@ -73,6 +73,19 @@
       "label": "Description",
       "tooltip": "Background information about the song."
     },
+    "license": {
+      "label": "Lyrics Licensing",
+      "tooltip": "Specify the license under which the lyrics will be presented on the wiki. Set as \"Fair use\" if unsure.",
+      "customLicensePlaceholder": "custom license description",
+      "groups": {
+        "upload": "Uploaded with permission/attribution",
+        "public-domain": "Public domain",
+        "creative-commons": "Creative Commons",
+        "piapro": "Piapro Community License",
+        "fairuse": "Fair Use",
+        "custom": "Custom"
+      }
+    },
     "broadcastLinks": {
       "label": "Broadcast Links",
       "tooltip": "<p>Links to play song, one per line.</p><p>Recognized links: youtu.be, youtube.com, nicovideo.jp, piapro.jp, soundcloud.com, bandcamp.com, vimeo.com, bilibili.com</p><p>The Vocaloid Lyrics Wiki supports a variety of services that may not be included in this table. Refer to the section <a class=\"link link-accent\" href=\"{domain}Template:Iconlinks#All_Recognized_Website_Domains\" target=\"_blank\" rel=\"noopener noreferrer\">§ All Recognized Website Domains</a> on our template documentation to find out more.</p><p>Leave URL empty if there's no play link available (e.g. the song is not publicly available or the song is an album-only release).</p>",

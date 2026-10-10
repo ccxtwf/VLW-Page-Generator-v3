@@ -5,7 +5,13 @@
     @apply flex w-full flex-col items-start justify-start gap-4 font-medium;
   }
   .vlw-flex-row-right {
-    @apply flex w-full flex-col gap-2 sm:flex-row;
+    @apply w-full;
+  }
+  .vlw-flex-row-right.grouped {
+    @apply flex flex-col gap-2 sm:flex-row;
+  }
+  .vlw-flex-row-right.column {
+    @apply flex flex-col gap-2;
   }
   .vlw-flex-row-label {
     @apply flex w-full flex-row items-center justify-between gap-4;

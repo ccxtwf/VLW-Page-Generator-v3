@@ -1,48 +1,54 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  import FlexRow from "../components/reusables/FlexRow.svelte";
-  import Divider from "../components/reusables/Divider.svelte";
+  import {
+    FlexRow,
+    Divider,
+    SimpleTextInput,
+    SimpleTextFieldBox,
+    SimpleCheckbox,
+    SimpleDateInput,
+    SimpleRadioGroup,
+    SimpleSelect,
+    ImageEmbed,
+    InfoboxColorInputField,
+    LanguageMultiSelect,
+    LyricsLicenseSelect,
+    ResetFormButton,
+    ResetWarningsButton,
+    GenerateButton,
+    AutoloadCategoriesButton,
+    Glossary,
+    Tooltip,
+    ValidationResultsAlert,
+    PreloadFromVocaDBInput,
+    ThemeToggle,
+  } from "../../components/reusables";
+  import {
+    LyricsTable,
+    ExternalLinksTable,
+    BroadcastLinksTable,
+  } from "../../components/handsontables";
 
-  import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
-  import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
-  import InfoboxColorInputField from "../components/inputFields/InfoboxColorInputField.svelte";
-  import Glossary from "../components/reusables/Glossary.svelte";
-  import LyricsTable from "../components/handsontables/LyricsTable.svelte";
-  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
-  import BroadcastLinksTable from "../components/handsontables/BroadcastLinksTable.svelte";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
-  import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
-  import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
-  import SimpleDateInput from "../components/inputFields/SimpleDateInput.svelte";
-  import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import Tooltip from "../components/reusables/Tooltip.svelte";
-  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
-  import AutoloadCategoriesButton from "../components/buttons/AutoloadCategoriesButton.svelte";
-  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
-  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
-  import GenerateButton from "../components/buttons/GenerateButton.svelte";
   import type { SvelteComponent } from "svelte";
 
-  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../models/enums";
+  import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "../../models/enums";
 
   import {
     generatePage,
     autoloadCategories,
     fetchDataFromVocaDb,
     validate,
-  } from "../logic/songs.svelte";
+  } from "../../logic/songs.svelte";
 
-  import Song from "../models/Song.svelte";
-  import { formSubmitHandler, resetFormWarnings } from "../logic";
-  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../logic/exceptions";
+  import Song from "../../models/Song.svelte";
+  import { formSubmitHandler, resetFormWarnings } from "../../logic";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
+  import { ExternalWebServiceError, VocaDBInvalidUrlError } from "../../logic/exceptions";
 
-  import { resetRadioInputGroup } from "../utils/utils";
-  import { getLanguageMetadata } from "../utils/lyricsUtils";
-  import SimpleRadioGroup from "../components/inputFields/SimpleRadioGroup.svelte";
-  import type { SongPageValidationErrorType } from "../validationErrors/types";
-  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
+  import { resetRadioInputGroup } from "../../utils/utils";
+  import { getLanguageMetadata } from "../../utils/lyricsUtils";
+  import type { SongPageValidationErrorType } from "../../validationErrors/types";
 
   let formData: Song = new Song();
   let ignoreErrors: boolean = $state(false);
@@ -171,82 +177,85 @@
     labelForHtmlId="gen-ai-warning"
     labelI18nKey="songGenForm.genAiWarning.label"
     tooltipI18nKey="songGenForm.genAiWarning.tooltip"
+    column
   >
-    <div class="flex w-full flex-col gap-y-2">
-      <div class="sm:join block w-full">
-        <select
-          id="gen-ai-warning"
-          class="select select-bordered sm:join-item w-full sm:w-48"
-          bind:value={formData.aiCwState}
-        >
-          {const genAiDropdownOptions = [
-            { value: ENUM_AI_WARNING_TYPE.none, i18nKey: "none" },
-            { value: ENUM_AI_WARNING_TYPE.verified, i18nKey: "verified" },
-            { value: ENUM_AI_WARNING_TYPE.suspected, i18nKey: "suspected" },
-          ]}
-          {#each genAiDropdownOptions as { value, i18nKey }}
-            <option {value}>
-              {$_(`songGenForm.genAiWarning.dropdownOptions.${i18nKey}`)}
-            </option>
-          {/each}
-        </select>
-        <SimpleTextInput
-          id="gen-ai-usage"
-          class="input input-bordered sm:join-item w-full flex-1"
-          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
-          placeholder={$_("songGenForm.genAiWarning.placeholder")}
-          bind:value={formData.aiWarningText1}
-        />
-      </div>
-      <div class="w-full">
-        <SimpleTextInput
-          id="gen-ai-source"
-          disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
-          placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
-          bind:value={formData.aiWarningText2}
-        />
-      </div>
+    <div class="sm:join block w-full">
+      <SimpleSelect
+        id="gen-ai-warning"
+        class="sm:join-item w-full sm:w-48"
+        bind:value={formData.aiCwState}
+        options={[
+          {
+            value: ENUM_AI_WARNING_TYPE.none,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.none"),
+          },
+          {
+            value: ENUM_AI_WARNING_TYPE.verified,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.verified"),
+          },
+          {
+            value: ENUM_AI_WARNING_TYPE.suspected,
+            contents: $_("songGenForm.genAiWarning.dropdownOptions.suspected"),
+          },
+        ]}
+      ></SimpleSelect>
+      <SimpleTextInput
+        id="gen-ai-usage"
+        class="input input-bordered sm:join-item w-full flex-1"
+        disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
+        placeholder={$_("songGenForm.genAiWarning.placeholder")}
+        bind:value={formData.aiWarningText1}
+      />
     </div>
+
+    <SimpleTextInput
+      id="gen-ai-source"
+      disabled={formData.aiCwState === ENUM_AI_WARNING_TYPE.none}
+      placeholder={$_("songGenForm.genAiWarning.sourcePlaceholder")}
+      bind:value={formData.aiWarningText2}
+    />
   </FlexRow>
 
   <FlexRow
     labelForHtmlId="content-warning"
     labelI18nKey="songGenForm.contentWarning.label"
     tooltipI18nKey="songGenForm.contentWarning.tooltip"
+    column
   >
-    <div class="flex w-full flex-col gap-3">
-      <div class="sm:join flex-item block w-full">
-        <select
-          id="content-warning"
-          class="select select-bordered sm:join-item w-full sm:w-48"
-          bind:value={formData.cwState}
-        >
-          {const genAiDropdownOptions = [
-            { value: ENUM_CW_STATES.noWarnings, i18nKey: "none" },
-            { value: ENUM_CW_STATES.questionable, i18nKey: "hasWarning" },
-            { value: ENUM_CW_STATES.isNsfw, i18nKey: "nsfw" },
-          ]}
-          {#each genAiDropdownOptions as { value, i18nKey }}
-            <option {value}>
-              {$_(`songGenForm.contentWarning.dropdownOptions.${i18nKey}`)}
-            </option>
-          {/each}
-        </select>
-        <SimpleTextInput
-          id="cw-text"
-          class="input input-bordered sm:join-item w-full flex-1"
-          disabled={formData.cwState === ENUM_CW_STATES.noWarnings}
-          placeholder={$_("songGenForm.contentWarning.placeholder")}
-          bind:value={formData.cwText}
-        />
-      </div>
-      <div class="flex-item">
-        <SimpleCheckbox
-          id="has-epileptic-content"
-          label={$_("songGenForm.contentWarning.epilepticWarningCheckboxLabel")}
-          bind:checked={formData.hasEpilepsyWarning}
-        />
-      </div>
+    <div class="sm:join flex-item block w-full">
+      <SimpleSelect
+        id="content-warning"
+        class="sm:join-item w-full sm:w-48"
+        bind:value={formData.cwState}
+        options={[
+          {
+            value: ENUM_CW_STATES.noWarnings,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.none"),
+          },
+          {
+            value: ENUM_CW_STATES.questionable,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.hasWarning"),
+          },
+          {
+            value: ENUM_CW_STATES.isNsfw,
+            contents: $_("songGenForm.contentWarning.dropdownOptions.nsfw"),
+          },
+        ]}
+      ></SimpleSelect>
+      <SimpleTextInput
+        id="cw-text"
+        class="input input-bordered sm:join-item w-full flex-1"
+        disabled={formData.cwState === ENUM_CW_STATES.noWarnings}
+        placeholder={$_("songGenForm.contentWarning.placeholder")}
+        bind:value={formData.cwText}
+      />
+    </div>
+    <div>
+      <SimpleCheckbox
+        id="has-epileptic-content"
+        label={$_("songGenForm.contentWarning.epilepticWarningCheckboxLabel")}
+        bind:checked={formData.hasEpilepsyWarning}
+      />
     </div>
   </FlexRow>
 
@@ -254,7 +263,7 @@
     labelForHtmlId="languages"
     labelI18nKey="songGenForm.songLanguage.label"
     tooltipI18nKey="songGenForm.songLanguage.tooltip"
-    required={true}
+    required
   >
     <LanguageMultiSelect
       placeholder={$_("songGenForm.songLanguage.placeholder")}
@@ -280,7 +289,7 @@
     labelForHtmlId="original-title"
     labelI18nKey="songGenForm.originalTitle.label"
     tooltipI18nKey="songGenForm.originalTitle.tooltip"
-    required={true}
+    required
   >
     <SimpleTextInput
       id="original-title"
@@ -394,7 +403,7 @@
     labelForHtmlId="infobox-colors"
     labelI18nKey="infoboxColors.label"
     tooltipI18nKey="infoboxColors.tooltip"
-    required={true}
+    required
   >
     <InfoboxColorInputField
       bind:backgroundColor={formData.bgColour}
@@ -406,7 +415,7 @@
     labelForHtmlId="upload-date"
     labelI18nKey="songGenForm.uploadDate.label"
     tooltipI18nKey="songGenForm.uploadDate.tooltip"
-    required={true}
+    required
   >
     <SimpleDateInput
       id="upload-date"
@@ -418,7 +427,7 @@
     labelForHtmlId="singers"
     labelI18nKey="songGenForm.singers.label"
     tooltipI18nKey="songGenForm.singers.tooltip"
-    required={true}
+    required
   >
     <SimpleTextFieldBox
       id="singers"
@@ -430,7 +439,7 @@
     labelForHtmlId="producers"
     labelI18nKey="songGenForm.producers.label"
     tooltipI18nKey="songGenForm.producers.tooltip"
-    required={true}
+    required
   >
     <SimpleTextFieldBox
       id="producers"
@@ -449,6 +458,19 @@
     />
   </FlexRow>
 
+  <FlexRow
+    labelForHtmlId="lyrics-license"
+    labelI18nKey="songGenForm.license.label"
+    tooltipI18nKey="songGenForm.license.tooltip"
+    required
+    column
+  >
+    <LyricsLicenseSelect
+      bind:value={formData.license}
+      bind:customLicense={formData.customLicenseText}
+    />
+  </FlexRow>
+
   <Divider />
 
   <FlexRow
@@ -456,7 +478,7 @@
     labelI18nKey="songGenForm.broadcastLinks.label"
     tooltipI18nKey="songGenForm.broadcastLinks.tooltip"
     tooltipI18nParams={{ domain: VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT }}
-    required={true}
+    required
   />
 
   <div class="col-span-full block">
@@ -497,7 +519,8 @@
   <FlexRow
     labelI18nKey="songGenForm.lyrics.label"
     tooltipI18nKey="songGenForm.lyrics.tooltip"
-    required={true}
+    required
+    grouped
   >
     <div class="ml-auto">
       <ThemeToggle />
@@ -523,6 +546,7 @@
     labelForHtmlId="translator"
     labelI18nKey="songGenForm.translator.label"
     tooltipI18nKey="songGenForm.translator.tooltip"
+    grouped
   >
     <div class="flex-item flex-grow">
       <SimpleTextInput

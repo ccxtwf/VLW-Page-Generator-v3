@@ -117,8 +117,8 @@ test.describe("Song page generator tests", async () => {
     await form.getByRole("textbox", { name: "Singer(s)" }).fill("[[Hatsune Miku (VOCALOID)]]");
     await form.getByRole("textbox", { name: "Producer(s)" }).click();
     await form.getByRole("textbox", { name: "Producer(s)" }).fill("[[wowaka]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a song by wowaka.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a song by wowaka.");
 
     /* Broadcast links */
     {
@@ -336,8 +336,8 @@ test.describe("Song page generator tests", async () => {
     await form.getByRole("textbox", { name: "Singer(s)" }).fill("[[Hatsune Miku (VOCALOID)]]");
     await form.getByRole("textbox", { name: "Producer(s)" }).click();
     await form.getByRole("textbox", { name: "Producer(s)" }).fill("[[wowaka]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a song by wowaka.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a song by wowaka.");
 
     /* Broadcast links */
     {
@@ -540,8 +540,8 @@ test.describe("Song page generator tests", async () => {
     await form.getByRole("textbox", { name: "Singer(s)" }).fill("[[Kasane Teto (UTAU)]]");
     await form.getByRole("textbox", { name: "Producer(s)" }).click();
     await form.getByRole("textbox", { name: "Producer(s)" }).fill("[[muship]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a song by muship.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a song by muship.");
 
     /* Broadcast links */
     {
@@ -732,8 +732,8 @@ test.describe("Song page generator tests", async () => {
     await form
       .getByRole("textbox", { name: "Producer(s)" })
       .fill("[[李]] (music)\n[[苏]] (lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a demo song.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a demo song.");
 
     /* Broadcast links */
     {
@@ -889,8 +889,8 @@ test.describe("Song page generator tests", async () => {
     await form
       .getByRole("textbox", { name: "Producer(s)" })
       .fill("[[李]] (music)\n[[苏]] (lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a demo song.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a demo song.");
 
     /* Broadcast links */
     {
@@ -1009,8 +1009,8 @@ test.describe("Song page generator tests", async () => {
     await form
       .getByRole("textbox", { name: "Producer(s)" })
       .fill("[[李]] (music)\n[[苏]] (lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("This is a demo song.");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("This is a demo song.");
 
     /* Broadcast links */
     {
@@ -1127,9 +1127,9 @@ test.describe("Song page generator tests", async () => {
     await form
       .getByRole("textbox", { name: "Producer(s)" })
       .fill("[[Budi Purnomo]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
+    await form.getByRole("textbox", { name: /Description/ }).click();
     await form
-      .getByRole("textbox", { name: "Description" })
+      .getByRole("textbox", { name: /Description/ })
       .fill("This is an Indonesian song of well regard.");
 
     /* Broadcast links */
@@ -1318,9 +1318,9 @@ test.describe("Song page generator tests", async () => {
     await form
       .getByRole("textbox", { name: "Producer(s)" })
       .fill("[[Budi Purnomo]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
+    await form.getByRole("textbox", { name: /Description/ }).click();
     await form
-      .getByRole("textbox", { name: "Description" })
+      .getByRole("textbox", { name: /Description/ })
       .fill("This is an Indonesian song of well regard.");
 
     /* Broadcast links */
@@ -1474,8 +1474,8 @@ test.describe("Song page generator tests", async () => {
     await form.getByRole("textbox", { name: "Singer(s)" }).fill("[[Hatsune Miku (VOCALOID)]]");
     await form.getByRole("textbox", { name: "Producer(s)" }).click();
     await form.getByRole("textbox", { name: "Producer(s)" }).fill("[[Jane Doe]] (music, lyrics)");
-    await form.getByRole("textbox", { name: "Description" }).click();
-    await form.getByRole("textbox", { name: "Description" }).fill("A song by J.Doe");
+    await form.getByRole("textbox", { name: /Description/ }).click();
+    await form.getByRole("textbox", { name: /Description/ }).fill("A song by J.Doe");
 
     /* Broadcast links */
     {

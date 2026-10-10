@@ -11,7 +11,7 @@ import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { userEvent } from "vite-plus/test/browser";
 import { render, RenderResult } from "vitest-browser-svelte";
 
-import ProducerPageForm from "#src/lib/forms/ProducerPageForm.svelte";
+import ProducerPageForm from "#src/lib/components/forms/ProducerPageForm.svelte";
 import Producer from "#src/lib/models/Producer.svelte.ts";
 import { validate, generatePage } from "#src/lib/logic/producers.svelte.ts";
 import { mapEngines, mapLanguages } from "../../mapper";

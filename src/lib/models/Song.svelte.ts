@@ -6,7 +6,7 @@ import ExternalLink from "./children/ExternalLink.svelte";
 
 import { preprocessStringParams } from "../utils/utils";
 import type { MultiSelectItem } from "../../schemas/form";
-import { PV_SERVICE_PROVIDER } from "../../constants";
+import { defaultLyricsLicense, PV_SERVICE_PROVIDER, type LyricsLicenseKey } from "../../constants";
 import { ENUM_AI_WARNING_TYPE, ENUM_CW_STATES, ENUM_SONG_TYPE } from "./enums";
 
 export default class Song implements BaseModel<ISong> {
@@ -35,6 +35,8 @@ export default class Song implements BaseModel<ISong> {
   singers: string = $state("");
   producers: string = $state("");
   description: string = $state("");
+  license: LyricsLicenseKey = $state(defaultLyricsLicense);
+  customLicenseText: string = $state("");
   translator: string = $state("");
   isOfficialTranslation: boolean = $state(false);
   categoriesRaw: string = $state("");
@@ -89,6 +91,7 @@ export default class Song implements BaseModel<ISong> {
       "singers",
       "producers",
       "description",
+      "customLicenseText",
       "translator",
       "categoriesRaw",
     ]);

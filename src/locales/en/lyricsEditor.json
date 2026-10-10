@@ -15,6 +15,7 @@
     },
     "lyricsExtractorState": {
       "noData": "No lyrics table found",
+      "nThTable": "Table #{index}",
       "found": "Showing table no. {index} out of {total}"
     },
     "extractLyricsTableButtonText": "Extract Lyrics Table",

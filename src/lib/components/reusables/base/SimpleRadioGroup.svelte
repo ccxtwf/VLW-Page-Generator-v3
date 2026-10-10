@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { keydownPreventDefault } from "../../utils/utils";
+  import { keydownPreventDefault } from "../../../utils/utils";
 
   interface SimpleRadioGroupProps {
     class?: string;

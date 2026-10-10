@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import ClosableCard from "./ClosableCard.svelte";
+  import ClosableCard from "./base/ClosableCard.svelte";
 
   let { onclose } = $props();
 

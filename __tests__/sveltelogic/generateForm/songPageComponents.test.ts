@@ -1256,4 +1256,156 @@ describe("Generate song page components", () => {
     const res = buildSongPageComponents(song, langMetadata);
     expect(res).toEqual(o);
   });
+
+  test.each([
+    {
+      d: "fairuse",
+      i: {
+        license: "fairuse",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+}}`,
+      },
+    },
+    {
+      d: "Uploaded by self",
+      i: {
+        license: "self",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|license = self
+}}`,
+      },
+    },
+    {
+      d: "Public Domain",
+      i: {
+        license: "pd",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|license = pd
+}}`,
+      },
+    },
+    {
+      d: "CC-BY-SA-4.0",
+      i: {
+        license: "cc-by-nc-sa",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|license = cc-by-nc-sa
+}}`,
+      },
+    },
+    {
+      d: "Piapro License",
+      i: {
+        license: "piapro-nc",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|license = piapro-nc
+}}`,
+      },
+    },
+    {
+      d: "Custom License",
+      i: {
+        license: "custom",
+        customLicenseText: "This is a custom license.",
+      },
+      o: {
+        displayTitle: "",
+        sort: "",
+        unavailable: "",
+        cw: "",
+        infobox: `{{Infobox Song
+|songtitle = "''''''"
+|color = black; color:white
+|original upload date = {{DateUnknown}}
+|singer = 
+|producer = 
+|#views = N/A
+|link = N/A
+|language = 
+|custom-license = This is a custom license.
+}}`,
+      },
+    },
+  ])("license - $d", ({ i, o }) => {
+    const song = new Song(i);
+    const langMetadata = {
+      headers: ["Original", "Romanized", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isChinese: false,
+      isoLangCode: null,
+    };
+    const res = buildSongPageComponents(song, langMetadata);
+    expect(res).toEqual(o);
+  });
 });

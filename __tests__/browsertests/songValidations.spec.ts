@@ -152,6 +152,47 @@ test.describe("Song page generator tests", async () => {
     expect(fatalErrors).not.toContain(errorMessage2);
   });
 
+  test("should output validation warnings when a custom license is set without a description", async ({
+    page,
+  }, { project: { name: browser } }) => {
+    const form = getFormLocator(page);
+
+    /* License */
+    await form.getByLabel("Lyrics Licensing").selectOption("custom");
+
+    /* Click Generate Button */
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    const fatalErrorsAlert = page.locator("#validation-errors");
+    const pageOutput = page.locator("#page-output");
+
+    await expect(fatalErrorsAlert).toBeVisible();
+
+    let fatalErrors = await getValidationItems(fatalErrorsAlert);
+
+    const errorMessage =
+      "You must fill in a description detailing the terms or sourced link of the custom license.";
+    expect(fatalErrors).toContain(errorMessage);
+
+    await expect(pageOutput).toHaveValue("");
+
+    await page.screenshot({
+      path: `${getSnapshotsDir(browser)}/songs/validation-custom-license.png`,
+      fullPage: true,
+    });
+
+    /* Add custom license description */
+    await form
+      .getByRole("textbox", { name: "custom license description" })
+      .fill("This is a custom license");
+
+    /* Click Generate Button */
+    await form.getByRole("button", { name: "Generate" }).click();
+
+    fatalErrors = await getValidationItems(fatalErrorsAlert);
+    expect(fatalErrors).not.toContain(errorMessage);
+  });
+
   test("should output validation warnings when invalid infobox colours are set", async ({ page }, {
     project: { name: browser },
   }) => {

@@ -35,7 +35,7 @@ import {
 } from "../utils/lyricsUtils";
 
 import { VOCADB_ENTRYPOINT } from "../../config";
-import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS } from "../../constants";
+import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS, defaultLyricsLicense } from "../../constants";
 import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 
 import type { MultiSelectItem } from "../../schemas/form";
@@ -80,6 +80,8 @@ export function validate(formData: Song): ValidationBundledErrors<SongPageValida
     isOfficialTranslation = false,
     lyrics,
     playLinks,
+    license,
+    customLicenseText,
   } = formData;
 
   const errors: ValidationError<SongPageValidationErrorType>[] = [];
@@ -137,6 +139,12 @@ export function validate(formData: Song): ValidationBundledErrors<SongPageValida
     if (!producers.match(/\[\[[^\]]*\]\]/gm)) {
       errors.push(getValidationError(SongPageValidationErrorType.NO_PRODUCER_IN_MARKUP));
     }
+  }
+
+  if (!license) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_LICENSE_IS_SET));
+  } else if (license === "custom" && !customLicenseText) {
+    errors.push(getValidationError(SongPageValidationErrorType.NO_CUSTOM_LICENSE_IS_SET));
   }
 
   if (!isUnavailable && !isAlbumOnly && playLinks.filter((l) => l.url).length === 0) {
@@ -221,7 +229,7 @@ export function generatePage(formData: Song): [string, string] {
     headers: langMetadata.headers,
     needsRomanization: langMetadata.needsRomanization,
     needsTranslation: langMetadata.needsTranslation,
-    isoLangCode,
+    isoLangCode: isoLangCode || langMetadata.isoLangCode,
     translator,
     isOfficialTranslation,
     bgColour,
@@ -635,6 +643,8 @@ export function buildSongPageComponents(
     singers,
     producers,
     description,
+    license,
+    customLicenseText,
     languages,
     isUnavailable,
     isAlbumOnly,
@@ -736,6 +746,16 @@ export function buildSongPageComponents(
     }
   })()}${isAlbumOnly ? "\n|album-only = 1" : ""}${isDemonstration ? "\n|demo = 1" : ""}`;
 
+  const licenseDisclosure = (() => {
+    if (license === defaultLyricsLicense) {
+      return "";
+    }
+    if (license === "custom") {
+      return `\n|custom-license = ${customLicenseText}`;
+    }
+    return `\n|license = ${license}`;
+  })();
+
   const infobox = `{{Infobox Song
 |songtitle = ${titlesSegment}
 |color = ${bgColour}; color:${fgColour}
@@ -744,7 +764,7 @@ export function buildSongPageComponents(
 |producer = ${renderTextAsHtmlTextContent(producers)}
 |#views = ${viewCountsSegment}
 |link = ${songLinksSegment}${description ? `\n|description = ${renderTextAsHtmlTextContent(description)}` : ""}${additionalInfo}
-|language = ${languageSegment}
+|language = ${languageSegment}${licenseDisclosure}
 }}`;
 
   return { displayTitle, sort, unavailable, cw, infobox };

@@ -1,24 +1,25 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  import FlexRow from "../components/reusables/FlexRow.svelte";
-  import Divider from "../components/reusables/Divider.svelte";
+  import {
+    FlexRow,
+    Divider,
+    SimpleTextInput,
+    SimpleTextFieldBox,
+    SimpleCheckbox,
+    ImageEmbed,
+    SynthsMultiSelect,
+    LanguageMultiSelect,
+    ProducerRoleCheckboxes,
+    ResetFormButton,
+    ResetWarningsButton,
+    GenerateButton,
+    ValidationResultsAlert,
+    PreloadFromVocaDBInput,
+    PreloadDiscographyFromVlwInput,
+  } from "../../components/reusables";
+  import { ProducerDiscographyTable, ExternalLinksTable } from "../../components/handsontables";
 
-  import PreloadFromVocaDBInput from "../components/reusables/PreloadFromVocaDBInput.svelte";
-  import SynthsMultiSelect from "../components/inputFields/SynthsMultiSelect.svelte";
-  import LanguageMultiSelect from "../components/inputFields/LanguageMultiSelect.svelte";
-  import ValidationResultsAlert from "../components/reusables/ValidationResultsAlert.svelte";
-  import ProducerRoleCheckboxes from "../components/inputFields/ProducerRoleCheckboxes.svelte";
-  import ProducerDiscographyTable from "../components/handsontables/ProducerDiscographyTable.svelte";
-  import ExternalLinksTable from "../components/handsontables/ExternalLinksTable.svelte";
-  import SimpleTextInput from "../components/inputFields/SimpleTextInput.svelte";
-  import SimpleTextFieldBox from "../components/inputFields/SimpleTextFieldBox.svelte";
-  import SimpleCheckbox from "../components/inputFields/SimpleCheckbox.svelte";
-  import ImageEmbed from "../components/reusables/ImageEmbed.svelte";
-  import ResetFormButton from "../components/buttons/ResetFormButton.svelte";
-  import ResetWarningsButton from "../components/buttons/ResetWarningsButton.svelte";
-  import GenerateButton from "../components/buttons/GenerateButton.svelte";
-  import ThemeToggle from "../components/reusables/ThemeToggle.svelte";
   import type { SvelteComponent } from "svelte";
 
   import {
@@ -26,19 +27,18 @@
     fetchDataFromVocaDb,
     fetchDiscographyFromVlw,
     validate,
-  } from "../logic/producers.svelte";
+  } from "../../logic/producers.svelte";
 
-  import Producer from "../models/Producer.svelte";
-  import { formSubmitHandler, resetFormWarnings } from "../logic";
+  import Producer from "../../models/Producer.svelte";
+  import { formSubmitHandler, resetFormWarnings } from "../../logic";
   import {
     ExternalWebServiceError,
     VocaDBInvalidUrlError,
     VLWInvalidUrlError,
     GotZeroPagesInResponseError,
-  } from "../logic/exceptions";
-  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../config";
-  import PreloadDiscographyFromVlwInput from "../components/reusables/PreloadDiscographyFromVlwInput.svelte";
-  import type { ProducerPageValidationErrorType } from "../validationErrors/types";
+  } from "../../logic/exceptions";
+  import { VOCALOID_LYRICS_WIKI_ARTICLE_ENTRYPOINT } from "../../../config";
+  import type { ProducerPageValidationErrorType } from "../../validationErrors/types";
 
   let formData = new Producer();
   let ignoreErrors: boolean = $state(false);
@@ -167,21 +167,20 @@
     labelForHtmlId="producer-category"
     labelI18nKey="producerGenForm.mainProducerCategory.label"
     tooltipI18nKey="producerGenForm.mainProducerCategory.tooltip"
-    required={true}
+    required
+    column
   >
-    <div class="flex w-full flex-col gap-2">
-      <PreloadDiscographyFromVlwInput
-        bind:prodCategory={formData.prodCategory}
-        {handleDiscographyLoading}
+    <PreloadDiscographyFromVlwInput
+      bind:prodCategory={formData.prodCategory}
+      {handleDiscographyLoading}
+    />
+    <div class="flex-item w-full">
+      <SimpleCheckbox
+        label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
+        textClass="text-sm"
+        toggle
+        bind:checked={formData.splitAlbum}
       />
-      <div class="flex-item w-full">
-        <SimpleCheckbox
-          label={$_("producerGenForm.mainProducerCategory.splitAlbumTableToggleText")}
-          textClass="text-sm"
-          isToggle={true}
-          bind:checked={formData.splitAlbum}
-        />
-      </div>
     </div>
   </FlexRow>
 
@@ -269,7 +268,7 @@
     labelForHtmlId="external-links"
     labelI18nKey="producerGenForm.externalLinks.label"
     tooltipI18nKey="producerGenForm.externalLinks.tooltip"
-    required={true}
+    required
   />
 
   <ExternalLinksTable
@@ -277,7 +276,7 @@
     class="col-span-full w-full"
     data={formData.extLinks}
     bind:this={extLintsHotTable}
-    forProducerPage={true}
+    forProducerPage
   />
 
   <Divider />
@@ -286,7 +285,7 @@
     labelForHtmlId="discography-songs"
     labelI18nKey="producerGenForm.discographySongs.label"
     tooltipI18nKey="producerGenForm.discographySongs.tooltip"
-    required={true}
+    required
   />
   <ProducerDiscographyTable
     id="discography-songs"
@@ -306,7 +305,7 @@
       class="w-full"
       data={formData.albums}
       bind:this={albumListHotTable}
-      forAlbums={true}
+      forAlbums
     />
     <div class="mt-1 w-full text-xs leading-relaxed">
       {@html $_("producerGenForm.discographyAlbums.fetchFromWikiNote", {

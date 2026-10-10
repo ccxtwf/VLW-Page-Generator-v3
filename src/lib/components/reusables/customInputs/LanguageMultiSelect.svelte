@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
   import MultiSelect from "svelte-multiselect";
-  import { LANGUAGES } from "../../../constants";
-  import type { Language } from "../../../constants/types";
+  import { LANGUAGES } from "../../../../constants";
+  import type { Language } from "../../../../constants/types";
 
   interface LanguageMultiSelectProps {
     placeholder?: string;

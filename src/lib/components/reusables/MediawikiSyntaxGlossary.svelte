@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import ClosableCard from "./ClosableCard.svelte";
-  import Divider from "./Divider.svelte";
+  import ClosableCard from "./base/ClosableCard.svelte";
+  import Divider from "./base/Divider.svelte";
 
   let { onclose } = $props();
 </script>

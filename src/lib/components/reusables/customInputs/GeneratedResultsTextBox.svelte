@@ -1,8 +1,7 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
 
-  import CopyResultsButton from "../buttons/CopyResultsButton.svelte";
-  import CopyTitleButton from "../buttons/CopyTitleButton.svelte";
+  import { CopyResultsButton, CopyTitleButton } from "../buttons";
   import type { SvelteComponent } from "svelte";
 
   let { showTitle = true }: { showTitle?: boolean } = $props();

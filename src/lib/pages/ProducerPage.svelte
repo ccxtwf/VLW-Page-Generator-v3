@@ -2,12 +2,13 @@
   import { _ } from "svelte-i18n";
   import type { SvelteComponent } from "svelte";
 
-  import ProducerPageForm from "../forms/ProducerPageForm.svelte";
-
-  import Divider from "../components/reusables/Divider.svelte";
-  import FirstTimeEditingNotice from "../components/reusables/FirstTimeEditingNotice.svelte";
-  import GeneratedResultsTextBox from "../components/inputFields/GeneratedResultsTextBox.svelte";
-  import AccessKeyShortcutsCard from "../components/reusables/AccessKeyShortcutsCard.svelte";
+  import ProducerPageForm from "../components/forms/ProducerPageForm.svelte";
+  import {
+    Divider,
+    FirstTimeEditingNotice,
+    GeneratedResultsTextBox,
+    AccessKeyShortcutsCard,
+  } from "../components/reusables";
 
   let resultsBox: SvelteComponent;
 </script>
@@ -27,7 +28,7 @@
 
   <Divider />
 
-  <FirstTimeEditingNotice forProducerGen={true} />
+  <FirstTimeEditingNotice forProducerGen />
   <AccessKeyShortcutsCard />
 
   <Divider />

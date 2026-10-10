@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import type AlbumBroadcastLink from "../../models/children/AlbumBroadcastLink.svelte";
-  import { ALBUM_STREAMING_LINKS } from "../../../constants";
-  import SimpleTextInput from "./SimpleTextInput.svelte";
+  import type AlbumBroadcastLink from "../../../models/children/AlbumBroadcastLink.svelte";
+  import { ALBUM_STREAMING_LINKS } from "../../../../constants";
+  import { SimpleTextInput } from "../base";
 
   interface AlbumOfficialLinksFieldCollectionProps {
     links: AlbumBroadcastLink[];

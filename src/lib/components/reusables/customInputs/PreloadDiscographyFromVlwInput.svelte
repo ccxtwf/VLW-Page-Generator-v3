@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from "svelte-i18n";
-  import SimpleTextInput from "../inputFields/SimpleTextInput.svelte";
+  import SimpleTextInput from "../base/SimpleTextInput.svelte";
 
   interface PreloadDiscographyFromVlwInputProps {
     prodCategory: string;

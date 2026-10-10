@@ -35,6 +35,8 @@ export enum SongPageValidationErrorType {
   ROMANIZED_LYRICS_ARE_EMPTY,
   UNCREDITED_TRANSLATION,
   NO_SONG_TYPE_OPT_IS_SET,
+  NO_LICENSE_IS_SET,
+  NO_CUSTOM_LICENSE_IS_SET,
 }
 
 export enum AlbumPageValidationErrorType {

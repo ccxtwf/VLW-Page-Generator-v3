@@ -2,12 +2,13 @@
   import { _ } from "svelte-i18n";
   import type { SvelteComponent } from "svelte";
 
-  import AlbumPageForm from "../forms/AlbumPageForm.svelte";
-
-  import Divider from "../components/reusables/Divider.svelte";
-  import FirstTimeEditingNotice from "../components/reusables/FirstTimeEditingNotice.svelte";
-  import GeneratedResultsTextBox from "../components/inputFields/GeneratedResultsTextBox.svelte";
-  import AccessKeyShortcutsCard from "../components/reusables/AccessKeyShortcutsCard.svelte";
+  import AlbumPageForm from "../components/forms/AlbumPageForm.svelte";
+  import {
+    Divider,
+    FirstTimeEditingNotice,
+    GeneratedResultsTextBox,
+    AccessKeyShortcutsCard,
+  } from "../components/reusables";
 
   let resultsBox: SvelteComponent;
 </script>
