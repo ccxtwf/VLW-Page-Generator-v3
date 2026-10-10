@@ -17,7 +17,7 @@
   function unsafelyRenderHtml(licenseKey: LyricsLicenseKey): string {
     let { desc, url, linkCaption } = lyricsLicenses[licenseKey];
     if (licenseKey === "custom") {
-      return customLicense ? customLicense : desc;
+      return customLicense ? customLicense.replaceAll(/</g, "&lt;") : desc;
     }
     if (!url || !linkCaption) {
       return desc;
