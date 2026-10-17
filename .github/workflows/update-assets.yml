@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    # deploy on changes to assets only
+    # deploy on changes to data/ only
     paths:
-      - "public/**"
+      - "data/**"
 
   # Allow manual deployments from the Actions tab
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
       - name: Stage public/ contents
         run: |
           TEMP_DIR=$(mktemp -d)
-          cp -r "$GITHUB_WORKSPACE/public" "$TEMP_DIR/public"
+          cp -r "$GITHUB_WORKSPACE/data" "$TEMP_DIR/public"
           echo "TEMP_DIR=$TEMP_DIR" >> "$GITHUB_ENV"
 
       - name: Switch to data branch

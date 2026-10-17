@@ -20,7 +20,7 @@ This application incorporates Svelte v5 with Tailwind CSS v4 and [DaisyUI](https
 Besides the basic forms for data input, this application provides a feature for pre-loading data from VocaDB. Vocal synthesizers that are listed in VocaDB are automatically mapped to the corresponding category on the Vocaloid Lyrics Wiki when possible. For example, [VocaDB artist entry 60540](https://vocadb.net/Ar/60540) is mapped to the category `[[Category:Songs featuring Hatsune Miku (VOCALOID)]]` on Vocaloid Lyrics Wiki. The application attempts to map the VocaDB artist entry to the VLW category by checking the following:
 
 - `src/constants/synths.json` for the most commonly used synths
-- `public/synths.db` for a larger selection
+- `data/synths.db` for a larger selection
 
 ### Pre-requisites
 
@@ -104,7 +104,7 @@ BOT_UA=*************
 
 #### Check for new synths that may be added on VocaDB
 
-To check the vocal synths that were recently added to VocaDB and were not yet added in `public/synths.db`, run the following command:
+To check the vocal synths that were recently added to VocaDB and were not yet added in `data/synths.db`, run the following command:
 
 ```sh
 # this is equivalent to `uv run --project maintenance/ maintenance/missing-vdb.py Vocaloid,SynthesizerV,CeVIO,NewType,VoiSona`
@@ -116,14 +116,14 @@ vp run vdb-check
 
 #### Maintaining synths.db
 
-To check for any records in `public/synths.db` that may be incorrectly inputted:
+To check for any records in `data/synths.db` that may be incorrectly inputted:
 
 ```sh
 # this is equivalent to `uv run --project maintenance/ maintenance/check.py db`
 vp run db-check
 ```
 
-To check for any records in `public/synths.db` that may be misaligned with the live Vocaloid Lyrics Wiki:
+To check for any records in `data/synths.db` that may be misaligned with the live Vocaloid Lyrics Wiki:
 
 ```sh
 # this is equivalent to `uv run --project maintenance/ maintenance/check.py vlw`

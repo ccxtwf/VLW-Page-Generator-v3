@@ -9,7 +9,7 @@ import { getVocalistBasedOnVdbId } from "#src/lib/utils/vdbUtils.ts";
 vi.mock("#src/lib/utils/dbBufferUtils.ts", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
-      const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
+      const dbFile = readFileSync(resolve(__dirname, "../../../data/synths.db"));
       const arrayBuffer = dbFile.buffer.slice(
         dbFile.byteOffset,
         dbFile.byteOffset + dbFile.byteLength,

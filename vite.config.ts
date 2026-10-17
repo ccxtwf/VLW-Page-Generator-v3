@@ -55,11 +55,11 @@ export default defineConfig((env) => {
       /**
        * Fetch assets from this endpoint
        */
-      ASSETS_PATH: `"${vars.ASSETS_PATH || "/"}"`,
+      DB_PATH: `"${vars.DB_PATH || "/data"}"`,
     },
 
     build: {
-      copyPublicDir: false,
+      copyPublicDir: true,
       rolldownOptions: {
         output: {
           codeSplitting: {

@@ -15,7 +15,7 @@ import ExternalLink from "#src/lib/models/children/ExternalLink.svelte.ts";
 vi.mock("#src/lib/utils/dbBufferUtils", async () => {
   return {
     getDbBuffer: vi.fn().mockImplementation(async () => {
-      const dbFile = readFileSync(resolve(__dirname, "../../../public/synths.db"));
+      const dbFile = readFileSync(resolve(__dirname, "../../../data/synths.db"));
       const arrayBuffer = dbFile.buffer.slice(
         dbFile.byteOffset,
         dbFile.byteOffset + dbFile.byteLength,

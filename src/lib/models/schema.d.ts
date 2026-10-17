@@ -122,7 +122,7 @@ export interface IExternalLinkForProducerPage extends IExternalLink {
 
 export interface IAlbumBroadcastLink {
   idx: number;
-  site: string;
+  paramKey: string | null;
   url: string;
 }
 

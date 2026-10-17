@@ -42,7 +42,10 @@
         <input
           type="color"
           defaultValue="#000000"
-          bind:value={backgroundColor}
+          value={backgroundColor}
+          onchange={(e) => {
+            backgroundColor = e.currentTarget.value;
+          }}
         />
       </div>
     </div>
@@ -65,7 +68,10 @@
         <input
           type="color"
           defaultValue="#ffffff"
-          bind:value={color}
+          value={color}
+          onchange={(e) => {
+            color = e.currentTarget.value;
+          }}
         />
       </div>
     </div>

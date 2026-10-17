@@ -47,7 +47,7 @@ export default class Album implements BaseModel<IAlbum> {
       .fill(null)
       .map(() => new AlbumTrackData());
     this.broadcastLinks = ALBUM_STREAMING_LINKS.map(
-      ({ name }, idx) => new AlbumBroadcastLink({ idx, site: name }),
+      ({ paramKey }, idx) => new AlbumBroadcastLink({ idx, paramKey }),
     );
     this.extLinks = Array(5)
       .fill(null)

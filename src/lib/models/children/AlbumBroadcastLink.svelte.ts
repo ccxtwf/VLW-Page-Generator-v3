@@ -1,42 +1,43 @@
 import { ALBUM_STREAMING_LINKS } from "../../../constants";
 import { preprocessStringParams } from "../../utils/utils";
 import type { IAlbumBroadcastLink } from "../schema";
+import { translate } from "../../../i18n";
 
 export default class AlbumBroadcastLink implements IAlbumBroadcastLink {
   idx: number = $state(-1);
-  site: string = $state("");
+  paramKey: string | null = $state(null);
   url: string = $state("");
-  __computed: { paramKey: string | null; isValid: boolean; embedid: string | null } = {
-    paramKey: null,
+  __computed: { isValid: boolean; embedid: string | null } = {
     isValid: true,
     embedid: null,
   };
 
-  constructor({ idx, site, url = "" }: { idx: number; site: string; url?: string }) {
-    this.idx = idx;
-    this.site = site;
-    this.url = url;
+  constructor(data: { idx: number; paramKey: string | null; url?: string }) {
+    Object.assign(this, data);
   }
 
   preprocess(): void {
-    preprocessStringParams(this, ["site", "url"]);
+    preprocessStringParams(this, ["paramKey", "url"]);
     if (this.idx < 0) {
-      this.__computed = { paramKey: null, isValid: true, embedid: null };
+      this.__computed = { isValid: true, embedid: null };
       return;
     }
     const c = ALBUM_STREAMING_LINKS[this.idx];
     const m = c.regex.exec(this.url);
     const isValid = this.url ? !!m : true;
     const embedid = m ? m.groups!["embedid"] : null;
-    const paramKey = c.paramKey;
-    this.__computed = { paramKey, isValid, embedid };
+    this.__computed = { isValid, embedid };
+  }
+
+  getService(): string {
+    return translate("albumGenForm.officialLinks.items." + this.paramKey!);
   }
 
   toJSON(): IAlbumBroadcastLink {
-    const { idx, site, url } = this;
+    const { idx, paramKey, url } = this;
     const res = {
       idx,
-      site,
+      paramKey,
       url,
     };
     return res;

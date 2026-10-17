@@ -12,14 +12,24 @@
 </script>
 
 {#each links as link, i}
-  {let { name, paramKey, placeholder } = ALBUM_STREAMING_LINKS[i]}
+  {let { paramKey, placeholder, iconUrl } = ALBUM_STREAMING_LINKS[i]}
 
   <div class="w-full">
     <label
       for={paramKey}
-      class="text-sm"
+      class="flex w-full flex-row items-center gap-x-2"
     >
-      {name}
+      <div class="text-sm">
+        {$_("albumGenForm.officialLinks.items." + paramKey)}
+      </div>
+      <div>
+        <img
+          src={iconUrl}
+          alt=""
+          width="16"
+          height="16"
+        />
+      </div>
     </label>
   </div>
   <div class="flex w-full flex-col gap-2">
@@ -29,7 +39,9 @@
       bind:value={link.url}
     />
     {#if paramKey === "bc-embed"}
-      <div class="block text-xs">{$_("albumGenForm.officialLinks.bandcamp")}</div>
+      <div class="block text-xs">
+        {$_("albumGenForm.officialLinks.bandcamp")}
+      </div>
     {/if}
   </div>
 {/each}

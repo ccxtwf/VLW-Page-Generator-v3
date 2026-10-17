@@ -666,6 +666,10 @@ test.describe("Album page generator tests", async () => {
           value: "https://www.youtube.com/watch?v=in90fSCxGKs",
         },
         {
+          label: "bilibili Crossfade",
+          value: "https://www.bilibili.com/video/BV1XU4y1T7yA",
+        },
+        {
           label: "Spotify",
           value: "https://open.spotify.com/album/0alAqCK9UfmE4o0cIpKDeo",
         },
@@ -674,7 +678,7 @@ test.describe("Album page generator tests", async () => {
           value: "https://www.youtube.com/playlist?list=OLAK5uy_mlF1GayzzkIWAHcGFs-00ZBbZezi4c9A0",
         },
         {
-          label: "Bandamp Embed ID",
+          label: "Bandcamp Embed ID",
           value: "1234567890",
         },
         {
@@ -718,6 +722,7 @@ test.describe("Album page generator tests", async () => {
 
 |nn-xfade = sm30228946
 |yt-xfade = in90fSCxGKs
+|bb-xfade = BV1XU4y1T7yA
 |sp-embed = 0alAqCK9UfmE4o0cIpKDeo
 |yt-playlist = OLAK5uy_mlF1GayzzkIWAHcGFs-00ZBbZezi4c9A0
 |bc-embed = 1234567890

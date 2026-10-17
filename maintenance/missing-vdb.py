@@ -1,6 +1,6 @@
 """
   This is a maintenance script that does the following tasks:
-    - Logs new synths added to VocaDB that are not listed in public/synths.db
+    - Logs new synths added to VocaDB that are not listed in data/synths.db
 """
 import os 
 from dotenv import load_dotenv
