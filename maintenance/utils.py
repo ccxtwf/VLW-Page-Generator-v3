@@ -11,7 +11,7 @@ from typing import Dict, Literal, Any
 console = Console()
 
 def get_db_connection() -> Connection:
-  db_path = Path(__file__).resolve().parent.parent / "public" / "synths.db"
+  db_path = Path(__file__).resolve().parent.parent / "data" / "synths.db"
   console.print(f"Initializing connection to {db_path}...")
   if not db_path.exists():
     raise FileNotFoundError(f"Unable to find {db_path}")

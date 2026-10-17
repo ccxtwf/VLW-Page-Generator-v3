@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - main
-    # deploy on changes to source code only
-    # do not rebuild/redeploy on changes to public assets (including synths.db)
+    # deploy on changes to source code and bundled public assets
+    # do not rebuild/redeploy on changes to data/synths.db
     # do not rebuild/redeploy on changes to package.json & package-lock.json (explicitly must require manual deployment)
     paths:
       - "src/**"
+      - public/**
 
   # Allow manual deployments from the Actions tab
   workflow_dispatch:
@@ -47,7 +48,7 @@ jobs:
         run: |
           echo "VITE_REFER_FROM_ORIGIN=${{ github.repository_owner }}.github.io" >> $GITHUB_ENV
 
-          echo "ASSETS_PATH=https://cdn.jsdelivr.net/gh/${{ github.repository }}@data/" >> $GITHUB_ENV
+          echo "DB_PATH=https://cdn.jsdelivr.net/gh/${{ github.repository }}@data" >> $GITHUB_ENV
 
           echo "VITE_GITHUB_REPO_LINK=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
           echo "VITE_GITLAB_REPO_LINK=${{ vars.GITLAB_URL }}" >> $GITHUB_ENV

@@ -1,7 +1,7 @@
 """
   This is a maintenance script that does the following tasks:
-    - Checks for any faulty data in public/synths.db
-    - Checks for any misaligned categories between public/synths.db and Vocaloid Lyrics Wiki
+    - Checks for any faulty data in data/synths.db
+    - Checks for any misaligned categories between data/synths.db and Vocaloid Lyrics Wiki
 """
 
 import os
@@ -101,7 +101,7 @@ def check_faulty_data():
 
 def check_misaligned_data(batch_size: int = 100):
   """
-    Task to log any misaligned category between public/synths.db and Vocaloid Lyrics Wiki
+    Task to log any misaligned category between data/synths.db and Vocaloid Lyrics Wiki
   """
   import requests
 
