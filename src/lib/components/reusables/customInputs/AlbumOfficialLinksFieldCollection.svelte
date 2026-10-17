@@ -24,7 +24,7 @@
       </div>
       <div>
         <img
-          src={iconUrl}
+          src={import.meta.env.BASE_URL + iconUrl}
           alt=""
           width="16"
           height="16"
