@@ -242,6 +242,11 @@ describe("albumPageForm - state should be bounded correctly", () => {
       paramKey: "yt-xfade",
     },
     {
+      id: "bilibili Crossfade",
+      url: "https://www.bilibili.com/video/BV1XU4y1T7yA",
+      paramKey: "bb-xfade",
+    },
+    {
       id: "Spotify",
       url: "https://open.spotify.com/album/3Ydz6UhhXxgsoj36DKSv9L",
       paramKey: "sp-embed",
@@ -252,7 +257,7 @@ describe("albumPageForm - state should be bounded correctly", () => {
       paramKey: "yt-playlist",
     },
     {
-      id: "Bandamp Embed ID",
+      id: "Bandcamp Embed ID",
       url: "836724426",
       paramKey: "bc-embed",
     },

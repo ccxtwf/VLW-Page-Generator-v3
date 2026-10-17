@@ -8,56 +8,66 @@ describe("test state management logic for AlbumBroadcastLink", () => {
       d: "Niconico Crossfade",
       i: {
         idx: 0,
-        site: "Niconico Crossfade",
+        paramKey: "nn-xfade",
         url: "https://www.nicovideo.jp/watch/sm30228946",
       },
       o: {
-        __computed: { paramKey: "nn-xfade", isValid: true, embedid: "sm30228946" },
+        __computed: { isValid: true, embedid: "sm30228946" },
       },
     },
     {
       d: "YouTube Crossfade",
       i: {
         idx: 1,
-        site: "YouTube Crossfade",
+        paramKey: "yt-xfade",
         url: "https://youtu.be/in90fSCxGKs",
       },
       o: {
-        __computed: { paramKey: "yt-xfade", isValid: true, embedid: "in90fSCxGKs" },
+        __computed: { isValid: true, embedid: "in90fSCxGKs" },
       },
     },
     {
       d: "YouTube Crossfade",
       i: {
         idx: 1,
-        site: "YouTube Crossfade",
+        paramKey: "yt-xfade",
         url: "https://www.youtube.com/watch?v=in90fSCxGKs",
       },
       o: {
-        __computed: { paramKey: "yt-xfade", isValid: true, embedid: "in90fSCxGKs" },
+        __computed: { isValid: true, embedid: "in90fSCxGKs" },
+      },
+    },
+    {
+      d: "bilibili Crossfade",
+      i: {
+        idx: 2,
+        paramKey: "bb-xfade",
+        url: "https://www.bilibili.com/video/BV1XU4y1T7yA/",
+      },
+      o: {
+        __computed: { isValid: true, embedid: "BV1XU4y1T7yA" },
       },
     },
     {
       d: "Spotify",
       i: {
-        idx: 2,
-        site: "Spotify",
+        idx: 3,
+        paramKey: "sp-embed",
         url: "https://open.spotify.com/album/3Ydz6UhhXxgsoj36DKSv9L",
       },
       o: {
-        __computed: { paramKey: "sp-embed", isValid: true, embedid: "3Ydz6UhhXxgsoj36DKSv9L" },
+        __computed: { isValid: true, embedid: "3Ydz6UhhXxgsoj36DKSv9L" },
       },
     },
     {
       d: "YouTube Music Playlist",
       i: {
-        idx: 3,
-        site: "YouTube Music Playlist",
+        idx: 4,
+        paramKey: "yt-playlist",
         url: "https://music.youtube.com/playlist?list=OLAK5uy_lEg6rOZGRgRKv5_aXH7mI2jwdL6xDJEB4",
       },
       o: {
         __computed: {
-          paramKey: "yt-playlist",
           isValid: true,
           embedid: "OLAK5uy_lEg6rOZGRgRKv5_aXH7mI2jwdL6xDJEB4",
         },
@@ -66,39 +76,37 @@ describe("test state management logic for AlbumBroadcastLink", () => {
     {
       d: "YouTube Music Playlist",
       i: {
-        idx: 3,
-        site: "YouTube Music Playlist",
+        idx: 4,
+        paramKey: "yt-playlist",
         url: "https://www.youtube.com/playlist?list=OLAK5uy_lEg6rOZGRgRKv5_aXH7mI2jwdL6xDJEB4",
       },
       o: {
         __computed: {
-          paramKey: "yt-playlist",
           isValid: true,
           embedid: "OLAK5uy_lEg6rOZGRgRKv5_aXH7mI2jwdL6xDJEB4",
         },
       },
     },
     {
-      d: "Bandamp Embed ID",
+      d: "Bandcamp Embed ID",
       i: {
-        idx: 4,
-        site: "Bandamp Embed ID",
+        idx: 5,
+        paramKey: "bc-embed",
         url: "836724426",
       },
       o: {
-        __computed: { paramKey: "bc-embed", isValid: true, embedid: "836724426" },
+        __computed: { isValid: true, embedid: "836724426" },
       },
     },
     {
       d: "SoundCloud Crossfade",
       i: {
-        idx: 5,
-        site: "SoundCloud Crossfade",
+        idx: 6,
+        paramKey: "sc-xfade",
         url: "https://soundcloud.com/Comic-and-Cosmic",
       },
       o: {
         __computed: {
-          paramKey: "sc-xfade",
           isValid: true,
           embedid: "https://soundcloud.com/Comic-and-Cosmic",
         },
@@ -108,11 +116,11 @@ describe("test state management logic for AlbumBroadcastLink", () => {
       d: "Other service",
       i: {
         idx: -1,
-        site: "TuneCore",
+        paramKey: null,
         url: "https://linkco.re/qg9GzCa3",
       },
       o: {
-        __computed: { paramKey: null, isValid: true, embedid: null },
+        __computed: { isValid: true, embedid: null },
       },
     },
   ])("should parse links correctly - $d", ({ i, o: { __computed } }) => {
@@ -124,12 +132,11 @@ describe("test state management logic for AlbumBroadcastLink", () => {
   test("should return isValid = false", () => {
     const link = new AlbumBroadcastLink({
       idx: 0,
-      site: "Niconico Crossfade",
+      paramKey: "nn-xfade",
       url: "https://www.youtube.com/watch?v=in90fSCxGKs",
     });
     link.preprocess();
     expect(link.__computed).toMatchObject({
-      paramKey: "nn-xfade",
       isValid: false,
       embedid: null,
     });
@@ -138,7 +145,7 @@ describe("test state management logic for AlbumBroadcastLink", () => {
   test("toJSON", () => {
     const o: IAlbumBroadcastLink = {
       idx: 0,
-      site: "YouTube",
+      paramKey: "yt-xfade",
       url: "https://www.youtube.com/watch?v=12345678901",
     };
     const albumTrack = new AlbumBroadcastLink(o);

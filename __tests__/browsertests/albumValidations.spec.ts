@@ -528,6 +528,10 @@ test.describe("Album page generator tests", async () => {
         value: "invalid-url",
       },
       {
+        label: "bilibili Crossfade",
+        value: "invalid-url",
+      },
+      {
         label: "Spotify",
         value: "invalid-url",
       },
@@ -536,7 +540,7 @@ test.describe("Album page generator tests", async () => {
         value: "invalid-url",
       },
       {
-        label: "Bandamp Embed ID",
+        label: "Bandcamp Embed ID",
         value: "invalid-url",
       },
       {

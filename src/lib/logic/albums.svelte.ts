@@ -117,9 +117,9 @@ export function validate(formData: Album): ValidationBundledErrors<AlbumPageVali
     if (invalidIds.length > 0) {
       errors.push({
         fatal: true,
-        fields: invalidIds.map(({ __computed: { paramKey } }) => paramKey!),
+        fields: invalidIds.map(({ paramKey }) => paramKey!),
         i18nKey: `validation.album.invalidEmbedCode`,
-        i18nParams: [invalidIds.map(({ site }) => site).join(", ")],
+        i18nParams: [invalidIds.map((e) => e.getService()).join(", ")],
         type: AlbumPageValidationErrorType.INVALID_EMBED_CODE,
       });
     }
@@ -188,7 +188,7 @@ export function generatePage(formData: Album): [string, string] {
   trackListSegment = tracklist.map((track) => track.getWikitext()).join("\n");
   streamingSegment = broadcastLinks
     .filter(({ url, __computed: { isValid } }) => url && isValid)
-    .map(({ __computed: { paramKey, embedid } }) => {
+    .map(({ paramKey, __computed: { embedid } }) => {
       return `|${paramKey} = ${embedid}`;
     })
     .join("\n");
@@ -454,7 +454,7 @@ export async function fetchDataFromVocaDb(
   const tracklist: AlbumTrackData[] = [];
   const extLinks: ExternalLink[] = [];
   const officialStreaming: AlbumBroadcastLink[] = ALBUM_STREAMING_LINKS.map(
-    ({ name: site }, idx) => new AlbumBroadcastLink({ idx, site, url: "" }),
+    ({ paramKey }, idx) => new AlbumBroadcastLink({ paramKey, idx, url: "" }),
   );
   const vdbSingerIdsCache: Map<number, string> = new Map();
   const addedSingers: Set<string> = new Set();
@@ -551,17 +551,20 @@ export async function fetchDataFromVocaDb(
     let vSite: string | undefined = undefined;
     switch (service) {
       case VdbPvService.yt:
-        vSite = "YouTube Crossfade";
+        vSite = "yt-xfade";
         break;
       case VdbPvService.nnd:
-        vSite = "Niconico Crossfade";
+        vSite = "nn-xfade";
+        break;
+      case VdbPvService.bb:
+        vSite = "bb-xfade";
         break;
       case VdbPvService.sc:
-        vSite = "SoundCloud Crossfade";
+        vSite = "sc-xfade";
         break;
     }
     if (vSite) {
-      let o = officialStreaming.find(({ site }) => site === vSite)!;
+      let o = officialStreaming.find(({ paramKey }) => paramKey === vSite)!;
       if (!o.url) {
         o.url = url;
       }

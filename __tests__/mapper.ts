@@ -26,7 +26,7 @@ export const mapAlbumBroadcastLink = (
   ...args: { key: string; url: string }[]
 ): AlbumBroadcastLink[] => {
   const res = ALBUM_STREAMING_LINKS.map(
-    ({ name }, idx) => new AlbumBroadcastLink({ idx, site: name }),
+    ({ paramKey }, idx) => new AlbumBroadcastLink({ idx, paramKey }),
   );
   for (const { key, url } of args) {
     const idx = ALBUM_STREAMING_LINKS.findIndex((al) => al.paramKey === key);
