@@ -34,6 +34,7 @@ export default defineConfig({
           name: "browser",
           setupFiles: ["__tests__/matchers.ts", "__tests__/components/browsersetup.ts"],
           include: ["__tests__/components/**/*.test.{js,ts}"],
+          api: 9527,
           browser: {
             enabled: true,
             provider: playwright(),
