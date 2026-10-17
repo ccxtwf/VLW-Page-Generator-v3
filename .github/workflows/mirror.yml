@@ -1,6 +1,6 @@
 name: Mirror
 
-on: [push, delete]
+on: [create, push, delete, workflow_dispatch]
 
 jobs:
   to_gitlab:
