@@ -44,7 +44,7 @@ export default class PlayLink implements IPlayLink {
 
     let res = `{{#|${url}`;
     if (isAutogen) {
-      res += `|auto=y`;
+      res += `|auto`;
     }
     const annotations: string[] = [];
     if (isReprint) {

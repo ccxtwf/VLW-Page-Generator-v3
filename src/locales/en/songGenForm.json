@@ -93,7 +93,7 @@
         "site": "Site",
         "url": "URL",
         "isReprint": "Reprint",
-        "isAutogen": "YT Autogen",
+        "isAutogen": "Autogen",
         "isDeleted": "Deleted",
         "viewCount": "View Count"
       },
