@@ -99,3 +99,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag "${{ steps.version.outputs.version_tag }}"
           git push origin "${{ steps.version.outputs.version_tag }}"
+
+      - name: Mirror repo
+        run: |
+          gh workflow run mirror.yml
