@@ -43,7 +43,7 @@ describe("test state management logic for PlayLink", () => {
         isDeleted: false,
         viewCount: "",
       },
-      o: "{{#|https://www.youtube.com/watch?v=12345678901|auto=y}}",
+      o: "{{#|https://www.youtube.com/watch?v=12345678901|auto}}",
     },
     {
       d: "removed",
@@ -79,7 +79,7 @@ describe("test state management logic for PlayLink", () => {
         isDeleted: true,
         viewCount: "",
       },
-      o: "{{#|https://www.youtube.com/watch?v=12345678901|auto=y|label=deleted}}",
+      o: "{{#|https://www.youtube.com/watch?v=12345678901|auto|label=deleted}}",
     },
   ] as { d: string; i: IPlayLink; o: string }[])("getPlayLinkWikitext - $d", ({ i, o }) => {
     const playLink = new PlayLink(i);

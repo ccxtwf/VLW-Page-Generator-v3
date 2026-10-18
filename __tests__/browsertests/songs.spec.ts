@@ -1243,7 +1243,7 @@ test.describe("Song page generator tests", async () => {
 |singer = [[Hatsune Miku (VOCALOID)]]<br /><small><[[Kagamine Rin (VOCALOID)]]/small>
 |producer = [[Budi Purnomo]] (music, lyrics)
 |#views = 1,000+ (YT), 3,000+ (YT)
-|link = {{#|https://www.youtube.com/watch?v=12345678901|label=deleted}} {{#|https://www.youtube.com/watch?v=12345678902|auto=y}} {{#|https://www.youtube.com/watch?v=12345678903|label=reprint}}
+|link = {{#|https://www.youtube.com/watch?v=12345678901|label=deleted}} {{#|https://www.youtube.com/watch?v=12345678902|auto}} {{#|https://www.youtube.com/watch?v=12345678903|label=reprint}}
 |description = This is an Indonesian song of well regard.
 |language = Indonesian
 }}

@@ -634,7 +634,7 @@ describe("Generate song page components", () => {
 |singer = 
 |producer = 
 |#views = 1,000+
-|link = {{#|https://www.youtube.com/watch?v=12345678901|auto=y}}
+|link = {{#|https://www.youtube.com/watch?v=12345678901|auto}}
 |language = 
 }}`,
       },
@@ -751,7 +751,7 @@ describe("Generate song page components", () => {
 |singer = 
 |producer = 
 |#views = 3,000+ (NN), 2,000+ (YT)
-|link = {{#|https://www.nicovideo.jp/watch/sm9714351|label=deleted}} {{#|https://www.youtube.com/watch?v=12345678901|auto=y}} {{#|https://www.youtube.com/watch?v=12345678902|label=reprint}}
+|link = {{#|https://www.nicovideo.jp/watch/sm9714351|label=deleted}} {{#|https://www.youtube.com/watch?v=12345678901|auto}} {{#|https://www.youtube.com/watch?v=12345678902|label=reprint}}
 |language = 
 }}`,
       },
