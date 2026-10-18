@@ -1,7 +1,7 @@
 export { COLOURS } from "./colours";
 export { MONTHS } from "./months";
 
-export { default as LANGUAGES } from "./languages.json";
+export { default as LANGUAGES } from "./languages";
 
 export {
   PV_SERVICE_PROVIDER,

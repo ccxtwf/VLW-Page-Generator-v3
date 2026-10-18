@@ -27,6 +27,7 @@ import {
   getVdbPageId,
   getVocalistBasedOnVdbId,
 } from "../utils/vdbUtils";
+import { convertVdbCultureCode } from "../utils/vdbLangUtils";
 import {
   generateLyricsSegment,
   getLanguageMetadata,
@@ -35,10 +36,9 @@ import {
 } from "../utils/lyricsUtils";
 
 import { VOCADB_ENTRYPOINT } from "../../config";
-import { MONTHS, LANGUAGES, PV_SERVICE_ABBREVIATIONS, defaultLyricsLicense } from "../../constants";
+import { MONTHS, PV_SERVICE_ABBREVIATIONS, defaultLyricsLicense } from "../../constants";
 import { ExternalWebServiceError, VocaDBInvalidUrlError } from "./exceptions";
 
-import type { MultiSelectItem } from "../../schemas/form";
 import {
   ENUM_CW_STATES,
   ENUM_AI_WARNING_TYPE,
@@ -410,13 +410,7 @@ export async function fetchDataFromVocaDb(
 
   const uploadDateRaw = json.publishDate ? parseDateAsUtc(json.publishDate) : "";
 
-  const languages: MultiSelectItem[] = [];
-  for (const code of json.cultureCodes || []) {
-    const f = LANGUAGES.findIndex((el) => el.code === code);
-    if (f > -1) {
-      languages.push({ label: LANGUAGES[f].name, value: f });
-    }
-  }
+  const [languages, isoLangCode] = convertVdbCultureCode(json.cultureCodes || []);
 
   const images: IImageEmbed[] = [];
   const mainSingers: string[] = [];
@@ -598,7 +592,7 @@ export async function fetchDataFromVocaDb(
     cwText: "",
     hasEpilepsyWarning: false,
     languages,
-    isoLangCode: "",
+    isoLangCode,
     origTitle,
     altChTitle: "",
     altChIsTraditional: false,
