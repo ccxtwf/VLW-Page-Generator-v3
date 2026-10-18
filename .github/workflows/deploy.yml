@@ -103,3 +103,5 @@ jobs:
       - name: Mirror repo
         run: |
           gh workflow run mirror.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
