@@ -28,7 +28,7 @@
     "daisyui": "^5.7.4",
     "debounce": "^3.0.0",
     "handsontable": "^18.0.0",
-    "sanitize-html": "^2.18.0",
+    "sanitize-html": "^2.18.1",
     "svelte-i18n": "^4.0.1",
     "tailwindcss": "^4.3.3"
   },
