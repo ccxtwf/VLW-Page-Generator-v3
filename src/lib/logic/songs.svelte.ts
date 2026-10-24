@@ -595,7 +595,7 @@ export async function fetchDataFromVocaDb(
     isoLangCode,
     origTitle,
     altChTitle: "",
-    altChIsTraditional: false,
+    altChIsTraditional: true,
     romTitle,
     engTitle,
     titleIsOfficiallyTranslated: false,
