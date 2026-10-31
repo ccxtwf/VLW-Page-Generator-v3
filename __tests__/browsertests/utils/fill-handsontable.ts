@@ -73,7 +73,7 @@ export async function fillBroadcastLinksTable(
 export async function fillExternalLinksTable(
   table: Locator,
   data: {
-    i: Pick<IExternalLink, "url" | "isOfficial">;
+    i: Pick<IExternalLink, "url" | "isOfficial" | "isInactive">;
     o: { desc: RegExp | string; url: RegExp | string };
   }[],
 ) {
@@ -83,6 +83,7 @@ export async function fillExternalLinksTable(
     let urlCell = rw.locator("td").nth(0);
     let descCell = rw.locator("td").nth(1);
     let isOfficialCell = rw.locator("td").nth(2);
+    let isInactiveCell = rw.locator("td").nth(3);
 
     await urlCell.dblclick();
     const inputTextArea = getTableInput(table);
@@ -94,6 +95,11 @@ export async function fillExternalLinksTable(
       const cb = isOfficialCell.locator('input[type="checkbox"]');
       await cb.click();
       await expect(isOfficialCell.getByRole("checkbox")).toBeChecked();
+    }
+    if (data[i].i.isInactive) {
+      const cb = isInactiveCell.locator('input[type="checkbox"]');
+      await cb.click();
+      await expect(isInactiveCell.getByRole("checkbox")).toBeChecked();
     }
   }
 }

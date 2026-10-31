@@ -165,6 +165,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://vocadb.net/Al/1",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",
@@ -175,6 +176,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://www.nicovideo.jp/watch/sm30228946",
             isOfficial: true,
+            isInactive: true,
           },
           o: {
             desc: "Niconico",
@@ -230,7 +232,7 @@ test.describe("Album page generator tests", async () => {
 }}
 
 ==External Links==
-* [https://www.nicovideo.jp/watch/sm30228946 Niconico]
+* <s>[https://www.nicovideo.jp/watch/sm30228946 Niconico]</s>
 ===Unofficial===
 * {{VDB|Al/1}}
 
@@ -343,6 +345,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://vocadb.net/Al/1",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",
@@ -353,6 +356,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://www.nicovideo.jp/watch/sm30228946",
             isOfficial: true,
+            isInactive: false,
           },
           o: {
             desc: "Niconico",
@@ -518,6 +522,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://vocadb.net/Al/1",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",
@@ -528,6 +533,7 @@ test.describe("Album page generator tests", async () => {
           i: {
             url: "https://www.nicovideo.jp/watch/sm30228946",
             isOfficial: true,
+            isInactive: false,
           },
           o: {
             desc: "Niconico",

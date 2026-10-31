@@ -69,7 +69,8 @@
     "headers": {
       "url": "URL",
       "description": "Description",
-      "isOfficial": "Official"
+      "isOfficial": "Official",
+      "isInactive": "Inactive"
     }
   },
   "firstTimeGuide": {
