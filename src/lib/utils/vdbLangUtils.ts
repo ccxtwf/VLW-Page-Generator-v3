@@ -89,7 +89,7 @@ const __dictConvertCultureCodes: Record<string, ValidLanguage> = {
   eo: "Esperanto",
   tok: "Toki Pona",
   qfl: "Conlang",
-  zxx: "Non-lexical lyrics",
+  zxx: "Nonlexical",
 };
 
 /**

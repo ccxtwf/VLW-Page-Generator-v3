@@ -55,8 +55,7 @@
       "label": "External links",
       "tooltip": "<div class=\"text-left text-xs mb-2\">Examples of media links:<ul class=\"list-outside list-disc pl-3\"><li>The producer's official Niconico/YouTube/bilibili accounts.</li><li>The producer's NND MyList.</li><li>The producer's piapro.</li><li>The producer's account on SoundCloud/Netease Music.</li><li>The producer's Bandcamp/Spotify/TuneCore/other music streaming.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of official links:<ul class=\"list-outside list-disc pl-3\"><li>The producer's official website.</li><li>The producer's social media/SNS accounts, e.g. Twitter, Instagram, Weibo.</li></ul></div><div class=\"text-left text-xs mb-2\">Examples of unofficial links:<ul class=\"list-outside list-disc pl-3\"><li>The producer's page on VocaDB.</li><li>A page on the producer from any unofficial wiki, e.g. the <a class=\"link\" href=\"https://vocaloid.fandom.com/\" target=\"_blank\" rel=\"noopener noreferrer\">VOCALOID wiki</a>, the <a class=\"link\" href=\"https://w.atwiki.jp/hmiku/\" target=\"_blank\" rel=\"noopener noreferrer\">Hatsune Miku wiki</a>, <a class=\"link\" href=\"https://dic.nicovideo.jp/\" target=\"_blank\" rel=\"noopener noreferrer\">Nicopedia</a>, etc.</li></ul></div>",
       "headers": {
-        "media": "Media",
-        "isInactive": "Inactive"
+        "media": "Media"
       }
     },
     "discographySongs": {

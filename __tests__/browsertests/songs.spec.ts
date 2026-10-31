@@ -200,6 +200,7 @@ test.describe("Song page generator tests", async () => {
           i: {
             url: "https://vocadb.net/S/1501",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",
@@ -210,6 +211,7 @@ test.describe("Song page generator tests", async () => {
           i: {
             url: "https://www.pixiv.net/artworks/10324371",
             isOfficial: true,
+            isInactive: true,
           },
           o: {
             desc: "pixiv",
@@ -285,7 +287,7 @@ test.describe("Song page generator tests", async () => {
 {{Translator|Project DIVA 2nd Stage}}
 
 ==External Links==
-* [https://www.pixiv.net/artworks/10324371 pixiv]
+* <s>[https://www.pixiv.net/artworks/10324371 pixiv]</s>
 ===Unofficial===
 * {{VDB|S/1501}}
 
@@ -410,6 +412,7 @@ test.describe("Song page generator tests", async () => {
           i: {
             url: "https://vocadb.net/S/1501",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",
@@ -420,6 +423,7 @@ test.describe("Song page generator tests", async () => {
           i: {
             url: "https://www.pixiv.net/artworks/10324371",
             isOfficial: true,
+            isInactive: false,
           },
           o: {
             desc: "pixiv",
@@ -611,6 +615,7 @@ test.describe("Song page generator tests", async () => {
           i: {
             url: "https://vocadb.net/S/124108",
             isOfficial: false,
+            isInactive: false,
           },
           o: {
             desc: "VocaDB",

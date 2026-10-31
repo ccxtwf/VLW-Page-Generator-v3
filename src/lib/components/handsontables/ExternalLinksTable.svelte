@@ -28,6 +28,7 @@
     $_("externalLinks.headers.url"),
     $_("externalLinks.headers.description"),
     $_("externalLinks.headers.isOfficial"),
+    $_("externalLinks.headers.isInactive"),
   ];
   const columnDefinitions: ColumnSettings[] = [
     {
@@ -44,24 +45,19 @@
       type: "checkbox",
       className: "htCenter htMiddle",
     },
+    {
+      data: "isInactive",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    },
   ];
   if (forProducerPage) {
-    headerText.push(
-      $_("producerGenForm.externalLinks.headers.media"),
-      $_("producerGenForm.externalLinks.headers.isInactive"),
-    );
-    columnDefinitions.push(
-      {
-        data: "isMedia",
-        type: "checkbox",
-        className: "htCenter htMiddle",
-      },
-      {
-        data: "isInactive",
-        type: "checkbox",
-        className: "htCenter htMiddle",
-      },
-    );
+    headerText.splice(3, 0, $_("producerGenForm.externalLinks.headers.media"));
+    columnDefinitions.splice(3, 0, {
+      data: "isMedia",
+      type: "checkbox",
+      className: "htCenter htMiddle",
+    });
   }
 
   /**

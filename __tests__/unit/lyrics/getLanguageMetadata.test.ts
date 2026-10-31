@@ -149,13 +149,13 @@ describe("getLanguageMetadata", () => {
   });
 
   test("Selecting a song with non-lexical lyrics", () => {
-    const selected = [{ label: "Non-lexical lyrics", value: mlangs.length - 1 }];
+    const selected = [{ label: "Nonlexical", value: mlangs.length - 1 }];
     for (const { label, value } of selected) {
       expect(mlangs[value].name === label);
     }
     const results = getLanguageMetadata(selected);
     expect(results).toEqual({
-      headers: ["Non-lexical lyrics", "", ""],
+      headers: ["Nonlexical", "", ""],
       needsRomanization: false,
       needsTranslation: false,
       isChinese: false,
