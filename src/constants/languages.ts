@@ -276,7 +276,7 @@ const LANGUAGES: ILanguage[] = [
     name: "Conlang",
   },
   {
-    name: "Non-lexical lyrics",
+    name: "Nonlexical",
   },
 ] as const;
 

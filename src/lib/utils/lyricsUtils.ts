@@ -39,7 +39,7 @@ export function getLanguageMetadata(languages: MultiSelectItem[]): LanguageMetad
     ll.length < 4 ? ll.map(({ name }) => name) : [LyricsTableHeader.ORIGINAL];
   needsRomanization = ll.some(({ transliteration }) => !!transliteration);
   needsTranslation = ll.some(({ name }) => {
-    return name !== LyricsTableHeader.ENGLISH && name !== "Non-lexical lyrics";
+    return name !== LyricsTableHeader.ENGLISH && name !== "Nonlexical";
   });
   isChinese = ll.some(({ isChinese }) => isChinese);
   isoLangCode = ll[0]?.iso || null;

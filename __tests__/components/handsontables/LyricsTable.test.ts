@@ -1957,7 +1957,7 @@ describe("LyricsTable component tests - with set languages", () => {
       id: "lyrics",
       class: "vlw-custom-class",
       languageMetadata: {
-        headers: ["Non-lexical lyrics", "", ""],
+        headers: ["Nonlexical", "", ""],
         needsRomanization: false,
         needsTranslation: false,
         isChinese: false,
@@ -1975,7 +1975,7 @@ describe("LyricsTable component tests - with set languages", () => {
     await expect.element(table).toBeVisible();
 
     /* Check displayed column headers */
-    await checkColHeadersEquality(table, ["Custom style", "Non-lexical lyrics"]);
+    await checkColHeadersEquality(table, ["Custom style", "Nonlexical"]);
 
     /* Check displayed data */
     await checkTableContentsEquality(table, [
