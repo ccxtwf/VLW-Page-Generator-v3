@@ -69,7 +69,9 @@ export default class PlayLink implements IPlayLink {
     if (viewCountStr !== "" && !isNaN(+viewCountStr)) {
       let viewCount = parseInt(viewCountStr);
       let div = 1;
-      if (viewCount < 1000) {
+      if (viewCount < 1) {
+        return "0"; // cap
+      } else if (viewCount < 1000) {
         div = 10 ** Math.trunc(Math.log10(viewCount));
       } else {
         div = 10 ** (Math.trunc(Math.log10(viewCount)) - 1);
