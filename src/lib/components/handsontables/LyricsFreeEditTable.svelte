@@ -13,6 +13,7 @@
     addColumnsAtIndexToTheLeftToToggle,
     determineColumnHeaders,
     removeColumnsAtIndexFromToggle,
+    mapHandsontableLyricsData,
   } from "../../utils/lyricsUtils";
   import { isDarkModeActive } from "../../utils/themeUtils.js";
   import { registerUndoRedoActionOnDataLoad } from "./utils";
@@ -76,45 +77,10 @@
     );
   }
 
-  export function getData(): ILyricsRow[] {
-    const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
+  export function getData(): LyricRow[] {
     return !hot || hot.isDestroyed
       ? []
-      : hot.getData().map((row) => {
-          let [customStyle, original, ...c] = row;
-          let romanized: string | undefined = undefined;
-          let english: string | undefined = undefined;
-          let offset: number = 0;
-          switch (i) {
-            case -1:
-              // English column not found
-              if (c.length) {
-                romanized = (c[0] as string) || "";
-                offset = 1;
-              }
-              break;
-            case 1:
-              // Found English at second column
-              english = (c[0] as string) || "";
-              offset = 1;
-              break;
-            default:
-              // Ideally, the English column would be at the third column
-              // No guarantee is made
-              romanized = (c[0] as string) || "";
-              english = (c[1] as string) || "";
-              offset = 2;
-              break;
-          }
-
-          return new LyricRow({
-            customStyle: (customStyle as string) || "",
-            original: (original as string) || "",
-            romanized,
-            english,
-            additionalColumns: c.slice(offset).map((e) => (e as string) || ""),
-          });
-        });
+      : mapHandsontableLyricsData(headers, hot.getData(), LyricRow);
   }
 
   export function editAction(fn: (data: unknown[][]) => string[][]): void {
