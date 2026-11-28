@@ -53,11 +53,12 @@ describe("LyricsFreeEditTable component tests - base tests", () => {
     );
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual(
+    expect(page.component.getData()).toStrictEqual([
       Array(20)
         .fill(null)
         .map(() => new LyricRow()),
-    );
+      true,
+    ]);
   });
 });
 
@@ -169,16 +170,19 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -199,26 +203,29 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -239,21 +246,24 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -279,26 +289,29 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -312,26 +325,29 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -356,26 +372,29 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -388,26 +407,29 @@ describe("LyricsFreeEditTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 });
@@ -444,16 +466,19 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -474,26 +499,29 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -514,21 +542,24 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -554,26 +585,29 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -587,26 +621,29 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -631,26 +668,29 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -663,26 +703,29 @@ describe("LyricsFreeEditTable context menu interactions - italicize row", () => 
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 });
@@ -719,21 +762,24 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "'''bar'''",
-        romanized: "'''DEF'''",
-        english: "'''month'''",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "'''bar'''",
+          romanized: "'''DEF'''",
+          english: "'''month'''",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -754,16 +800,19 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -784,21 +833,24 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "'''foo'''",
-        romanized: "'''ABC'''",
-        english: "'''year'''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "'''foo'''",
+          romanized: "'''ABC'''",
+          english: "'''year'''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -824,26 +876,29 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "'''foo'''",
-        romanized: "'''ABC'''",
-        english: "'''year'''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "'''bar'''",
-        romanized: "'''DEF'''",
-        english: "'''month'''",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "'''foo'''",
+          romanized: "'''ABC'''",
+          english: "'''year'''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "'''bar'''",
+          romanized: "'''DEF'''",
+          english: "'''month'''",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -857,16 +912,19 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -891,26 +949,29 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "'''foo'''",
-        romanized: "'''ABC'''",
-        english: "'''year'''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "'''bar'''",
-        romanized: "'''DEF'''",
-        english: "'''month'''",
-      }),
-      new LyricRow({
-        customStyle: "font-weight: bold;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "'''foo'''",
+          romanized: "'''ABC'''",
+          english: "'''year'''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "'''bar'''",
+          romanized: "'''DEF'''",
+          english: "'''month'''",
+        }),
+        new LyricRow({
+          customStyle: "font-weight: bold;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -923,16 +984,19 @@ describe("LyricsFreeEditTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 });
@@ -969,21 +1033,24 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "''bar''",
-        romanized: "''DEF''",
-        english: "''month''",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "''bar''",
+          romanized: "''DEF''",
+          english: "''month''",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1004,16 +1071,19 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1034,21 +1104,24 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "''foo''",
-        romanized: "''ABC''",
-        english: "''year''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "''foo''",
+          romanized: "''ABC''",
+          english: "''year''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1074,26 +1147,29 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "''foo''",
-        romanized: "''ABC''",
-        english: "''year''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "''bar''",
-        romanized: "''DEF''",
-        english: "''month''",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "''foo''",
+          romanized: "''ABC''",
+          english: "''year''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "''bar''",
+          romanized: "''DEF''",
+          english: "''month''",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -1107,16 +1183,19 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1141,26 +1220,29 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "''foo''",
-        romanized: "''ABC''",
-        english: "''year''",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "''bar''",
-        romanized: "''DEF''",
-        english: "''month''",
-      }),
-      new LyricRow({
-        customStyle: "font-style: italic;",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "''foo''",
+          romanized: "''ABC''",
+          english: "''year''",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "''bar''",
+          romanized: "''DEF''",
+          english: "''month''",
+        }),
+        new LyricRow({
+          customStyle: "font-style: italic;",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -1173,16 +1255,19 @@ describe("LyricsFreeEditTable context menu interactions - unitalicize row", () =
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-      }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+        }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 });
@@ -1220,12 +1305,15 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1247,12 +1335,15 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1278,11 +1369,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -1297,12 +1391,15 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1327,11 +1424,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -1345,12 +1445,15 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1373,13 +1476,16 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1405,11 +1511,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -1425,13 +1534,16 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1456,11 +1568,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -1475,13 +1590,16 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow(),
-      new LyricRow(),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow(),
+        new LyricRow(),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1501,10 +1619,13 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1530,11 +1651,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await summonContextMenu(table);
@@ -1547,10 +1671,13 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 
@@ -1575,11 +1702,14 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
 
     await userEvent.keyboard("{Control>}y{/Control}");
@@ -1591,10 +1721,13 @@ describe("LyricsFreeEditTable context menu interactions - row insertion & remova
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
-      new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
+        new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
+        new LyricRow(),
+      ],
+      true,
     ]);
   });
 });
@@ -1660,29 +1793,34 @@ describe("LyricsFreeEditTable context menu interactions - column insertion & rem
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "",
-        romanized: "foo",
-        english: "ABC",
-        additionalColumns: ["year"],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "",
-        romanized: "bar",
-        english: "DEF",
-        additionalColumns: ["month"],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "",
-        romanized: "baz",
-        english: "GHI",
-        additionalColumns: ["day"],
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "",
+          romanized: "foo",
+          english: "ABC",
+          additionalColumns: ["year"],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "",
+          romanized: "bar",
+          english: "DEF",
+          additionalColumns: ["month"],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "",
+          romanized: "baz",
+          english: "GHI",
+          additionalColumns: ["day"],
+        }),
+        new LyricRow({
+          additionalColumns: [""],
+        }),
+      ],
+      true,
     ]);
   });
 
@@ -1705,29 +1843,34 @@ describe("LyricsFreeEditTable context menu interactions - column insertion & rem
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "",
-        english: "ABC",
-        additionalColumns: ["year"],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "",
-        english: "DEF",
-        additionalColumns: ["month"],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "",
-        english: "GHI",
-        additionalColumns: ["day"],
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "",
+          english: "ABC",
+          additionalColumns: ["year"],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "",
+          english: "DEF",
+          additionalColumns: ["month"],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "",
+          english: "GHI",
+          additionalColumns: ["day"],
+        }),
+        new LyricRow({
+          additionalColumns: [""],
+        }),
+      ],
+      true,
     ]);
   });
 
@@ -1750,29 +1893,34 @@ describe("LyricsFreeEditTable context menu interactions - column insertion & rem
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "ABC",
-        english: "year",
-        additionalColumns: [""],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "DEF",
-        english: "month",
-        additionalColumns: [""],
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "GHI",
-        english: "day",
-        additionalColumns: [""],
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          romanized: "ABC",
+          english: "year",
+          additionalColumns: [""],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          romanized: "DEF",
+          english: "month",
+          additionalColumns: [""],
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          romanized: "GHI",
+          english: "day",
+          additionalColumns: [""],
+        }),
+        new LyricRow({
+          additionalColumns: [""],
+        }),
+      ],
+      true,
     ]);
   });
 
@@ -1793,23 +1941,26 @@ describe("LyricsFreeEditTable context menu interactions - column insertion & rem
     ]);
 
     /* Check returned data */
-    expect(page.component.getData()).toEqual([
-      new LyricRow({
-        customStyle: "",
-        original: "foo",
-        romanized: "year",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "bar",
-        romanized: "month",
-      }),
-      new LyricRow({
-        customStyle: "",
-        original: "baz",
-        romanized: "day",
-      }),
-      new LyricRow(),
+    expect(page.component.getData()).toEqualState([
+      [
+        new LyricRow({
+          customStyle: "",
+          original: "foo",
+          english: "year",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "bar",
+          english: "month",
+        }),
+        new LyricRow({
+          customStyle: "",
+          original: "baz",
+          english: "day",
+        }),
+        new LyricRow(),
+      ],
+      false,
     ]);
   });
 });

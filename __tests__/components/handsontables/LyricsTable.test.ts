@@ -75,7 +75,7 @@ describe("LyricsTable component tests - base tests", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -206,7 +206,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-weight: bold;",
         original: "foo",
@@ -236,7 +236,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-weight: bold;",
         original: "foo",
@@ -276,7 +276,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-weight: bold;",
         original: "foo",
@@ -316,7 +316,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "foo",
@@ -349,7 +349,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-weight: bold;",
         original: "foo",
@@ -393,7 +393,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "foo",
@@ -425,7 +425,7 @@ describe("LyricsTable context menu interactions - bold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-weight: bold;",
         original: "foo",
@@ -487,7 +487,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-style: italic;",
         original: "foo",
@@ -517,7 +517,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-style: italic;",
         original: "foo",
@@ -557,7 +557,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-style: italic;",
         original: "foo",
@@ -597,7 +597,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "foo",
@@ -630,7 +630,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-style: italic;",
         original: "foo",
@@ -674,7 +674,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "foo",
@@ -706,7 +706,7 @@ describe("LyricsTable context menu interactions - italicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "font-style: italic;",
         original: "foo",
@@ -768,7 +768,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -803,7 +803,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -833,7 +833,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "'''foo'''",
@@ -873,7 +873,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "'''foo'''",
@@ -906,7 +906,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -940,7 +940,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "'''foo'''",
@@ -972,7 +972,7 @@ describe("LyricsTable context menu interactions - unbold row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -1024,7 +1024,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -1059,7 +1059,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -1089,7 +1089,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "''foo''",
@@ -1129,7 +1129,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "''foo''",
@@ -1162,7 +1162,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -1196,7 +1196,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({
         customStyle: "",
         original: "''foo''",
@@ -1228,7 +1228,7 @@ describe("LyricsTable context menu interactions - unitalicize row", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({
         customStyle: "",
@@ -1281,7 +1281,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow(),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
@@ -1308,7 +1308,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1339,7 +1339,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1358,7 +1358,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1388,7 +1388,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1406,7 +1406,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1434,7 +1434,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1466,7 +1466,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1486,7 +1486,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1517,7 +1517,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1536,7 +1536,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow(),
@@ -1562,7 +1562,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
       new LyricRow(),
@@ -1591,7 +1591,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1608,7 +1608,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
       new LyricRow(),
@@ -1636,7 +1636,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1652,7 +1652,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
       new LyricRow(),
@@ -1677,7 +1677,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     );
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual(
+    expect(page.component.getLatestData()).toEqualState(
       Array(20)
         .fill(null)
         .map(() => new LyricRow({ customStyle: "", original: "", romanized: "", english: "" })),
@@ -1708,7 +1708,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1727,7 +1727,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     );
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual(
+    expect(page.component.getLatestData()).toEqualState(
       Array(20)
         .fill(null)
         .map(() => new LyricRow({ customStyle: "", original: "", romanized: "", english: "" })),
@@ -1757,7 +1757,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1775,7 +1775,7 @@ describe("LyricsTable context menu interactions - row insertion & removal operat
     );
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual(
+    expect(page.component.getLatestData()).toEqualState(
       Array(20)
         .fill(null)
         .map(() => new LyricRow({ customStyle: "", original: "", romanized: "", english: "" })),
@@ -1818,7 +1818,7 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1860,7 +1860,7 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "ABC", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "DEF", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "GHI", english: "day" }),
@@ -1902,7 +1902,7 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "", english: "day" }),
@@ -1944,10 +1944,10 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "year" }),
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "month" }),
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "day" }),
+    expect(page.component.getLatestData()).toEqualState([
+      new LyricRow({ customStyle: "", original: "year", romanized: "", english: "" }),
+      new LyricRow({ customStyle: "", original: "month", romanized: "", english: "" }),
+      new LyricRow({ customStyle: "", original: "day", romanized: "", english: "" }),
       new LyricRow(),
     ]);
   });
@@ -1986,10 +1986,10 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "year" }),
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "month" }),
-      new LyricRow({ customStyle: "", original: "", romanized: "", english: "day" }),
+    expect(page.component.getLatestData()).toEqualState([
+      new LyricRow({ customStyle: "", original: "year", romanized: "", english: "" }),
+      new LyricRow({ customStyle: "", original: "month", romanized: "", english: "" }),
+      new LyricRow({ customStyle: "", original: "day", romanized: "", english: "" }),
       new LyricRow(),
     ]);
   });
@@ -2028,7 +2028,7 @@ describe("LyricsTable component tests - with set languages", () => {
     ]);
 
     /* Check returned data */
-    expect(page.component.getLatestData()).toEqual([
+    expect(page.component.getLatestData()).toEqualState([
       new LyricRow({ customStyle: "", original: "foo", romanized: "", english: "year" }),
       new LyricRow({ customStyle: "", original: "bar", romanized: "", english: "month" }),
       new LyricRow({ customStyle: "", original: "baz", romanized: "", english: "day" }),
