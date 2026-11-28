@@ -236,7 +236,7 @@ const addLyricsRowsStyling = (customStyle: string) => {
       if (existingStyle && !existingStyle.endsWith(";")) {
         existingStyle += ";";
       }
-      changes.push([i, 0, existingStyle + " " + customStyle]);
+      changes.push([i, 0, (existingStyle + " " + customStyle).trim()]);
     }
     this.setDataAtCell(changes);
   };
