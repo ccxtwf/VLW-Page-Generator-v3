@@ -1,5 +1,5 @@
 import type { CellProperties, HotInstance } from "handsontable/base";
-import { sanitizeHtml } from "../../../utils/utils";
+import { sanitizeHtml } from "../../../utils/sanitizeHtml";
 
 /**
  *

@@ -416,10 +416,7 @@ describe("parseLyrics", () => {
   ])("$d", ({ i, o }) => {
     const rxResults = extractLyricsTablesFromWikipageSrc(i);
     expect(rxResults.length).toBe(o.length);
-    const gotParsedResults = rxResults.map((a) => {
-      const [toggleText, lyrics, translator, isOfficialTranslation] = parseLyrics(a);
-      return { toggleText, lyrics, translator, isOfficialTranslation };
-    });
+    const gotParsedResults = rxResults.map(parseLyrics);
     expect(gotParsedResults).toStrictEqual(o);
   });
 });

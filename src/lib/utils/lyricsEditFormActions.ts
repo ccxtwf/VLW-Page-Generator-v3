@@ -7,7 +7,7 @@ import { detonePinyin } from "./utils";
  */
 export function extractLyricsTablesFromWikipageSrc(wikipageContents: string): RegExpMatchArray[] {
   const rx =
-    /(?<toggle>\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]toggle[^}]+\}\})(?<moreNotifs>.*?)(?:\{\|\s*\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]table[ _]class\}\}\s*\n\|-\s*class\s*=\s*["'][^\n]*\blyrics-table-header\b[^\n]*["']\s*\n!\s*\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]header\}\})\s*\n(?<rows>.*?)\|\}\s*(?<translator>\{\{(?:[Tt]emplate:|)[Tt]ranslator\|[^}]*\}\}|)/gs;
+    /(?<toggle>\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]toggle[^}]+\}\})(?<moreNotifs>.*?)(?<lyricsTable>(?:\{\|\s*\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]table[ _]class\}\}\s*\n\|-\s*class\s*=\s*["'][^\n]*\blyrics-table-header\b[^\n]*["']\s*\n!\s*\{\{(?:[Tt]emplate:|)[Ll]yrics[ _]header\}\})\s*\n(?<rows>.*?)\|\})\s*(?<translatorTemplate>\{\{(?:[Tt]emplate:|)[Tt]ranslator\|(?<translator>[^}]*)\}\}|)(?<append>.*?\|-\||.*?<\/tabber>|.*?={2,}[^\n]+={2,}\s*|)/gs;
   return Array.from(wikipageContents.matchAll(rx));
 }
 
@@ -15,21 +15,18 @@ export function extractLyricsTablesFromWikipageSrc(wikipageContents: string): Re
  * Parse the lyrics from the supplied RegExpMatchArray object provided by `extractLyricsTablesFromWikipageSrc`.
  *
  * @param rxResults
- * @returns `[toggleText, lyrics, translator, isOfficialTranslation]`
+ * @returns
  */
-export function parseLyrics(rxResults: RegExpMatchArray): [string, string[][], string, boolean] {
+export function parseLyrics(rxResults: RegExpMatchArray): {
+  toggleText: string;
+  lyrics: string[][];
+  translator: string | null;
+  isOfficialTranslation: boolean;
+} {
   const toggleText = rxResults.groups!.toggle;
   const nColumns = Array.from(toggleText.matchAll(/\|/g)).length;
 
-  let translator = "";
-  if (rxResults.groups!.translator) {
-    const m = rxResults.groups!.translator.match(
-      /\{\{(?:[Tt]emplate:|)[Tt]ranslator\|([^|]+).*?\}\}/,
-    );
-    if (m) {
-      translator = m[1];
-    }
-  }
+  let translator = rxResults.groups!.translator ?? "";
 
   const isOfficialTranslation =
     rxResults.groups!.moreNotifs.match(/\{\{[Oo]fficialEnglishNotify[^}]*\}\}/) !== null;
@@ -68,7 +65,13 @@ export function parseLyrics(rxResults: RegExpMatchArray): [string, string[][], s
     }
     lyrics.push([customStyle, ...a]);
   }
-  return [toggleText, lyrics, translator, isOfficialTranslation];
+
+  return {
+    toggleText,
+    lyrics,
+    translator,
+    isOfficialTranslation,
+  };
 }
 
 /**

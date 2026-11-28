@@ -20,10 +20,10 @@
     if (!rx) {
       return;
     }
-    const [toggleText, lyrics, translator, isOfficialTranslation] = parseLyrics(rx);
+    const { toggleText, lyrics, translator, isOfficialTranslation } = parseLyrics(rx);
     window.dispatchEvent(
       new CustomEvent<ParsedLyricsPayload>("parsedLyrics", {
-        detail: { toggleText, lyrics, translator, isOfficialTranslation },
+        detail: { toggleText, lyrics, translator: translator ?? "", isOfficialTranslation },
       }),
     );
   }

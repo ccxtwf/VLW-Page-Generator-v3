@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test";
-import { sanitizeHtml } from "#src/lib/utils/utils.ts";
+import { sanitizeHtml } from "#src/lib/utils/sanitizeHtml.ts";
 
 describe("test sanitizeHtml", () => {
   test.each([
@@ -55,12 +55,37 @@ describe("test sanitizeHtml", () => {
 
   test.each([
     {
+      i: '<span style="position:absolute;top:50vh;">annoy</span>',
+      o: "<span>annoy</span>",
+    },
+    {
+      i: '<span style="color:red;position:absolute;top:50vh;">annoy</span>',
+      o: '<span style="color:red">annoy</span>',
+    },
+  ])("sanitizeHtml - CSS injection", ({ i, o }) => {
+    expect(sanitizeHtml(i)).toBe(o);
+  });
+
+  test.each([
+    {
       i: '<script>alert("XSS");</script>',
       o: '&lt;script&gt;alert("XSS");&lt;/script&gt;',
     },
     {
       i: '<div onclick="() => alert(\\"XSS\\");">TEXT</div>',
       o: "<div>TEXT</div>",
+    },
+    {
+      i: '<small onclick="() => alert(\\"XSS\\");">TEXT</small>',
+      o: "<small>TEXT</small>",
+    },
+    {
+      i: '<span class="mw-error onclick=() => alert(\\"XSS\\");">RED TEXT</span>',
+      o: '<span class="mw-error">RED TEXT</span>',
+    },
+    {
+      i: '<span style="color: red;onclick=() => alert(\\"XSS\\");">RED TEXT</span>',
+      o: "<span>RED TEXT</span>",
     },
     {
       i: "<iframe>An iframe</iframe>",
