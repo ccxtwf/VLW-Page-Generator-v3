@@ -629,9 +629,10 @@ export function mapHandsontableLyricsData<T extends ILyricsRow = ILyricsRow>(
   headers: string[],
   data: unknown[][],
   constructor?: new (...args: any[]) => T,
-): T[] {
+): [T[], boolean] {
   const i = headers.findIndex((h) => h.includes(LyricsTableHeader.ENGLISH));
-  return data.map((row) => {
+  let needsRomanization = true;
+  const t = data.map((row) => {
     let [customStyle, original, ...c] = row;
     let romanized: string | undefined;
     let english: string | undefined;
@@ -647,6 +648,7 @@ export function mapHandsontableLyricsData<T extends ILyricsRow = ILyricsRow>(
       case 1:
         // Found English at second column
         english = (c[0] as string) || "";
+        needsRomanization = false;
         offset = 1;
         break;
       default:
@@ -667,4 +669,5 @@ export function mapHandsontableLyricsData<T extends ILyricsRow = ILyricsRow>(
     };
     return constructor ? new constructor(o) : (o as T);
   });
+  return [t, needsRomanization];
 }

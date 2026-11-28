@@ -33,9 +33,9 @@
 
   function handleSubmit(e: Event) {
     e.preventDefault();
-    const data = truncateLyrics(hot!.getData());
-    const results = generateLyricsSegment(data, {
-      needsRomanization: true,
+    const [data, needsRomanization] = hot!.getData();
+    const results = generateLyricsSegment(truncateLyrics(data), {
+      needsRomanization,
       needsTranslation: true,
       showEnglishColumn: false,
       toggleElement: toggleText,

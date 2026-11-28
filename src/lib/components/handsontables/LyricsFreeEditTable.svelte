@@ -77,9 +77,9 @@
     );
   }
 
-  export function getData(): LyricRow[] {
+  export function getData(): [LyricRow[], boolean] {
     return !hot || hot.isDestroyed
-      ? []
+      ? [[], false]
       : mapHandsontableLyricsData(headers, hot.getData(), LyricRow);
   }
 
