@@ -241,7 +241,7 @@ describe("generateSingerPartsElement", () => {
     const s = new Set<string>(["", "grey"]);
     const res = generateSingerPartsElement(s, "black", "white");
     expect(res).toBe(
-      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:grey;">Singer</span>\n|All\n|}\n`,
+      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:grey;">Singer</span>\n|All\n|}`,
     );
   });
 
@@ -249,7 +249,7 @@ describe("generateSingerPartsElement", () => {
     const s = new Set<string>(["red", "green"]);
     const res = generateSingerPartsElement(s, "black", "white");
     expect(res).toBe(
-      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:red;">Singer</span>\n|<span style="color:green;">Singer</span>\n|}\n`,
+      `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"\n!style="background-color:black; color:white;"|Singer\n|<span style="color:red;">Singer</span>\n|<span style="color:green;">Singer</span>\n|}`,
     );
   });
 });

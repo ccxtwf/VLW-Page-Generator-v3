@@ -232,6 +232,48 @@ ${expectedLyricsTable}
     expect(res).toBe(expected);
   });
 
+  test("Japanese song with multiple singing parts", () => {
+    const lyrics: ILyricsRow[] = [
+      { customStyle: "color:red;", original: "あいうえお", romanized: "aiueo", english: "ABCDEFG" },
+      { customStyle: "", original: "かきくけこ", romanized: "kakikukeko", english: "HIJKLMN" },
+    ];
+    const options = {
+      headers: ["Japanese", "Romaji", "English"],
+      needsRomanization: true,
+      needsTranslation: true,
+      isoLangCode: "ja",
+      translator: "John Doe",
+      isOfficialTranslation: false,
+      bgColour: "black",
+      fgColour: "white",
+    };
+    const res = generateLyricsSegment(lyrics, options);
+    const expectedLyricsToggle = "{{lyrics toggle|jp:Japanese|rom:Romaji|eng:English}}";
+    const expectedSingers = `{| border="1" cellpadding="4" style="border-collapse:collapse; border:1px groove; line-height:1.5"
+!style="background-color:black; color:white;"|Singer
+|<span style="color:red;">Singer</span>
+|All
+|}`;
+    const expectedLyricsTable = `{| {{lyrics table class}}
+|- class="lyrics-table-header"
+! {{lyrics header}}
+|- style="color:red;"
+|あいうえお
+|aiueo
+|ABCDEFG
+|-
+|かきくけこ
+|kakikukeko
+|HIJKLMN
+|}`;
+    const expected = `${expectedLyricsToggle}
+${expectedSingers}
+${expectedLyricsTable}
+{{Translator|John Doe}}`;
+
+    expect(res).toStrictEqual(expected);
+  });
+
   test("Indonesian song with fanmade translation", () => {
     const lyrics: ILyricsRow[] = [
       { customStyle: "", original: "Bengawan Solo", english: "Solo River" },
